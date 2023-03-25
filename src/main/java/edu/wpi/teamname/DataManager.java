@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class DataManager {
+
   private static final String DB_URL = "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb";
   private static final String DB_USER = "teamddb";
   private static final String DB_PASSWORD = "teamd40";
