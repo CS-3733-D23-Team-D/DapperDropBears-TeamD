@@ -66,13 +66,13 @@ public class DataManager {
   //    }
   //  }
 
-  public static void main(String[] args) throws SQLException {
+  /* public static void main(String[] args) {
       System.out.println("CSV data imported to PostgreSQL table successfully!");
 
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
+  }*/
 
   public static void displayNodeInfo() {
     System.out.println("node info");
@@ -82,7 +82,7 @@ public class DataManager {
     System.out.println("edge info");
   }
 
-  public static void importData() {
+  public static void importData() throws SQLException {
     Scanner scanner = new Scanner(System.in);
     // No quotes when importing doc
     System.out.print("Enter the file path of the CSV file to import: ");
@@ -144,7 +144,7 @@ public class DataManager {
             + "\t-Terminates the program");
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     boolean running = true;
     System.out.println(
