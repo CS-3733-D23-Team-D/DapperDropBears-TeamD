@@ -75,11 +75,11 @@ public class DataManager {
   }*/
 
   public static void displayNodeInfo() {
-    System.out.println("node info");
+    System.out.println("temp: node info");
   }
 
   public static void displayEdgeInfo() {
-    System.out.println("edge info");
+    System.out.println("temp: edge info");
   }
 
   public static void importData() throws SQLException {
@@ -102,15 +102,15 @@ public class DataManager {
   }
 
   public static void exportData() {
-    System.out.println("export data");
+    System.out.println("temp: export data");
   }
 
   public static void updateNodeCoords() {
-    System.out.println("update coords");
+    System.out.println("temp: update coords");
   }
 
   public static void updateNodeName() {
-    System.out.println("update name");
+    System.out.println("temp: update name");
   }
 
   public static void displayHelp() {
