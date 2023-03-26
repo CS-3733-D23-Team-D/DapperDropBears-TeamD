@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="757.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
    <children>
-      <MFXButton fx:id="navigateButton" text="Navigate">
+      <ImageView fitHeight="472.0" fitWidth="761.0" pickOnBounds="true" preserveRatio="true" style="-fx-fit-width: 100%; -fx-fit-height: 100%;">
+         <image>
+            <Image url="@../images/BaWHospital.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+         <StackPane.margin>
+            <Insets right="500.0" />
+         </StackPane.margin>
+      </ImageView>
+      <MFXButton id="directions" fx:id="directionButton" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Get Directions" StackPane.alignment="CENTER_RIGHT">
          <font>
             <Font name="Nunito Sans Regular" size="16.0" />
          </font>
+         <StackPane.margin>
+            <Insets right="20.0" top="100.0" />
+         </StackPane.margin>
+      </MFXButton>
+      <MFXButton id="mealRequest" fx:id="mealRequest" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Meal Delivery" StackPane.alignment="CENTER_RIGHT">
+         <StackPane.margin>
+            <Insets bottom="100.0" right="20.0" />
+         </StackPane.margin>
+      </MFXButton>
+      <MFXButton id="flowerRequest" fx:id="flowerRequest" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Flower Delivery" StackPane.alignment="CENTER_RIGHT">
+         <font>
+            <Font name="Nunito Sans Regular" size="16.0" />
+         </font>
+         <padding>
+            <Insets right="20.0" />
+         </padding>
+         <StackPane.margin>
+            <Insets right="20.0" />
+         </StackPane.margin>
       </MFXButton>
    </children>
 </StackPane>
