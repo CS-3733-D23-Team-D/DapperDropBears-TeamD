@@ -106,9 +106,16 @@ public class DataManager {
     }
   }
 
-  public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
+  public static void displayNodeInfo() {
+    System.out.println("node info");
+  }
 
+  public static void displayEdgeInfo() {
+    System.out.println("edge info");
+  }
+
+  public static void importData() {
+    Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the file path of the CSV file to import: ");
     String filePath = scanner.nextLine();
 
@@ -117,5 +124,103 @@ public class DataManager {
 
     DataManager readCSV = new DataManager(filePath, tableName);
     readCSV.importToPostgreSQL(filePath, tableName, DB_URL, DB_USER, DB_PASSWORD);
+  }
+
+  public static void exportData() {
+    System.out.println("export data");
+  }
+
+  public static void updateNodeCoords() {
+    System.out.println("update coords");
+  }
+
+  public static void updateNodeName() {
+    System.out.println("update name");
+  }
+
+  public static void displayHelp() {
+    System.out.println(
+        "---Help---\n"
+            + "Choose from the following commands:\n"
+            + "(1) Display node information\n"
+            + "(2) Display edge information\n"
+            + "(3) Import data from CSV file\n"
+            + "(4) Export data into CSV file\n"
+            + "(5) Update node coordinates\n"
+            + "(6) Update node name\n"
+            + "(7) Display Help\n"
+            + "(8) Exit\n"
+            + "Input the number of the command you want to execute\n"
+            + "(1) Display node information\n"
+            + "\t-Gives all of the information regarding a specific node\n"
+            + "(2) Display edge information\n"
+            + "\t-Gives all of the information regarding a specific node\n"
+            + "(3) Import data from CSV file\n"
+            + "\t-Takes node data from a given CSV file and uploads it into the database\n"
+            + "(4) Export data into CSV file\n"
+            + "\tTakes node data from the database and exports it into a given CSV file\n"
+            + "(5) Update node coordinates\n"
+            + "\t-Changes the coordinate of a given node to a new value\n"
+            + "(6) Update node name\n"
+            + "\t-Changes the name of a given node to a new value\n"
+            + "(7) Display Help\n"
+            + "\t-Displays this text\n"
+            + "(8) Exit\n"
+            + "\t-Terminates the program");
+  }
+
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    boolean running = true;
+    System.out.println(
+        "Choose from the following commands:\n"
+            + "(1) Display node information\n"
+            + "(2) Display edge information\n"
+            + "(3) Import data from CSV file\n"
+            + "(4) Export data into CSV file\n"
+            + "(5) Update node coordinates\n"
+            + "(6) Update node name\n"
+            + "(7) Display Help\n"
+            + "(8) Exit");
+
+    String optionChosen = "help";
+    while (running) {
+      optionChosen = scanner.nextLine();
+      optionChosen = optionChosen.toLowerCase();
+      optionChosen = optionChosen.replaceAll("\\s", ""); // Removes whitespace
+      switch (optionChosen) {
+        case "1":
+          displayNodeInfo();
+          break;
+        case "2":
+          displayEdgeInfo();
+          break;
+        case "3":
+          importData();
+          break;
+        case "4":
+          exportData();
+          break;
+        case "5":
+          updateNodeCoords();
+          break;
+        case "6":
+          updateNodeName();
+          break;
+        case "7":
+        case "help":
+        case "displayhelp":
+          displayHelp();
+          break;
+        case "8":
+        case "exit":
+          System.out.println("Terminating program");
+          running = false;
+          break;
+        default:
+          System.out.println("Invalid command. Please try again");
+          break;
+      }
+    }
   }
 }
