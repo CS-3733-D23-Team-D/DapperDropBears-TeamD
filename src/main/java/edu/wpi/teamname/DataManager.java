@@ -205,42 +205,84 @@ public class DataManager {
    *
    * @param connection a Connection object representing the connection to the PostgreSQL database
    */
-  public static void exportData(Connection connection) {
+  public static void exportData(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the file path for the CSV export: ");
     String cvsFilePath = scanner.nextLine();
+    System.out.println("Press 0 for Node import" + "\npress 1 for Edge import: ");
+    int userChoice = scanner.nextInt();
 
-    try (connection) {
-      String query = String.format("SELECT * FROM \"L1Nodes\"");
-      PreparedStatement statement = connection.prepareStatement(query);
-      ResultSet resultSet = statement.executeQuery();
-
-      try (PrintWriter writer = new PrintWriter(new File(cvsFilePath))) {
-        StringBuilder sb = new StringBuilder();
-        ResultSetMetaData metaData = resultSet.getMetaData();
-        int columnCount = metaData.getColumnCount();
-        for (int i = 1; i <= columnCount; i++) {
-          sb.append(metaData.getColumnName(i));
-          if (i < columnCount) {
-            sb.append(",");
-          }
-        }
-        sb.append(System.lineSeparator());
-        while (resultSet.next()) {
+    if (userChoice == 1) {
+      try (connection) {
+        System.out.println("You chose edge export");
+        String q = String.format("SELECT * FROM \"L1Edges\"");
+        PreparedStatement state = connection.prepareStatement(q);
+        ResultSet rs = state.executeQuery();
+        try (PrintWriter writer = new PrintWriter(new File(cvsFilePath))) {
+          StringBuilder sb = new StringBuilder();
+          ResultSetMetaData metaData = rs.getMetaData();
+          int columnCount = metaData.getColumnCount();
           for (int i = 1; i <= columnCount; i++) {
-            sb.append(resultSet.getString(i));
+            sb.append(metaData.getColumnName(i));
             if (i < columnCount) {
               sb.append(",");
             }
           }
           sb.append(System.lineSeparator());
+          while (rs.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+              sb.append(rs.getString(i));
+              if (i < columnCount) {
+                sb.append(",");
+              }
+            }
+            sb.append(System.lineSeparator());
+          }
+          writer.write(sb.toString());
+          System.out.printf("Data exported to CSV file: %s%n", cvsFilePath);
+        } catch (SQLException e) {
+          throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
+          throw new RuntimeException(e);
         }
-        writer.write(sb.toString());
       }
+    } else if (userChoice == 0) {
+      try (connection) {
+        System.out.println("You chose node export");
+        String query = String.format("SELECT * FROM \"L1Nodes\"");
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
 
-      System.out.printf("Data exported to CSV file: %s%n", cvsFilePath);
-    } catch (SQLException | FileNotFoundException e) {
-      e.printStackTrace();
+        try (PrintWriter writer = new PrintWriter(new File(cvsFilePath))) {
+          StringBuilder sb = new StringBuilder();
+          ResultSetMetaData metaData = resultSet.getMetaData();
+          int columnCount = metaData.getColumnCount();
+          for (int i = 1; i <= columnCount; i++) {
+            sb.append(metaData.getColumnName(i));
+            if (i < columnCount) {
+              sb.append(",");
+            }
+          }
+          sb.append(System.lineSeparator());
+          while (resultSet.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+              sb.append(resultSet.getString(i));
+              if (i < columnCount) {
+                sb.append(",");
+              }
+            }
+            sb.append(System.lineSeparator());
+          }
+          writer.write(sb.toString());
+        }
+
+        System.out.printf("Data exported to CSV file: %s%n", cvsFilePath);
+      } catch (SQLException | FileNotFoundException e) {
+        e.printStackTrace();
+      }
+    } else {
+      System.out.printf("Input not recognized. Please only input 1 or 0");
+      exportData(connection);
     }
   }
 
