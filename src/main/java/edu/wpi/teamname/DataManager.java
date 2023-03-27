@@ -71,7 +71,6 @@ public class DataManager {
   }*/
 
   public static void displayNodeInfo(Connection connection) throws SQLException {
-
     System.out.println("Node Info:");
 
     String query = "select \"nodeID\", xcoord, ycoord, building, \"longName\" from \"L1Nodes\"";
@@ -84,9 +83,18 @@ public class DataManager {
         String building = rs.getString("building");
         String longname = rs.getString("longname");
         System.out.println(
-            "NodeID: " + nodeID + "X-Cord: " + xcoord + "Y-Cord"
-                + ycoord + "Building: " + building + "Long Name: " + longname);
-        System.out.println("------------------------------------------------");
+            "[NodeID: "
+                + nodeID
+                + "X-Cord: "
+                + xcoord
+                + "Y-Cord"
+                + ycoord
+                + "Building: "
+                + building
+                + "Long Name: "
+                + longname
+                + "]");
+        System.out.println("");
       }
     } catch (SQLException e) {
       System.out.println("Display Node Info Error.");
@@ -94,9 +102,24 @@ public class DataManager {
     }
   }
 
-  public static void displayEdgeInfo(Connection connection) {
+  public static void displayEdgeInfo(Connection connection) throws SQLException {
     System.out.println("Edge Info:");
 
+    String query = "select \"edgeID\", \"startNode\",\"endNode\" from \"L1Edges\"";
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      while (rs.next()) {
+        String edgeID = rs.getString("edgeID");
+        String startNode = rs.getString("startNode");
+        String endNode = rs.getString("endNode");
+        System.out.println(
+            "[EdgeID: " + edgeID + "Start Node: " + startNode + "End Node: " + endNode + "]");
+        System.out.println("");
+      }
+    } catch (SQLException e) {
+      System.out.println("Display Edge Info Error.");
+      throw e;
+    }
   }
 
   public static void importData(Connection connection) throws SQLException {
