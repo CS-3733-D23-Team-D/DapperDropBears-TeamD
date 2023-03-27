@@ -373,7 +373,7 @@ public class DataManager {
     String nodeID = scanner.nextLine();
     System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
-    if (sureDelete.equalsIgnoreCase("y")) {
+    if (sureDelete.equalsIgnoreCase("y") || sureDelete.equalsIgnoreCase("Y")) {
       try (PreparedStatement statement =
           connection.prepareStatement("DELETE FROM \"L1Nodes\" WHERE \"nodeID\" = ?")) {
         statement.setString(1, nodeID);
@@ -398,14 +398,27 @@ public class DataManager {
    *
    * @param connection a Connection object representing the database connection
    */
-  public static void deleteEdge(Connection connection) {
+  public static void deleteEdge(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the edge ID of the edge you want to delete: ");
     String edgeID = scanner.nextLine();
-    System.out.print("Are you sure you want to delete edge " + edgeID + "(Y/N)? ");
+    System.out.print("Are you sure you want to delete edge " + edgeID + " (Y/N)? ");
     String sureDelete = scanner.nextLine();
-    if (sureDelete.equalsIgnoreCase("y")) {
-      // Delete edge
+    if (sureDelete.equalsIgnoreCase("y") || sureDelete.equalsIgnoreCase("Y")) {
+      // delete edge
+      String query = "DELETE FROM \"L1Edges\" WHERE \"edgeID\" = ?";
+      try (PreparedStatement statement = connection.prepareStatement(query)) {
+        statement.setString(1, edgeID);
+        int rowsDeleted = statement.executeUpdate();
+        if (rowsDeleted > 0) {
+          System.out.println("Edge " + edgeID + " successfully deleted.");
+        } else {
+          System.out.println("Edge " + edgeID + " not found in the database.");
+        }
+      } catch (SQLException e) {
+        System.out.println("Error deleting edge " + edgeID + ": " + e.getMessage());
+        throw e;
+      }
     } else {
       System.out.println("Deletion terminated");
     }
