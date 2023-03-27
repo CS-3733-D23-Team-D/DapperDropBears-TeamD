@@ -137,21 +137,32 @@ public class DataManager {
    * @throws SQLException if there is an error with the database connection or query execution
    */
   public static void importData(Connection connection) throws SQLException {
+
     Scanner scanner = new Scanner(System.in);
     // No quotes when importing doc
-    System.out.print("Enter the file path of the CSV file to import: ");
+    System.out.println("Enter the file path of the CSV file to import: ");
     String csvFileName = scanner.nextLine();
-    List<String[]> rows = importCSV(csvFileName);
-    if (rows != null) {
-      System.out.println("Number of rows: " + rows.size());
-      for (String[] row : rows) {
-        System.out.println(Arrays.toString(row));
+    System.out.println("Press 0 for Node information" + "\npress 1 for Edge information: ");
+    int edXorNo = scanner.nextInt();
+    if (edXorNo == 1) {
+      System.out.println("You chose to import edge data ");
+    } else if (edXorNo == 0) {
+      System.out.println("You chose to import node data ");
+      List<String[]> rows = importCSV(csvFileName);
+      if (rows != null) {
+        System.out.println("Number of rows: " + rows.size());
+        for (String[] row : rows) {
+          System.out.println(Arrays.toString(row));
+        }
+        try {
+          uploadToPostgreSQL(rows, connection);
+        } catch (SQLException e) {
+          System.err.println(e.getMessage());
+        }
       }
-      try {
-        uploadToPostgreSQL(rows, connection);
-      } catch (SQLException e) {
-        System.err.println(e.getMessage());
-      }
+    } else {
+      System.out.println("Unknown input. Please press 1 or 2 ");
+      importData(connection);
     }
   }
   /**
