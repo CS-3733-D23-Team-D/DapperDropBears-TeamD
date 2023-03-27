@@ -1,8 +1,6 @@
 package edu.wpi.teamname.navigation;
 
 import java.util.*;
-import lombok.Getter;
-import lombok.Setter;
 
 public class Pathfinding {
   private int[][] graph; // hardcoded graph
@@ -39,14 +37,14 @@ public class Pathfinding {
         return path;
       }
       for (int i = 0; i < graph.length; i++) {
-        if (graph[curr][i] == 1 && !visited[i]) { // if node is adjacent and not visited
+        if (graph[curr][i] == 1 && !visited[i]) { //if node is adjacent and not visited
           visited[i] = true;
           parent[i] = curr;
           queue.add(i);
         }
       }
     }
-    return null; // destination not reachable from start
+    return null; //destination not reachable from start
   }
 
   // main method to test the algorithm
@@ -64,6 +62,15 @@ public class Pathfinding {
       {1, 0, 0, 1, 1, 1, 0, 0, 0, 0}
     };
 
+    Node nodeZero = new Node("CCONF001L1", 2255, 849, "L1", "45 Francis", "CONF", "Anesthesia Conf Floor L1", "Conf C001L1");
+    Node nodeOne = new Node("CCONF002L1", 2665, 1043, "L1", "45 Francis", "CONF", "Medical Records Conference Room Floor L1", "Conf C002L1");
+    Node nodeTwo = new Node("CCONF003L1", 2445, 1245, "L1", "45 Francis", "CONF", "Abrams Conference Room", "Conf C003L1");
+    Node nodeThree = new Node("CDEPT002L1", 1980, 844, "L1", "Tower", "DEPT", "Day Surgery Family Waiting Floor L1", "Department C002L1");
+    Node nodeFour = new Node("CDEPT003L1", 1845, 844, "L1", "Tower", "DEPT", "Day Surgery Family Waiting Exit Floor L1", "Department C003L1");
+
+    String firstNode = breaky.toString();
+    System.out.println(firstNode);
+
     Scanner sc = new Scanner(System.in);
     System.out.print("Enter starting point: ");
     int startNode = sc.nextInt();
@@ -80,4 +87,3 @@ public class Pathfinding {
     }
   }
 }
-
