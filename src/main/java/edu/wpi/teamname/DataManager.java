@@ -122,7 +122,7 @@ public class DataManager {
     System.out.println("temp: export data");
   }
 
-  public static void updateNodeCoords() {
+  public static void updateNodeCoords() throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to update the coordinates of: ");
     String nodeID = scanner.nextLine();
@@ -130,10 +130,17 @@ public class DataManager {
     String newX = scanner.nextLine();
     System.out.print("Enter the new y-coordinate of node " + nodeID + ": ");
     String newY = scanner.nextLine();
-    //update node
+
+    String query = "UPDATE L1Nodes SET xcoord = " + newX + ", ycoord = " + newY + " WHERE nodeID = " + "nodeID";
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+    } catch (SQLException e) {
+      System.out.println("Update Node Coordinates Error.");
+      throw e;
+    }
   }
 
-  public static void updateNodeName() {
+  public static void updateNodeName() throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to update the name of: ");
     String nodeID = scanner.nextLine();
@@ -142,6 +149,13 @@ public class DataManager {
     System.out.print("Enter the new short name of node " + nodeID + ": ");
     String newShortName = scanner.nextLine();
     //update node
+    String query = "UPDATE L1Nodes SET longName = " + newLongName + ", shortName = " + newShortName + " WHERE nodeID = " + "nodeID";
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+    } catch (SQLException e) {
+      System.out.println("Update Node Names Error.");
+      throw e;
+    }
   }
 
   public static void deleteNode() {
