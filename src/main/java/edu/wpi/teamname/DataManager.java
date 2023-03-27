@@ -98,7 +98,6 @@ public class DataManager {
       }
     } catch (SQLException e) {
       System.out.println("Display Node Info Error.");
-
     }
   }
 
@@ -137,7 +136,7 @@ public class DataManager {
     String newX = scanner.nextLine();
     System.out.print("Enter the new y-coordinate of node " + nodeID + ": ");
     String newY = scanner.nextLine();
-    //update node
+    // update node
   }
 
   public static void updateNodeName() {
@@ -148,7 +147,7 @@ public class DataManager {
     String newLongName = scanner.nextLine();
     System.out.print("Enter the new short name of node " + nodeID + ": ");
     String newShortName = scanner.nextLine();
-    //update node
+    // update node
   }
 
   public static void deleteNode() {
@@ -158,7 +157,7 @@ public class DataManager {
     System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      //Delete node
+      // Delete node
     } else {
       System.out.println("Deletion terminated");
     }
@@ -171,7 +170,7 @@ public class DataManager {
     System.out.print("Are you sure you want to delete edge " + edgeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      //Delete edge
+      // Delete edge
     } else {
       System.out.println("Deletion terminated");
     }
@@ -181,8 +180,8 @@ public class DataManager {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the SQL you want to run: ");
     String command = scanner.nextLine();
-    //run command
-    System.out.println("Command successful");
+    // run command
+    System.out.println("Query successful");
   }
 
   public static void displayHelp() {
@@ -245,6 +244,7 @@ public class DataManager {
             + "(11) Exit");
 
     String optionChosen = "help";
+    // Will allow user to input commands until they select exit
     while (running) {
       optionChosen = scanner.nextLine();
       optionChosen = optionChosen.toLowerCase();
