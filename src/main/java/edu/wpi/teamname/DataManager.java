@@ -33,6 +33,27 @@ public class DataManager {
     }
   }
 
+  public static void uploadEdgeToPostgreSQL(List<String[]> csvData, Connection connection)
+      throws SQLException {
+
+    try (connection) {
+      String query =
+          "INSERT INTO \"L1Edges\" (\"edgeID\", \"startNode\", \"endNode\") " + "VALUES (?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setString(1, row[0]); // edgeID is a string column
+        statement.setString(2, row[1]); // startNode is a string column
+        statement.setString(3, row[2]); // endNode is a string column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
   /**
    * Uploads CSV data to a PostgreSQL database table "L1Nodes"
    *
@@ -122,7 +143,6 @@ public class DataManager {
         String endNode = rs.getString("endNode");
         System.out.println(
             "[EdgeID: " + edgeID + "Start Node: " + startNode + "End Node: " + endNode + "]");
-        System.out.println("");
       }
     } catch (SQLException e) {
       System.out.println("Display Edge Info Error.");
@@ -146,6 +166,18 @@ public class DataManager {
     int edXorNo = scanner.nextInt();
     if (edXorNo == 1) {
       System.out.println("You chose to import edge data ");
+      List<String[]> edgeRows = importCSV(csvFileName);
+      if (edgeRows != null) {
+        System.out.println("Number of rows: " + edgeRows.size());
+        for (String[] row : edgeRows) {
+          System.out.println(Arrays.toString(row));
+        }
+        try {
+          uploadEdgeToPostgreSQL(edgeRows, connection);
+        } catch (SQLException e) {
+          System.err.println(e.getMessage());
+        }
+      }
     } else if (edXorNo == 0) {
       System.out.println("You chose to import node data ");
       List<String[]> rows = importCSV(csvFileName);
