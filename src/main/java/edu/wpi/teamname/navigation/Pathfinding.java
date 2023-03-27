@@ -1,8 +1,6 @@
 package edu.wpi.teamname.navigation;
 
 import java.util.*;
-import lombok.Getter;
-import lombok.Setter;
 
 public class Pathfinding {
   private int[][] graph; // hardcoded graph
@@ -51,18 +49,13 @@ public class Pathfinding {
 
   // main method to test the algorithm
   public static void main(String[] args) {
-    int[][] graph = { // Hardcoded graph
-      {0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-      {0, 0, 1, 1, 1, 0, 0, 0, 0, 0},
-      {0, 1, 0, 1, 0, 0, 1, 0, 0, 0},
-      {0, 1, 0, 0, 1, 1, 1, 0, 1, 1},
-      {0, 1, 0, 1, 0, 0, 0, 0, 0, 1},
-      {1, 0, 0, 1, 0, 0, 0, 0, 1, 1},
-      {0, 0, 1, 1, 0, 0, 0, 1, 1, 0},
-      {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-      {0, 0, 0, 1, 0, 1, 1, 0, 0, 0},
-      {1, 0, 0, 1, 1, 1, 0, 0, 0, 0}
-    };
+    Node A = new Node("CCONF001L1",	2255,	849,	"L1",	"45 Francis",	"CONF",	"Anesthesia Conf Floor L1",	"Conf");
+    Node B = new Node();
+    Node C = new Node();
+    Node D = new Node();
+    Node E = new Node();
+
+    Edge A =
 
     Scanner sc = new Scanner(System.in);
     System.out.print("Enter starting point: ");
@@ -80,4 +73,3 @@ public class Pathfinding {
     }
   }
 }
-
