@@ -46,7 +46,8 @@ public class App extends Application {
     // Specify the scene to be used on this stage,
     // AKA Specify what to be painted on the window
     primaryStage.setScene(scene);
-
+    // starts the app in fullscreen mode
+    primaryStage.setFullScreen(true);
     // SHOW the windwow
     primaryStage.show();
 

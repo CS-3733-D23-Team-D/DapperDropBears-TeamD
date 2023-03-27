@@ -20,10 +20,15 @@ public class HomeController {
 
   @FXML
   public void initialize() {
+    // make an image and image view, using the path to the image
     Image image = new Image("edu/wpi/teamname/images/BaWHospital.jpg");
     imageView.setImage(image);
+    // set the width and height to be bound to the panes width and height
     imageView.fitWidthProperty().bind(rootPane.widthProperty());
     imageView.fitHeightProperty().bind(rootPane.heightProperty());
+    // this allows for the image to stay at the same size of the rootPane, which is the parent pane
+    // of the Home.fxml
+
     // Param is EventHandeler
     // Lambda Expression. parameter -> expression
     // Basically just runs the Navigation.navigate Function
