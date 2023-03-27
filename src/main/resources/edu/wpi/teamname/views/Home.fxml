@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="757.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
    <children>
-      <ImageView fitHeight="472.0" fitWidth="761.0" pickOnBounds="true" preserveRatio="true" style="-fx-fit-width: 100%; -fx-fit-height: 100%;">
+      <ImageView fitHeight="472.0" fitWidth="761.0" opacity="0.78" pickOnBounds="true" preserveRatio="true" style="-fx-fit-width: 100%; -fx-fit-height: 100%;">
          <image>
             <Image url="@../images/BaWHospital.jpg" />
          </image>
@@ -30,20 +30,19 @@
             <Insets right="20.0" top="100.0" />
          </StackPane.margin>
       </MFXButton>
-      <MFXButton id="mealRequest" fx:id="mealRequest" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Meal Delivery" StackPane.alignment="CENTER_RIGHT">
+      <MFXButton id="mealRequest" fx:id="serviceRequests" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Make Request" textAlignment="JUSTIFY" StackPane.alignment="CENTER_RIGHT">
          <StackPane.margin>
             <Insets bottom="100.0" right="20.0" />
          </StackPane.margin>
       </MFXButton>
-      <MFXButton id="flowerRequest" fx:id="flowerRequest" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Flower Delivery" StackPane.alignment="CENTER_RIGHT">
-         <font>
-            <Font name="Nunito Sans Regular" size="16.0" />
-         </font>
-         <padding>
-            <Insets right="20.0" />
-         </padding>
+      <MFXButton fx:id="exitButton" style="-fx-background-color: #70A4FF;" text="Exit" StackPane.alignment="TOP_RIGHT">
          <StackPane.margin>
-            <Insets right="20.0" />
+            <Insets right="20.0" top="10.0" />
+         </StackPane.margin>
+      </MFXButton>
+      <MFXButton fx:id="helpButton" style="-fx-background-color: #70A4FF;" text="Help" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="90.0" top="10.0" />
          </StackPane.margin>
       </MFXButton>
    </children>
