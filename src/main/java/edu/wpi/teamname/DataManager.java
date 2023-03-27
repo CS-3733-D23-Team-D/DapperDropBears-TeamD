@@ -3,17 +3,13 @@ package edu.wpi.teamname;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class DataManager {
-
-  private static final String DB_URL = "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb";
-  private static final String DB_USER = "teamd";
-  private static final String DB_PASSWORD = "teamd40";
 
   /** Prototype 1: method should read file from CSV and import data to teamd database */
   public static List<String[]> importCSV(String fileName) {
@@ -75,7 +71,35 @@ public class DataManager {
   }*/
 
   public static void displayNodeInfo() {
-    System.out.println("temp: node info");
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+    System.out.println("Node Info:");
+
+    String query = "select nodeID, xcoord, ycoord, building, longname from L1Nodes";
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      while (rs.next()) {
+        String nodeID = rs.getString("nodeID");
+        String xcoord = rs.getString("xcoord");
+        String ycoord = rs.getString("ycoord");
+        String building = rs.getString("building");
+        String longname = rs.getString("longname");
+        System.out.println(
+            "NodeID: "
+                + nodeID
+                + "X-Cord: "
+                + xcoord
+                + "Y-Cord"
+                + ycoord
+                + "Building: "
+                + building
+                + "Long Name: "
+                + longname);
+      }
+    } catch (SQLException e) {
+      System.out.println("Display Node Info Error.");
+
+    }
   }
 
   public static void displayEdgeInfo() {
