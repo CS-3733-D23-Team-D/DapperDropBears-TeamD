@@ -9,7 +9,13 @@ import java.util.Scanner;
 
 public class DataManager {
 
-  /** Prototype 1: method should read file from CSV and import data to teamd database */
+  /**
+   * Reads a CSV file and returns its contents as a list of string arrays.
+   *
+   * @param fileName the name of the CSV file to import
+   * @return a list of string arrays representing the contents of the CSV file, or null if an error
+   *     occurs
+   */
   public static List<String[]> importCSV(String fileName) {
     System.out.println("Parsing CSV file: " + fileName);
     List<String[]> rows = new ArrayList<>();
@@ -27,6 +33,13 @@ public class DataManager {
     }
   }
 
+  /**
+   * Uploads CSV data to a PostgreSQL database table "L1Nodes"
+   *
+   * @param csvData a List of String arrays representing the rows and columns of CSV data
+   * @param connection a Connection object to connect to the PostgreSQL database
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
   public static void uploadToPostgreSQL(List<String[]> csvData, Connection connection)
       throws SQLException {
 
@@ -54,7 +67,12 @@ public class DataManager {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
   }
-
+  /**
+   * Displays node information from the "L1Nodes" table in the connected PostgreSQL database.
+   *
+   * @param connection A Connection object representing the connection to the PostgreSQL database.
+   * @throws SQLException If an error occurs while executing the SQL statement.
+   */
   public static void displayNodeInfo(Connection connection) throws SQLException {
     System.out.println("Node Info:");
 
@@ -86,7 +104,12 @@ public class DataManager {
       throw e;
     }
   }
-
+  /**
+   * Displays the edge information from the "L1Edges" table in the PostgreSQL database.
+   *
+   * @param connection a Connection object representing a connection to the database
+   * @throws SQLException if there is an error while executing the SQL query
+   */
   public static void displayEdgeInfo(Connection connection) throws SQLException {
     System.out.println("Edge Info:");
 
@@ -106,7 +129,13 @@ public class DataManager {
       throw e;
     }
   }
-
+  /**
+   * Prompts the user to enter a file path for a CSV file to import, parses the data, and uploads it
+   * to a PostgreSQL database using the importCSV and uploadToPostgreSQL functions.
+   *
+   * @param connection the connection object to the PostgreSQL database
+   * @throws SQLException if there is an error with the database connection or query execution
+   */
   public static void importData(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     // No quotes when importing doc
@@ -125,7 +154,14 @@ public class DataManager {
       }
     }
   }
-
+  /**
+   * Exports data from the "L1Nodes" table in the PostgreSQL database to a CSV file specified by the
+   * user. The function prompts the user to enter the file path for the CSV export and then executes
+   * a SQL query to retrieve all data from the "L1Nodes" table. The results are written to the CSV
+   * file in comma-separated format.
+   *
+   * @param connection a Connection object representing the connection to the PostgreSQL database
+   */
   public static void exportData(Connection connection) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the file path for the CSV export: ");
@@ -165,6 +201,13 @@ public class DataManager {
     }
   }
 
+  /**
+   * Prompts the user to enter a node ID, as well as new x and y coordinates for the node, and
+   * updates the corresponding row in the L1Nodes table with the new coordinates.
+   *
+   * @param connection the connection to the PostgreSQL database
+   * @throws SQLException if an error occurs while executing the SQL query
+   */
   public static void updateNodeCoords(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to update the coordinates of: ");
@@ -189,6 +232,15 @@ public class DataManager {
     }
   }
 
+  /**
+   * Updates the name of a node in the database. Prompts the user for the node ID, new long name,
+   * and new short name. Executes an SQL UPDATE statement to modify the longName and shortName
+   * fields of the L1Nodes table in the database for the specified node ID with the new values
+   * entered by the user.
+   *
+   * @param connection the connection to the database
+   * @throws SQLException if there is an error executing the SQL statement
+   */
   public static void updateNodeName(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to update the name of: ");
@@ -213,6 +265,12 @@ public class DataManager {
     }
   }
 
+  /**
+   * Prompts the user to enter a node ID and confirms if they want to delete the node. If confirmed,
+   * the function deletes the node from the database.
+   *
+   * @param connection a Connection object representing a connection to a PostgreSQL database
+   */
   public static void deleteNode(Connection connection) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to delete: ");
@@ -226,6 +284,12 @@ public class DataManager {
     }
   }
 
+  /**
+   * Allows the user to delete an edge from the graph by entering the edge ID. Prompts the user to
+   * confirm the deletion before proceeding.
+   *
+   * @param connection a Connection object representing the database connection
+   */
   public static void deleteEdge(Connection connection) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the edge ID of the edge you want to delete: ");
@@ -239,6 +303,12 @@ public class DataManager {
     }
   }
 
+  /**
+   * Executes an SQL command on the provided database connection.
+   *
+   * @param connection the database connection to use for executing the command
+   * @throws SQLException if there is an error executing the SQL command
+   */
   public static void runQuery(Connection connection) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the SQL you want to run: ");
@@ -247,6 +317,22 @@ public class DataManager {
     System.out.println("Command successful");
   }
 
+  /**
+   * Displays the available commands and their descriptions to the user. Provides information on how
+   * to execute each command and what they do. Prompts the user to input the number of the command
+   * they want to execute. Commands: Display node information - Gives all of the information
+   * regarding a specific node. Display edge information - Gives all of the information regarding a
+   * specific edge. Import data from CSV file - Takes node data from a given CSV file and uploads it
+   * into the database. Export data into CSV file - Takes node data from the database and exports it
+   * into a given CSV file. Update node coordinates - Changes the coordinate of a given node to a
+   * new value. Update node name - Changes the name of a given node to a new value. Delete node -
+   * Deletes a node given its ID. Delete edge - Deletes an edge given its ID. Run SQL query - Will
+   * run the inputted SQL query on the database. Only use if you know how to use SQL. Display help -
+   * Displays information on the available commands and their descriptions. Exit - Terminates the
+   * program.
+   *
+   * @return void
+   */
   public static void displayHelp() {
     System.out.println(
         "---Help---\n"
