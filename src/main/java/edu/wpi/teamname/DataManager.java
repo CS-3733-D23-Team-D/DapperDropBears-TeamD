@@ -29,46 +29,33 @@ public class DataManager {
     }
   }
 
-  //  public static void uploadToPostgreSQL(List<String[]> csvData) throws SQLException {
-  //    String url =
-  //        "jdbc:postgresql://database.cs.wpi.edu:5432/teamddb"; // replace with your database URL
-  //    String user = "teamd"; // replace with your database username
-  //    String password = "teamd40"; // replace with your database password
-  //
-  //    try (Connection conn = DriverManager.getConnection(url, user, password)) {
-  //      String query =
-  //          "INSERT INTO mytable (nodeID, xcoord, ycoord, floor, building, nodeType, longName,
-  // shortName) "
-  //              + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-  //      PreparedStatement statement = conn.prepareStatement(query);
-  //
-  //      for (String[] row : csvData) {
-  //        statement.setInt(1, Integer.parseInt(row[0])); // assuming nodeID is an integer column
-  //        statement.setDouble(2, Double.parseDouble(row[1])); // assuming xcoord is a double
-  // column
-  //        statement.setDouble(3, Double.parseDouble(row[2])); // assuming ycoord is a double
-  // column
-  //        statement.setString(4, row[3]); // assuming floor is a string column
-  //        statement.setString(5, row[4]); // assuming building is a string column
-  //        statement.setString(6, row[5]); // assuming nodeType is a string column
-  //        statement.setString(7, row[6]); // assuming longName is a string column
-  //        statement.setString(8, row[7]); // assuming shortName is a string column
-  //
-  //        statement.executeUpdate();
-  //      }
-  //      System.out.println("CSV data uploaded to PostgreSQL database");
-  //    } catch (SQLException e) {
-  //      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
-  //    }
-  //  }
+  public static void uploadToPostgreSQL(List<String[]> csvData, Connection connection)
+      throws SQLException {
 
-  /* public static void main(String[] args) {
-      System.out.println("CSV data imported to PostgreSQL table successfully!");
+    try (connection) {
+      String query =
+          "INSERT INTO \"L1Nodes\" (\"nodeID\", xcoord, ycoord, floor, building, \"nodeType\", \"longName\",\"shortName\") "
+              + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement(query);
 
-    } catch (Exception e) {
-      e.printStackTrace();
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setString(1, row[0]); // nodeID is a string column
+        statement.setInt(2, Integer.parseInt(row[1])); // xcoord is an integer column
+        statement.setInt(3, Integer.parseInt(row[2])); // ycoord is an integer column
+        statement.setString(4, row[3]); // assuming floor is a string column
+        statement.setString(5, row[4]); // assuming building is a string column
+        statement.setString(6, row[5]); // assuming nodeType is a string column
+        statement.setString(7, row[6]); // assuming longName is a string column
+        statement.setString(8, row[7]); // assuming shortName is a string column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
-  }*/
+  }
 
   public static void displayNodeInfo(Connection connection) throws SQLException {
     System.out.println("Node Info:");
@@ -133,11 +120,11 @@ public class DataManager {
       for (String[] row : rows) {
         System.out.println(Arrays.toString(row));
       }
-      //      try {
-      //        uploadToPostgreSQL(rows);
-      //      } catch (SQLException e) {
-      //        System.err.println(e.getMessage());
-      //      }
+      try {
+        uploadToPostgreSQL(rows, connection);
+      } catch (SQLException e) {
+        System.err.println(e.getMessage());
+      }
     }
   }
 
@@ -154,7 +141,13 @@ public class DataManager {
     System.out.print("Enter the new y-coordinate of node " + nodeID + ": ");
     String newY = scanner.nextLine();
 
-    String query = "UPDATE L1Nodes SET xcoord = " + newX + ", ycoord = " + newY + " WHERE nodeID = " + "nodeID";
+    String query =
+        "UPDATE L1Nodes SET xcoord = "
+            + newX
+            + ", ycoord = "
+            + newY
+            + " WHERE nodeID = "
+            + "nodeID";
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
     } catch (SQLException e) {
@@ -171,8 +164,14 @@ public class DataManager {
     String newLongName = scanner.nextLine();
     System.out.print("Enter the new short name of node " + nodeID + ": ");
     String newShortName = scanner.nextLine();
-    //update node
-    String query = "UPDATE L1Nodes SET longName = " + newLongName + ", shortName = " + newShortName + " WHERE nodeID = " + "nodeID";
+    // update node
+    String query =
+        "UPDATE L1Nodes SET longName = "
+            + newLongName
+            + ", shortName = "
+            + newShortName
+            + " WHERE nodeID = "
+            + "nodeID";
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
     } catch (SQLException e) {
@@ -188,7 +187,7 @@ public class DataManager {
     System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      //Delete node
+      // Delete node
     } else {
       System.out.println("Deletion terminated");
     }
@@ -201,7 +200,7 @@ public class DataManager {
     System.out.print("Are you sure you want to delete edge " + edgeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      //Delete edge
+      // Delete edge
     } else {
       System.out.println("Deletion terminated");
     }
