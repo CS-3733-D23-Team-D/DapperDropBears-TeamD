@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class DataManager {
 
   /** Prototype 1: method should read file from CSV and import data to teamd database */
-  public static List<String[]> importCSV(String fileName, Connection connection) {
+  public static List<String[]> importCSV(String fileName) {
     System.out.println("Parsing CSV file: " + fileName);
     List<String[]> rows = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -127,7 +127,7 @@ public class DataManager {
     // No quotes when importing doc
     System.out.print("Enter the file path of the CSV file to import: ");
     String csvFileName = scanner.nextLine();
-    List<String[]> rows = importCSV(csvFileName, connection);
+    List<String[]> rows = importCSV(csvFileName);
     if (rows != null) {
       System.out.println("Number of rows: " + rows.size());
       for (String[] row : rows) {
@@ -145,7 +145,7 @@ public class DataManager {
     System.out.println("temp: export data");
   }
 
-  public static void updateNodeCoords(Connection connection) {
+  public static void updateNodeCoords(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to update the coordinates of: ");
     String nodeID = scanner.nextLine();
@@ -153,10 +153,17 @@ public class DataManager {
     String newX = scanner.nextLine();
     System.out.print("Enter the new y-coordinate of node " + nodeID + ": ");
     String newY = scanner.nextLine();
-    // update node
+
+    String query = "UPDATE L1Nodes SET xcoord = " + newX + ", ycoord = " + newY + " WHERE nodeID = " + "nodeID";
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+    } catch (SQLException e) {
+      System.out.println("Update Node Coordinates Error.");
+      throw e;
+    }
   }
 
-  public static void updateNodeName(Connection connection) {
+  public static void updateNodeName(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to update the name of: ");
     String nodeID = scanner.nextLine();
@@ -164,7 +171,14 @@ public class DataManager {
     String newLongName = scanner.nextLine();
     System.out.print("Enter the new short name of node " + nodeID + ": ");
     String newShortName = scanner.nextLine();
-    // update node
+    //update node
+    String query = "UPDATE L1Nodes SET longName = " + newLongName + ", shortName = " + newShortName + " WHERE nodeID = " + "nodeID";
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+    } catch (SQLException e) {
+      System.out.println("Update Node Names Error.");
+      throw e;
+    }
   }
 
   public static void deleteNode(Connection connection) {
@@ -174,7 +188,7 @@ public class DataManager {
     System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      // Delete node
+      //Delete node
     } else {
       System.out.println("Deletion terminated");
     }
@@ -187,7 +201,7 @@ public class DataManager {
     System.out.print("Are you sure you want to delete edge " + edgeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      // Delete edge
+      //Delete edge
     } else {
       System.out.println("Deletion terminated");
     }
