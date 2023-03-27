@@ -14,7 +14,11 @@ public class HomeController {
 
   @FXML
   public void initialize() {
+    // Param is EventHandeler
+    // Lambda Expression. parameter -> expression
+    // Basically just runs the Navigation.navigate Function
+    // "event" is a parameter, but there is no
     serviceRequests.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     exitButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
-  }
+    }
 }
