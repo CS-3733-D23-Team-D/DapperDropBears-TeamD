@@ -33,7 +33,6 @@ public class App extends Application {
     /* primaryStage is generally only used if one of your components require the stage to display */
     // Stage is like a window (To my knolwedge)
     App.primaryStage = primaryStage;
-
     // Loads and stores the outermost XML Object. Data Types Must match.
     final FXMLLoader loader = new FXMLLoader(App.class.getResource("views/Root.fxml"));
 

@@ -8,13 +8,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-fit-width: 100%; -fx-fit-height: 100%;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
+<AnchorPane fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-fit-width: 100%; -fx-fit-height: 100%;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
    <children>
-      <ImageView opacity="0.78" pickOnBounds="true" preserveRatio="true" style="-fx-fit-width: 100%; -fx-fit-height: 100%;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../images/BaWHospital.jpg" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="imageView"/>
+<!--      <ImageView fitHeight="1080" fitWidth="1920.0" opacity="0.78" pickOnBounds="true" preserveRatio="true" style="-fx-fit-width: 100%; -fx-fit-height: 100%;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+<!--         <image>-->
+<!--            <Image url="@../images/BaWHospital.jpg" />-->
+<!--         </image>-->
+<!--      </ImageView>-->
       <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
@@ -27,15 +28,18 @@
             </ImageView>
             <MFXButton id="directions" fx:id="directionButton" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Get Directions" StackPane.alignment="CENTER_RIGHT">
                <font>
-                  <Font name="Nunito Sans Regular" size="16.0" />
+                  <Font name="Nunito Sans Regular" size="12.0" />
                </font>
                <StackPane.margin>
                   <Insets right="20.0" top="100.0" />
                </StackPane.margin>
             </MFXButton>
             <MFXButton id="mealRequest" fx:id="serviceRequests" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Make Request" textAlignment="JUSTIFY" StackPane.alignment="CENTER_RIGHT">
+               <font>
+                  <Font name="Nunito Sans Regular" size="12.0" />
+               </font>
                <StackPane.margin>
-                  <Insets bottom="100.0" right="20.0" />
+                  <Insets bottom="10.0" right="20.0" />
                </StackPane.margin>
             </MFXButton>
             <MFXButton fx:id="exitButton" style="-fx-background-color: #70A4FF;" text="Exit" StackPane.alignment="TOP_RIGHT">
