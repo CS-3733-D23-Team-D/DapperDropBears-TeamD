@@ -32,7 +32,13 @@ public class DataManager {
       return null;
     }
   }
-
+  /**
+   * Uploads CSV data to a PostgreSQL database table "L1Edges"
+   *
+   * @param csvData a List of String arrays representing the rows and columns of CSV data
+   * @param connection a Connection object to connect to the PostgreSQL database
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
   public static void uploadEdgeToPostgreSQL(List<String[]> csvData, Connection connection)
       throws SQLException {
 
@@ -150,9 +156,10 @@ public class DataManager {
     }
   }
   /**
-   * Prompts the user to enter a file path for a CSV file to import, parses the data, and uploads it
-   * to a PostgreSQL database using the importCSV and uploadToPostgreSQL functions.
+   * Prompts the user to choose between importing a node or edge. Then asks for a file path for a CSV file to import,
+   * parses the data, and uploads it to a PostgreSQL database using the importCSV and uploadToPostgreSQL/uploadEdgeToPostgreSQL functions.
    *
+   * Notes: Enter a LOCAL path on computer and REMOVE quotations
    * @param connection the connection object to the PostgreSQL database
    * @throws SQLException if there is an error with the database connection or query execution
    */
@@ -198,11 +205,12 @@ public class DataManager {
     }
   }
   /**
-   * Exports data from the "L1Nodes" table in the PostgreSQL database to a CSV file specified by the
+   * Exports data from the "L1Nodes" and "L1Edges" tables in the PostgreSQL database to a CSV file specified by the
    * user. The function prompts the user to enter the file path for the CSV export and then executes
-   * a SQL query to retrieve all data from the "L1Nodes" table. The results are written to the CSV
+   * a SQL query to retrieve all data from the prompted table. The results are written to the CSV
    * file in comma-separated format.
    *
+   * Note: LOCAL file path NO quotations!
    * @param connection a Connection object representing the connection to the PostgreSQL database
    */
   public static void exportData(Connection connection) throws SQLException {
