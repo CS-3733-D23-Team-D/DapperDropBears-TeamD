@@ -1,8 +1,6 @@
 package edu.wpi.teamname;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -129,7 +127,42 @@ public class DataManager {
   }
 
   public static void exportData(Connection connection) {
-    System.out.println("temp: export data");
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter the file path for the CSV export: ");
+    String cvsFilePath = scanner.nextLine();
+
+    try (connection) {
+      String query = String.format("SELECT * FROM \"L1Nodes\"");
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet resultSet = statement.executeQuery();
+
+      try (PrintWriter writer = new PrintWriter(new File(cvsFilePath))) {
+        StringBuilder sb = new StringBuilder();
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        for (int i = 1; i <= columnCount; i++) {
+          sb.append(metaData.getColumnName(i));
+          if (i < columnCount) {
+            sb.append(",");
+          }
+        }
+        sb.append(System.lineSeparator());
+        while (resultSet.next()) {
+          for (int i = 1; i <= columnCount; i++) {
+            sb.append(resultSet.getString(i));
+            if (i < columnCount) {
+              sb.append(",");
+            }
+          }
+          sb.append(System.lineSeparator());
+        }
+        writer.write(sb.toString());
+      }
+
+      System.out.printf("Data exported to CSV file: %s%n", cvsFilePath);
+    } catch (SQLException | FileNotFoundException e) {
+      e.printStackTrace();
+    }
   }
 
   public static void updateNodeCoords(Connection connection) throws SQLException {
@@ -258,6 +291,7 @@ public class DataManager {
 
   public static void main(String[] args) throws SQLException {
     Scanner scanner = new Scanner(System.in);
+    String cvsFilePath = " ";
     boolean running = true;
     DatabaseConnection dbc = new DatabaseConnection();
     Connection connection = dbc.DbConnection();
