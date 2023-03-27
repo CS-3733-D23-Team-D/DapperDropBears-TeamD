@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class DataManager {
 
   /** Prototype 1: method should read file from CSV and import data to teamd database */
-  public static List<String[]> importCSV(String fileName) {
+  public static List<String[]> importCSV(String fileName, Connection connection) {
     System.out.println("Parsing CSV file: " + fileName);
     List<String[]> rows = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -70,9 +70,8 @@ public class DataManager {
     }
   }*/
 
-  public static void displayNodeInfo() throws SQLException {
-    DatabaseConnection dbc = new DatabaseConnection();
-    Connection connection = dbc.DbConnection();
+  public static void displayNodeInfo(Connection connection) throws SQLException {
+
     System.out.println("Node Info:");
 
     String query = "select \"nodeID\", xcoord, ycoord, building, \"longName\" from \"L1Nodes\"";
@@ -95,16 +94,17 @@ public class DataManager {
     }
   }
 
-  public static void displayEdgeInfo() {
-    System.out.println("temp: edge info");
+  public static void displayEdgeInfo(Connection connection) {
+    System.out.println("Edge Info:");
+
   }
 
-  public static void importData() throws SQLException {
+  public static void importData(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     // No quotes when importing doc
     System.out.print("Enter the file path of the CSV file to import: ");
     String csvFileName = scanner.nextLine();
-    List<String[]> rows = importCSV(csvFileName);
+    List<String[]> rows = importCSV(csvFileName, connection);
     if (rows != null) {
       System.out.println("Number of rows: " + rows.size());
       for (String[] row : rows) {
@@ -118,11 +118,11 @@ public class DataManager {
     }
   }
 
-  public static void exportData() {
+  public static void exportData(Connection connection) {
     System.out.println("temp: export data");
   }
 
-  public static void updateNodeCoords() {
+  public static void updateNodeCoords(Connection connection) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to update the coordinates of: ");
     String nodeID = scanner.nextLine();
@@ -133,7 +133,7 @@ public class DataManager {
     // update node
   }
 
-  public static void updateNodeName() {
+  public static void updateNodeName(Connection connection) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to update the name of: ");
     String nodeID = scanner.nextLine();
@@ -144,7 +144,7 @@ public class DataManager {
     // update node
   }
 
-  public static void deleteNode() {
+  public static void deleteNode(Connection connection) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to delete: ");
     String nodeID = scanner.nextLine();
@@ -157,7 +157,7 @@ public class DataManager {
     }
   }
 
-  public static void deleteEdge() {
+  public static void deleteEdge(Connection connection) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the edge ID of the edge you want to delete: ");
     String edgeID = scanner.nextLine();
@@ -170,7 +170,7 @@ public class DataManager {
     }
   }
 
-  public static void runQuery() {
+  public static void runQuery(Connection connection) {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the SQL you want to run: ");
     String command = scanner.nextLine();
@@ -223,6 +223,8 @@ public class DataManager {
   public static void main(String[] args) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     boolean running = true;
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
     System.out.println(
         "Choose from the following commands:\n"
             + "(1) Display node information\n"
@@ -244,32 +246,32 @@ public class DataManager {
       optionChosen = optionChosen.replaceAll("\\s", ""); // Removes whitespace
       switch (optionChosen) {
         case "1":
-          displayNodeInfo();
+          displayNodeInfo(connection);
           break;
         case "2":
-          displayEdgeInfo();
+          displayEdgeInfo(connection);
           break;
         case "3":
-          importData();
+          importData(connection);
           break;
         case "4":
-          exportData();
+          exportData(connection);
           break;
         case "5":
-          updateNodeCoords();
+          updateNodeCoords(connection);
           break;
         case "6":
-          updateNodeName();
+          updateNodeName(connection);
           break;
         case "7":
-          deleteNode();
+          deleteNode(connection);
           break;
         case "8":
-          deleteEdge();
+          deleteEdge(connection);
           break;
         case "9":
         case "sql":
-          runQuery();
+          runQuery(connection);
           break;
         case "10":
         case "help":
