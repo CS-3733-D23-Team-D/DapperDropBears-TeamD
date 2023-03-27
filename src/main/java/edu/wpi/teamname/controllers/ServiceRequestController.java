@@ -35,8 +35,6 @@ public class ServiceRequestController {
     System.out.println(this.request.getDeliverBy());
   }
 
-
-
   private void addFries() {
     System.out.println("addFries");
     this.request.addItem("Fries");

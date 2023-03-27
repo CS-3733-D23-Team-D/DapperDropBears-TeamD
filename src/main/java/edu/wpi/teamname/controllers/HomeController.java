@@ -20,5 +20,5 @@ public class HomeController {
     // "event" is a parameter, but there is no
     serviceRequests.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     exitButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
-    }
+  }
 }
