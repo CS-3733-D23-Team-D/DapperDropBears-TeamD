@@ -156,10 +156,12 @@ public class DataManager {
     }
   }
   /**
-   * Prompts the user to choose between importing a node or edge. Then asks for a file path for a CSV file to import,
-   * parses the data, and uploads it to a PostgreSQL database using the importCSV and uploadToPostgreSQL/uploadEdgeToPostgreSQL functions.
+   * Prompts the user to choose between importing a node or edge. Then asks for a file path for a
+   * CSV file to import, parses the data, and uploads it to a PostgreSQL database using the
+   * importCSV and uploadToPostgreSQL/uploadEdgeToPostgreSQL functions.
    *
-   * Notes: Enter a LOCAL path on computer and REMOVE quotations
+   * <p>Notes: Enter a LOCAL path on computer and REMOVE quotations
+   *
    * @param connection the connection object to the PostgreSQL database
    * @throws SQLException if there is an error with the database connection or query execution
    */
@@ -205,12 +207,13 @@ public class DataManager {
     }
   }
   /**
-   * Exports data from the "L1Nodes" and "L1Edges" tables in the PostgreSQL database to a CSV file specified by the
-   * user. The function prompts the user to enter the file path for the CSV export and then executes
-   * a SQL query to retrieve all data from the prompted table. The results are written to the CSV
-   * file in comma-separated format.
+   * Exports data from the "L1Nodes" and "L1Edges" tables in the PostgreSQL database to a CSV file
+   * specified by the user. The function prompts the user to enter the file path for the CSV export
+   * and then executes a SQL query to retrieve all data from the prompted table. The results are
+   * written to the CSV file in comma-separated format.
    *
-   * Note: LOCAL file path NO quotations!
+   * <p>Note: LOCAL file path NO quotations!
+   *
    * @param connection a Connection object representing the connection to the PostgreSQL database
    */
   public static void exportData(Connection connection) throws SQLException {
@@ -364,14 +367,26 @@ public class DataManager {
    *
    * @param connection a Connection object representing a connection to a PostgreSQL database
    */
-  public static void deleteNode(Connection connection) {
+  public static void deleteNode(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to delete: ");
     String nodeID = scanner.nextLine();
     System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      // Delete node
+      try (PreparedStatement statement =
+          connection.prepareStatement("DELETE FROM \"L1Nodes\" WHERE \"nodeID\" = ?")) {
+        statement.setString(1, nodeID);
+        int rowsDeleted = statement.executeUpdate();
+        if (rowsDeleted > 0) {
+          System.out.println("Node " + nodeID + " deleted successfully.");
+        } else {
+          System.out.println("Node " + nodeID + " not found.");
+        }
+      } catch (SQLException e) {
+        System.out.println("Delete Node Error.");
+        throw e;
+      }
     } else {
       System.out.println("Deletion terminated");
     }
