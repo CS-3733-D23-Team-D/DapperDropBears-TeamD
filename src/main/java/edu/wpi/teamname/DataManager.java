@@ -106,11 +106,59 @@ public class DataManager {
   }
 
   public static void updateNodeCoords() {
-    System.out.println("temp: update coords");
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter the node ID of the node you want to update the coordinates of: ");
+    String nodeID = scanner.nextLine();
+    System.out.print("Enter the new x-coordinate of node " + nodeID + ": ");
+    String newX = scanner.nextLine();
+    System.out.print("Enter the new y-coordinate of node " + nodeID + ": ");
+    String newY = scanner.nextLine();
+    //update node
   }
 
   public static void updateNodeName() {
-    System.out.println("temp: update name");
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter the node ID of the node you want to update the name of: ");
+    String nodeID = scanner.nextLine();
+    System.out.print("Enter the new long name of node " + nodeID + ": ");
+    String newLongName = scanner.nextLine();
+    System.out.print("Enter the new short name of node " + nodeID + ": ");
+    String newShortName = scanner.nextLine();
+    //update node
+  }
+
+  public static void deleteNode() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter the node ID of the node you want to delete: ");
+    String nodeID = scanner.nextLine();
+    System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
+    String sureDelete = scanner.nextLine();
+    if (sureDelete.equalsIgnoreCase("y")) {
+      //Delete node
+    } else {
+      System.out.println("Deletion terminated");
+    }
+  }
+
+  public static void deleteEdge() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter the edge ID of the edge you want to delete: ");
+    String edgeID = scanner.nextLine();
+    System.out.print("Are you sure you want to delete edge " + edgeID + "(Y/N)? ");
+    String sureDelete = scanner.nextLine();
+    if (sureDelete.equalsIgnoreCase("y")) {
+      //Delete edge
+    } else {
+      System.out.println("Deletion terminated");
+    }
+  }
+
+  public static void runQuery() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter the SQL you want to run: ");
+    String command = scanner.nextLine();
+    //run command
+    System.out.println("Command successful");
   }
 
   public static void displayHelp() {
@@ -123,8 +171,12 @@ public class DataManager {
             + "(4) Export data into CSV file\n"
             + "(5) Update node coordinates\n"
             + "(6) Update node name\n"
-            + "(7) Display Help\n"
-            + "(8) Exit\n"
+            + "(7) Delete node\n"
+            + "(8) Delete edge\n"
+            + "(9) Run SQL query\n"
+            + "(10) Display help\n"
+            + "(11) Exit\n"
+            + "---------------------------------------------------\n"
             + "Input the number of the command you want to execute\n"
             + "(1) Display node information\n"
             + "\t-Gives all of the information regarding a specific node\n"
@@ -133,14 +185,21 @@ public class DataManager {
             + "(3) Import data from CSV file\n"
             + "\t-Takes node data from a given CSV file and uploads it into the database\n"
             + "(4) Export data into CSV file\n"
-            + "\tTakes node data from the database and exports it into a given CSV file\n"
+            + "\t-Takes node data from the database and exports it into a given CSV file\n"
             + "(5) Update node coordinates\n"
             + "\t-Changes the coordinate of a given node to a new value\n"
             + "(6) Update node name\n"
             + "\t-Changes the name of a given node to a new value\n"
-            + "(7) Display Help\n"
+            + "(7) Delete node\n"
+            + "\t-Deletes a node given its id\n"
+            + "(8) Delete edge\n"
+            + "\t-Deletes an edge given its id\n"
+            + "(9) Run SQL query\n"
+            + "\t-Will run the inputted SQL query on the database\n"
+            + "\t-Only use if you know how to use SQL\n"
+            + "(10) Display Help\n"
             + "\t-Displays this text\n"
-            + "(8) Exit\n"
+            + "(11) Exit\n"
             + "\t-Terminates the program");
   }
 
@@ -155,8 +214,11 @@ public class DataManager {
             + "(4) Export data into CSV file\n"
             + "(5) Update node coordinates\n"
             + "(6) Update node name\n"
-            + "(7) Display Help\n"
-            + "(8) Exit");
+            + "(7) Delete node\n"
+            + "(8) Delete edge\n"
+            + "(9) Run SQL query\n"
+            + "(10) Display help\n"
+            + "(11) Exit");
 
     String optionChosen = "help";
     while (running) {
@@ -183,11 +245,21 @@ public class DataManager {
           updateNodeName();
           break;
         case "7":
+          deleteNode();
+          break;
+        case "8":
+          deleteEdge();
+          break;
+        case "9":
+        case "sql":
+          runQuery();
+          break;
+        case "10":
         case "help":
         case "displayhelp":
           displayHelp();
           break;
-        case "8":
+        case "11":
         case "exit":
           System.out.println("Terminating program");
           running = false;
