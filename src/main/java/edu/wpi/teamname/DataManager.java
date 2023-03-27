@@ -162,7 +162,7 @@ public class DataManager {
     // No quotes when importing doc
     System.out.println("Enter the file path of the CSV file to import: ");
     String csvFileName = scanner.nextLine();
-    System.out.println("Press 0 for Node information" + "\npress 1 for Edge information: ");
+    System.out.println("Press 0 for Node import" + "\npress 1 for Edge import: ");
     int edXorNo = scanner.nextInt();
     if (edXorNo == 1) {
       System.out.println("You chose to import edge data ");
