@@ -70,12 +70,12 @@ public class DataManager {
     }
   }*/
 
-  public static void displayNodeInfo() {
+  public static void displayNodeInfo() throws SQLException {
     DatabaseConnection dbc = new DatabaseConnection();
     Connection connection = dbc.DbConnection();
     System.out.println("Node Info:");
 
-    String query = "select nodeID, xcoord, ycoord, building, longname from L1Nodes";
+    String query = "select \"nodeID\", xcoord, ycoord, building, \"longName\" from \"L1Nodes\"";
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
@@ -85,20 +85,13 @@ public class DataManager {
         String building = rs.getString("building");
         String longname = rs.getString("longname");
         System.out.println(
-            "NodeID: "
-                + nodeID
-                + "X-Cord: "
-                + xcoord
-                + "Y-Cord"
-                + ycoord
-                + "Building: "
-                + building
-                + "Long Name: "
-                + longname);
+            "NodeID: " + nodeID + "X-Cord: " + xcoord + "Y-Cord"
+                + ycoord + "Building: " + building + "Long Name: " + longname);
+        System.out.println("------------------------------------------------");
       }
     } catch (SQLException e) {
       System.out.println("Display Node Info Error.");
-
+      throw e;
     }
   }
 
@@ -137,7 +130,7 @@ public class DataManager {
     String newX = scanner.nextLine();
     System.out.print("Enter the new y-coordinate of node " + nodeID + ": ");
     String newY = scanner.nextLine();
-    //update node
+    // update node
   }
 
   public static void updateNodeName() {
@@ -148,7 +141,7 @@ public class DataManager {
     String newLongName = scanner.nextLine();
     System.out.print("Enter the new short name of node " + nodeID + ": ");
     String newShortName = scanner.nextLine();
-    //update node
+    // update node
   }
 
   public static void deleteNode() {
@@ -158,7 +151,7 @@ public class DataManager {
     System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      //Delete node
+      // Delete node
     } else {
       System.out.println("Deletion terminated");
     }
@@ -171,7 +164,7 @@ public class DataManager {
     System.out.print("Are you sure you want to delete edge " + edgeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      //Delete edge
+      // Delete edge
     } else {
       System.out.println("Deletion terminated");
     }
@@ -181,7 +174,7 @@ public class DataManager {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the SQL you want to run: ");
     String command = scanner.nextLine();
-    //run command
+    // run command
     System.out.println("Command successful");
   }
 
