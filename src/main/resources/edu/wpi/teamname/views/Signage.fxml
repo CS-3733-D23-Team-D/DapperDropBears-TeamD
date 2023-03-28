@@ -12,7 +12,7 @@
          <children>
             <ImageView fitHeight="186.0" fitWidth="201.0" layoutX="843.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Brigham_and_Womens_Hospital_logo.png" />
+                  <Image url="@../images/Brigham_and_Womens_Hospital_logo.png" />
                </image></ImageView>
             <Label layoutX="14.0" layoutY="43.0" style="-fx-font-weight: Bold;" text="Stop Here For:">
                <font>

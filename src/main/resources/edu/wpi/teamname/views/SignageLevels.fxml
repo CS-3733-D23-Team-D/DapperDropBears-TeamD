@@ -32,7 +32,7 @@
             </Label>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="786.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@Brigham_and_Womens_Hospital_logo.png" />
+                  <Image url="@../images/Brigham_and_Womens_Hospital_logo.png" />
                </image>
             </ImageView>
             <MFXButton buttonType="RAISED" layoutX="435.0" layoutY="622.0" mnemonicParsing="false" style="-fx-font-weight: BOLD;" text="Back">
