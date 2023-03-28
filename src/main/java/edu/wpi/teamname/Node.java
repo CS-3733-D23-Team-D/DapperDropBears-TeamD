@@ -64,8 +64,17 @@ public class Node {
     this.yCord = newY;
   }
 
-  // Adds an edge to the edges array
+  // Adds an edge to the edges list
   public void addEdge(Edge e) {
-    edges.add(e);
+    if (!edges.contains(e)) {
+      edges.add(e);
+    }
+  }
+
+  // Removes an edge from the edges list
+  public void removeEdge(Edge e) {
+    if (edges.contains(e)) {
+      edges.remove(e);
+    }
   }
 }

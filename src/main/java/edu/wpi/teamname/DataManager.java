@@ -84,8 +84,16 @@ public class DataManager {
         String building = rs.getString("building");
         String longname = rs.getString("longname");
         System.out.println(
-            "NodeID: " + nodeID + "X-Cord: " + xcoord + "Y-Cord"
-                + ycoord + "Building: " + building + "Long Name: " + longname);
+            "NodeID: "
+                + nodeID
+                + "X-Cord: "
+                + xcoord
+                + "Y-Cord"
+                + ycoord
+                + "Building: "
+                + building
+                + "Long Name: "
+                + longname);
         System.out.println("------------------------------------------------");
       }
     } catch (SQLException e) {
@@ -96,7 +104,6 @@ public class DataManager {
 
   public static void displayEdgeInfo(Connection connection) {
     System.out.println("Edge Info:");
-
   }
 
   public static void importData(Connection connection) throws SQLException {
@@ -131,9 +138,11 @@ public class DataManager {
     System.out.print("Enter the new y-coordinate of node " + nodeID + ": ");
     String newY = scanner.nextLine();
 
-    String query = "UPDATE L1Nodes SET xcoord = " + newX + ", ycoord = " + newY + " WHERE nodeID = " + "nodeID";
+    String query =
+        "UPDATE L1Nodes SET xcoord = " + newX + ", ycoord = " + newY + " WHERE nodeID = " + nodeID;
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
+      System.out.println("Node successfully updated");
     } catch (SQLException e) {
       System.out.println("Update Node Coordinates Error.");
       throw e;
@@ -148,47 +157,74 @@ public class DataManager {
     String newLongName = scanner.nextLine();
     System.out.print("Enter the new short name of node " + nodeID + ": ");
     String newShortName = scanner.nextLine();
-    //update node
-    String query = "UPDATE L1Nodes SET longName = " + newLongName + ", shortName = " + newShortName + " WHERE nodeID = " + "nodeID";
+    // update node
+    String query =
+        "UPDATE L1Nodes SET longName = "
+            + newLongName
+            + ", shortName = "
+            + newShortName
+            + " WHERE nodeID = "
+            + nodeID;
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
+      System.out.println("Node successfully updated");
     } catch (SQLException e) {
       System.out.println("Update Node Names Error.");
       throw e;
     }
   }
 
-  public static void deleteNode(Connection connection) {
+  public static void deleteNode(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to delete: ");
     String nodeID = scanner.nextLine();
     System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      //Delete node
+      String query = "DELETE FROM L1Nodes WHERE nodeID = " + nodeID;
+      try (Statement statement = connection.createStatement()) {
+        ResultSet rs = statement.executeQuery(query);
+        System.out.println("Node " + nodeID + " successfully deleted");
+      } catch (SQLException e) {
+        System.out.println("Deletion failed");
+        throw e;
+      }
     } else {
       System.out.println("Deletion terminated");
     }
   }
 
-  public static void deleteEdge(Connection connection) {
+  public static void deleteEdge(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the edge ID of the edge you want to delete: ");
     String edgeID = scanner.nextLine();
     System.out.print("Are you sure you want to delete edge " + edgeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y")) {
-      //Delete edge
+      String query = "DELETE FROM L1Edges WHERE edgeID = " + edgeID;
+      try (Statement statement = connection.createStatement()) {
+        ResultSet rs = statement.executeQuery(query);
+        System.out.println("Edge " + edgeID + " successfully deleted");
+      } catch (SQLException e) {
+        System.out.println("Deletion failed");
+        throw e;
+      }
     } else {
       System.out.println("Deletion terminated");
     }
   }
 
-  public static void runQuery(Connection connection) {
+  public static void runQuery(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the SQL you want to run: ");
-    String command = scanner.nextLine();
-    // run command
+    String query = scanner.nextLine();
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      System.out.println("Query successfully run");
+    } catch (SQLException e) {
+      System.out.println("Query failed");
+      throw e;
+    }
     System.out.println("Command successful");
   }
 
