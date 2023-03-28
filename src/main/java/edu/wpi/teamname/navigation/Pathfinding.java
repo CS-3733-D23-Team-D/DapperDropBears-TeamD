@@ -57,7 +57,6 @@ public class Pathfinding {
 
     //Edge A =
 
-
 //    Scanner sc = new Scanner(System.in);
 //    System.out.print("Enter starting point: ");
 //    int startNode = sc.nextInt();
