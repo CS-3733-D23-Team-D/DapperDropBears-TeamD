@@ -167,7 +167,6 @@ public class DataManager {
    * @throws SQLException if there is an error with the database connection or query execution
    */
   public static void importData(Connection connection) throws SQLException {
-
     Scanner scanner = new Scanner(System.in);
     // No quotes when importing doc
     System.out.println("Enter the file path of the CSV file to import: ");
@@ -175,6 +174,7 @@ public class DataManager {
     System.out.println("Press 0 for Node import" + "\npress 1 for Edge import: ");
     int edXorNo = scanner.nextInt();
     if (edXorNo == 1) {
+
       System.out.println("You chose to import edge data ");
       List<String[]> edgeRows = importCSV(csvFileName);
       if (edgeRows != null) {
@@ -370,14 +370,30 @@ public class DataManager {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to delete: ");
     String nodeID = scanner.nextLine();
+
+      //Show edge nodes being deleted also
+      String query2 = "Select e.\"edgeID\" from \"L1Edges\" e, \"L1Nodes\" n " +
+              "where nodeID = e.\"startNode\" or nodeID = e.\"endNode\"";
+      try (Statement statement2 = connection.createStatement()) {
+        ResultSet rs = statement2.executeQuery(query2);
+
+        System.out.print("Deleting " + nodeID + " will delete edges: " + rs + "(Y/N)? ");
+        String input = scanner.nextLine();
+      } catch (SQLException e2) {
+        System.out.println("Delete Node Connection Error. ");
+        throw e2;
+      }
+
     System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y") || sureDelete.equalsIgnoreCase("Y")) {
+
       try (PreparedStatement statement =
           connection.prepareStatement("DELETE FROM \"L1Nodes\" WHERE \"nodeID\" = ?")) {
         statement.setString(1, nodeID);
         int rowsDeleted = statement.executeUpdate();
         if (rowsDeleted > 0) {
+
           System.out.println("Node " + nodeID + " deleted successfully.");
         } else {
           System.out.println("Node " + nodeID + " not found.");
@@ -505,8 +521,7 @@ public class DataManager {
     Scanner scanner = new Scanner(System.in);
     String cvsFilePath = " ";
     boolean running = true;
-    DatabaseConnection dbc = new DatabaseConnection();
-    Connection connection = dbc.DbConnection();
+
     System.out.println(
         "Choose from the following commands:\n"
             + "(1) Display node information\n"
@@ -523,6 +538,8 @@ public class DataManager {
 
     String optionChosen = "help";
     while (running) {
+      DatabaseConnection dbc = new DatabaseConnection();
+      Connection connection = dbc.DbConnection();
       optionChosen = scanner.nextLine();
       optionChosen = optionChosen.toLowerCase();
       optionChosen = optionChosen.replaceAll("\\s", ""); // Removes whitespace
