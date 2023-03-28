@@ -1,6 +1,8 @@
 package edu.wpi.teamname.navigation;
 
+import java.io.*;
 import java.util.*;
+import java.util.Scanner;
 
 public class Pathfinding {
   private int[][] graph; // hardcoded graph
@@ -49,27 +51,34 @@ public class Pathfinding {
 
   // main method to test the algorithm
   public static void main(String[] args) {
-//    Node A = new Node("CCONF001L1",	2255,	849,	"L1",	"45 Francis",	"CONF",	"Anesthesia Conf Floor L1",	"Conf");
-//    Node B = new Node();
-//    Node C = new Node();
-//    Node D = new Node();
-//    Node E = new Node();
+    //    Node A = new Node("CCONF001L1",	2255,	849,	"L1",	"45 Francis",	"CONF",	"Anesthesia Conf
+    // Floor L1",	"Conf");
+    //    Node B = new Node();
+    //    Node C = new Node();
+    //    Node D = new Node();
+    //    Node E = new Node();
 
-    //Edge A =
+    // Edge A =
+    Scanner scanner = new Scanner(new File("L1Nodes.csv"));
+    scanner.useDelimiter(",");
+    while (scanner.hasNext()) {
+      System.out.print(scanner.next() + "|");
+    }
+    scanner.close();
 
-//    Scanner sc = new Scanner(System.in);
-//    System.out.print("Enter starting point: ");
-//    int startNode = sc.nextInt();
-//
-//    System.out.print("Enter destination: ");
-//    int endNode = sc.nextInt();
-//
-//    Pathfinding bfs = new Pathfinding(graph);
-//    List<Integer> path = bfs.bfsBacktrack(startNode, endNode);
-//    if (path != null) {
-//      System.out.println("Path from " + startNode + " to " + endNode + ": " + path);
-//    } else {
-//      System.out.println("No path found from " + startNode + " to " + endNode + ".");
-//    }
+    //    Scanner sc = new Scanner(System.in);
+    //    System.out.print("Enter starting point: ");
+    //    int startNode = sc.nextInt();
+    //
+    //    System.out.print("Enter destination: ");
+    //    int endNode = sc.nextInt();
+    //
+    //    Pathfinding bfs = new Pathfinding(graph);
+    //    List<Integer> path = bfs.bfsBacktrack(startNode, endNode);
+    //    if (path != null) {
+    //      System.out.println("Path from " + startNode + " to " + endNode + ": " + path);
+    //    } else {
+    //      System.out.println("No path found from " + startNode + " to " + endNode + ".");
+    //    }
   }
 }
