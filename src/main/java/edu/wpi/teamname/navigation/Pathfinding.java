@@ -222,6 +222,7 @@ public class Pathfinding {
       } else {
         System.out.print(nodeName + " --> ");
       }
+
     }
   }
 
