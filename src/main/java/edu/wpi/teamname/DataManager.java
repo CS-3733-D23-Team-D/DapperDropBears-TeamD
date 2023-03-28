@@ -380,7 +380,6 @@ public class DataManager {
 
         System.out.print("Deleting " + nodeID + " will delete edges: " + rs + "(Y/N)? ");
         String input = scanner.nextLine();
-
       } catch (SQLException e2) {
         System.out.println("Delete Node Connection Error. ");
         throw e2;
