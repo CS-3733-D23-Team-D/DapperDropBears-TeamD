@@ -1,4 +1,4 @@
-package edu.wpi.teamname;
+package edu.wpi.teamname.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,14 +10,11 @@ public class DatabaseConnection {
   private static final String DB_USER = "teamd";
   private static final String DB_PASSWORD = "teamd40";
 
-  /**
-   * Main function that connects to the database, or it will display an error if it does not.
-   */
-
+  /** Main function that connects to the database, or it will display an error if it does not. */
   public Connection DbConnection() {
     Connection connection = null;
 
-    System.out.println("-------- Building a Connection ------");
+    System.out.println("-------- Connecting To Database... ------");
     try {
       connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
       return connection;

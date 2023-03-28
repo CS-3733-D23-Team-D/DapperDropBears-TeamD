@@ -1,4 +1,4 @@
-package edu.wpi.teamname;
+package edu.wpi.teamname.database;
 
 import java.io.*;
 import java.sql.*;
@@ -104,26 +104,35 @@ public class DataManager {
 
     System.out.println("Node Info:");
 
-    String query = "select \"nodeID\", xcoord, ycoord, building, \"longName\" from \"L1Nodes\"";
+    String query = "select * from \"L1Nodes\"";
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
         String nodeID = rs.getString("nodeID");
         String xcoord = rs.getString("xcoord");
         String ycoord = rs.getString("ycoord");
+        String floor = rs.getString("floor");
         String building = rs.getString("building");
+        String nodeType = rs.getString("nodeType");
         String longname = rs.getString("longname");
+        String shortName = rs.getString("shortName");
         System.out.println(
-            "[NodeID: "
+            "[NodeID:"
                 + nodeID
-                + "X-Cord: "
+                + ", X-Cord:"
                 + xcoord
-                + "Y-Cord"
+                + ", Y-Cord:"
                 + ycoord
-                + "Building: "
+                + ", Floor:"
+                + floor
+                + ", Building:"
                 + building
-                + "Long Name: "
+                + ", Node Type:"
+                + nodeType
+                + ", Long Name:"
                 + longname
+                + ", Short Name:"
+                + shortName
                 + "]");
         System.out.println("");
       }
@@ -141,7 +150,7 @@ public class DataManager {
   public static void displayEdgeInfo(Connection connection) throws SQLException {
     System.out.println("Edge Info:");
 
-    String query = "select \"edgeID\", \"startNode\",\"endNode\" from \"L1Edges\"";
+    String query = "select * from \"L1Edges\"";
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
@@ -149,7 +158,7 @@ public class DataManager {
         String startNode = rs.getString("startNode");
         String endNode = rs.getString("endNode");
         System.out.println(
-            "[EdgeID: " + edgeID + "Start Node: " + startNode + "End Node: " + endNode + "]");
+            "[EdgeID:" + edgeID + ", Start Node:" + startNode + ", End Node:" + endNode + "]");
       }
     } catch (SQLException e) {
       System.out.println("Display Edge Info Error.");
@@ -359,44 +368,56 @@ public class DataManager {
     }
   }
 
-
   /**
-   * Prompts the user to enter a node ID and confirms if they want to delete the node. If confirmed,
-   * the function deletes the node from the database.
+   * Prompts the user to enter a node ID and confirms if they want to delete the node along with the
+   * connected edges. If confirmed, the function deletes the node and connected edges from the
+   * database.
    *
    * @param connection a Connection object representing a connection to a PostgreSQL database
    */
   public static void deleteNode(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to delete: ");
-    String nodeID = scanner.nextLine();
+    String nodeid = scanner.nextLine();
 
-      //Show edge nodes being deleted also
-      String query2 = "Select e.\"edgeID\" from \"L1Edges\" e, \"L1Nodes\" n " +
-              "where nodeID = e.\"startNode\" or nodeID = e.\"endNode\"";
-      try (Statement statement2 = connection.createStatement()) {
-        ResultSet rs = statement2.executeQuery(query2);
+    // Show edge nodes being deleted also
+    String query2 =
+        "Select e.\"edgeID\" from \"L1Edges\" e, \"L1Nodes\" n where \'"
+            + nodeid.toUpperCase()
+            + "\' = e.\"startNode\" or \'"
+            + nodeid.toUpperCase()
+            + "\' = e.\"endNode\" group by e.\"edgeID\"";
+    try (Statement statement2 = connection.createStatement()) {
+      ResultSet rs2 = statement2.executeQuery(query2);
 
-        System.out.print("Deleting " + nodeID + " will delete edges: " + rs + "(Y/N)? ");
-        String input = scanner.nextLine();
-      } catch (SQLException e2) {
-        System.out.println("Delete Node Connection Error. ");
-        throw e2;
+      ArrayList<String> edges = new ArrayList<String>();
+      while (rs2.next()) {
+        String edgeID = rs2.getString("edgeID");
+        edges.add(edgeID);
       }
 
-    System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
+      System.out.println("Deleting " + nodeid + " will delete edges: ");
+      System.out.println(edges);
+      System.out.println("(Y/N)? ");
+      String input = scanner.nextLine();
+    } catch (SQLException e2) {
+      System.out.println("Delete Node Connection Error. ");
+      throw e2;
+    }
+
+    System.out.print("Are you sure you want to delete node " + nodeid + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y") || sureDelete.equalsIgnoreCase("Y")) {
 
       try (PreparedStatement statement =
           connection.prepareStatement("DELETE FROM \"L1Nodes\" WHERE \"nodeID\" = ?")) {
-        statement.setString(1, nodeID);
+        statement.setString(1, nodeid);
         int rowsDeleted = statement.executeUpdate();
         if (rowsDeleted > 0) {
 
-          System.out.println("Node " + nodeID + " deleted successfully.");
+          System.out.println("Node " + nodeid + " deleted successfully.");
         } else {
-          System.out.println("Node " + nodeID + " not found.");
+          System.out.println("Node " + nodeid + " not found.");
         }
       } catch (SQLException e) {
         System.out.println("Delete Node Error.");
@@ -445,7 +466,7 @@ public class DataManager {
    * @param connection the database connection to use for executing the command
    * @throws SQLException if there is an error executing the SQL command
    */
-  public static void runQuery(Connection connection) throws SQLException{
+  public static void runQuery(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the SQL you want to run: ");
     String query = scanner.nextLine();
@@ -522,24 +543,25 @@ public class DataManager {
     String cvsFilePath = " ";
     boolean running = true;
 
-    System.out.println(
-        "Choose from the following commands:\n"
-            + "(1) Display node information\n"
-            + "(2) Display edge information\n"
-            + "(3) Import data from CSV file\n"
-            + "(4) Export data into CSV file\n"
-            + "(5) Update node coordinates\n"
-            + "(6) Update node name\n"
-            + "(7) Delete node\n"
-            + "(8) Delete edge\n"
-            + "(9) Run SQL query\n"
-            + "(10) Display help\n"
-            + "(11) Exit");
-
     String optionChosen = "help";
     while (running) {
       DatabaseConnection dbc = new DatabaseConnection();
       Connection connection = dbc.DbConnection();
+
+      System.out.println(
+          "Choose from the following commands:\n"
+              + "(1) Display node information\n"
+              + "(2) Display edge information\n"
+              + "(3) Import data from CSV file\n"
+              + "(4) Export data into CSV file\n"
+              + "(5) Update node coordinates\n"
+              + "(6) Update node name\n"
+              + "(7) Delete node\n"
+              + "(8) Delete edge\n"
+              + "(9) Run SQL query\n"
+              + "(10) Display help\n"
+              + "(11) Exit");
+
       optionChosen = scanner.nextLine();
       optionChosen = optionChosen.toLowerCase();
       optionChosen = optionChosen.replaceAll("\\s", ""); // Removes whitespace
