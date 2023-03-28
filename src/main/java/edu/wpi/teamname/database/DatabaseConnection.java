@@ -1,4 +1,4 @@
-package edu.wpi.teamname;
+package edu.wpi.teamname.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
