@@ -37,39 +37,176 @@ public class Pathfinding {
         return path;
       }
       for (int i = 0; i < graph.length; i++) {
-        if (graph[curr][i] == 1 && !visited[i]) { //if node is adjacent and not visited
+        if (graph[curr][i] == 1 && !visited[i]) { // if node is adjacent and not visited
           visited[i] = true;
           parent[i] = curr;
           queue.add(i);
         }
       }
     }
-    return null; //destination not reachable from start
+    return null; // destination not reachable from start
   }
 
   // main method to test the algorithm
   public static void main(String[] args) {
     int[][] graph = { // Hardcoded graph
-      {0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-      {0, 0, 1, 1, 1, 0, 0, 0, 0, 0},
-      {0, 1, 0, 1, 0, 0, 1, 0, 0, 0},
-      {0, 1, 0, 0, 1, 1, 1, 0, 1, 1},
-      {0, 1, 0, 1, 0, 0, 0, 0, 0, 1},
-      {1, 0, 0, 1, 0, 0, 0, 0, 1, 1},
-      {0, 0, 1, 1, 0, 0, 0, 1, 1, 0},
-      {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-      {0, 0, 0, 1, 0, 1, 1, 0, 0, 0},
-      {1, 0, 0, 1, 1, 1, 0, 0, 0, 0}
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0}, // Hall2
+      {0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0}, // Hall3
+      {0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}, // Hall6
+      {0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Hall7
+      {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1}, // Hall8
+      {0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, // Lab3
+      {0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, // Lab4
+      {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Lab5
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Conf2
+      {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Conf3
+      {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Dept4
+      {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Rest2
+      {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, // Serv1
+      {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0} // ElevK
     };
+    // H2 H3 H6 H7 H8 L3 L4 L5 C2 C3 D4 R2 S1 EK
 
-    Node nodeZero = new Node("CCONF001L1", 2255, 849, "L1", "45 Francis", "CONF", "Anesthesia Conf Floor L1", "Conf C001L1");
-    Node nodeOne = new Node("CCONF002L1", 2665, 1043, "L1", "45 Francis", "CONF", "Medical Records Conference Room Floor L1", "Conf C002L1");
-    Node nodeTwo = new Node("CCONF003L1", 2445, 1245, "L1", "45 Francis", "CONF", "Abrams Conference Room", "Conf C003L1");
-    Node nodeThree = new Node("CDEPT002L1", 1980, 844, "L1", "Tower", "DEPT", "Day Surgery Family Waiting Floor L1", "Department C002L1");
-    Node nodeFour = new Node("CDEPT003L1", 1845, 844, "L1", "Tower", "DEPT", "Day Surgery Family Waiting Exit Floor L1", "Department C003L1");
-
-    String firstNode = breaky.toString();
-    System.out.println(firstNode);
+    Node conf3 =
+        new Node(
+            "CCONF003L1",
+            2445,
+            1245,
+            "L1",
+            "45 Francis",
+            "CONF",
+            "Abrams Conference Room",
+            "Conf C003L1");
+    Node dept4 =
+        new Node(
+            "CDEPT004L1",
+            2310,
+            1043,
+            "L1",
+            "45 Francis",
+            "DEPT",
+            "Medical Records Film Library Floor L1",
+            "Department C004L1");
+    Node elevk =
+        new Node(
+            "WELEV00KL1",
+            2220,
+            974,
+            "L1",
+            "45 Francis",
+            "ELEV",
+            "Elevator K Floor L1",
+            "Elevator KL1");
+    Node serv1 =
+        new Node(
+            "CSERV001L1",
+            2490,
+            1043,
+            "L1",
+            "45 Francis",
+            "SERV",
+            "Volunteers Floor L1",
+            "Service C001L1");
+    Node hall2 =
+        new Node(
+            "CHALL002L1",
+            2445,
+            1043,
+            "L1",
+            "45 Francis",
+            "HALL",
+            "Hallway 2 Floor L1",
+            "Hallway C002L1");
+    Node hall8 =
+        new Node(
+            "CHALL008L1",
+            2215,
+            1045,
+            "L1",
+            "45 Francis",
+            "HALL",
+            "Hallway 8 Floor L1",
+            "Hallway C008L1");
+    Node rest2 =
+        new Node(
+            "CREST002L1",
+            2065,
+            1284,
+            "L1",
+            "Tower",
+            "REST",
+            "Restroom M Elevator Floor L1",
+            "Restroom C002L1");
+    Node hall7 =
+        new Node(
+            "CHALL007L1",
+            2130,
+            1045,
+            "L1",
+            "Tower",
+            "HALL",
+            "Hallway 7 Floor L1",
+            "Hallway C007L1");
+    Node hall6 =
+        new Node(
+            "CHALL006L1",
+            2130,
+            1284,
+            "L1",
+            "Tower",
+            "HALL",
+            "Hallway 6 Floor L1",
+            "Hallway C006L1");
+    Node conf2 =
+        new Node(
+            "CCONF002L1",
+            2665,
+            1043,
+            "L1",
+            "45 Francis",
+            "CONF",
+            "Medical Records Conference Room Floor L1",
+            "Conf C002L1");
+    Node hall3 =
+        new Node(
+            "CHALL003L1",
+            2445,
+            1284,
+            "L1",
+            "45 Francis",
+            "HALL",
+            "Hallway 3 Floor L1",
+            "Hallway C003L1");
+    Node lab4 =
+        new Node(
+            "CLABS004L1",
+            2320,
+            1284,
+            "L1",
+            "45 Francis",
+            "LABS",
+            "Ultrasound Floor L1",
+            "Lab C004L1");
+    Node lab3 =
+        new Node(
+            "CLABS003L1",
+            2290,
+            1284,
+            "L1",
+            "45 Francis",
+            "LABS",
+            "Nuclear Medicine Floor L1",
+            "Lab C003L1");
+    Node lab5 =
+        new Node(
+            "CLABS005L1",
+            2770,
+            1284,
+            "L1",
+            "45 Francis",
+            "LABS",
+            "CSIR MRI Floor L1",
+            "Lab C005L1");
 
     Scanner sc = new Scanner(System.in);
     System.out.print("Enter starting point: ");
