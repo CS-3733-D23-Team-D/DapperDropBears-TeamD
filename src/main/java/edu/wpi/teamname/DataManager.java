@@ -371,14 +371,31 @@ public class DataManager {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to delete: ");
     String nodeID = scanner.nextLine();
+
+      //Show edge nodes being deleted also
+      String query2 = "Select e.\"edgeID\" from \"L1Edges\" e, \"L1Nodes\" n " +
+              "where nodeID = e.\"startNode\" or nodeID = e.\"endNode\"";
+      try (Statement statement2 = connection.createStatement()) {
+        ResultSet rs = statement2.executeQuery(query2);
+
+        System.out.print("Deleting " + nodeID + " will delete edges: " + rs + "(Y/N)? ");
+        String input = scanner.nextLine();
+
+      } catch (SQLException e2) {
+        System.out.println("Delete Node Connection Error. ");
+        throw e2;
+      }
+
     System.out.print("Are you sure you want to delete node " + nodeID + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y") || sureDelete.equalsIgnoreCase("Y")) {
+
       try (PreparedStatement statement =
           connection.prepareStatement("DELETE FROM \"L1Nodes\" WHERE \"nodeID\" = ?")) {
         statement.setString(1, nodeID);
         int rowsDeleted = statement.executeUpdate();
         if (rowsDeleted > 0) {
+
           System.out.println("Node " + nodeID + " deleted successfully.");
         } else {
           System.out.println("Node " + nodeID + " not found.");
