@@ -14,7 +14,7 @@ public class DatabaseConnection {
   public Connection DbConnection() {
     Connection connection = null;
 
-    System.out.println("-------- Building a Connection ------");
+    System.out.println("-------- Connecting To Database... ------");
     try {
       connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
       return connection;

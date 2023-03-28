@@ -104,26 +104,35 @@ public class DataManager {
 
     System.out.println("Node Info:");
 
-    String query = "select \"nodeID\", xcoord, ycoord, building, \"longName\" from \"L1Nodes\"";
+    String query = "select * from \"L1Nodes\"";
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
         String nodeID = rs.getString("nodeID");
         String xcoord = rs.getString("xcoord");
         String ycoord = rs.getString("ycoord");
+        String floor = rs.getString("floor");
         String building = rs.getString("building");
+        String nodeType = rs.getString("nodeType");
         String longname = rs.getString("longname");
+        String shortName = rs.getString("shortName");
         System.out.println(
-            "[NodeID: "
+            "[NodeID:"
                 + nodeID
-                + "X-Cord: "
+                + ", X-Cord:"
                 + xcoord
-                + "Y-Cord"
+                + ", Y-Cord:"
                 + ycoord
-                + "Building: "
+                + ", Floor:"
+                + floor
+                + ", Building:"
                 + building
-                + "Long Name: "
+                + ", Node Type:"
+                + nodeType
+                + ", Long Name:"
                 + longname
+                + ", Short Name:"
+                + shortName
                 + "]");
         System.out.println("");
       }
@@ -141,7 +150,7 @@ public class DataManager {
   public static void displayEdgeInfo(Connection connection) throws SQLException {
     System.out.println("Edge Info:");
 
-    String query = "select \"edgeID\", \"startNode\",\"endNode\" from \"L1Edges\"";
+    String query = "select * from \"L1Edges\"";
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
@@ -149,7 +158,7 @@ public class DataManager {
         String startNode = rs.getString("startNode");
         String endNode = rs.getString("endNode");
         System.out.println(
-            "[EdgeID: " + edgeID + "Start Node: " + startNode + "End Node: " + endNode + "]");
+            "[EdgeID:" + edgeID + ", Start Node:" + startNode + ", End Node:" + endNode + "]");
       }
     } catch (SQLException e) {
       System.out.println("Display Edge Info Error.");
