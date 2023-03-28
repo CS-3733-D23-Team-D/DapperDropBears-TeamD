@@ -67,7 +67,7 @@ public class DataManager {
    * @param connection a Connection object to connect to the PostgreSQL database
    * @throws SQLException if an error occurs while uploading the data to the database
    */
-  public static void uploadToPostgreSQL(List<String[]> csvData, Connection connection)
+  public static void uploadNodeToPostgreSQL(List<String[]> csvData, Connection connection)
       throws SQLException {
 
     try (connection) {
@@ -159,7 +159,7 @@ public class DataManager {
   /**
    * Prompts the user to choose between importing a node or edge. Then asks for a file path for a
    * CSV file to import, parses the data, and uploads it to a PostgreSQL database using the
-   * importCSV and uploadToPostgreSQL/uploadEdgeToPostgreSQL functions.
+   * importCSV and uploadNodeToPostgreSQL/uploadEdgeToPostgreSQL functions.
    *
    * <p>Notes: Enter a LOCAL path on computer and REMOVE quotations
    *
@@ -197,7 +197,7 @@ public class DataManager {
           System.out.println(Arrays.toString(row));
         }
         try {
-          uploadToPostgreSQL(rows, connection);
+          uploadNodeToPostgreSQL(rows, connection);
         } catch (SQLException e) {
           System.err.println(e.getMessage());
         }
