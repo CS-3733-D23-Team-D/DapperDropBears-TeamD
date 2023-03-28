@@ -13,7 +13,7 @@ public class Node {
   @Getter @Setter private String nodeType;
   @Getter @Setter private String longName;
   @Getter @Setter private String shortName;
-  @Getter @Setter private ArrayList<Edge> edges;
+  @Getter private ArrayList<Edge> edges;
 
   // Constructor
   public Node(
@@ -36,13 +36,22 @@ public class Node {
     edges = new ArrayList<Edge>();
   }
 
-  // changes a node's long and short names
+  /***
+   * Changes the node's long and short names to the provided values
+   *
+   * @param newLong the updated long name of the node
+   * @param newShort the updated short name of the node
+   */
   public void updateNodeName(String newLong, String newShort) {
     this.longName = newLong;
     this.shortName = newShort;
   }
 
-  // Returns all the attributes of a Node as a String
+  /***
+   * Creates a string representation of the node
+   *
+   * @return a string representation of the node
+   */
   public String toString() {
     String nIDs = "NodeID: " + this.nodeID;
     String xCordS = "X-coordinate: " + this.xCord;
@@ -58,23 +67,46 @@ public class Node {
     return output;
   }
 
-  // Updates new x and y coordinates
+  /***
+   * Changes the node's x and y coordinates to the provided values
+   *
+   * @param newX the updated x coordinate of the node
+   * @param newY the updated y coordinate of the node
+   */
   public void updateCoordinates(int newX, int newY) {
     this.xCord = newX;
     this.yCord = newY;
   }
 
-  // Adds an edge to the edges list
+  /***
+   * Adds the given edge to the node's edge list as well as
+   * updates the edge's node list to have this node
+   * Only adds the edge if the node has not already been added
+   *
+   * @param e the edge to be added
+   */
   public void addEdge(Edge e) {
     if (!edges.contains(e)) {
       edges.add(e);
     }
+    if (!e.getNodes().contains(this)) {
+      e.addNode(this);
+    }
   }
 
-  // Removes an edge from the edges list
+  /***
+   * Deletes the given edge from the node's edge list and
+   * deletes this node from the given edge's node list
+   * Checks to make sure that the edge is in the list before deleting
+   *
+   * @param e the edge to be deleted
+   */
   public void removeEdge(Edge e) {
     if (edges.contains(e)) {
       edges.remove(e);
+    }
+    if (e.getNodes().contains(this)){
+      e.removeNode(this);
     }
   }
 }
