@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -28,6 +29,7 @@
                   <Font name="Verdana" size="50.0" />
                </font>
             </Label>
+            <MFXButton buttonType="RAISED" layoutX="499.0" layoutY="547.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="50.0" style="-fx-font-weight: BOLD;" text="Back" />
          </children>
       </AnchorPane>
    </top>
