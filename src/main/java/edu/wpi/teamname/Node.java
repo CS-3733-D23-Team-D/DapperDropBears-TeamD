@@ -36,8 +36,8 @@ public class Node {
     edges = new ArrayList<Edge>();
   }
 
-  /***
-   * Changes the node's long and short names to the provided values
+  /**
+   * * Changes the node's long and short names to the provided values
    *
    * @param newLong the updated long name of the node
    * @param newShort the updated short name of the node
@@ -47,8 +47,8 @@ public class Node {
     this.shortName = newShort;
   }
 
-  /***
-   * Creates a string representation of the node
+  /**
+   * * Creates a string representation of the node
    *
    * @return a string representation of the node
    */
@@ -67,8 +67,8 @@ public class Node {
     return output;
   }
 
-  /***
-   * Changes the node's x and y coordinates to the provided values
+  /**
+   * * Changes the node's x and y coordinates to the provided values
    *
    * @param newX the updated x coordinate of the node
    * @param newY the updated y coordinate of the node
@@ -78,10 +78,9 @@ public class Node {
     this.yCord = newY;
   }
 
-  /***
-   * Adds the given edge to the node's edge list as well as
-   * updates the edge's node list to have this node
-   * Only adds the edge if the node has not already been added
+  /**
+   * * Adds the given edge to the node's edge list as well as updates the edge's node list to have
+   * this node Only adds the edge if the node has not already been added
    *
    * @param e the edge to be added
    */
@@ -94,10 +93,9 @@ public class Node {
     }
   }
 
-  /***
-   * Deletes the given edge from the node's edge list and
-   * deletes this node from the given edge's node list
-   * Checks to make sure that the edge is in the list before deleting
+  /**
+   * * Deletes the given edge from the node's edge list and deletes this node from the given edge's
+   * node list Checks to make sure that the edge is in the list before deleting
    *
    * @param e the edge to be deleted
    */
@@ -105,7 +103,7 @@ public class Node {
     if (edges.contains(e)) {
       edges.remove(e);
     }
-    if (e.getNodes().contains(this)){
+    if (e.getNodes().contains(this)) {
       e.removeNode(this);
     }
   }

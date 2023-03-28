@@ -1,9 +1,8 @@
 package edu.wpi.teamname;
 
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
 
 public class Edge {
   @Getter @Setter String edgeID;
@@ -18,8 +17,8 @@ public class Edge {
     nodes = new ArrayList<Node>();
   }
 
-  /***
-   * Creates a string representation of the edge
+  /**
+   * * Creates a string representation of the edge
    *
    * @return a string representation of the edge
    */
@@ -30,10 +29,9 @@ public class Edge {
     return eIDs + " " + startNodeS + " " + endNodeS;
   }
 
-  /***
-   * Adds the given node to the edge's node list as well as
-   * updates the node's edge list to have this edge
-   * Only adds the node if the edge has not already been added
+  /**
+   * * Adds the given node to the edge's node list as well as updates the node's edge list to have
+   * this edge Only adds the node if the edge has not already been added
    *
    * @param n the node to be added
    */
@@ -46,10 +44,9 @@ public class Edge {
     }
   }
 
-  /***
-   * Deletes the given node from the edge's node list and
-   * deletes this edge from the given node's edge list
-   * Checks to make sure that the node is in the list before deleting
+  /**
+   * * Deletes the given node from the edge's node list and deletes this edge from the given node's
+   * edge list Checks to make sure that the node is in the list before deleting
    *
    * @param n the node to be deleted
    */
