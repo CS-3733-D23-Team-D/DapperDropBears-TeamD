@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -34,6 +35,11 @@
                   <Image url="@Brigham_and_Womens_Hospital_logo.png" />
                </image>
             </ImageView>
+            <MFXButton buttonType="RAISED" layoutX="435.0" layoutY="622.0" mnemonicParsing="false" style="-fx-font-weight: BOLD;" text="Back">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </MFXButton>
          </children>
       </AnchorPane>
    </center>

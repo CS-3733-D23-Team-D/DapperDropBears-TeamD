@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -34,6 +35,11 @@
                </font>
             </Label>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <MFXButton buttonType="RAISED" layoutX="487.0" layoutY="559.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" style="-fx-font-weight: BOLD;" text="Back">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </MFXButton>
          </children>
       </AnchorPane>
    </top>
