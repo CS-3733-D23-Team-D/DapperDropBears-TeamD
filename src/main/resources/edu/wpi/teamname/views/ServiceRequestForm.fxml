@@ -121,39 +121,39 @@
             <Insets bottom="120.0" right="120.0" top="140.0" />
          </StackPane.margin>
          <children>
-            <VBox fx:id="formPane" disable="true" prefHeight="820.0" prefWidth="1800.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" visible="false">
+            <VBox fx:id="formPane" prefHeight="820.0" prefWidth="1800.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
                      <font>
-                        <Font size="32.0" />
+                        <Font name="Times New Roman" size="32.0" />
                      </font>
                   </Text>
                   <MFXTextField fx:id="staffName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
                   <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
                      <font>
-                        <Font size="32.0" />
+                        <Font name="Times New Roman" size="32.0" />
                      </font>
                   </Text>
                   <MFXTextField fx:id="patientName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
                   <Separator prefWidth="200.0" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
                      <font>
-                        <Font size="32.0" />
+                        <Font name="Times New Roman" size="32.0" />
                      </font>
                   </Text>
                   <MFXTextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
                   <Separator prefWidth="200.0" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
                      <font>
-                        <Font size="32.0" />
+                        <Font name="Times New Roman" size="32.0" />
                      </font>
                   </Text>
                   <MFXDatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" />
                   <Separator prefWidth="200.0" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
                      <font>
-                        <Font size="32.0" />
+                        <Font name="Times New Roman" size="32.0" />
                      </font>
                   </Text>
                   <ComboBox fx:id="requestType" prefHeight="49.0" promptText="Choose Service Request Type" style="-fx-background-color: #D9d9d9;" />
