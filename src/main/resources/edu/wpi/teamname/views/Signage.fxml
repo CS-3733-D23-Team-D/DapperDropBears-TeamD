@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="678.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="678.0" prefWidth="1036.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.SignageController">
    <top>
       <AnchorPane prefHeight="678.0" prefWidth="1036.0" style="-fx-background-color: #bfddff;" BorderPane.alignment="CENTER">
          <children>
@@ -35,7 +37,7 @@
                </font>
             </Label>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <MFXButton buttonType="RAISED" layoutX="487.0" layoutY="559.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" style="-fx-font-weight: BOLD;" text="Back">
+            <MFXButton fx:id="backButton" buttonType="RAISED" layoutX="487.0" layoutY="559.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" style="-fx-font-weight: BOLD;" text="Back">
                <font>
                   <Font size="20.0" />
                </font>
