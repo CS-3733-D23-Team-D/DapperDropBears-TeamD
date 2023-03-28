@@ -1,8 +1,6 @@
 package edu.wpi.teamname.navigation;
 
 import java.util.*;
-import lombok.Getter;
-import lombok.Setter;
 
 public class Pathfinding {
   private int[][] graph; // hardcoded graph
@@ -80,4 +78,3 @@ public class Pathfinding {
     }
   }
 }
-
