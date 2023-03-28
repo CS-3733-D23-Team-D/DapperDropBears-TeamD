@@ -166,7 +166,6 @@ public class DataManager {
    * @throws SQLException if there is an error with the database connection or query execution
    */
   public static void importData(Connection connection) throws SQLException {
-
     Scanner scanner = new Scanner(System.in);
     // No quotes when importing doc
     System.out.println("Enter the file path of the CSV file to import: ");
@@ -174,6 +173,7 @@ public class DataManager {
     System.out.println("Press 0 for Node import" + "\npress 1 for Edge import: ");
     int edXorNo = scanner.nextInt();
     if (edXorNo == 1) {
+
       System.out.println("You chose to import edge data ");
       List<String[]> edgeRows = importCSV(csvFileName);
       if (edgeRows != null) {
@@ -500,6 +500,7 @@ public class DataManager {
     Scanner scanner = new Scanner(System.in);
     String cvsFilePath = " ";
     boolean running = true;
+
     System.out.println(
         "Choose from the following commands:\n"
             + "(1) Display node information\n"
