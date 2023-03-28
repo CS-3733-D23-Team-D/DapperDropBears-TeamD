@@ -3,13 +3,13 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.servicerequests.ServiceRequest;
-import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import lombok.Getter;
 
 public class ServiceRequestController {
@@ -22,6 +22,7 @@ public class ServiceRequestController {
    */
 
   // Sam's Form GUI
+  private int requestPage = 0; // used for keeping track of which page is active
   // Bottom Bar
   @FXML MFXButton nextButton;
 
@@ -36,14 +37,27 @@ public class ServiceRequestController {
   @FXML MFXButton serviceRequestsButton;
   @FXML MFXButton exitButton;
 
+  // Form pane
+  @FXML VBox formPane;
   // Form fields
   @FXML MFXTextField staffName;
   @FXML MFXTextField patientName;
   @FXML MFXTextField roomNum;
-  @FXML DatePicker dateBox;
+  @FXML MFXDatePicker dateBox;
   ObservableList<String> serviceType =
       FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
   @FXML ComboBox requestType;
+
+  // menu item page
+  @FXML BorderPane menuPane;
+  @FXML MFXTextField searchBar;
+  @FXML MFXCheckListView itemChecklist;
+  ObservableList<String> mealItems =
+      FXCollections.observableArrayList("Burger", "Pizza", "Cookie", "Pasta", "Cake", "Banana");
+  ObservableList<String> flowerItems =
+      FXCollections.observableArrayList("Daisy", "Rose", "Tulip", "Mum", "Cosmos", "Hyacinth");
+
+  @FXML MFXTextField notesBox;
 
   @Getter private ServiceRequest request;
 
@@ -77,7 +91,37 @@ public class ServiceRequestController {
     this.request.addItem("Flowers");
   }
 
+  private void nextPane() {
+    if (requestPage == 0) {
+      if (requestType.getValue() == "Meal Delivery") {
+        itemChecklist.setItems(mealItems);
+      } else {
+        itemChecklist.setItems(flowerItems);
+      }
+      formPane.setDisable(true);
+      formPane.setVisible(false);
+      menuPane.setDisable(false);
+      menuPane.setVisible(true);
+      nextButton.setText("Submit");
+      requestPage = 1;
+    } else {
+      formPane.setVisible(true);
+      formPane.setDisable(false);
+      menuPane.setDisable(true);
+      menuPane.setVisible(false);
+      requestPage = 0;
+      Navigation.navigate(Screen.HOME);
+    }
+  }
+
   public void initialize() {
+
+    // Making sure the first page(formBox is visible and enabled)
+    formPane.setVisible(true);
+    formPane.setDisable(false);
+    menuPane.setDisable(true);
+    menuPane.setVisible(false);
+
     // Same As Home Controller
     /**
      * backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
@@ -87,10 +131,12 @@ public class ServiceRequestController {
      * addSandwitchButton.setOnMouseClicked(event -> addSandwitch());
      * addFlowersButton.setOnMouseClicked(event -> addFlowers());
      */
-    nextButton.setOnMouseClicked(event -> Navigation.navigate(Screen.REQ_MENU));
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    nextButton.setOnMouseClicked(event -> nextPane());
 
     requestType.setItems(serviceType);
 
     request = new ServiceRequest();
+    requestPage = 0;
   }
 }

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckListView?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -107,55 +110,93 @@
       </GridPane>
       <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request" StackPane.alignment="TOP_LEFT">
          <font>
-            <Font size="48.0" />
+            <Font name="Times New Roman" size="48.0" />
          </font>
          <StackPane.margin>
             <Insets left="9.0" top="35.0" />
          </StackPane.margin>
       </Text>
-      <VBox prefHeight="820.0" prefWidth="1800.0" spacing="15.0" style="-fx-background-color: #ffffff;" StackPane.alignment="CENTER">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Text>
-            <MFXTextField fx:id="staffName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
-            <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Text>
-            <MFXTextField fx:id="patientName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
-            <Separator prefWidth="200.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Text>
-            <MFXTextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
-            <Separator prefWidth="200.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Text>
-            <DatePicker fx:id="dateBox" prefHeight="49.0" prefWidth="200.0" promptText="Date" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
-            <Separator prefWidth="200.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Text>
-            <ComboBox fx:id="requestType" prefWidth="500.0" promptText="Select Request Type" />
-         </children>
+      <StackPane prefHeight="150.0" prefWidth="200.0" StackPane.alignment="CENTER_LEFT">
          <StackPane.margin>
             <Insets bottom="120.0" right="120.0" top="140.0" />
          </StackPane.margin>
-         <padding>
-            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-         </padding>
-      </VBox>
+         <children>
+            <VBox fx:id="formPane" disable="true" prefHeight="820.0" prefWidth="1800.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" visible="false">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Text>
+                  <MFXTextField fx:id="staffName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
+                  <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Text>
+                  <MFXTextField fx:id="patientName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
+                  <Separator prefWidth="200.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Text>
+                  <MFXTextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
+                  <Separator prefWidth="200.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Text>
+                  <MFXDatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" />
+                  <Separator prefWidth="200.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="requestType" prefHeight="49.0" promptText="Choose Service Request Type" style="-fx-background-color: #D9d9d9;" />
+               </children>
+               <padding>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </padding>
+            </VBox>
+            <BorderPane fx:id="menuPane" style="-fx-background-color: #FFFFFF;" StackPane.alignment="CENTER_LEFT">
+               <top>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
+                           <font>
+                              <Font name="Times New Roman" size="36.0" />
+                           </font>
+                        </Text>
+                        <MFXTextField fx:id="searchBar" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
+                     </children>
+                     <padding>
+                        <Insets left="25.0" right="25.0" top="32.0" />
+                     </padding>
+                  </HBox>
+               </top>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+               <center>
+                  <MFXCheckListView fx:id="itemChecklist" prefHeight="691.0" prefWidth="1800.0" />
+               </center>
+               <bottom>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <MFXTextField fx:id="notesBox" prefHeight="226.0" prefWidth="1498.0" promptText="Notes">
+                           <font>
+                              <Font name="Times New Roman" size="18.0" />
+                           </font>
+                        </MFXTextField>
+                     </children>
+                  </VBox>
+               </bottom>
+            </BorderPane>
+         </children>
+      </StackPane>
    </children>
 </StackPane>
