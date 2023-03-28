@@ -500,8 +500,6 @@ public class DataManager {
     Scanner scanner = new Scanner(System.in);
     String cvsFilePath = " ";
     boolean running = true;
-    DatabaseConnection dbc = new DatabaseConnection();
-    Connection connection = dbc.DbConnection();
     System.out.println(
         "Choose from the following commands:\n"
             + "(1) Display node information\n"
@@ -518,6 +516,8 @@ public class DataManager {
 
     String optionChosen = "help";
     while (running) {
+      DatabaseConnection dbc = new DatabaseConnection();
+      Connection connection = dbc.DbConnection();
       optionChosen = scanner.nextLine();
       optionChosen = optionChosen.toLowerCase();
       optionChosen = optionChosen.replaceAll("\\s", ""); // Removes whitespace
