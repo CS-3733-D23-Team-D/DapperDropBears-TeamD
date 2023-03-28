@@ -13,6 +13,7 @@ public class DatabaseConnection {
   /**
    * Main function that connects to the database, or it will display an error if it does not.
    */
+
   public Connection DbConnection() {
     Connection connection = null;
 
