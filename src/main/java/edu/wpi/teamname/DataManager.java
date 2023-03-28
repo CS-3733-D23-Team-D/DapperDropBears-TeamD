@@ -174,7 +174,6 @@ public class DataManager {
     int edXorNo = scanner.nextInt();
     if (edXorNo == 1) {
 
-
       System.out.println("You chose to import edge data ");
       List<String[]> edgeRows = importCSV(csvFileName);
       if (edgeRows != null) {
