@@ -10,6 +10,9 @@ public class DatabaseConnection {
   private static final String DB_USER = "teamd";
   private static final String DB_PASSWORD = "teamd40";
 
+  /**
+   * Main function that connects to the database, or it will display an error if it does not.
+   */
   public Connection DbConnection() {
     Connection connection = null;
 
