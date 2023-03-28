@@ -58,6 +58,12 @@ public class Node {
     return output;
   }
 
+  // Alek created another toString
+  public String toStringID() {
+    String nIDs = this.nodeID;
+    return nIDs;
+  }
+
   // Updates new x and y coordinates
   public void updateCoordinates(int newX, int newY) {
     this.xCord = newX;

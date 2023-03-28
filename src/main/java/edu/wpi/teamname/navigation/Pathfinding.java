@@ -47,26 +47,7 @@ public class Pathfinding {
     return null; // destination not reachable from start
   }
 
-  // main method to test the algorithm
-  public static void main(String[] args) {
-    int[][] graph = { // Hardcoded graph
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0}, // Hall2
-      {0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0}, // Hall3
-      {0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}, // Hall6
-      {0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Hall7
-      {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1}, // Hall8
-      {0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, // Lab3
-      {0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, // Lab4
-      {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Lab5
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Conf2
-      {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Conf3
-      {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Dept4
-      {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Rest2
-      {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, // Serv1
-      {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0} // ElevK
-    };
-    // H2 H3 H6 H7 H8 L3 L4 L5 C2 C3 D4 R2 S1 EK
-
+  public static void createNodes(LinkedList<Node> nodeList) {
     Node conf3 =
         new Node(
             "CCONF003L1",
@@ -208,6 +189,66 @@ public class Pathfinding {
             "CSIR MRI Floor L1",
             "Lab C005L1");
 
+    nodeList.add(hall2);
+    nodeList.add(hall3);
+    nodeList.add(hall6);
+    nodeList.add(hall7);
+    nodeList.add(hall8);
+    nodeList.add(lab3);
+    nodeList.add(lab4);
+    nodeList.add(lab5);
+    nodeList.add(conf2);
+    nodeList.add(conf3);
+    nodeList.add(dept4);
+    nodeList.add(rest2);
+    nodeList.add(serv1);
+    nodeList.add(elevk);
+  }
+
+  // method to print the nodes in order (will use switch to convert int to the nodes)
+  public static void printNodePath(List<Integer> p, LinkedList<Node> nodeList) {
+    System.out.println(
+        "The path from starting point: "
+            + nodeList.get(p.get(0)).toStringID()
+            + " to the destination: "
+            + nodeList.get(p.get(p.size() - 1)).toStringID()
+            + " is:");
+    for (int i = 0; i < p.size(); i++) {
+      Node current;
+      current = nodeList.get(p.get(i));
+      String nodeName = current.getNodeID();
+      if (i == p.size() - 1) {
+        System.out.println(nodeName);
+      } else {
+        System.out.print(nodeName + " --> ");
+      }
+    }
+  }
+
+  // main method to test the algorithm
+  public static void main(String[] args) {
+    LinkedList<Node> listOfNodes = new LinkedList<>();
+
+    int[][] graph = { // Hardcoded graph
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0}, // Hall2
+      {0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0}, // Hall3
+      {0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}, // Hall6
+      {0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Hall7
+      {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1}, // Hall8
+      {0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, // Lab3
+      {0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0}, // Lab4
+      {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Lab5
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Conf2
+      {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Conf3
+      {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Dept4
+      {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Rest2
+      {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0}, // Serv1
+      {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0} // ElevK
+    };
+    // H2 H3 H6 H7 H8 L3 L4 L5 C2 C3 D4 R2 S1 EK
+
+    createNodes(listOfNodes);
+
     Scanner sc = new Scanner(System.in);
     System.out.print("Enter starting point: ");
     int startNode = sc.nextInt();
@@ -222,5 +263,7 @@ public class Pathfinding {
     } else {
       System.out.println("No path found from " + startNode + " to " + endNode + ".");
     }
+
+    printNodePath(path, listOfNodes);
   }
 }
