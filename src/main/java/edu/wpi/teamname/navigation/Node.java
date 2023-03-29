@@ -62,7 +62,6 @@ public class Node {
   public String toStringID() {
     String nIDs = this.nodeID;
     return nIDs;
-
   }
 
   // Updates new x and y coordinates

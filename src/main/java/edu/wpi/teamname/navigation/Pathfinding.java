@@ -1,11 +1,16 @@
 package edu.wpi.teamname.navigation;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Pathfinding {
   private int[][] graph; // hardcoded graph
   private boolean[] visited; // visited nodes
   private int[] parent; // integer array to keep track of parent of each node
+  private static int startNodeVal = 0;
+  private static int endNodeVal = 0;
 
   // constructor
   public Pathfinding(int[][] graph) {
@@ -222,12 +227,22 @@ public class Pathfinding {
       } else {
         System.out.print(nodeName + " --> ");
       }
+    }
+  }
 
+  public static void convertToInt(String s, String e, LinkedList<Node> nodeList) {
+
+    for (int i = 0; i < nodeList.size(); i++) {
+      if (nodeList.get(i).getNodeID().equals(s)) {
+        startNodeVal = i;
+      } else if (nodeList.get(i).getNodeID().equals(e)) {
+        endNodeVal = i;
+      }
     }
   }
 
   // main method to test the algorithm
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     LinkedList<Node> listOfNodes = new LinkedList<>();
 
     int[][] graph = { // Hardcoded graph
@@ -250,15 +265,17 @@ public class Pathfinding {
 
     createNodes(listOfNodes);
 
-    Scanner sc = new Scanner(System.in);
-    System.out.print("Enter starting point: ");
-    int startNode = sc.nextInt();
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    System.out.println("Enter start point: ");
+    String startNode = reader.readLine();
 
-    System.out.print("Enter destination: ");
-    int endNode = sc.nextInt();
+    System.out.println("Enter destination: ");
+    String endNode = reader.readLine();
+
+    convertToInt(startNode, endNode, listOfNodes);
 
     Pathfinding bfs = new Pathfinding(graph);
-    List<Integer> path = bfs.bfsBacktrack(startNode, endNode);
+    List<Integer> path = bfs.bfsBacktrack(startNodeVal, endNodeVal);
     if (path != null) {
       System.out.println("Path from " + startNode + " to " + endNode + ": " + path);
     } else {
