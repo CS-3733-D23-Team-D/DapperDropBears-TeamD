@@ -34,7 +34,7 @@ public class Pathfinding {
         int node = dest;
         while (node != start) {
           path.add(node);
-          System.out.println("This is parent node:" + parent[node]);
+          // System.out.println("This is parent node:" + parent[node]);
           node = parent[node];
         }
         path.add(start);
@@ -49,6 +49,10 @@ public class Pathfinding {
         }
       }
     }
+    System.out.println(
+        "There is no path from the start ot the end destination! Please run and try again.");
+    System.exit(0);
+
     return null; // destination not reachable from start
   }
 
