@@ -22,193 +22,184 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:id="requestPane" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
+
+<AnchorPane fx:id="rootPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
    <children>
-      <ImageView fx:id="imageView">
-         <image>
-            <Image url="@../images/BaWHospital.jpg" />
-         </image></ImageView>
-      <ImageView fitHeight="1080.0" pickOnBounds="true" preserveRatio="true" style="-fx-scale-x: 100%;" StackPane.alignment="CENTER">
-         <image>
-            <Image url="@../images/BaWHospital.jpg" />
-         </image>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#404040" height="140.0" opacity="0.2" stroke="BLACK" strokeType="INSIDE" width="1920.0" StackPane.alignment="TOP_CENTER" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#40404080" height="140.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="120.0" StackPane.alignment="TOP_RIGHT" />
-      <ImageView fitHeight="140.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
-         <image>
-            <Image url="@../images/logo.png" />
-         </image>
-      </ImageView>
-      <ToolBar maxWidth="-Infinity" orientation="VERTICAL" prefHeight="195.0" prefWidth="120.0" style="-fx-background-color: #40404080;" StackPane.alignment="BOTTOM_RIGHT">
-        <items>
-            <MFXButton fx:id="homeButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
-               <font>
-                  <Font name="Times New Roman" size="19.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="helpButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
-               <font>
-                  <Font name="Times New Roman" size="19.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="mapButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Map" textFill="WHITE">
-               <font>
-                  <Font name="Times New Roman" size="19.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="directionButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
-               <font>
-                  <Font name="Times New Roman" size="19.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="serviceRequestsButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
-               <font>
-                  <Font name="Times New Roman" size="19.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="exitButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Exit" textFill="WHITE">
-               <font>
-                  <Font name="Times New Roman" size="19.0" />
-               </font>
-            </MFXButton>
-        </items>
-         <StackPane.margin>
-            <Insets top="140.0" />
-         </StackPane.margin>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets top="1.0" />
-         </padding>
-      </ToolBar>
-      <GridPane maxHeight="-Infinity" prefHeight="120.0" StackPane.alignment="BOTTOM_LEFT">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <StackPane.margin>
-            <Insets right="120.0" />
-         </StackPane.margin>
+      <ImageView fx:id="background" pickOnBounds="true" preserveRatio="true" style="-fx-scale-x: 100%;" />
+      <StackPane layoutX="-6.0" layoutY="8.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-image: \@../images/BaWHospital.jpg;" AnchorPane.bottomAnchor="-0.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MFXButton fx:id="nextButton" prefHeight="136.0" prefWidth="619.0" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Next" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="cancelButton" prefHeight="136.0" prefWidth="619.0" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffE0; -fx-border-width: 2;" text="Cancel" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </MFXButton>
-            <MFXButton fx:id="clearButton" prefHeight="188.0" prefWidth="636.0" style="-fx-background-color: #ffffff80; -fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Clear" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </MFXButton>
-         </children>
-      </GridPane>
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request" StackPane.alignment="TOP_LEFT">
-         <font>
-            <Font name="Times New Roman" size="48.0" />
-         </font>
-         <StackPane.margin>
-            <Insets left="9.0" top="35.0" />
-         </StackPane.margin>
-      </Text>
-      <StackPane prefHeight="150.0" prefWidth="200.0" StackPane.alignment="CENTER_LEFT">
-         <StackPane.margin>
-            <Insets bottom="120.0" right="120.0" top="140.0" />
-         </StackPane.margin>
-         <children>
-            <AnchorPane fx:id="formPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
-               <children>
-                  <VBox prefHeight="820.0" prefWidth="1800.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
-                           <font>
-                              <Font name="Times New Roman" size="32.0" />
-                           </font>
-                        </Text>
-                        <MFXTextField fx:id="staffName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
-                        <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
-                           <font>
-                              <Font name="Times New Roman" size="32.0" />
-                           </font>
-                        </Text>
-                        <MFXTextField fx:id="patientName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
-                        <Separator prefWidth="200.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
-                           <font>
-                              <Font name="Times New Roman" size="32.0" />
-                           </font>
-                        </Text>
-                        <MFXTextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
-                        <Separator prefWidth="200.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
-                           <font>
-                              <Font name="Times New Roman" size="32.0" />
-                           </font>
-                        </Text>
-                        <MFXDatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" />
-                        <Separator prefWidth="200.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
-                           <font>
-                              <Font name="Times New Roman" size="32.0" />
-                           </font>
-                        </Text>
-                        <ComboBox fx:id="requestType" prefHeight="49.0" promptText="Choose Service Request Type" style="-fx-background-color: #D9d9d9;" />
-                     </children>
-                  </VBox>
-               </children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#404040" height="140.0" opacity="0.2" stroke="BLACK" strokeType="INSIDE" width="1800.0" StackPane.alignment="TOP_LEFT" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#40404080" height="140.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" width="120.0" StackPane.alignment="TOP_RIGHT" />
+            <ImageView fitHeight="140.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
+               <image>
+                  <Image url="@../images/logo.png" />
+               </image>
+            </ImageView>
+            <ToolBar maxWidth="-Infinity" orientation="VERTICAL" prefHeight="195.0" prefWidth="120.0" style="-fx-background-color: #40404080;" StackPane.alignment="BOTTOM_RIGHT">
+              <items>
+                  <MFXButton fx:id="homeButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="helpButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="mapButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Map" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="directionButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="serviceRequestsButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="exitButton" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #003da6;" text="Exit" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+              </items>
+               <StackPane.margin>
+                  <Insets top="140.0" />
+               </StackPane.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
                <padding>
-                  <Insets left="25.0" right="25.0" />
+                  <Insets top="1.0" />
                </padding>
+            </ToolBar>
+            <GridPane maxHeight="-Infinity" prefHeight="120.0" StackPane.alignment="BOTTOM_LEFT">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <StackPane.margin>
-                  <Insets />
+                  <Insets right="120.0" />
                </StackPane.margin>
-            </AnchorPane>
-            <BorderPane fx:id="menuPane" disable="true" style="-fx-background-color: #FFFFFF;" visible="false" StackPane.alignment="CENTER_LEFT">
-               <top>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
-                           <font>
-                              <Font name="Times New Roman" size="36.0" />
-                           </font>
-                        </Text>
-                        <MFXTextField fx:id="searchBar" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
-                     </children>
-                     <padding>
-                        <Insets left="25.0" right="25.0" top="32.0" />
-                     </padding>
-                  </HBox>
-               </top>
+               <children>
+                  <MFXButton fx:id="nextButton" prefHeight="136.0" prefWidth="619.0" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Next" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="cancelButton" prefHeight="136.0" prefWidth="619.0" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffE0; -fx-border-width: 2;" text="Cancel" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="clearButton" prefHeight="188.0" prefWidth="636.0" style="-fx-background-color: #ffffff80; -fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Clear" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </GridPane>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="Times New Roman" size="48.0" />
+               </font>
                <StackPane.margin>
-                  <Insets />
+                  <Insets left="9.0" top="35.0" />
                </StackPane.margin>
-               <center>
-                  <MFXCheckListView fx:id="itemChecklist" prefHeight="691.0" prefWidth="1800.0" />
-               </center>
-               <bottom>
-                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            </Text>
+            <StackPane prefHeight="150.0" prefWidth="200.0" StackPane.alignment="CENTER_LEFT">
+               <StackPane.margin>
+                  <Insets bottom="120.0" right="120.0" top="140.0" />
+               </StackPane.margin>
+               <children>
+                  <AnchorPane fx:id="formAnchor" style="-fx-background-color: #ffffff;">
                      <children>
-                        <MFXTextField fx:id="notesBox" prefHeight="226.0" prefWidth="1498.0" promptText="Notes">
-                           <font>
-                              <Font name="Times New Roman" size="18.0" />
-                           </font>
-                        </MFXTextField>
+                        <VBox fx:id="formPane" prefHeight="820.0" prefWidth="1800.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
+                                 <font>
+                                    <Font name="Times New Roman" size="32.0" />
+                                 </font>
+                              </Text>
+                              <MFXTextField fx:id="staffName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
+                              <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
+                                 <font>
+                                    <Font name="Times New Roman" size="32.0" />
+                                 </font>
+                              </Text>
+                              <MFXTextField fx:id="patientName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
+                              <Separator prefWidth="200.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
+                                 <font>
+                                    <Font name="Times New Roman" size="32.0" />
+                                 </font>
+                              </Text>
+                              <MFXTextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
+                              <Separator prefWidth="200.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                                 <font>
+                                    <Font name="Times New Roman" size="32.0" />
+                                 </font>
+                              </Text>
+                              <MFXDatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" />
+                              <Separator prefWidth="200.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
+                                 <font>
+                                    <Font name="Times New Roman" size="32.0" />
+                                 </font>
+                              </Text>
+                              <ComboBox fx:id="requestType" prefHeight="49.0" promptText="Choose Service Request Type" style="-fx-background-color: #D9d9d9;" />
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
-               </bottom>
-            </BorderPane>
+                  </AnchorPane>
+                  <BorderPane fx:id="menuPane" style="-fx-background-color: #FFFFFF;" visible="false" StackPane.alignment="CENTER_LEFT">
+                     <top>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
+                                 <font>
+                                    <Font name="Times New Roman" size="36.0" />
+                                 </font>
+                              </Text>
+                              <MFXTextField fx:id="searchBar" prefHeight="49.0" prefWidth="1700.0" style="-fx-background-color: #d9d9d9;" />
+                           </children>
+                           <padding>
+                              <Insets left="25.0" right="25.0" top="32.0" />
+                           </padding>
+                        </HBox>
+                     </top>
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                     <center>
+                        <MFXCheckListView fx:id="itemChecklist" prefHeight="691.0" prefWidth="1800.0" />
+                     </center>
+                     <bottom>
+                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <MFXTextField fx:id="notesBox" prefHeight="226.0" prefWidth="1498.0" promptText="Notes">
+                                 <font>
+                                    <Font name="Times New Roman" size="18.0" />
+                                 </font>
+                              </MFXTextField>
+                           </children>
+                        </VBox>
+                     </bottom>
+                  </BorderPane>
+               </children>
+            </StackPane>
          </children>
       </StackPane>
    </children>
-</StackPane>
+</AnchorPane>

@@ -8,10 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import lombok.Getter;
 
 public class ServiceRequestController {
@@ -24,6 +26,9 @@ public class ServiceRequestController {
    */
 
   // Sam's Form GUI
+  @FXML AnchorPane rootPane;
+
+  @FXML ImageView background;
   private int requestPage = 0; // used for keeping track of which page is active
   // Bottom Bar
   @FXML MFXButton nextButton;
@@ -38,9 +43,10 @@ public class ServiceRequestController {
   @FXML MFXButton directionButton;
   @FXML MFXButton serviceRequestsButton;
   @FXML MFXButton exitButton;
-  @FXML ImageView imageView;
+
   // Form pane
-  @FXML AnchorPane formPane;
+  @FXML AnchorPane formAnchor;
+  @FXML VBox formPane;
   // Form fields
   @FXML MFXTextField staffName;
   @FXML MFXTextField patientName;
@@ -117,8 +123,17 @@ public class ServiceRequestController {
   }
 
   public void initialize() {
-    imageView.fitWidthProperty().bind(requestPane.widthProperty());
-    imageView.fitHeightProperty().bind(requestPane.heightProperty());
+
+    // set the width and height to be bound to the panes width and height
+    background.fitWidthProperty().bind(rootPane.widthProperty());
+    background.fitHeightProperty().bind(rootPane.heightProperty());
+    // make an image and image view, using the path to the image
+    Image image = new Image("edu/wpi/teamname/images/BaWHospital.jpg");
+    background.setImage(image);
+    // set the width and height to be bound to the panes width and height
+    background.fitWidthProperty().bind(rootPane.widthProperty());
+    background.fitHeightProperty().bind(rootPane.heightProperty());
+
     // Making sure the first page(formBox is visible and enabled)
     formPane.setVisible(true);
     formPane.setDisable(false);
@@ -135,6 +150,7 @@ public class ServiceRequestController {
      * addFlowersButton.setOnMouseClicked(event -> addFlowers());
      */
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    exitButton.setOnMouseClicked(event -> System.exit(0));
     nextButton.setOnMouseClicked(event -> nextPane());
 
     requestType.setItems(serviceType);
