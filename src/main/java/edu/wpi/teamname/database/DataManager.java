@@ -472,16 +472,28 @@ public class DataManager {
    */
   public static void runQuery(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
-    System.out.print("Enter the SQL you want to run: ");
+    System.out.print(
+        "Enter the SQL you want to run (Put quotes around table names, single quotes around data points): ");
     String query = scanner.nextLine();
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
+      ResultSetMetaData rsmd = rs.getMetaData();
+      int colNum = rsmd.getColumnCount();
+      while (rs.next()) {
+        for (int i = 1; i <= colNum; i++) {
+          if (i > 1) {
+            System.out.print(",\t");
+          }
+          String colVal = rs.getString(i);
+          System.out.print(colVal + " " + rsmd.getColumnName(i));
+        }
+        System.out.println("");
+      }
       System.out.println("Query successfully run");
     } catch (SQLException e) {
-      System.out.println("Query failed");
+      System.out.println("Query failed: " + e.getMessage());
       throw e;
     }
-    System.out.println("Command successful");
   }
 
   /**
@@ -536,6 +548,8 @@ public class DataManager {
             + "(9) Run SQL query\n"
             + "\t-Will run the inputted SQL query on the database\n"
             + "\t-Only use if you know how to use SQL\n"
+            + "\tMake sure to put quotes around table names\n"
+            + "\tand put single quotes around data points\n"
             + "(10) Display Help\n"
             + "\t-Displays this text\n"
             + "(11) Exit\n"
@@ -546,25 +560,23 @@ public class DataManager {
     Scanner scanner = new Scanner(System.in);
     String cvsFilePath = " ";
     boolean running = true;
-
+    System.out.println(
+        "Choose from the following commands:\n"
+            + "(1) Display node information\n"
+            + "(2) Display edge information\n"
+            + "(3) Import data from CSV file\n"
+            + "(4) Export data into CSV file\n"
+            + "(5) Update node coordinates\n"
+            + "(6) Update node name\n"
+            + "(7) Delete node\n"
+            + "(8) Delete edge\n"
+            + "(9) Run SQL query\n"
+            + "(10) Display help\n"
+            + "(11) Exit");
     String optionChosen = "help";
     while (running) {
       DatabaseConnection dbc = new DatabaseConnection();
       Connection connection = dbc.DbConnection();
-
-      System.out.println(
-          "Choose from the following commands:\n"
-              + "(1) Display node information\n"
-              + "(2) Display edge information\n"
-              + "(3) Import data from CSV file\n"
-              + "(4) Export data into CSV file\n"
-              + "(5) Update node coordinates\n"
-              + "(6) Update node name\n"
-              + "(7) Delete node\n"
-              + "(8) Delete edge\n"
-              + "(9) Run SQL query\n"
-              + "(10) Display help\n"
-              + "(11) Exit");
 
       optionChosen = scanner.nextLine();
       optionChosen = optionChosen.toLowerCase();
