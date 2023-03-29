@@ -8,8 +8,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import lombok.Getter;
 
 public class ServiceRequestController {
@@ -38,7 +38,7 @@ public class ServiceRequestController {
   @FXML MFXButton exitButton;
 
   // Form pane
-  @FXML VBox formPane;
+  @FXML AnchorPane formPane;
   // Form fields
   @FXML MFXTextField staffName;
   @FXML MFXTextField patientName;
