@@ -45,7 +45,9 @@ public class DataManager {
     try (connection) {
       String query =
           "INSERT INTO \"L1Edges\" (\"edgeID\", \"startNode\", \"endNode\") " + "VALUES (?, ?, ?)";
-      PreparedStatement statement = connection.prepareStatement(query);
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"L1Edges\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
 
       for (int i = 1; i < csvData.size(); i++) {
         String[] row = csvData.get(i);
@@ -74,7 +76,9 @@ public class DataManager {
       String query =
           "INSERT INTO \"L1Nodes\" (\"nodeID\", xcoord, ycoord, floor, building, \"nodeType\", \"longName\",\"shortName\") "
               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-      PreparedStatement statement = connection.prepareStatement(query);
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"L1Nodes\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
 
       for (int i = 1; i < csvData.size(); i++) {
         String[] row = csvData.get(i);
