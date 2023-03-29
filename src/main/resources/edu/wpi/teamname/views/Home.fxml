@@ -26,7 +26,7 @@
                   <Insets left="50.0" />
                </StackPane.margin>
             </ImageView>
-            <MFXButton id="directions" fx:id="directionButton" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Get Directions" StackPane.alignment="CENTER_RIGHT">
+            <MFXButton id="directions" fx:id="directionButton" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Signage Page" StackPane.alignment="CENTER_RIGHT">
                <font>
                   <Font name="Nunito Sans Regular" size="12.0" />
                </font>
