@@ -10,7 +10,10 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-fit-width: 100%; -fx-fit-height: 100%;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
    <children>
-      <ImageView fx:id="imageView"/>
+      <ImageView fx:id="imageView">
+         <image>
+            <Image url="@../images/BaWHospital.jpg" />
+         </image></ImageView>
 <!--      <ImageView fitHeight="1080" fitWidth="1920.0" opacity="0.78" pickOnBounds="true" preserveRatio="true" style="-fx-fit-width: 100%; -fx-fit-height: 100%;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
 <!--         <image>-->
 <!--            <Image url="@../images/BaWHospital.jpg" />-->

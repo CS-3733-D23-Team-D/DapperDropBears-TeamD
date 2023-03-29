@@ -4,7 +4,6 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -20,9 +19,7 @@ public class HomeController {
 
   @FXML
   public void initialize() {
-    // make an image and image view, using the path to the image
-    Image image = new Image("edu/wpi/teamname/images/BaWHospital.jpg");
-    imageView.setImage(image);
+
     // set the width and height to be bound to the panes width and height
     imageView.fitWidthProperty().bind(rootPane.widthProperty());
     imageView.fitHeightProperty().bind(rootPane.heightProperty());
