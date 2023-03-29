@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
+   <left>
       <AnchorPane prefHeight="738.0" prefWidth="1035.0" style="-fx-background-color: #bfddff;" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="58.0" layoutY="389.0" prefHeight="38.0" prefWidth="813.0" style="-fx-font-weight: BOLD;" text="Brigham Circle Medical Associates (up to 3rd floor)">
@@ -15,7 +15,7 @@
                   <Font name="Verdana" size="28.0" />
                </font>
             </Label>
-            <Label layoutX="106.0" layoutY="253.0" style="-fx-font-weight: BOLD;" text="Watkins Clinic C (EP &amp; Echo) (up to 3rd floor)">
+            <Label layoutX="106.0" layoutY="254.0" style="-fx-font-weight: BOLD;" text="Watkins Clinic C (EP &amp; Echo) (up to 3rd floor)">
                <font>
                   <Font name="Verdana" size="28.0" />
                </font>
@@ -40,7 +40,22 @@
                   <Font size="20.0" />
                </font>
             </MFXButton>
+            <Label layoutX="45.0" layoutY="239.0" prefHeight="64.0" prefWidth="25.0" rotate="270.0" style="-fx-font-weight: BOLD;" text="&gt;" textAlignment="CENTER">
+               <font>
+                  <Font name="Verdana" size="50.0" />
+               </font>
+            </Label>
+            <Label layoutX="4.0" layoutY="376.0" rotate="270.0" style="-fx-font-weight: BOLD;" text="&gt;">
+               <font>
+                  <Font name="Verdana" size="50.0" />
+               </font>
+            </Label>
+            <Label layoutX="117.0" layoutY="512.0" rotate="90.0" style="-fx-font-weight: BOLD;" text="&gt;">
+               <font>
+                  <Font name="Verdana" size="50.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-   </center>
+   </left>
 </BorderPane>
