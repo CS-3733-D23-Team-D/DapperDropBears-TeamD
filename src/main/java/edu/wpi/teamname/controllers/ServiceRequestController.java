@@ -8,8 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import lombok.Getter;
 
 public class ServiceRequestController {
@@ -25,7 +27,7 @@ public class ServiceRequestController {
   private int requestPage = 0; // used for keeping track of which page is active
   // Bottom Bar
   @FXML MFXButton nextButton;
-
+  @FXML StackPane requestPane;
   @FXML MFXButton clearButton;
   @FXML MFXButton cancelButton;
 
@@ -36,7 +38,7 @@ public class ServiceRequestController {
   @FXML MFXButton directionButton;
   @FXML MFXButton serviceRequestsButton;
   @FXML MFXButton exitButton;
-
+  @FXML ImageView imageView;
   // Form pane
   @FXML AnchorPane formPane;
   // Form fields
@@ -115,7 +117,8 @@ public class ServiceRequestController {
   }
 
   public void initialize() {
-
+    imageView.fitWidthProperty().bind(requestPane.widthProperty());
+    imageView.fitHeightProperty().bind(requestPane.heightProperty());
     // Making sure the first page(formBox is visible and enabled)
     formPane.setVisible(true);
     formPane.setDisable(false);
