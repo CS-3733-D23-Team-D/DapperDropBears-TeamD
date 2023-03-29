@@ -50,7 +50,7 @@ public class Pathfinding {
   }
 
   // main method to test the algorithm
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     //    Node A = new Node("CCONF001L1",	2255,	849,	"L1",	"45 Francis",	"CONF",	"Anesthesia Conf
     // Floor L1",	"Conf");
     //    Node B = new Node();
@@ -59,26 +59,28 @@ public class Pathfinding {
     //    Node E = new Node();
 
     // Edge A =
-    Scanner scanner = new Scanner(new File("L1Nodes.csv"));
-    scanner.useDelimiter(",");
-    while (scanner.hasNext()) {
-      System.out.print(scanner.next() + "|");
-    }
-    scanner.close();
+    String file =
+        "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\L1Nodes.csv";
+    Scanner sc = new Scanner(new File(file));
 
-    //    Scanner sc = new Scanner(System.in);
-    //    System.out.print("Enter starting point: ");
-    //    int startNode = sc.nextInt();
-    //
-    //    System.out.print("Enter destination: ");
-    //    int endNode = sc.nextInt();
-    //
-    //    Pathfinding bfs = new Pathfinding(graph);
-    //    List<Integer> path = bfs.bfsBacktrack(startNode, endNode);
-    //    if (path != null) {
-    //      System.out.println("Path from " + startNode + " to " + endNode + ": " + path);
-    //    } else {
-    //      System.out.println("No path found from " + startNode + " to " + endNode + ".");
-    //    }
+    int i = 1;
+    ArrayList<String> NodeLine = new ArrayList<String>();
+    while (sc.hasNextLine()) {
+      NodeLine.add(sc.nextLine());
+      i++;
+    }
+
+    String[] I;
+    int j = 0;
+    String line = "";
+    while (!NodeLine.isEmpty()) {
+      line = NodeLine.get(j);
+      I = line.split(",");
+      NodeLine.remove(j);
+
+      Node node[](I[0], Integer.parseInt(I[1]), Integer.parseInt(I[2]), I[3], I[4], I[5], I[6], I[7]);
+    }
+
+    sc.close();
   }
 }
