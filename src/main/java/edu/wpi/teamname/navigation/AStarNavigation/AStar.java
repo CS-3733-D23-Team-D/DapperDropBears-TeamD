@@ -1,44 +1,40 @@
 package edu.wpi.teamname.navigation.AStarNavigation;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class AStar {
   public static void main(String[] args) {
 
-    // Head node is starting node
-    // G will be 0 for Starter node
-    //        Node head = new Node(1, 1);
-    //        head.g = 0;
-
-    Node start = new Node(1, 1);
+    List<Node> nodes = new ArrayList<>();
+    Node n0 = new Node(1, 1, 0); // use as target for example
     Node n1 = new Node(1, 3);
     Node n2 = new Node(2, 2);
     Node n3 = new Node(3, 1);
     Node n4 = new Node(3, 3);
     Node n5 = new Node(4, 2);
-    Node n6 = new Node(4, 4);
+    Node n6 = new Node(4, 4); // Use as start for example
 
-    start.addBranch(n1);
-    start.addBranch(n2);
-    start.addBranch(n3);
-    n1.addBranch(n4);
-    n1.addBranch(n2);
-    n2.addBranch(n4);
-    n2.addBranch(n3);
-    n3.addBranch(n4);
-    n3.addBranch(n5);
-    n4.addBranch(n6);
-    n5.addBranch(n6);
+    n0.addBranch(n1);n0.addBranch(n2);n0.addBranch(n3);
+    n1.addBranch(n0);n1.addBranch(n4);n1.addBranch(n2);
+    n2.addBranch(n4);n2.addBranch(n3);n2.addBranch(n0);n2.addBranch(n1);
+    n3.addBranch(n0);n3.addBranch(n2);n3.addBranch(n4);n3.addBranch(n5);
+    n4.addBranch(n6);n4.addBranch(n1);n4.addBranch(n2);n4.addBranch(n3);
+    n5.addBranch(n6);n5.addBranch(n3);
+    n6.addBranch(n4);n6.addBranch(n5);
+
+    nodes.add(n0);nodes.add(n1);nodes.add(n2);nodes.add(n3);nodes.add(n4);nodes.add(n5);nodes.add(n6);
+    Scanner console = new Scanner(System.in);
+    System.out.println("Enter your start node:");
+    String startNodeStr = console.nextLine();
+    System.out.println("Enter your target node:");
+    String targetNodeStr = console.nextLine();
 
     //        System.out.println(n1.toString());
     //        System.out.println(n2.toString());
     //        System.out.println(n3.toString());
     //        System.out.println(n1.findWeight(n2));
 
-    Node res = aStar(n1, n5); // run the A* algorithm
+    Node res = aStar(n6, n0); // run the A* algorithm
     printPath(res);
   }
 
