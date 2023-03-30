@@ -4,16 +4,13 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.servicerequests.ServiceRequest;
 import io.github.palexdev.materialfx.controls.*;
+import io.github.palexdev.materialfx.controls.cell.MFXCheckListCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import lombok.Getter;
 
 public class ServiceRequestController {
@@ -26,7 +23,7 @@ public class ServiceRequestController {
    */
 
   // Sam's Form GUI
-  @FXML AnchorPane rootPane;
+  @FXML HBox rootPane;
 
   @FXML ImageView background;
   private int requestPage = 0; // used for keeping track of which page is active
@@ -46,7 +43,7 @@ public class ServiceRequestController {
 
   // Form pane
   @FXML AnchorPane formAnchor;
-  @FXML VBox formPane;
+  @FXML AnchorPane formPane;
   // Form fields
   @FXML MFXTextField staffName;
   @FXML MFXTextField patientName;
@@ -57,7 +54,7 @@ public class ServiceRequestController {
   @FXML ComboBox requestType;
 
   // menu item page
-  @FXML BorderPane menuPane;
+  @FXML AnchorPane menuPane;
   @FXML MFXTextField searchBar;
   @FXML MFXCheckListView itemChecklist;
   ObservableList<String> mealItems =
@@ -69,37 +66,18 @@ public class ServiceRequestController {
 
   @Getter private ServiceRequest request;
 
-  private void printMeal() {
-    System.out.println("printMeal");
-    System.out.println(this.request);
-  }
-
-  private void setDate() {
-    System.out.println("setDate");
-    this.request.setTime();
-  }
-
-  private void printDate() {
-    System.out.println("printDate");
-    System.out.println(this.request.getDeliverBy());
-  }
-
-  private void addFries() {
-    System.out.println("addFries");
-    this.request.addItem("Fries");
-  }
-
-  private void addSandwitch() {
-    System.out.println("addSandwitch");
-    this.request.addItem("Sandwitch");
-  }
-
-  private void addFlowers() {
-    System.out.println("addFlowers");
-    this.request.addItem("Flowers");
+  private void addSelectedItems() {
+    for (int i = 0; i < itemChecklist.getCells().size(); i++) {
+      System.out.println();
+      MFXCheckListCell cell = itemChecklist.getCell(i);
+      if (cell.isSelected()) {
+        request.addItem(itemChecklist.getItems().get(i).toString());
+      }
+    }
   }
 
   private void nextPane() {
+    System.out.println("NEXT");
     if (requestPage == 0) {
       if (requestType.getValue() == "Meal Delivery") {
         itemChecklist.setItems(mealItems);
@@ -112,6 +90,12 @@ public class ServiceRequestController {
       menuPane.setVisible(true);
       nextButton.setText("Submit");
       requestPage = 1;
+
+      request.setStaffName(staffName.getCharacters().toString());
+      request.setPatientName(patientName.getCharacters().toString());
+      request.setRoomNumber(roomNum.getCharacters().toString());
+      request.setDeliverBy(dateBox.getValue());
+
     } else {
       formPane.setVisible(true);
       formPane.setDisable(false);
@@ -119,26 +103,32 @@ public class ServiceRequestController {
       menuPane.setVisible(false);
       requestPage = 0;
       Navigation.navigate(Screen.HOME);
+
+      request.setNotes(notesBox.getCharacters().toString());
+
+      addSelectedItems();
+
+      System.out.println(request);
     }
   }
 
   public void initialize() {
 
     // set the width and height to be bound to the panes width and height
-    background.fitWidthProperty().bind(rootPane.widthProperty());
-    background.fitHeightProperty().bind(rootPane.heightProperty());
+    //    background.fitWidthProperty().bind(rootPane.widthProperty());
+    //    background.fitHeightProperty().bind(rootPane.heightProperty());
     // make an image and image view, using the path to the image
-    Image image = new Image("edu/wpi/teamname/images/BaWHospital.jpg");
-    background.setImage(image);
+    //    Image image = new Image("edu/wpi/teamname/images/BaWHospital.jpg");
+    //    background.setImage(image);
     // set the width and height to be bound to the panes width and height
-    background.fitWidthProperty().bind(rootPane.widthProperty());
-    background.fitHeightProperty().bind(rootPane.heightProperty());
+    //    background.fitWidthProperty().bind(rootPane.widthProperty());
+    //    background.fitHeightProperty().bind(rootPane.heightProperty());
 
     // Making sure the first page(formBox is visible and enabled)
-    formPane.setVisible(true);
-    formPane.setDisable(false);
-    menuPane.setDisable(true);
-    menuPane.setVisible(false);
+    //    formPane.setVisible(true);
+    //    formPane.setDisable(false);
+    //    menuPane.setDisable(true);
+    //    menuPane.setVisible(false);
 
     // Same As Home Controller
     /**

@@ -4,9 +4,9 @@ public enum Screen {
   // Enum Constants Calling the Enum Constructor
   ROOT("views/Root.fxml"),
   HOME("views/Home.fxml"),
-  SERVICE_REQUEST("views/ServiceRequestForm.fxml"),
+  SERVICE_REQUEST("views/ServiceRequest2.fxml"),
 
-  REQ_MENU("views/ServiceRequestMenu.fxml"),
+  //  REQ_MENU("views/ServiceRequestMenu.fxml"),
 
   SIGNAGE("views/SignageLevels.fxml");
 
