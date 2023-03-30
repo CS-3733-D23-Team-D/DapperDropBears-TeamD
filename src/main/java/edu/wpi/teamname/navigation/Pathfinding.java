@@ -52,7 +52,6 @@ public class Pathfinding {
     System.out.println(
         "There is no path from the start ot the end destination! Please run and try again.");
     System.exit(0);
-
     return null; // destination not reachable from start
   }
 
@@ -787,17 +786,22 @@ public class Pathfinding {
     // serv  e  x  ghall 4  5  6  s  welev k  l  m
 
     createNodes(listOfNodes);
-
+    String startNode = "";
+    String endNode = "";
+    Pathfinding bfs = new Pathfinding(graph);
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
     System.out.println("Enter start point: ");
-    String startNode = reader.readLine();
+    startNode = reader.readLine();
 
     System.out.println("Enter destination: ");
-    String endNode = reader.readLine();
+    endNode = reader.readLine();
+
+    startNode = startNode.toUpperCase();
+    endNode = endNode.toUpperCase();
 
     convertToInt(startNode, endNode, listOfNodes);
 
-    Pathfinding bfs = new Pathfinding(graph);
     List<Integer> path = bfs.bfsBacktrack(startNodeVal, endNodeVal);
     if (path != null) {
       System.out.println("Path from " + startNode + " to " + endNode + ": " + path);
