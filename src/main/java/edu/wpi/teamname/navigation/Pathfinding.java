@@ -34,7 +34,6 @@ public class Pathfinding {
         int node = dest;
         while (node != start) {
           path.add(node);
-          // System.out.println("This is parent node:" + parent[node]);
           node = parent[node];
         }
         path.add(start);
@@ -42,7 +41,7 @@ public class Pathfinding {
         return path;
       }
       for (int i = 0; i < graph.length; i++) {
-        if (graph[curr][i] == 1 && !visited[i]) { // if node is adjacent and not visited
+        if (graph[curr][i] == 1 && !visited[i]) { // check if node is adjacent and not visited
           visited[i] = true;
           parent[i] = curr;
           queue.add(i);
@@ -56,6 +55,8 @@ public class Pathfinding {
   }
 
   public static void createNodes(LinkedList<Node> nodeList) {
+
+    //This is the initialization of the nodes (Will be changed to upload a csv file, auto-formatting also makes teh code a lot longer)
     Node conf1 =
         new Node(
             "CCONF001L1",
@@ -500,6 +501,7 @@ public class Pathfinding {
         new Node(
             "WELEV00ML1", 1820, 1284, "L1", "Tower", "ELEV", "Elevator M Floor L1", "Elevator ML1");
 
+    //Adding all the nodes to a linked list
     nodeList.add(conf1);
     nodeList.add(conf2);
     nodeList.add(conf3);
@@ -571,6 +573,8 @@ public class Pathfinding {
       Node current;
       current = nodeList.get(p.get(i));
       String nodeName = current.getNodeID();
+
+      //Prints out the path
       if (i == p.size() - 1) {
         System.out.println(nodeName);
       } else {
@@ -579,6 +583,7 @@ public class Pathfinding {
     }
   }
 
+  //Method to take the string input and convert it to an int for the bfs to run
   public static void convertToInt(String s, String e, LinkedList<Node> nodeList) {
 
     for (int i = 0; i < nodeList.size(); i++) {
@@ -595,8 +600,7 @@ public class Pathfinding {
     LinkedList<Node> listOfNodes = new LinkedList<>();
 
     int[][] graph = { // Hardcoded graph
-      // conf  3  dept  4  hall  3  4  5  6  7  8  9  0  1  2  3  4  5  lab   3  4  5  rest  3  4  v
-      //  serv  e  x  ghall 4  5  6  s  welev k  l  m
+      //The matrix will not be hardcoded for the next prototype, we just have it like this for now. It goes in order from the nodes on the csv for floor 1
       {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -791,6 +795,7 @@ public class Pathfinding {
     Pathfinding bfs = new Pathfinding(graph);
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+    //get start and endpoint
     System.out.println("Enter start point: ");
     startNode = reader.readLine();
 
