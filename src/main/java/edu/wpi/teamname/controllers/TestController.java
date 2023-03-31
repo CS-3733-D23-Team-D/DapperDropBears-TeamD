@@ -1,6 +1,6 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.servicerequests.JFXItems.MenuItem;
+import edu.wpi.teamname.controllers.jfxitems.RequestMenuItem;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,17 +11,18 @@ public class TestController {
   @FXML VBox vBox;
 
   ArrayList<String> testList = new ArrayList<>();
-  @FXML ObservableList<MenuItem> itemlist = FXCollections.observableArrayList();
+  @FXML ObservableList<RequestMenuItem> itemlist = FXCollections.observableArrayList();
 
   public void initialize() {
     //    FXMLLoader will now automatically call any suitably annotated no-arg initialize() (With
     // .load())
     System.out.println("TestININT!");
-    testList.add("1");
-    testList.add("2");
+    testList.add("pizza");
+    testList.add("pie");
 
     for (String item : testList) {
-      vBox.getChildren().add(new SubObjects(item));
+      vBox.getChildren().add(new RequestMenuItem(item));
+      // vBox.getChildren().add(new Button("E"));
       // vBox.getChildren().
     }
   }
