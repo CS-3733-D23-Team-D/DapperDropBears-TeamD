@@ -68,7 +68,7 @@ public class AStar {
         System.out.println("Target set.");
       }
     }
-    Test1.setH();
+    Test1.setAllH();
     try {
       Node res = Test1.aStar(Test1.getStart(), Test1.getTarget());
       System.out.print("The path to take is: ");

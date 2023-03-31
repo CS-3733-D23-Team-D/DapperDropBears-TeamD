@@ -73,10 +73,13 @@ public class Node implements Comparable<Node> {
   // IS THERE A BETTER FUNCTION FOR THIS??????
   public double calculateHeuristic(Node target) {
     // default
-    // return this.h;
+    // return 0;
 
-    // current function
-    return findWeight(target);
+    // distance function
+    // return findWeight(target);
+    // manhattan distance
+    // return Math.abs(target.x - this.x) + Math.abs(target.y - this.y);
+    return this.h;
   }
 
   public String toString() {
