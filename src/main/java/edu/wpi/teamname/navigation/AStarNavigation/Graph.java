@@ -72,19 +72,11 @@ public class Graph {
     String str = "";
     for (Node n : nodes) {
       str += "Node: " + n.name + ", Branches: ";
-      for (Node.Edge e : n.neighbors) str += e.node.name + ": " + e.weight + ", ";
+      for (Node.Edge e : n.neighbors)
+        str += e.node.name + ": " + String.format("%.2f", e.weight) + ", ";
       str += "||";
     }
     return str;
-  }
-
-  public void setAllH() {
-    if (this.target == null || this.start == null) return;
-    for (Node n : this.nodes) {
-      n.h = findWeight(n, this.target);
-      // n.h = 0;
-    }
-    target.h = 0;
   }
 
   public void setAllG() {

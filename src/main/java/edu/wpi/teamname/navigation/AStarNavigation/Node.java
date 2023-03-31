@@ -72,14 +72,10 @@ public class Node implements Comparable<Node> {
   // CURRENT: SET UP TO RETURN DISTANCE FROM TARGET
   // IS THERE A BETTER FUNCTION FOR THIS??????
   public double calculateHeuristic(Node target) {
-    // default
-    // return 0;
-
-    // distance function
-    // return findWeight(target);
-    // manhattan distance
-    // return Math.abs(target.x - this.x) + Math.abs(target.y - this.y);
-    return this.h;
+    // Heuristic will return distance from target
+    return Math.sqrt(
+        (target.getX() - this.x) * (target.getX() - this.x)
+            + (target.getY() - this.y) * (target.getY() - this.y));
   }
 
   public String toString() {

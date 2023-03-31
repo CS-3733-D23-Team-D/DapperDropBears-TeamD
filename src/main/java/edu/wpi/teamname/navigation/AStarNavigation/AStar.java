@@ -13,29 +13,40 @@ public class AStar {
     Node n4 = new Node(3, 3, "n4");
     Node n5 = new Node(4, 2, "n5");
     Node n6 = new Node(4, 4, "n6"); // Use as start for example
+    addEdge(n0, n1);
+    addEdge(n0, n2);
+    addEdge(n0, n3);
+    addEdge(n1, n2);
+    addEdge(n2, n3);
+    addEdge(n2, n4);
+    addEdge(n3, n4);
+    addEdge(n1, n4);
+    addEdge(n3, n5);
+    addEdge(n4, n6);
+    addEdge(n5, n6);
 
-    n0.addBranch(n1);
-    n0.addBranch(n2);
-    n0.addBranch(n3);
-    n1.addBranch(n0);
-    n1.addBranch(n4);
-    n1.addBranch(n2);
-    n2.addBranch(n4);
-    n2.addBranch(n3);
-    n2.addBranch(n0);
-    n2.addBranch(n1);
-    n3.addBranch(n0);
-    n3.addBranch(n2);
-    n3.addBranch(n4);
-    n3.addBranch(n5);
-    n4.addBranch(n6);
-    n4.addBranch(n1);
-    n4.addBranch(n2);
-    n4.addBranch(n3);
-    n5.addBranch(n6);
-    n5.addBranch(n3);
-    n6.addBranch(n4);
-    n6.addBranch(n5);
+    //    n0.addBranch(n1);
+    //    n0.addBranch(n2);
+    //    n0.addBranch(n3);
+    //    n1.addBranch(n0);
+    //    n1.addBranch(n4);
+    //    n1.addBranch(n2);
+    //    n2.addBranch(n4);
+    //    n2.addBranch(n3);
+    //    n2.addBranch(n0);
+    //    n2.addBranch(n1);
+    //    n3.addBranch(n0);
+    //    n3.addBranch(n2);
+    //    n3.addBranch(n4);
+    //    n3.addBranch(n5);
+    //    n4.addBranch(n6);
+    //    n4.addBranch(n1);
+    //    n4.addBranch(n2);
+    //    n4.addBranch(n3);
+    //    n5.addBranch(n6);
+    //    n5.addBranch(n3);
+    //    n6.addBranch(n4);
+    //    n6.addBranch(n5);
 
     nodes.add(n0);
     nodes.add(n1);
@@ -65,7 +76,7 @@ public class AStar {
         // System.out.println("Target set.");
       }
     }
-    Test1.setAllH();
+    Test1.setAllG();
     try {
       // Node res = Test1.aStar(Test1.getStart(), Test1.getTarget());
       Node res = aStar(Test1);
@@ -76,21 +87,25 @@ public class AStar {
     }
   }
 
+  public static void addEdge(Node a, Node b) {
+    a.addBranch(b);
+    b.addBranch(a);
+  }
   // Eventually Change from print to send to UI to display directions
   public static void printPath(Node target) {
     Node n = target;
     if (n == null) return;
-    List<Integer> ids = new ArrayList<>();
+    List<String> names = new ArrayList<>();
 
     while (n.parent != null) {
-      ids.add(n.id);
+      names.add(n.name);
       n = n.parent;
     }
-    ids.add(n.id);
-    Collections.reverse(ids);
+    names.add(n.name);
+    Collections.reverse(names);
 
-    for (int id : ids) {
-      System.out.print(id + "");
+    for (String name : names) {
+      System.out.print("->" + name);
     }
     System.out.println("");
   }
