@@ -328,9 +328,15 @@ public class DataManager {
     String newY = scanner.nextLine();
 
     String query =
-        "UPDATE L1Nodes SET xcoord = " + newX + ", ycoord = " + newY + " WHERE nodeID = " + nodeID;
+        "UPDATE \"L1Nodes\" SET xcoord = "
+            + newX
+            + ", ycoord = "
+            + newY
+            + " WHERE \"nodeID\" = '"
+            + nodeID.toUpperCase()
+            + "';";
     try (Statement statement = connection.createStatement()) {
-      ResultSet rs = statement.executeQuery(query);
+      statement.executeUpdate(query);
       System.out.println("Node successfully updated");
     } catch (SQLException e) {
       System.out.println("Update Node Coordinates Error.");
@@ -357,14 +363,15 @@ public class DataManager {
     String newShortName = scanner.nextLine();
     // update node
     String query =
-        "UPDATE L1Nodes SET longName = "
+        "UPDATE \"L1Nodes\" SET \"longName\" = '"
             + newLongName
-            + ", shortName = "
+            + "', \"shortName\" = '"
             + newShortName
-            + " WHERE nodeID = "
-            + nodeID;
+            + "' WHERE \"nodeID\" = '"
+            + nodeID.toUpperCase()
+            + "';";
     try (Statement statement = connection.createStatement()) {
-      ResultSet rs = statement.executeQuery(query);
+      statement.executeUpdate(query);
       System.out.println("Node successfully updated");
     } catch (SQLException e) {
       System.out.println("Update Node Names Error.");
@@ -471,6 +478,10 @@ public class DataManager {
    * @throws SQLException if there is an error executing the SQL command
    */
   public static void runQuery(Connection connection) throws SQLException {
+    if (true) {
+      System.out.println("DO NOT USE THIS");
+      return;
+    }
     Scanner scanner = new Scanner(System.in);
     System.out.print(
         "Enter the SQL you want to run (Put quotes around table names, single quotes around data points): ");
