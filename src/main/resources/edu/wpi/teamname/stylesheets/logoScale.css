@@ -1,0 +1,9 @@
+.body{
+
+    -fx-background-image: url("../images/logo.png");
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+
+}

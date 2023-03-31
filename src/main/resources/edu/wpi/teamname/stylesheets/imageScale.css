@@ -1,0 +1,9 @@
+.body{
+
+    -fx-background-image: url("../images/BaWHospital.jpg");
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+
+}
