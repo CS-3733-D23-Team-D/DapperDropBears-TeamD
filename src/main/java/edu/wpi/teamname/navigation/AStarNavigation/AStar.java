@@ -45,9 +45,6 @@ public class AStar {
     nodes.add(n5);
     nodes.add(n6);
 
-    Node myNode = new Node(5, 6, "myNode");
-    Graph Test2 = new Graph();
-    Test2.addNode(myNode);
     Graph Test1 = new Graph(nodes);
     System.out.println(Test1.toString());
 
@@ -61,16 +58,17 @@ public class AStar {
     for (Node n : Test1.getNodes()) {
       if (n.name.equals(startNodeStr)) {
         Test1.setStart(n);
-        System.out.println("Start set.");
+        // System.out.println("Start set.");
       }
       if (n.name.equals(targetNodeStr)) {
         Test1.setTarget(n);
-        System.out.println("Target set.");
+        // System.out.println("Target set.");
       }
     }
     Test1.setAllH();
     try {
-      Node res = Test1.aStar(Test1.getStart(), Test1.getTarget());
+      // Node res = Test1.aStar(Test1.getStart(), Test1.getTarget());
+      Node res = aStar(Test1);
       System.out.print("The path to take is: ");
       printPath(res);
     } catch (Exception e) {
@@ -98,4 +96,44 @@ public class AStar {
   }
   // This will return the weight(Distance) between 2 nodes
 
+  public static Node aStar(Graph g) {
+    Node start = g.getStart();
+    Node target = g.getTarget();
+    PriorityQueue<Node> closedList = new PriorityQueue<>();
+    PriorityQueue<Node> openList = new PriorityQueue<>();
+
+    start.f = start.g + start.calculateHeuristic(target);
+    openList.add(start);
+
+    while (!openList.isEmpty()) {
+      Node n = openList.peek();
+      if (n == target) return n;
+
+      for (Node.Edge edge : n.neighbors) {
+        Node m = edge.node;
+        double totalWeight = n.g + edge.weight;
+
+        if (!openList.contains(m) && !closedList.contains(m)) {
+          m.parent = n;
+          m.g = totalWeight;
+          m.f = m.g + m.calculateHeuristic(target);
+          openList.add(m);
+        } else {
+          if (totalWeight < m.g) {
+            m.parent = n;
+            m.g = totalWeight;
+            m.f = m.g + m.calculateHeuristic(target);
+
+            if (closedList.contains(m)) {
+              closedList.remove(m);
+              openList.add(m);
+            }
+          }
+        }
+      }
+      openList.remove(n);
+      closedList.add(n);
+    }
+    return null;
+  }
 }
