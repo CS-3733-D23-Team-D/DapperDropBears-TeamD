@@ -6,9 +6,9 @@ import java.util.List;
 public class Node implements Comparable<Node> {
   private static int idCounter = 0;
   public int id;
+  public String name;
   private double x;
   private double y;
-
   public Node parent = null;
   public List<Edge> neighbors;
 
@@ -19,24 +19,11 @@ public class Node implements Comparable<Node> {
   // heuristic: WILL NEED A FUNCTION TO FIND THIS
   public double h;
 
-  Node(double h) {
-    this.h = h;
-    this.id = idCounter++;
-    this.neighbors = new ArrayList<>();
-  }
-
-  Node(double x, double y) {
+  Node(double x, double y, String name) {
     this.x = x;
     this.y = y;
+    this.name = name;
     this.h = 0;
-    this.id = idCounter++;
-    this.neighbors = new ArrayList<>();
-  }
-
-  Node(double x, double y, double h) {
-    this.x = x;
-    this.y = y;
-    this.h = h;
     this.id = idCounter++;
     this.neighbors = new ArrayList<>();
   }
@@ -93,6 +80,6 @@ public class Node implements Comparable<Node> {
   }
 
   public String toString() {
-    return "Node id: " + id + "|X: " + x + "|Y: " + y + "|H: " + h;
+    return "Node name: " + name + "|X: " + x + "|Y: " + y + "|H: " + h;
   }
 }
