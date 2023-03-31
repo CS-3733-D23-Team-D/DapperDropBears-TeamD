@@ -56,6 +56,21 @@ public class ServiceRequest {
       return "0" + value;
     } else {
       return value;
+  public void addItem(String item) {
+    RequestItem reqestItem = new RequestItem(item, 0.0);
+    this.requestItems.add(reqestItem);
+  }
+
+  public String getRequestInfo() {
+    String returnStr = "This Request has %s deliver (%s) to %s on %s. Notes %s";
+
+    String requestStr = "";
+
+    for (int i = 0; i < requestItems.size(); i++) {
+      requestStr += requestItems.get(i);
+      if (i != (requestItems.size() - 1)) {
+        requestStr += " and ";
+      }
     }
   }
 

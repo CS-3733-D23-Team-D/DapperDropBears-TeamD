@@ -6,8 +6,11 @@ public class RequestItem {
 
   @Getter private final String name;
 
-  public RequestItem(String name) {
+  @Getter private final double price;
+
+  public RequestItem(String name, double price) {
     this.name = name;
+    this.price = price;
   }
 
   @Override
