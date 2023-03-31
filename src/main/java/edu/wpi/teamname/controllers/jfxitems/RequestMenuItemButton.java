@@ -10,12 +10,14 @@ public class RequestMenuItemButton extends Button {
     super(name);
     this.parent = parent;
     initialize();
+    this.setText("Add to Cart");
   }
 
   private void initialize() {
     getStyleClass().setAll("button");
     setAccessibleRole(AccessibleRole.BUTTON);
     setMnemonicParsing(true);
+    setStyle("-fx-background-color: #d9d9d9;-fx-font-size: 20pt");
     setOnMouseClicked(event -> System.out.println(getText() + " " + parent.quantity.getText()));
   }
 }
