@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 
 public class ExampleController {
   @FXML Button ClickButton; // fx:ID of the button in the ExampleFXML
-  private Connection connection = null; // connection to database
+  private Connection connection = null; // connection (session) to database
 
   /** Method run when controller is initializes */
   public void initialize() {
@@ -38,6 +38,8 @@ public class ExampleController {
   private boolean connectToDB() {
 
     try {
+      // Class Class java, static method, Just run a dummy method to chcek if the requirements are
+      // installed
       Class.forName(
           "org.apache.derby.jdbc.ClientDriver"); // Check that proper driver is packaged for Apache
       // Derby
