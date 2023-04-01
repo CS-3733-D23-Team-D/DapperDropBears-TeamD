@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class DataManager {
 
-  public static void moveNode(Connection connection){
+  public static void moveNode(Connection connection) {
     Scanner scan = new Scanner(System.in);
     boolean moving = true;
     while (moving) {
@@ -178,10 +178,26 @@ public class DataManager {
     Scanner scan = new Scanner(System.in);
     System.out.println("Enter 1 for all node info, or 2 for a specific nodes info.");
     int ans = scan.nextInt();
-    if (ans == 1) { // if want all node info
+    if (ans == 1) { // if you want all node info
       System.out.println("Node Info:");
 
-      String query = "select * from \"Node\"";
+      String query =
+          "SELECT DISTINCT q.\"nodeID\", \"longName\", \"shortName\", \"nodeType\", xcoord, ycoord, building, floor, date\n"
+              + "FROM (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date\n"
+              + "      FROM \"LocationName\",\n"
+              + "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n"
+              + "            FROM \"Node\", \"Move\"\n"
+              + "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
+              + "      WHERE \"LocationName\".\"longName\" = n.\"longName\") w,\n"
+              + "             (SELECT \"nodeID\" FROM (SELECT n.\"nodeID\"\n"
+              + "               FROM \"LocationName\",\n"
+              + "                    (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n"
+              + "                     FROM \"Node\", \"Move\"\n"
+              + "                     where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
+              + "               WHERE \"LocationName\".\"longName\" = n.\"longName\"\n"
+              + "               AND date < (SELECT cast(now() AS DATE))) j\n"
+              + "    GROUP BY \"nodeID\") q\n"
+              + "WHERE q.\"nodeID\" = w.\"nodeID\";";
       try (Statement statement = connection.createStatement()) {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
@@ -190,40 +206,10 @@ public class DataManager {
           String ycoord = rs.getString("ycoord");
           String floor = rs.getString("floor");
           String building = rs.getString("building");
-          System.out.println(
-              "[NodeID:"
-                  + nodeID
-                  + ", X-Cord:"
-                  + xcoord
-                  + ", Y-Cord:"
-                  + ycoord
-                  + ", Floor:"
-                  + floor
-                  + ", Building:"
-                  + building
-                  + "]");
-          System.out.println("");
-        }
-      } catch (SQLException e) {
-        System.out.println("Display Node Info Error.");
-        throw e;
-      }
-
-    } else if (ans == 2) { // if want specific node info
-      System.out.println("Enter Node ID: ");
-      int selectNode = scan.nextInt();
-
-      System.out.println("Node " + selectNode + " Info:");
-      String query = "select * from \"Node\" where \"nodeID\" = " + selectNode;
-
-      try (Statement statement = connection.createStatement()) {
-        ResultSet rs = statement.executeQuery(query);
-        while (rs.next()) {
-          String nodeID = rs.getString("nodeID");
-          String xcoord = rs.getString("xcoord");
-          String ycoord = rs.getString("ycoord");
-          String floor = rs.getString("floor");
-          String building = rs.getString("building");
+          String longName = rs.getString("longName");
+          String shortName = rs.getString("shortName");
+          String nodeType = rs.getString("nodeType");
+          String date = rs.getString("date");
           System.out.println(
               "[NodeID:"
                   + nodeID
@@ -236,8 +222,79 @@ public class DataManager {
                   + ", Building:"
                   + building
                   + ", Node Type:"
+                  + nodeType
+                  + ", Long Name:"
+                  + longName
+                  + ", Short Name:"
+                  + shortName
+                  + ", Date Last Moved:"
+                  + date
                   + "]");
-          System.out.println("");
+        }
+      } catch (SQLException e) {
+        System.out.println("Display Node Info Error.");
+        throw e;
+      }
+
+    } else if (ans == 2) { // if want specific node info
+      System.out.println("Enter Node ID: ");
+      int selectNode = scan.nextInt();
+
+      System.out.println("Node " + selectNode + " Info:");
+      String query =
+          "SELECT \"nodeID\", \"longName\", \"shortName\", xcoord, ycoord, \"nodeType\", building, floor, j.date\n"
+              + "FROM (SELECT n.\"longName\", \"shortName\", n.\"nodeID\", \"nodeType\", xcoord, ycoord, building, floor, date\n"
+              + "      FROM \"LocationName\",\n"
+              + "           (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n"
+              + "            FROM \"Node\", \"Move\"\n"
+              + "            where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
+              + "      WHERE \"LocationName\".\"longName\" = n.\"longName\") j,\n"
+              + "    (SELECT max(date) AS date\n"
+              + "                       FROM (SELECT date\n"
+              + "                             FROM (SELECT n.\"nodeID\", date\n"
+              + "                                   FROM \"LocationName\",\n"
+              + "                                        (select \"Move\".\"nodeID\", xcoord, ycoord, floor, building, \"longName\", date\n"
+              + "                                         FROM \"Node\", \"Move\"\n"
+              + "                                         where \"Node\".\"nodeID\" = \"Move\".\"nodeID\") n\n"
+              + "                                   WHERE \"LocationName\".\"longName\" = n.\"longName\") j\n"
+              + "                             WHERE date < (SELECT cast(now() AS DATE))\n"
+              + "                             AND j.\"nodeID\" = "
+              + selectNode
+              + ") l) q\n"
+              + "        WHERE j.date = q.date;";
+
+      try (Statement statement = connection.createStatement()) {
+        ResultSet rs = statement.executeQuery(query);
+        while (rs.next()) {
+          String nodeID = rs.getString("nodeID");
+          String xcoord = rs.getString("xcoord");
+          String ycoord = rs.getString("ycoord");
+          String floor = rs.getString("floor");
+          String building = rs.getString("building");
+          String longName = rs.getString("longName");
+          String shortName = rs.getString("shortName");
+          String nodeType = rs.getString("nodeType");
+          String date = rs.getString("date");
+          System.out.println(
+              "[NodeID:"
+                  + nodeID
+                  + ", X-Cord:"
+                  + xcoord
+                  + ", Y-Cord:"
+                  + ycoord
+                  + ", Floor:"
+                  + floor
+                  + ", Building:"
+                  + building
+                  + ", Node Type:"
+                  + nodeType
+                  + ", Long Name:"
+                  + longName
+                  + ", Short Name:"
+                  + shortName
+                  + ", Date Last Moved:"
+                  + date
+                  + "]");
         }
       } catch (SQLException e) {
         System.out.println("Display Node Error.");
