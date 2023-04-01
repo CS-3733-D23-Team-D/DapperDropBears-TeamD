@@ -236,7 +236,7 @@ public class DataManager {
         throw e;
       }
 
-    } else if (ans == 2) { // if want specific node info
+    } else if (ans == 2) { // if you want specific node info
       System.out.println("Enter Node ID: ");
       int selectNode = scan.nextInt();
 
