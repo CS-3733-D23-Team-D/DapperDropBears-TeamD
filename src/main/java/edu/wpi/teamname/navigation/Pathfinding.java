@@ -56,7 +56,8 @@ public class Pathfinding {
 
   public static void createNodes(LinkedList<Node> nodeList) {
 
-    //This is the initialization of the nodes (Will be changed to upload a csv file, auto-formatting also makes teh code a lot longer)
+    // This is the initialization of the nodes (Will be changed to upload a csv file,
+    // auto-formatting also makes teh code a lot longer)
     Node conf1 =
         new Node(
             "CCONF001L1",
@@ -501,7 +502,7 @@ public class Pathfinding {
         new Node(
             "WELEV00ML1", 1820, 1284, "L1", "Tower", "ELEV", "Elevator M Floor L1", "Elevator ML1");
 
-    //Adding all the nodes to a linked list
+    // Adding all the nodes to a linked list
     nodeList.add(conf1);
     nodeList.add(conf2);
     nodeList.add(conf3);
@@ -574,7 +575,7 @@ public class Pathfinding {
       current = nodeList.get(p.get(i));
       String nodeName = current.getNodeID();
 
-      //Prints out the path
+      // Prints out the path
       if (i == p.size() - 1) {
         System.out.println(nodeName);
       } else {
@@ -583,7 +584,7 @@ public class Pathfinding {
     }
   }
 
-  //Method to take the string input and convert it to an int for the bfs to run
+  // Method to take the string input and convert it to an int for the bfs to run
   public static void convertToInt(String s, String e, LinkedList<Node> nodeList) {
 
     for (int i = 0; i < nodeList.size(); i++) {
@@ -600,7 +601,8 @@ public class Pathfinding {
     LinkedList<Node> listOfNodes = new LinkedList<>();
 
     int[][] graph = { // Hardcoded graph
-      //The matrix will not be hardcoded for the next prototype, we just have it like this for now. It goes in order from the nodes on the csv for floor 1
+      // The matrix will not be hardcoded for the next prototype, we just have it like this for now.
+      // It goes in order from the nodes on the csv for floor 1
       {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -795,7 +797,7 @@ public class Pathfinding {
     Pathfinding bfs = new Pathfinding(graph);
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    //get start and endpoint
+    // get start and endpoint
     System.out.println("Enter start point: ");
     startNode = reader.readLine();
 
