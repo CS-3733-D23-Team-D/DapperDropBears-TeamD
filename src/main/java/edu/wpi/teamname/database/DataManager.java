@@ -63,6 +63,67 @@ public class DataManager {
     }
   }
   /**
+   * Uploads CSV data to a PostgreSQL database table "LocationName"
+   *
+   * @param csvData a List of String arrays representing the rows and columns of CSV data
+   * @param connection a Connection object to connect to the PostgreSQL database
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadLocationNameToPostgreSQL(List<String[]> csvData, Connection connection)
+      throws SQLException {
+
+    try (connection) {
+      String query =
+          "INSERT INTO \"LocationName\" (\"longName\", \"shortName\", \"nodeType\") "
+              + "VALUES (?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"LocationName\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setString(1, row[0]); // longName is a string column
+        statement.setString(2, row[1]); // shortName is a string column
+        statement.setString(3, row[2]); // nodeType is a string column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Move"
+   *
+   * @param csvData a List of String arrays representing the rows and columns of CSV data
+   * @param connection a Connection object to connect to the PostgreSQL database
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadMoveToPostgreSQL(List<String[]> csvData, Connection connection)
+      throws SQLException {
+
+    try (connection) {
+      String query =
+          "INSERT INTO \"Move\" (\"nodeID\", \"longName\", \"date\") " + "VALUES (?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"LocationName\";");
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setInt(1, Integer.parseInt(row[0])); // nodeId is an int column
+        statement.setString(2, row[1]); // longName is a string column
+        statement.setString(3, row[2]); // date is a string column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+  /**
    * Uploads CSV data to a PostgreSQL database table "Node"
    *
    * @param csvData a List of String arrays representing the rows and columns of CSV data
@@ -211,7 +272,11 @@ public class DataManager {
     // No quotes when importing doc
     System.out.println("Enter the file path of the CSV file to import: ");
     String csvFileName = scanner.nextLine();
-    System.out.println("Press 0 for Node import" + "\npress 1 for Edge import: ");
+    System.out.println(
+        "Press 0 for Node import"
+            + "\npress 1 for Edge import"
+            + "\npress 2 for LocationName import"
+            + "\npress 3 for Move import: ");
     int edXorNo = scanner.nextInt();
     if (edXorNo == 1) {
 
@@ -242,8 +307,36 @@ public class DataManager {
           System.err.println(e.getMessage());
         }
       }
+    } else if (edXorNo == 2) {
+      System.out.println("You chose to import LocationName data ");
+      List<String[]> rows = importCSV(csvFileName);
+      if (rows != null) {
+        System.out.println("Number of rows: " + rows.size());
+        for (String[] row : rows) {
+          System.out.println(Arrays.toString(row));
+        }
+        try {
+          uploadLocationNameToPostgreSQL(rows, connection);
+        } catch (SQLException e) {
+          System.err.println(e.getMessage());
+        }
+      }
+    } else if (edXorNo == 3) {
+      System.out.println("You chose to import Move data ");
+      List<String[]> rows = importCSV(csvFileName);
+      if (rows != null) {
+        System.out.println("Number of rows: " + rows.size());
+        for (String[] row : rows) {
+          System.out.println(Arrays.toString(row));
+        }
+        try {
+          uploadMoveToPostgreSQL(rows, connection);
+        } catch (SQLException e) {
+          System.err.println(e.getMessage());
+        }
+      }
     } else {
-      System.out.println("Unknown input. Please press 1 or 2 ");
+      System.out.println("Unknown input. Please press 1, 2, 3, or 0 ");
       importData(connection);
     }
   }
