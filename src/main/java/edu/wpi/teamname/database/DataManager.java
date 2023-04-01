@@ -9,6 +9,18 @@ import java.util.Scanner;
 
 public class DataManager {
 
+  public static void moveNode(Connection connection){
+    Scanner scan = new Scanner(System.in);
+    boolean moving = true;
+    while (moving) {
+      System.out.println("What node would you like to move? ");
+      int moveNode = scan.nextInt();
+      System.out.println("To which node would you like to switch it with?");
+      int switchNode = scan.nextInt();
+      //
+    }
+  }
+
   /**
    * Reads a CSV file and returns its contents as a list of string arrays.
    *
@@ -54,6 +66,67 @@ public class DataManager {
         statement.setString(1, row[0]); // edgeID is a string column
         statement.setString(2, row[1]); // startNode is a string column
         statement.setString(3, row[2]); // endNode is a string column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+  /**
+   * Uploads CSV data to a PostgreSQL database table "LocationName"
+   *
+   * @param csvData a List of String arrays representing the rows and columns of CSV data
+   * @param connection a Connection object to connect to the PostgreSQL database
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadLocationNameToPostgreSQL(List<String[]> csvData, Connection connection)
+      throws SQLException {
+
+    try (connection) {
+      String query =
+          "INSERT INTO \"LocationName\" (\"longName\", \"shortName\", \"nodeType\") "
+              + "VALUES (?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setString(1, row[0]); // longName is a string column
+        statement.setString(2, row[1]); // shortName is a string column
+        statement.setString(3, row[2]); // nodeType is a string column
+
+        statement.executeUpdate();
+      }
+      System.out.println("CSV data uploaded to PostgreSQL database");
+    } catch (SQLException e) {
+      System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
+    }
+  }
+  /**
+   * Uploads CSV data to a PostgreSQL database table "Move"
+   *
+   * @param csvData a List of String arrays representing the rows and columns of CSV data
+   * @param connection a Connection object to connect to the PostgreSQL database
+   * @throws SQLException if an error occurs while uploading the data to the database
+   */
+  public static void uploadMoveToPostgreSQL(List<String[]> csvData, Connection connection)
+      throws SQLException {
+
+    try (connection) {
+      String query =
+          "INSERT INTO \"Move\" (\"nodeID\", \"longName\", \"date\") " + "VALUES (?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+      statement = connection.prepareStatement(query);
+
+      for (int i = 1; i < csvData.size(); i++) {
+        String[] row = csvData.get(i);
+        statement.setInt(1, Integer.parseInt(row[0])); // nodeId is an int column
+        statement.setString(2, row[1]); // longName is a string column
+        statement.setString(3, row[2]); // date is a string column
 
         statement.executeUpdate();
       }
@@ -212,7 +285,11 @@ public class DataManager {
     // No quotes when importing doc
     System.out.println("Enter the file path of the CSV file to import: ");
     String csvFileName = scanner.nextLine();
-    System.out.println("Press 0 for Node import" + "\npress 1 for Edge import: ");
+    System.out.println(
+        "Press 0 for Node import"
+            + "\npress 1 for Edge import"
+            + "\npress 2 for LocationName import"
+            + "\npress 3 for Move import: ");
     int edXorNo = scanner.nextInt();
     if (edXorNo == 1) {
 
@@ -243,16 +320,44 @@ public class DataManager {
           System.err.println(e.getMessage());
         }
       }
+    } else if (edXorNo == 2) {
+      System.out.println("You chose to import LocationName data ");
+      List<String[]> rows = importCSV(csvFileName);
+      if (rows != null) {
+        System.out.println("Number of rows: " + rows.size());
+        for (String[] row : rows) {
+          System.out.println(Arrays.toString(row));
+        }
+        try {
+          uploadLocationNameToPostgreSQL(rows, connection);
+        } catch (SQLException e) {
+          System.err.println(e.getMessage());
+        }
+      }
+    } else if (edXorNo == 3) {
+      System.out.println("You chose to import Move data ");
+      List<String[]> rows = importCSV(csvFileName);
+      if (rows != null) {
+        System.out.println("Number of rows: " + rows.size());
+        for (String[] row : rows) {
+          System.out.println(Arrays.toString(row));
+        }
+        try {
+          uploadMoveToPostgreSQL(rows, connection);
+        } catch (SQLException e) {
+          System.err.println(e.getMessage());
+        }
+      }
     } else {
-      System.out.println("Unknown input. Please press 1 or 2 ");
+      System.out.println("Unknown input. Please press 1, 2, 3, or 0 ");
       importData(connection);
     }
   }
   /**
-   * Exports data from the "Node" and "Edge" tables in the PostgreSQL database to a CSV file
-   * specified by the user. The function prompts the user to enter the file path for the CSV export
-   * and then executes a SQL query to retrieve all data from the prompted table. The results are
-   * written to the CSV file in comma-separated format.
+   * Exports data from the "Node", "Edge", "LocationName", and "Move" tables in the PostgreSQL
+   * database to a CSV file specified by the user. The function prompts the user to enter the file
+   * path for the CSV export and then executes a SQL query to retrieve all data from the prompted
+   * table. The results are written to the CSV file in comma-separated format.
    *
    * <p>Note: LOCAL file path NO quotations!
    *
@@ -262,7 +367,11 @@ public class DataManager {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the file path for the CSV export: ");
     String cvsFilePath = scanner.nextLine();
-    System.out.println("Press 0 for Node import" + "\npress 1 for Edge import: ");
+    System.out.println(
+        "Press 0 for Node export"
+            + "\npress 1 for Edge export"
+            + "\npress 2 for LocationName export"
+            + "\npress 3 for Move export");
     int userChoice = scanner.nextInt();
 
     if (userChoice == 1) {
@@ -333,8 +442,76 @@ public class DataManager {
       } catch (SQLException | FileNotFoundException e) {
         e.printStackTrace();
       }
+    } else if (userChoice == 2) {
+      try (connection) {
+        System.out.println("You chose LocationName export");
+        String query = String.format("SELECT * FROM \"LocationName\"");
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+
+        try (PrintWriter writer = new PrintWriter(new File(cvsFilePath))) {
+          StringBuilder sb = new StringBuilder();
+          ResultSetMetaData metaData = resultSet.getMetaData();
+          int columnCount = metaData.getColumnCount();
+          for (int i = 1; i <= columnCount; i++) {
+            sb.append(metaData.getColumnName(i));
+            if (i < columnCount) {
+              sb.append(",");
+            }
+          }
+          sb.append(System.lineSeparator());
+          while (resultSet.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+              sb.append(resultSet.getString(i));
+              if (i < columnCount) {
+                sb.append(",");
+              }
+            }
+            sb.append(System.lineSeparator());
+          }
+          writer.write(sb.toString());
+        }
+
+        System.out.printf("Data exported to CSV file: %s%n", cvsFilePath);
+      } catch (SQLException | FileNotFoundException e) {
+        e.printStackTrace();
+      }
+    } else if (userChoice == 3) {
+      try (connection) {
+        System.out.println("You chose Move export");
+        String query = String.format("SELECT * FROM \"Move\"");
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+
+        try (PrintWriter writer = new PrintWriter(new File(cvsFilePath))) {
+          StringBuilder sb = new StringBuilder();
+          ResultSetMetaData metaData = resultSet.getMetaData();
+          int columnCount = metaData.getColumnCount();
+          for (int i = 1; i <= columnCount; i++) {
+            sb.append(metaData.getColumnName(i));
+            if (i < columnCount) {
+              sb.append(",");
+            }
+          }
+          sb.append(System.lineSeparator());
+          while (resultSet.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+              sb.append(resultSet.getString(i));
+              if (i < columnCount) {
+                sb.append(",");
+              }
+            }
+            sb.append(System.lineSeparator());
+          }
+          writer.write(sb.toString());
+        }
+
+        System.out.printf("Data exported to CSV file: %s%n", cvsFilePath);
+      } catch (SQLException | FileNotFoundException e) {
+        e.printStackTrace();
+      }
     } else {
-      System.out.printf("Input not recognized. Please only input 1 or 0");
+      System.out.printf("Input not recognized. Please only input 1,2,3,or 0");
       exportData(connection);
     }
   }
