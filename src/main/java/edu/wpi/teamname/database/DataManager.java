@@ -9,6 +9,18 @@ import java.util.Scanner;
 
 public class DataManager {
 
+  public static void moveNode(Connection connection){
+    Scanner scan = new Scanner(System.in);
+    boolean moving = true;
+    while (moving) {
+      System.out.println("What node would you like to move? ");
+      int moveNode = scan.nextInt();
+      System.out.println("To which node would you like to switch it with?");
+      int switchNode = scan.nextInt();
+      //
+    }
+  }
+
   /**
    * Reads a CSV file and returns its contents as a list of string arrays.
    *
