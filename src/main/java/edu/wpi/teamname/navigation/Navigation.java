@@ -10,9 +10,12 @@ public class Navigation {
     final String filename = screen.getFilename();
 
     try {
+      // Idk why using var instead of URL like before, but beats me.
       final var resource = App.class.getResource(filename);
       final FXMLLoader loader = new FXMLLoader(resource);
 
+      // getter
+      // Put the correspoing screen XML file in the center of the border ui element.
       App.getRootPane().setCenter(loader.load());
     } catch (IOException | NullPointerException e) {
       e.printStackTrace();

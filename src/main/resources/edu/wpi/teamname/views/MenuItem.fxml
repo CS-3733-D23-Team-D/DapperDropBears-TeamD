@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<fx:root type="BorderPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.servicerequests.JFXItems.MenuItem">
+   <center>
+      <HBox spacing="25.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label fx:id="itemLabel" text="Label">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="25.0" />
+               </HBox.margin>
+            </Label>
+            <Separator orientation="VERTICAL" />
+            <HBox spacing="15.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="25.0" />
+                     </HBox.margin>
+                  </Text>
+                  <TextField fx:id="quantityField" style="-fx-background-color: #d9d9d9;">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="25.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="25.0" right="25.0" />
+         </padding>
+      </HBox>
+   </center>
+   <left>
+      <ImageView fx:id="itemImage" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="25.0" right="25.0" />
+         </BorderPane.margin>
+      </ImageView>
+   </left>
+   <right>
+      <MFXButton fx:id="cartButton" alignment="CENTER" prefHeight="50.0" style="-fx-background-color: #d9d9d9;" text="Add to Cart" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets left="25.0" right="25.0" />
+         </BorderPane.margin>
+      </MFXButton>
+   </right>
+   <padding>
+      <Insets bottom="25.0" top="25.0" />
+   </padding>
+</fx:root>

@@ -1,4 +1,4 @@
-package edu.wpi.teamname;
+package edu.wpi.teamname.navigation;
 
 import lombok.Getter;
 import lombok.Setter;

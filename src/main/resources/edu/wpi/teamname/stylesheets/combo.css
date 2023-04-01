@@ -1,0 +1,8 @@
+.combo-box-popup .list-view {
+    -fx-font-size : 20pt;
+}
+
+/*added this in an edit*/
+.combo-box-popup .list-view .list-cell {
+    -fx-padding: -1 -1 -1 -1;
+}
