@@ -33,7 +33,7 @@ public class DataManager {
     }
   }
   /**
-   * Uploads CSV data to a PostgreSQL database table "L1Edges"
+   * Uploads CSV data to a PostgreSQL database table "Edge"
    *
    * @param csvData a List of String arrays representing the rows and columns of CSV data
    * @param connection a Connection object to connect to the PostgreSQL database
@@ -44,8 +44,8 @@ public class DataManager {
 
     try (connection) {
       String query =
-          "INSERT INTO \"L1Edges\" (\"edgeID\", \"startNode\", \"endNode\") " + "VALUES (?, ?, ?)";
-      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"L1Edges\";");
+          "INSERT INTO \"Edge\" (\"edgeID\", \"startNode\", \"endNode\") " + "VALUES (?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Edge\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
 
@@ -63,7 +63,7 @@ public class DataManager {
     }
   }
   /**
-   * Uploads CSV data to a PostgreSQL database table "L1Nodes"
+   * Uploads CSV data to a PostgreSQL database table "Node"
    *
    * @param csvData a List of String arrays representing the rows and columns of CSV data
    * @param connection a Connection object to connect to the PostgreSQL database
@@ -74,9 +74,9 @@ public class DataManager {
 
     try (connection) {
       String query =
-          "INSERT INTO \"L1Nodes\" (\"nodeID\", xcoord, ycoord, floor, building, \"nodeType\", \"longName\",\"shortName\") "
-              + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"L1Nodes\";");
+          "INSERT INTO \"Node\" (\"nodeID\", xcoord, ycoord, floor, building,) "
+              + "VALUES (?, ?, ?, ?, ?)";
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Node\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
 
@@ -87,9 +87,6 @@ public class DataManager {
         statement.setInt(3, Integer.parseInt(row[2])); // ycoord is an integer column
         statement.setString(4, row[3]); // assuming floor is a string column
         statement.setString(5, row[4]); // assuming building is a string column
-        statement.setString(6, row[5]); // assuming nodeType is a string column
-        statement.setString(7, row[6]); // assuming longName is a string column
-        statement.setString(8, row[7]); // assuming shortName is a string column
 
         statement.executeUpdate();
       }
@@ -99,54 +96,86 @@ public class DataManager {
     }
   }
   /**
-   * Displays node information from the "L1Nodes" table in the connected PostgreSQL database.
+   * Displays node information from the "Node" table in the connected PostgreSQL database.
    *
    * @param connection A Connection object representing the connection to the PostgreSQL database.
    * @throws SQLException If an error occurs while executing the SQL statement.
    */
   public static void displayNodeInfo(Connection connection) throws SQLException {
+    Scanner scan = new Scanner(System.in);
+    System.out.println("Enter 1 for all node info, or 2 for a specific nodes info.");
+    int ans = scan.nextInt();
+    if (ans == 1) { // if want all node info
+      System.out.println("Node Info:");
 
-    System.out.println("Node Info:");
-
-    String query = "select * from \"L1Nodes\"";
-    try (Statement statement = connection.createStatement()) {
-      ResultSet rs = statement.executeQuery(query);
-      while (rs.next()) {
-        String nodeID = rs.getString("nodeID");
-        String xcoord = rs.getString("xcoord");
-        String ycoord = rs.getString("ycoord");
-        String floor = rs.getString("floor");
-        String building = rs.getString("building");
-        String nodeType = rs.getString("nodeType");
-        String longname = rs.getString("longname");
-        String shortName = rs.getString("shortName");
-        System.out.println(
-            "[NodeID:"
-                + nodeID
-                + ", X-Cord:"
-                + xcoord
-                + ", Y-Cord:"
-                + ycoord
-                + ", Floor:"
-                + floor
-                + ", Building:"
-                + building
-                + ", Node Type:"
-                + nodeType
-                + ", Long Name:"
-                + longname
-                + ", Short Name:"
-                + shortName
-                + "]");
-        System.out.println("");
+      String query = "select * from \"Node\"";
+      try (Statement statement = connection.createStatement()) {
+        ResultSet rs = statement.executeQuery(query);
+        while (rs.next()) {
+          String nodeID = rs.getString("nodeID");
+          String xcoord = rs.getString("xcoord");
+          String ycoord = rs.getString("ycoord");
+          String floor = rs.getString("floor");
+          String building = rs.getString("building");
+          System.out.println(
+              "[NodeID:"
+                  + nodeID
+                  + ", X-Cord:"
+                  + xcoord
+                  + ", Y-Cord:"
+                  + ycoord
+                  + ", Floor:"
+                  + floor
+                  + ", Building:"
+                  + building
+                  + "]");
+          System.out.println("");
+        }
+      } catch (SQLException e) {
+        System.out.println("Display Node Info Error.");
+        throw e;
       }
-    } catch (SQLException e) {
-      System.out.println("Display Node Info Error.");
-      throw e;
+
+    } else if (ans == 2) { // if want specific node info
+      System.out.println("Enter Node ID: ");
+      int selectNode = scan.nextInt();
+
+      System.out.println("Node " + selectNode + " Info:");
+      String query = "select * from \"Node\" where \"nodeID\" = " + selectNode;
+      try (Statement statement = connection.createStatement()) {
+        ResultSet rs = statement.executeQuery(query);
+        while (rs.next()) {
+          String nodeID = rs.getString("nodeID");
+          String xcoord = rs.getString("xcoord");
+          String ycoord = rs.getString("ycoord");
+          String floor = rs.getString("floor");
+          String building = rs.getString("building");
+          System.out.println(
+              "[NodeID:"
+                  + nodeID
+                  + ", X-Cord:"
+                  + xcoord
+                  + ", Y-Cord:"
+                  + ycoord
+                  + ", Floor:"
+                  + floor
+                  + ", Building:"
+                  + building
+                  + ", Node Type:"
+                  + "]");
+          System.out.println("");
+        }
+      } catch (SQLException e) {
+        System.out.println("Display Node Error.");
+        throw e;
+      }
+    } else {
+      System.out.println("Please enter 1 or 2.");
+      displayNodeInfo(connection);
     }
   }
   /**
-   * Displays the edge information from the "L1Edges" table in the PostgreSQL database.
+   * Displays the edge information from the "Edge" table in the PostgreSQL database.
    *
    * @param connection a Connection object representing a connection to the database
    * @throws SQLException if there is an error while executing the SQL query
@@ -154,15 +183,13 @@ public class DataManager {
   public static void displayEdgeInfo(Connection connection) throws SQLException {
     System.out.println("Edge Info:");
 
-    String query = "select * from \"L1Edges\"";
+    String query = "select * from \"Edge\"";
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
-        String edgeID = rs.getString("edgeID");
         String startNode = rs.getString("startNode");
         String endNode = rs.getString("endNode");
-        System.out.println(
-            "[EdgeID:" + edgeID + ", Start Node:" + startNode + ", End Node:" + endNode + "]");
+        System.out.println("[Start Node:" + startNode + ", End Node:" + endNode + "]");
       }
     } catch (SQLException e) {
       System.out.println("Display Edge Info Error.");
@@ -221,7 +248,7 @@ public class DataManager {
     }
   }
   /**
-   * Exports data from the "L1Nodes" and "L1Edges" tables in the PostgreSQL database to a CSV file
+   * Exports data from the "Node" and "Edge" tables in the PostgreSQL database to a CSV file
    * specified by the user. The function prompts the user to enter the file path for the CSV export
    * and then executes a SQL query to retrieve all data from the prompted table. The results are
    * written to the CSV file in comma-separated format.
@@ -240,7 +267,7 @@ public class DataManager {
     if (userChoice == 1) {
       try (connection) {
         System.out.println("You chose edge export");
-        String q = String.format("SELECT * FROM \"L1Edges\"");
+        String q = String.format("SELECT * FROM \"Edge\"");
         PreparedStatement state = connection.prepareStatement(q);
         ResultSet rs = state.executeQuery();
         try (PrintWriter writer = new PrintWriter(new File(cvsFilePath))) {
@@ -274,7 +301,7 @@ public class DataManager {
     } else if (userChoice == 0) {
       try (connection) {
         System.out.println("You chose node export");
-        String query = String.format("SELECT * FROM \"L1Nodes\"");
+        String query = String.format("SELECT * FROM \"Node\"");
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
 
@@ -313,7 +340,7 @@ public class DataManager {
 
   /**
    * Prompts the user to enter a node ID, as well as new x and y coordinates for the node, and
-   * updates the corresponding row in the L1Nodes table with the new coordinates.
+   * updates the corresponding row in the Node table with the new coordinates.
    *
    * @param connection the connection to the PostgreSQL database
    * @throws SQLException if an error occurs while executing the SQL query
@@ -328,15 +355,9 @@ public class DataManager {
     String newY = scanner.nextLine();
 
     String query =
-        "UPDATE \"L1Nodes\" SET xcoord = "
-            + newX
-            + ", ycoord = "
-            + newY
-            + " WHERE \"nodeID\" = '"
-            + nodeID.toUpperCase()
-            + "';";
+        "UPDATE Node SET xcoord = " + newX + ", ycoord = " + newY + " WHERE nodeID = " + nodeID;
     try (Statement statement = connection.createStatement()) {
-      statement.executeUpdate(query);
+      ResultSet rs = statement.executeQuery(query);
       System.out.println("Node successfully updated");
     } catch (SQLException e) {
       System.out.println("Update Node Coordinates Error.");
@@ -347,31 +368,44 @@ public class DataManager {
   /**
    * Updates the name of a node in the database. Prompts the user for the node ID, new long name,
    * and new short name. Executes an SQL UPDATE statement to modify the longName and shortName
-   * fields of the L1Nodes table in the database for the specified node ID with the new values
-   * entered by the user.
+   * fields of the Node table in the database for the specified node ID with the new values entered
+   * by the user.
    *
    * @param connection the connection to the database
    * @throws SQLException if there is an error executing the SQL statement
    */
   public static void updateNodeName(Connection connection) throws SQLException {
+
+    // Need to link to location name table
+
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to update the name of: ");
-    String nodeID = scanner.nextLine();
+    int nodeID = scanner.nextInt();
     System.out.print("Enter the new long name of node " + nodeID + ": ");
     String newLongName = scanner.nextLine();
     System.out.print("Enter the new short name of node " + nodeID + ": ");
     String newShortName = scanner.nextLine();
+    System.out.println("Enter the type of node " + nodeID + ": ");
+    String newType = scanner.nextLine();
     // update node
+
+    String queryFix =
+        "Select new.\"longName\", new.\"shortName\", new.\"nodeType\" "
+            + "From (Select l.\"longName\", l.\"shortName\", l.\"nodeType\", m.\"nodeID\" "
+            + "From \"LocationName\" as l, \"Move\" as m "
+            + "Where l.\"longName\" = m.\"longName\") new "
+            + "Where new.\"nodeID\" = "
+            + nodeID;
+
     String query =
-        "UPDATE \"L1Nodes\" SET \"longName\" = '"
+        "UPDATE \"Node\" SET \"longName\" = "
             + newLongName
-            + "', \"shortName\" = '"
+            + ", \"shortName\" = "
             + newShortName
-            + "' WHERE \"nodeID\" = '"
-            + nodeID.toUpperCase()
-            + "';";
+            + " WHERE \"nodeID\" = "
+            + nodeID;
     try (Statement statement = connection.createStatement()) {
-      statement.executeUpdate(query);
+      ResultSet rs = statement.executeQuery(query);
       System.out.println("Node successfully updated");
     } catch (SQLException e) {
       System.out.println("Update Node Names Error.");
@@ -387,13 +421,38 @@ public class DataManager {
    * @param connection a Connection object representing a connection to a PostgreSQL database
    */
   public static void deleteNode(Connection connection) throws SQLException {
+
+    // Need to edit to work with tables
+
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to delete: ");
     String nodeid = scanner.nextLine();
 
     // Show edge nodes being deleted also
+
+    String queryFix2 =
+        "Select *\n"
+            + "From\n"
+            + "    (Select\n"
+            + "         new2.\"nodeType\", new2.\"longName\", new2.\"shortName\", new2.\"nodeID\", new2.xcoord, new2.ycoord, new2.floor, new2.building, e.\"startNode\", e.\"endNode\"\n"
+            + "    From\n"
+            + "        (Select\n"
+            + "             new1.\"nodeType\", new1.\"longName\", new1.\"shortName\", n.\"nodeID\", n.xcoord, n.ycoord, n.floor, n.building\n"
+            + "        From\n"
+            + "            (Select l.\"nodeType\", l.\"longName\", l.\"shortName\", m.\"nodeID\"\n"
+            + "            From\n"
+            + "                \"LocationName\" l, \"Move\" m\n"
+            + "            Where\n"
+            + "                l.\"longName\" = m.\"longName\") as new1, \"Node\" as n\n"
+            + "        Where\n"
+            + "            new1.\"nodeID\" = n.\"nodeID\") as new2, \"Edge\" as e\n"
+            + "    Where\n"
+            + "        new2.\"nodeID\" = e.\"endNode\" OR new2.\"nodeID\" = e.\"startNode\") as new3\n"
+            + "Where new3.\"nodeID\" = "
+            + nodeid;
+
     String query2 =
-        "Select e.\"edgeID\" from \"L1Edges\" e, \"L1Nodes\" n where \'"
+        "Select e.\"edgeID\" from \"Edge\" e, \"Node\" n where \'"
             + nodeid.toUpperCase()
             + "\' = e.\"startNode\" or \'"
             + nodeid.toUpperCase()
@@ -421,7 +480,7 @@ public class DataManager {
     if (sureDelete.equalsIgnoreCase("y") || sureDelete.equalsIgnoreCase("Y")) {
 
       try (PreparedStatement statement =
-          connection.prepareStatement("DELETE FROM \"L1Nodes\" WHERE \"nodeID\" = ?")) {
+          connection.prepareStatement("DELETE FROM \"Node\" WHERE \"nodeID\" = ?")) {
         statement.setString(1, nodeid);
         int rowsDeleted = statement.executeUpdate();
         if (rowsDeleted > 0) {
@@ -446,24 +505,57 @@ public class DataManager {
    * @param connection a Connection object representing the database connection
    */
   public static void deleteEdge(Connection connection) throws SQLException {
+
+    // Need to edit to work with tables
+
     Scanner scanner = new Scanner(System.in);
-    System.out.print("Enter the edge ID of the edge you want to delete: ");
-    String edgeID = scanner.nextLine();
-    System.out.print("Are you sure you want to delete edge " + edgeID + " (Y/N)? ");
+    System.out.print("Enter the start node of the edge you want to delete: ");
+    String startNodeID = scanner.nextLine();
+    System.out.print("Enter the end node of the edge you want to delete: ");
+    String endNodeID = scanner.nextLine();
+    System.out.print(
+        "Are you sure you want to delete edge " + startNodeID + " to " + endNodeID + " (Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y") || sureDelete.equalsIgnoreCase("Y")) {
       // delete edge
-      String query = "DELETE FROM \"L1Edges\" WHERE \"edgeID\" = ?";
-      try (PreparedStatement statement = connection.prepareStatement(query)) {
-        statement.setString(1, edgeID);
+
+      String queryFix3 =
+          " Select *\n"
+              + "From\n"
+              + "    (Select\n"
+              + "         new2.\"nodeType\", new2.\"longName\", new2.\"shortName\", new2.\"nodeID\", new2.xcoord, new2.ycoord, new2.floor, new2.building, e.\"startNode\", e.\"endNode\"\n"
+              + "    From\n"
+              + "        (Select\n"
+              + "             new1.\"nodeType\", new1.\"longName\", new1.\"shortName\", n.\"nodeID\", n.xcoord, n.ycoord, n.floor, n.building\n"
+              + "        From\n"
+              + "            (Select l.\"nodeType\", l.\"longName\", l.\"shortName\", m.\"nodeID\"\n"
+              + "            From\n"
+              + "                \"LocationName\" l, \"Move\" m\n"
+              + "            Where\n"
+              + "                l.\"longName\" = m.\"longName\") as new1, \"Node\" as n\n"
+              + "        Where\n"
+              + "            new1.\"nodeID\" = n.\"nodeID\") as new2, \"Edge\" as e\n"
+              + "    Where\n"
+              + "        new2.\"nodeID\" = e.\"endNode\" OR new2.\"nodeID\" = e.\"startNode\") as new3\n"
+              + "Where new3.\"startNode\" = "
+              + startNodeID
+              + " AND new3.\"endNode\" = "
+              + endNodeID;
+
+      String query3 = "DELETE FROM \"Edge\" WHERE \"edgeID\" = ?";
+      try (PreparedStatement statement = connection.prepareStatement(query3)) {
+        statement.setString(1, startNodeID);
+        statement.setString(1, endNodeID);
         int rowsDeleted = statement.executeUpdate();
         if (rowsDeleted > 0) {
-          System.out.println("Edge " + edgeID + " successfully deleted.");
+          System.out.println("Edge " + startNodeID + " to " + endNodeID + " successfully deleted.");
         } else {
-          System.out.println("Edge " + edgeID + " not found in the database.");
+          System.out.println(
+              "Edge " + startNodeID + " to " + endNodeID + " not found in the database.");
         }
       } catch (SQLException e) {
-        System.out.println("Error deleting edge " + edgeID + ": " + e.getMessage());
+        System.out.println(
+            "Error deleting edge " + startNodeID + " to " + endNodeID + ": " + e.getMessage());
         throw e;
       }
     } else {
@@ -478,10 +570,6 @@ public class DataManager {
    * @throws SQLException if there is an error executing the SQL command
    */
   public static void runQuery(Connection connection) throws SQLException {
-    if (true) {
-      System.out.println("DO NOT USE THIS");
-      return;
-    }
     Scanner scanner = new Scanner(System.in);
     System.out.print(
         "Enter the SQL you want to run (Put quotes around table names, single quotes around data points): ");
