@@ -142,6 +142,7 @@ public class DataManager {
 
       System.out.println("Node " + selectNode + " Info:");
       String query = "select * from \"Node\" where \"nodeID\" = " + selectNode;
+
       try (Statement statement = connection.createStatement()) {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
