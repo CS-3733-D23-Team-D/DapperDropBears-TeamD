@@ -341,10 +341,10 @@ public class DataManager {
     }
   }
   /**
-   * Exports data from the "Node" and "Edge" tables in the PostgreSQL database to a CSV file
-   * specified by the user. The function prompts the user to enter the file path for the CSV export
-   * and then executes a SQL query to retrieve all data from the prompted table. The results are
-   * written to the CSV file in comma-separated format.
+   * Exports data from the "Node", "Edge", "LocationName", and "Move" tables in the PostgreSQL
+   * database to a CSV file specified by the user. The function prompts the user to enter the file
+   * path for the CSV export and then executes a SQL query to retrieve all data from the prompted
+   * table. The results are written to the CSV file in comma-separated format.
    *
    * <p>Note: LOCAL file path NO quotations!
    *
@@ -354,7 +354,11 @@ public class DataManager {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the file path for the CSV export: ");
     String cvsFilePath = scanner.nextLine();
-    System.out.println("Press 0 for Node import" + "\npress 1 for Edge import: ");
+    System.out.println(
+        "Press 0 for Node export"
+            + "\npress 1 for Edge export"
+            + "\npress 2 for LocationName export"
+            + "\npress 3 for Move export");
     int userChoice = scanner.nextInt();
 
     if (userChoice == 1) {
@@ -425,8 +429,76 @@ public class DataManager {
       } catch (SQLException | FileNotFoundException e) {
         e.printStackTrace();
       }
+    } else if (userChoice == 2) {
+      try (connection) {
+        System.out.println("You chose LocationName export");
+        String query = String.format("SELECT * FROM \"LocationName\"");
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+
+        try (PrintWriter writer = new PrintWriter(new File(cvsFilePath))) {
+          StringBuilder sb = new StringBuilder();
+          ResultSetMetaData metaData = resultSet.getMetaData();
+          int columnCount = metaData.getColumnCount();
+          for (int i = 1; i <= columnCount; i++) {
+            sb.append(metaData.getColumnName(i));
+            if (i < columnCount) {
+              sb.append(",");
+            }
+          }
+          sb.append(System.lineSeparator());
+          while (resultSet.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+              sb.append(resultSet.getString(i));
+              if (i < columnCount) {
+                sb.append(",");
+              }
+            }
+            sb.append(System.lineSeparator());
+          }
+          writer.write(sb.toString());
+        }
+
+        System.out.printf("Data exported to CSV file: %s%n", cvsFilePath);
+      } catch (SQLException | FileNotFoundException e) {
+        e.printStackTrace();
+      }
+    } else if (userChoice == 3) {
+      try (connection) {
+        System.out.println("You chose Move export");
+        String query = String.format("SELECT * FROM \"Move\"");
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+
+        try (PrintWriter writer = new PrintWriter(new File(cvsFilePath))) {
+          StringBuilder sb = new StringBuilder();
+          ResultSetMetaData metaData = resultSet.getMetaData();
+          int columnCount = metaData.getColumnCount();
+          for (int i = 1; i <= columnCount; i++) {
+            sb.append(metaData.getColumnName(i));
+            if (i < columnCount) {
+              sb.append(",");
+            }
+          }
+          sb.append(System.lineSeparator());
+          while (resultSet.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+              sb.append(resultSet.getString(i));
+              if (i < columnCount) {
+                sb.append(",");
+              }
+            }
+            sb.append(System.lineSeparator());
+          }
+          writer.write(sb.toString());
+        }
+
+        System.out.printf("Data exported to CSV file: %s%n", cvsFilePath);
+      } catch (SQLException | FileNotFoundException e) {
+        e.printStackTrace();
+      }
     } else {
-      System.out.printf("Input not recognized. Please only input 1 or 0");
+      System.out.printf("Input not recognized. Please only input 1,2,3,or 0");
       exportData(connection);
     }
   }
