@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class DataManager {
 
-  public static void moveNode(Connection connection){
+  public static void moveNode(Connection connection) {
     Scanner scan = new Scanner(System.in);
     boolean moving = true;
     while (moving) {
@@ -88,7 +88,7 @@ public class DataManager {
       String query =
           "INSERT INTO \"LocationName\" (\"longName\", \"shortName\", \"nodeType\") "
               + "VALUES (?, ?, ?)";
-      PreparedStatement statement = connection.prepareStatement(query);
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"LocationName\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
 
@@ -118,7 +118,7 @@ public class DataManager {
     try (connection) {
       String query =
           "INSERT INTO \"Move\" (\"nodeID\", \"longName\", \"date\") " + "VALUES (?, ?, ?)";
-      PreparedStatement statement = connection.prepareStatement(query);
+      PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Move\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
 
