@@ -13,12 +13,7 @@ public class Node {
   @Getter private ArrayList<Edge> edges;
 
   // Constructor
-  public Node(
-      String nID,
-      int xCord,
-      int yCord,
-      String floor,
-      String building) {
+  public Node(String nID, int xCord, int yCord, String floor, String building) {
     this.nodeID = nID;
     this.xCord = xCord;
     this.yCord = yCord;
@@ -38,9 +33,7 @@ public class Node {
     String yCordS = "Y-coordinate: " + this.yCord;
     String floorS = "Floor: " + this.floor;
     String buildingS = "Building: " + this.building;
-    String output =
-        nIDs + " " + xCordS + " " + yCordS + " " + floorS + " "
-            + buildingS;
+    String output = nIDs + " " + xCordS + " " + yCordS + " " + floorS + " " + buildingS;
     return output;
   }
 
