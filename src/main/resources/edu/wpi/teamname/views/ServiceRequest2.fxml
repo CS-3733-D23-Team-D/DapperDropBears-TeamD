@@ -16,6 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import net.kurobako.gesturefx.GesturePane?>
 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
    <children>
       <VBox HBox.hgrow="ALWAYS">
@@ -29,7 +30,7 @@
                   </Text>
                </children>
             </StackPane>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <GesturePane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <content>
                   <StackPane prefHeight="1000.0" prefWidth="1000.0">
                      <children>
@@ -77,9 +78,9 @@
                         </AnchorPane>
                         <AnchorPane fx:id="menuPane" visible="false">
                            <children>
-                              <VBox prefHeight="364.0" prefWidth="401.0">
+                              <VBox prefHeight="364.0" prefWidth="1800.0">
                                  <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                                    <HBox prefHeight="100.0"  spacing="30.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
                                              <font>
@@ -92,8 +93,7 @@
                                           <Insets left="25.0" right="25.0" top="32.0" />
                                        </padding>
                                     </HBox>
-                                    <MFXCheckListView fx:id="itemChecklist" prefHeight="691.0" prefWidth="1800.0" />
-                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                    <VBox fx:id="itemBox" spacing="30.0">
                                        <children>
                                           <MFXTextField fx:id="notesBox" prefHeight="226.0" prefWidth="1498.0" promptText="Notes">
                                              <font>
@@ -109,7 +109,7 @@
                      </children>
                   </StackPane>
                </content>
-            </ScrollPane>
+            </GesturePane>
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
                <children>
                   <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Clear">

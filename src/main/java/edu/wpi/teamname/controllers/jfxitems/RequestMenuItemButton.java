@@ -5,10 +5,12 @@ import javafx.scene.control.Button;
 
 public class RequestMenuItemButton extends Button {
   RequestMenuItem parent;
+  String name;
 
   RequestMenuItemButton(String name, RequestMenuItem parent) {
     super(name);
     this.parent = parent;
+    this.name = name;
     initialize();
     this.setText("Add to Cart");
   }
@@ -18,6 +20,6 @@ public class RequestMenuItemButton extends Button {
     setAccessibleRole(AccessibleRole.BUTTON);
     setMnemonicParsing(true);
     setStyle("-fx-background-color: #d9d9d9;-fx-font-size: 20pt");
-    setOnMouseClicked(event -> System.out.println(getText() + " " + parent.quantity.getText()));
+    setOnMouseClicked(event -> System.out.println(name + " " + parent.quantity.getText()));
   }
 }

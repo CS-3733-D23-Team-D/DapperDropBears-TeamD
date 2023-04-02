@@ -22,7 +22,7 @@ public class TestController {
     testList.add("pie");
 
     for (String item : testList) {
-      vBox.getChildren().add(new RequestMenuItem(item));
+      vBox.getChildren().add(new RequestMenuItem(item, "FoodIcon"));
       // vBox.getChildren().add(new Button("E"));
       // vBox.getChildren().
     }

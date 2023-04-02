@@ -52,7 +52,7 @@ public class App extends Application {
     primaryStage.show();
 
     // Homemade Navigation Class with Homemade Enum Screen
-    Navigation.navigate(Screen.TEST);
+    Navigation.navigate(Screen.HOME);
   }
 
   @Override

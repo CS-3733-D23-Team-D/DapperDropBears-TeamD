@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers.jfxitems;
 
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -14,20 +15,20 @@ public class RequestMenuItem extends HBox {
   @FXML ImageView imageView;
   @FXML MFXTextField quantity;
 
-  public RequestMenuItem(String name) {
+  public RequestMenuItem(String name, String folder) {
     this.name = name;
     initialize();
     try {
       imageView =
           new ImageView(
-              "edu/wpi/teamname/images/FoodIcons/" + name.toLowerCase().replace(" ", "_") + ".png");
+              "edu/wpi/teamname/images/" + folder + "/" + name.replace(" ", "_") + ".png");
       getChildren().add(imageView);
     } catch (IllegalArgumentException i) {
       System.out.println("illegal image urls");
     }
     label = new Label(name);
-    label.setStyle("-fx-text-fill: #ffffff; -fx-font-size: 20pt");
-    button = new RequestMenuItemButton(name, this);
+    label.setStyle("-fx-text-fill: #000000; -fx-font-size: 20pt");
+    button = new RequestMenuItemButton(name.replace("_", " "), this);
     quantity = new MFXTextField("", "quantity");
     getChildren().add(label);
     getChildren().add(quantity);
@@ -35,8 +36,9 @@ public class RequestMenuItem extends HBox {
   }
 
   private void initialize() {
-    setLayoutX(100);
-    setSpacing(25);
-    setStyle("-fx-background-color: black");
+    // setLayoutX(1000);
+    setPadding(new Insets(0, 30, 0, 30));
+    setSpacing(100);
+    setStyle("-fx-background-color: white");
   }
 }
