@@ -1,10 +1,10 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.controllers.jfxitems.RequestMenuItem;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.servicerequests.ServiceRequest;
 import io.github.palexdev.materialfx.controls.*;
-import io.github.palexdev.materialfx.controls.cell.MFXCheckListCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,16 +57,24 @@ public class ServiceRequestController {
   // menu item page
   @FXML AnchorPane menuPane;
   @FXML MFXTextField searchBar;
-  @FXML MFXCheckListView itemChecklist;
+  @FXML VBox itemBox;
   ObservableList<String> mealItems =
-      FXCollections.observableArrayList("Burger", "Pizza", "Cookie", "Pasta", "Cake", "Banana");
+      FXCollections.observableArrayList(
+          "Burger", "Pizza", "Cookie", "Pasta", "Cake", "Banana", "Banana Split");
   ObservableList<String> flowerItems =
-      FXCollections.observableArrayList("Daisy", "Rose", "Tulip", "Mum", "Cosmos", "Hyacinth");
+      FXCollections.observableArrayList(
+          "Black Cosmos",
+          "Gold Roses",
+          "Orange Tulips",
+          "Green Mums",
+          "Red Cosmos",
+          "Purple Hyacinths");
 
   @FXML MFXTextField notesBox;
 
   @Getter private ServiceRequest request;
 
+  /*
   private void addSelectedItems() {
     for (int i = 0; i < itemChecklist.getCells().size(); i++) {
       System.out.println();
@@ -75,15 +83,19 @@ public class ServiceRequestController {
         // request.addItem(itemChecklist.getItems().get(i).toString());
       }
     }
-  }
+  }*/
 
   private void nextPane() {
     System.out.println("NEXT");
     if (requestPage == 0) {
       if (requestType.getValue() == "Meal Delivery") {
-        itemChecklist.setItems(mealItems);
+        for (String item : mealItems) {
+          itemBox.getChildren().add(new RequestMenuItem(item, "FoodIcons"));
+        }
       } else {
-        itemChecklist.setItems(flowerItems);
+        for (String item : flowerItems) {
+          itemBox.getChildren().add(new RequestMenuItem(item, "FlowerIcons"));
+        }
       }
       formPane.setDisable(true);
       formPane.setVisible(false);
@@ -107,7 +119,7 @@ public class ServiceRequestController {
 
       request.setNotes(notesBox.getCharacters().toString());
 
-      addSelectedItems();
+      // addSelectedItems();
 
       System.out.println(request);
     }
@@ -148,5 +160,8 @@ public class ServiceRequestController {
 
     request = new ServiceRequest();
     requestPage = 0;
+
+    itemBox.setFillWidth(true);
+    itemBox.setSpacing(25);
   }
 }
