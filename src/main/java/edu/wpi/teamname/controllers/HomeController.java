@@ -17,6 +17,8 @@ public class HomeController {
   @FXML MFXButton exitButton;
   @FXML private AnchorPane rootPane;
 
+  @FXML MFXButton loginButton;
+
   @FXML
   public void initialize() {
 
@@ -32,6 +34,7 @@ public class HomeController {
     // "event" is a parameter, but there is no
     serviceRequests.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
     exitButton.setOnMouseClicked(event -> System.exit(0));
   }
 }

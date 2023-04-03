@@ -7,7 +7,7 @@ public enum Screen {
   SERVICE_REQUEST("views/ServiceRequest2.fxml"),
 
   //  REQ_MENU("views/ServiceRequestMenu.fxml"),
-
+  LOGIN("views/Login.fxml"),
   SIGNAGE("views/SignageLevels.fxml");
 
   private final String filename;

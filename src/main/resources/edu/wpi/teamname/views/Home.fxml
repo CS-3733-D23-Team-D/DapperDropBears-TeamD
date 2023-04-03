@@ -35,7 +35,7 @@
                   <Insets right="20.0" top="100.0" />
                </StackPane.margin>
             </MFXButton>
-            <MFXButton id="mealRequest" fx:id="serviceRequests" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Make Request" textAlignment="JUSTIFY" StackPane.alignment="CENTER_RIGHT">
+            <MFXButton id="mealRequest" fx:id="serviceRequests" alignment="TOP_LEFT" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Make Request" textAlignment="JUSTIFY" StackPane.alignment="CENTER_RIGHT">
                <font>
                   <Font name="Nunito Sans Regular" size="12.0" />
                </font>
@@ -46,6 +46,11 @@
             <MFXButton fx:id="exitButton" style="-fx-background-color: #70A4FF;" text="Exit" StackPane.alignment="TOP_RIGHT">
                <StackPane.margin>
                   <Insets right="20.0" top="10.0" />
+               </StackPane.margin>
+            </MFXButton>
+            <MFXButton fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: #70A4FF;" text="Login" textAlignment="CENTER" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="20.0" top="10.0" />
                </StackPane.margin>
             </MFXButton>
             <MFXButton fx:id="helpButton" style="-fx-background-color: #70A4FF;" text="Help" StackPane.alignment="TOP_RIGHT">
