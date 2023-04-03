@@ -26,8 +26,13 @@ public class MealRequest extends ServiceRequest {
     meals.add(meal);
   }
 
-  public void removeMeal(Meal meal) {
-    meals.remove(meal);
+  public void removeMeal(int id) {
+    for (int i = 0; i < meals.size(); i++) {
+      if (meals.get(i).getMealID() == id) {
+        meals.remove(i);
+        return;
+      }
+    }
   }
 
   public void uploadRequestToDatabase() throws SQLException {
@@ -61,7 +66,6 @@ public class MealRequest extends ServiceRequest {
     for (int i = 0; i < meals.size(); i++) {
       connection = dbc.DbConnection();
       try {
-        System.out.println("here");
         query =
             "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\") "
                 + "VALUES ('"

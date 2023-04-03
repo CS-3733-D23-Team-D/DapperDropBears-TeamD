@@ -25,8 +25,13 @@ public class FlowerRequest extends ServiceRequest {
     flowers.add(flower);
   }
 
-  public void removeFlower(Flower flower) {
-    flowers.remove(flower);
+  public void removeFlower(int id) {
+    for (int i = 0; i < flowers.size(); i++) {
+      if (flowers.get(i).getFlowerID() == id) {
+        flowers.remove(i);
+        return;
+      }
+    }
   }
 
   public void uploadRequestToDatabase() throws SQLException {
@@ -60,7 +65,6 @@ public class FlowerRequest extends ServiceRequest {
     for (int i = 0; i < flowers.size(); i++) {
       connection = dbc.DbConnection();
       try {
-        System.out.println("here");
         query =
             "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\") "
                 + "VALUES ('"
