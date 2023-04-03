@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXCheckListView?>
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -16,7 +15,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import net.kurobako.gesturefx.GesturePane?>
 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
    <children>
       <VBox HBox.hgrow="ALWAYS">
@@ -30,10 +28,10 @@
                   </Text>
                </children>
             </StackPane>
-            <GesturePane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <content>
-                  <StackPane prefHeight="1000.0" prefWidth="1000.0">
-                     <children>
+            <StackPane prefHeight="1000.0" prefWidth="1000.0">
+               <children>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <content>
                         <AnchorPane fx:id="formPane" minHeight="0.0" minWidth="0.0">
                            <children>
                               <VBox layoutX="1.0" layoutY="17.0" prefHeight="631.0" prefWidth="1794.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
@@ -76,40 +74,58 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="menuPane" visible="false">
-                           <children>
-                              <VBox prefHeight="364.0" prefWidth="1800.0">
+                     </content>
+                  </ScrollPane>
+
+                  <AnchorPane fx:id="menuPane" visible="false" VBox.vgrow="ALWAYS">
+                     <children>
+
+                              <VBox prefHeight="700.0" prefWidth="1800.0" >
                                  <children>
-                                    <HBox prefHeight="100.0"  spacing="30.0">
+                                    <HBox minHeight="100.0" spacing="30.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
                                              <font>
                                                 <Font name="Times New Roman" size="36.0" />
                                              </font>
                                           </Text>
-                                          <MFXTextField fx:id="searchBar" prefHeight="49.0" prefWidth="1700.0" style="-fx-background-color: #d9d9d9;" />
+                                          <MFXTextField fx:id="searchBar" prefWidth="1700.0" style="-fx-background-color: #d9d9d9;">
+                                             <font>
+                                                <Font name="Times New Roman" size="20.0" />
+                                             </font>
+                                          </MFXTextField>
                                        </children>
                                        <padding>
                                           <Insets left="25.0" right="25.0" top="32.0" />
                                        </padding>
                                     </HBox>
-                                    <VBox fx:id="itemBox" spacing="30.0">
-                                       <children>
-                                          <MFXTextField fx:id="notesBox" prefHeight="226.0" prefWidth="1498.0" promptText="Notes">
-                                             <font>
-                                                <Font name="Times New Roman" size="18.0" />
-                                             </font>
-                                          </MFXTextField>
-                                       </children>
-                                    </VBox>
+
+                                       <ScrollPane minHeight="500" prefHeight="900" fitToHeight="true" fitToWidth="true" >
+                                          <content>
+                                             <AnchorPane  VBox.vgrow="ALWAYS">
+                                                <children>
+                                                   <VBox fx:id="itemBox" spacing="30.0"  fillWidth="true">
+                                                      <children>
+                                                      </children>
+                                                   </VBox>
+                                                </children>
+                                             </AnchorPane>
+                                          </content>
+                                       </ScrollPane>
+
+                                    <MFXTextField fx:id="notesBox" prefHeight="226.0" prefWidth="1498.0" promptText="Notes">
+                                       <font>
+                                          <Font name="Times New Roman" size="20.0" />
+                                       </font>
+                                    </MFXTextField>
                                  </children>
                               </VBox>
-                           </children>
-                        </AnchorPane>
+
                      </children>
-                  </StackPane>
-               </content>
-            </GesturePane>
+                  </AnchorPane>
+
+               </children>
+            </StackPane>
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
                <children>
                   <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Clear">

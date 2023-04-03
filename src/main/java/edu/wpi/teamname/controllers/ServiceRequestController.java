@@ -60,15 +60,16 @@ public class ServiceRequestController {
   @FXML VBox itemBox;
   ObservableList<String> mealItems =
       FXCollections.observableArrayList(
-          "Burger", "Pizza", "Cookie", "Pasta", "Cake", "Banana", "Banana Split");
+          "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
   ObservableList<String> flowerItems =
       FXCollections.observableArrayList(
           "Black Cosmos",
           "Gold Roses",
           "Orange Tulips",
           "Green Mums",
-          "Red Cosmos",
-          "Purple Hyacinths");
+          "Orange Cosmos",
+          "Purple Hyacinths",
+          "Pink Hyacinths");
 
   @FXML MFXTextField notesBox;
 
@@ -97,6 +98,7 @@ public class ServiceRequestController {
           itemBox.getChildren().add(new RequestMenuItem(item, "FlowerIcons"));
         }
       }
+      itemBox.setFillWidth(true);
       formPane.setDisable(true);
       formPane.setVisible(false);
       menuPane.setDisable(false);
