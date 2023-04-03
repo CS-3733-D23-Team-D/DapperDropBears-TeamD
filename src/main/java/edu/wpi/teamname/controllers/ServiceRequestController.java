@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import lombok.Getter;
@@ -49,7 +50,7 @@ public class ServiceRequestController {
   @FXML MFXTextField staffName;
   @FXML MFXTextField patientName;
   @FXML MFXTextField roomNum;
-  @FXML MFXDatePicker dateBox;
+  @FXML DatePicker dateBox;
   ObservableList<String> serviceType =
       FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
   @FXML ComboBox requestType;
@@ -127,6 +128,27 @@ public class ServiceRequestController {
     }
   }
 
+  private void cancelAction() {
+    clearAction();
+    Navigation.navigate(Screen.HOME);
+  }
+
+  private void clearAction() {
+    patientName.clear();
+    staffName.clear();
+    roomNum.clear();
+    requestType.cancelEdit();
+    dateBox.cancelEdit();
+    if (requestPage == 1) {
+      formPane.setVisible(true);
+      formPane.setDisable(false);
+      menuPane.setDisable(true);
+      menuPane.setVisible(false);
+      requestPage = 0;
+      nextButton.setText("Next");
+    }
+  }
+
   public void initialize() {
 
     // set the width and height to be bound to the panes width and height
@@ -157,6 +179,8 @@ public class ServiceRequestController {
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exitButton.setOnMouseClicked(event -> System.exit(0));
     nextButton.setOnMouseClicked(event -> nextPane());
+    cancelButton.setOnMouseClicked(event -> cancelAction());
+    clearButton.setOnMouseClicked(event -> clearAction());
 
     requestType.setItems(serviceType);
 
