@@ -2,6 +2,7 @@ package edu.wpi.teamname.controllers.jfxitems;
 
 import javafx.scene.AccessibleRole;
 import javafx.scene.control.Button;
+import javafx.scene.text.Font;
 
 public class RequestMenuItemButton extends Button {
   RequestMenuItem parent;
@@ -19,7 +20,8 @@ public class RequestMenuItemButton extends Button {
     getStyleClass().setAll("button");
     setAccessibleRole(AccessibleRole.BUTTON);
     setMnemonicParsing(true);
-    setStyle("-fx-background-color: #d9d9d9;-fx-font-size: 20pt");
+    setStyle("-fx-background-color: #d9d9d9");
+    setFont(Font.font("Times New Roman", 20));
     setOnMouseClicked(event -> System.out.println(name + " " + parent.quantity.getText()));
   }
 }

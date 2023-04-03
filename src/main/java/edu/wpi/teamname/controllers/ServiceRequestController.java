@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import lombok.Getter;
@@ -47,9 +48,9 @@ public class ServiceRequestController {
   @FXML AnchorPane formAnchor;
   @FXML AnchorPane formPane;
   // Form fields
-  @FXML MFXTextField staffName;
-  @FXML MFXTextField patientName;
-  @FXML MFXTextField roomNum;
+  @FXML TextField staffName;
+  @FXML TextField patientName;
+  @FXML TextField roomNum;
   @FXML DatePicker dateBox;
   ObservableList<String> serviceType =
       FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
@@ -90,6 +91,7 @@ public class ServiceRequestController {
   private void nextPane() {
     System.out.println("NEXT");
     if (requestPage == 0) {
+
       if (requestType.getValue() == "Meal Delivery") {
         for (String item : mealItems) {
           itemBox.getChildren().add(new RequestMenuItem(item, "FoodIcons"));
