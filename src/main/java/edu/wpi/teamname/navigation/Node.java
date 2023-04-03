@@ -42,20 +42,10 @@ public class Node implements Comparable<Node> {
     return y;
   }
 
-  public static class Edge {
-    public double weight;
-    public Node node;
-
-    Edge(double weight, Node node) {
-      this.weight = weight;
-      this.node = node;
+  public void addBranch(Edge edge) {
+    if (!this.neighbors.contains(edge)) {
+      neighbors.add(edge);
     }
-  }
-
-  public void addBranch(Node node) {
-    double weight = findWeight(node);
-    Edge newEdge = new Edge(weight, node);
-    neighbors.add(newEdge);
   }
 
   public double findWeight(Node b) {
@@ -70,17 +60,14 @@ public class Node implements Comparable<Node> {
   }
 
   public double calculateHeuristic(Node target) {
-    // default
-    // return 0;
-
-    // distance function
-    // return findWeight(target);
-    // manhattan distance
-    // return Math.abs(target.x - this.x) + Math.abs(target.y - this.y);
     return this.h;
   }
 
   public String toString() {
-    return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h;
+    String str = "";
+    for (Edge n : neighbors) {
+      str += " " + n.toString();
+    }
+    return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h + str;
   }
 }
