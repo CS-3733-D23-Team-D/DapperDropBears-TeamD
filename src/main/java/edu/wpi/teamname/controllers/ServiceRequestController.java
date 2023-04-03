@@ -191,5 +191,7 @@ public class ServiceRequestController {
 
     itemBox.setFillWidth(true);
     itemBox.setSpacing(25);
+
+    dateBox.setStyle("-fx-font: Times New Roman; -fx-font-size: 20");
   }
 }
