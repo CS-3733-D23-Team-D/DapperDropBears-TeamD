@@ -53,6 +53,11 @@
                   <Insets left="20.0" top="10.0" />
                </StackPane.margin>
             </MFXButton>
+            <MFXButton fx:id="logoutButton" style="-fx-background-color: #70A4FF;" text="Logout" textAlignment="CENTER" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="20.0" top="10.0" />
+               </StackPane.margin>
+            </MFXButton>
             <MFXButton fx:id="helpButton" style="-fx-background-color: #70A4FF;" text="Help" StackPane.alignment="TOP_RIGHT">
                <StackPane.margin>
                   <Insets right="90.0" top="10.0" />

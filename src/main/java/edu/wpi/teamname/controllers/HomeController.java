@@ -6,10 +6,11 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import lombok.Setter;
 
 public class HomeController {
   // test push
-
+  @Setter private static boolean loggedIn = false;
   @FXML ImageView imageView;
   @FXML MFXButton serviceRequests;
   @FXML MFXButton helpButton;
@@ -18,6 +19,13 @@ public class HomeController {
   @FXML private AnchorPane rootPane;
 
   @FXML MFXButton loginButton;
+  @FXML MFXButton logoutButton;
+
+  private void logout() {
+    loggedIn = false;
+    loginButton.setVisible(true);
+    logoutButton.setVisible(false);
+  }
 
   @FXML
   public void initialize() {
@@ -32,9 +40,18 @@ public class HomeController {
     // Lambda Expression. parameter -> expression
     // Basically just runs the Navigation.navigate Function
     // "event" is a parameter, but there is no
+    if (loggedIn) {
+      loginButton.setVisible(false);
+      logoutButton.setVisible(true);
+    } else {
+      loginButton.setVisible(true);
+      logoutButton.setVisible(false);
+    }
+
     serviceRequests.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
+    logoutButton.setOnMouseClicked(event -> logout());
     exitButton.setOnMouseClicked(event -> System.exit(0));
   }
 }
