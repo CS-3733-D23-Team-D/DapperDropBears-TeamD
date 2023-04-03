@@ -57,7 +57,7 @@ public class Graph {
       int j = 0;
       while (j < edges.size()) {
         if (nodes.get(i).id == edges.get(j).startNodeID
-            || nodes.get(i).id == edges.get(j).startNodeID) {
+            || nodes.get(i).id == edges.get(j).endNodeID) {
           nodes.get(i).addBranch(edges.get(j));
         }
       }

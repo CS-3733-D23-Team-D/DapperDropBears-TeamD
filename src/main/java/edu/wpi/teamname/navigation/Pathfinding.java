@@ -16,6 +16,15 @@ public class Pathfinding {
     initializeNodes(ReadCsvLines(NodesFile));
     initializeEdges(ReadCsvLines(EdgesFile));
 
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter the start NodeID: ");
+    int startNodeID = input.nextInt();
+
+    System.out.println("");
+    System.out.print("Enter the destination NodeID: ");
+    int endNodeID = input.nextInt();
+    System.out.println("");
+
     Graph graph = new Graph(Nodes, Edges);
 
     System.out.println(graph.getNodes().get(0).toString());
@@ -31,7 +40,7 @@ public class Pathfinding {
       lines.add(sc.nextLine());
     }
 
-    // Remove the tittles
+    // Remove the title
     lines.remove(0);
     return lines;
   }
