@@ -15,6 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.DatePicker?>
 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
    <children>
       <VBox HBox.hgrow="ALWAYS">
@@ -62,7 +63,7 @@
                                           <Font name="Times New Roman" size="32.0" />
                                        </font>
                                     </Text>
-                                    <MFXDatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" />
+                                    <DatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" />
                                     <Separator prefWidth="200.0" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
                                        <font>
