@@ -616,7 +616,7 @@ public class DataManager {
     System.out.println("Enter the node ID of the node you want to update the name of: ");
     int nodeID = scanner.nextInt();
     System.out.println("Enter the new long name of node " + nodeID + ": ");
-    String newLongName = scanner.nextLine();//ERROR HERE NOT DISPLAYING***
+    String newLongName = scanner.nextLine(); // ERROR HERE NOT DISPLAYING***
     System.out.println("Enter the new short name of node " + nodeID + ": ");
     String newShortName = scanner.nextLine();
     System.out.println("Enter the type of node " + nodeID + ": ");
@@ -798,8 +798,8 @@ public class DataManager {
       // **********Make sure query works***********
 
       try (PreparedStatement statement = connection.prepareStatement(del + query3)) {
-        statement.setString(1, startNodeID);//ERROR HERE***
-        statement.setString(1, endNodeID);//ERROR HERE***
+        statement.setString(1, startNodeID); // ERROR HERE***
+        statement.setString(1, endNodeID); // ERROR HERE***
         int rowsDeleted = statement.executeUpdate();
         if (rowsDeleted > 0) {
           System.out.println("Edge " + startNodeID + " to " + endNodeID + " successfully deleted.");

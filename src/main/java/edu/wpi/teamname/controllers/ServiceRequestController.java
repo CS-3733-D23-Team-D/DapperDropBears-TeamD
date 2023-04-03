@@ -71,7 +71,7 @@ public class ServiceRequestController {
       System.out.println();
       MFXCheckListCell cell = itemChecklist.getCell(i);
       if (cell.isSelected()) {
-        request.addItem(itemChecklist.getItems().get(i).toString());
+        // request.addItem(itemChecklist.getItems().get(i).toString());
       }
     }
   }
@@ -94,7 +94,7 @@ public class ServiceRequestController {
       request.setStaffName(staffName.getCharacters().toString());
       request.setPatientName(patientName.getCharacters().toString());
       request.setRoomNumber(roomNum.getCharacters().toString());
-      request.setDeliverBy(dateBox.getValue());
+      request.setDeliverBy(dateBox.getValue().atStartOfDay());
 
     } else {
       formPane.setVisible(true);
