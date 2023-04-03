@@ -584,17 +584,36 @@ public class DataManager {
   public static void updateNodeCoords(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to update the coordinates of: ");
-    String nodeID = scanner.nextLine();
+    int nodeID = scanner.nextInt();
+    // Check if the node ID exists in the Node table
+    String queryCheckNode = "SELECT COUNT(*) FROM \"Node\" WHERE \"nodeID\" = ?";
+    try (PreparedStatement pstmt = connection.prepareStatement(queryCheckNode)) {
+      pstmt.setInt(1, nodeID);
+      ResultSet rs = pstmt.executeQuery();
+      if (rs.next() && rs.getInt(1) == 0) {
+        System.out.println("Node ID " + nodeID + " does not exist in the Node table.");
+        return;
+      }
+    } catch (SQLException e) {
+      System.out.println("Error checking for node ID " + nodeID + " in the Node table.");
+      throw e;
+    }
     System.out.print("Enter the new x-coordinate of node " + nodeID + ": ");
-    String newX = scanner.nextLine();
+    int newX = scanner.nextInt();
     System.out.print("Enter the new y-coordinate of node " + nodeID + ": ");
-    String newY = scanner.nextLine();
+    int newY = scanner.nextInt();
 
-    String query =
-        "UPDATE Node SET xcoord = " + newX + ", ycoord = " + newY + " WHERE nodeID = " + nodeID;
-    try (Statement statement = connection.createStatement()) {
-      ResultSet rs = statement.executeQuery(query);
-      System.out.println("Node successfully updated");
+    String query = "UPDATE \"Node\" SET xcoord = ?, ycoord = ? WHERE \"nodeID\" = ?";
+    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+      pstmt.setInt(1, newX);
+      pstmt.setInt(2, newY);
+      pstmt.setInt(3, nodeID);
+      int rowsUpdated = pstmt.executeUpdate();
+      if (rowsUpdated > 0) {
+        System.out.println("Node successfully updated");
+      } else {
+        System.out.println("Node not updated");
+      }
     } catch (SQLException e) {
       System.out.println("Update Node Coordinates Error.");
       throw e;

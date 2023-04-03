@@ -1,6 +1,5 @@
 package edu.wpi.teamname.database;
 
-import edu.wpi.teamname.servicerequests.FlowerRequest;
 import edu.wpi.teamname.servicerequests.MealRequest;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -9,7 +8,7 @@ import java.time.Month;
 public class ServiceRequestUploadTest {
   public static void main(String args[]) throws SQLException {
     LocalDateTime date = LocalDateTime.of(1000, Month.JUNE, 29, 19, 30, 40);
-    //LocalDateTime date2 = LocalDateTime.of(1033, Month.MAY, 29, 10, 30, 40);
+    // LocalDateTime date2 = LocalDateTime.of(1033, Month.MAY, 29, 10, 30, 40);
 
     MealRequest mealRequest =
         new MealRequest(0, "stadfsdfff", "patiefsdfsadfnt", "roomfsdfa2", date);
@@ -25,7 +24,7 @@ public class ServiceRequestUploadTest {
     flowerRequest.addFlower(new Flower(1010));
     flowerRequest.addFlower(new Flower(1001));*/
 
-    //flowerRequest.uploadRequestToDatabase();
+    // flowerRequest.uploadRequestToDatabase();
     mealRequest.uploadRequestToDatabase();
   }
 }
