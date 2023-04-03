@@ -4,22 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Edge {
-  @Getter @Setter String edgeID;
-  @Getter @Setter String startNode;
-  @Getter @Setter String endNode;
+  @Getter @Setter int startNodeID;
+  @Getter @Setter int endNodeID;
 
   // Constructor
-  public Edge(String edgeID, String startNode, String endNode) {
-    this.edgeID = edgeID;
-    this.startNode = startNode;
-    this.endNode = endNode;
+  public Edge(int startNodeID, int endNodeID) {
+    this.startNodeID = startNodeID;
+    this.endNodeID = endNodeID;
   }
 
   // Returns all the attributes of a Node as a String
   public String toString() {
-    String eIDs = "EdgeID: " + edgeID;
-    String startNodeS = "Starting Node: " + startNode;
-    String endNodeS = "Ending Node: " + endNode;
-    return eIDs + " " + startNodeS + " " + endNodeS;
+    return "StartNodeID: " + startNodeID + " EndNodeID: " + endNodeID;
   }
 }

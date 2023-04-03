@@ -5,12 +5,12 @@ import java.util.*;
 import java.util.Scanner;
 
 public class Pathfinding {
-  private static Node[] Nodes = new Node[46];
-  private static Edge[] Edges = new Edge[46];
+  private static List<Node> Nodes = new ArrayList<Node>();
+  private static List<Edge> Edges = new ArrayList<Edge>();
   private static String NodesFile =
-      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\L1Nodes.csv";
+      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Node.csv";
   private static String EdgesFile =
-      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\L1Edges.csv";
+      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Edge.csv";
 
   public static void main(String[] args) throws Exception {
 
@@ -19,8 +19,8 @@ public class Pathfinding {
 
     initializeNodes(NodeLines);
     initializeEdges(EdgeLines);
-    System.out.println(Nodes[0].getXCord());
-    System.out.println(Edges[0].getEdgeID());
+    System.out.println(Nodes.get(0).toString());
+    System.out.println(Edges.get(0).toString());
   }
 
   public static ArrayList<String> ReadCsvLines(String filename) throws Exception {
@@ -44,9 +44,9 @@ public class Pathfinding {
     while (!NodeLines.isEmpty()) {
       String[] I = NodeLines.get(0).split(",");
       NodeLines.remove(0);
-      Nodes[i] =
+      Nodes.add(
           new Node(
-              I[0], Integer.parseInt(I[1]), Integer.parseInt(I[2]), I[3], I[4], I[5], I[6], I[7]);
+              Integer.parseInt(I[0]), Integer.parseInt(I[1]), Integer.parseInt(I[2]), I[3], I[4]));
       i++;
     }
   }
@@ -57,7 +57,7 @@ public class Pathfinding {
     while (!EdgeLines.isEmpty()) {
       String[] E = EdgeLines.get(0).split(",");
       EdgeLines.remove(0);
-      Edges[i] = new Edge(E[0], E[1], E[2]);
+      Edges.add(new Edge(Integer.parseInt(E[0]), Integer.parseInt(E[1])));
       i++;
     }
   }

@@ -1,71 +1,86 @@
 package edu.wpi.teamname.navigation;
 
 import java.util.ArrayList;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.List;
 
-public class Node {
-  @Getter @Setter private String nodeID;
-  @Getter @Setter private int xCord;
-  @Getter @Setter private int yCord;
-  @Getter @Setter private String floor;
-  @Getter @Setter private String building;
-  @Getter @Setter private String nodeType;
-  @Getter @Setter private String longName;
-  @Getter @Setter private String shortName;
-  @Getter @Setter private ArrayList<Edge> edges;
+public class Node implements Comparable<Node> {
+  public int id;
+  public String floor;
+  public String building;
+  private int x;
+  private int y;
+  public Node parent = null;
+  public List<Edge> neighbors;
 
-  // Constructor
-  public Node(
-      String nID,
-      int xCord,
-      int yCord,
-      String floor,
-      String building,
-      String nodeType,
-      String lName,
-      String sName) {
-    this.nodeID = nID;
-    this.xCord = xCord;
-    this.yCord = yCord;
-    this.floor = floor;
-    this.building = building;
-    this.nodeType = nodeType;
-    this.longName = lName;
-    this.shortName = sName;
-    edges = new ArrayList<Edge>();
+  // f: sum of g and h;
+  public double f = Double.MAX_VALUE;
+  // g: Distance from start and node n
+  public double g = Double.MAX_VALUE;
+  // heuristic: WILL NEED A FUNCTION TO FIND THIS
+  public double h;
+
+  Node(int ID, int x, int y, String Floor, String Building) {
+    this.x = x;
+    this.y = y;
+    this.floor = Floor;
+    this.building = Building;
+    this.h = 0;
+    this.id = ID;
+    this.neighbors = new ArrayList<>();
   }
 
-  // changes a node's long and short names
-  public void updateNodeName(String newLong, String newShort) {
-    this.longName = newLong;
-    this.shortName = newShort;
+  @Override
+  public int compareTo(Node n) {
+    return Double.compare(this.f, n.f);
   }
 
-  // Returns all the attributes of a Node as a String
+  public int getX() {
+    return x;
+  }
+
+  public int getY() {
+    return y;
+  }
+
+  public static class Edge {
+    public double weight;
+    public Node node;
+
+    Edge(double weight, Node node) {
+      this.weight = weight;
+      this.node = node;
+    }
+  }
+
+  public void addBranch(Node node) {
+    double weight = findWeight(node);
+    Edge newEdge = new Edge(weight, node);
+    neighbors.add(newEdge);
+  }
+
+  public double findWeight(Node b) {
+    int x1 = this.x;
+    int x2 = b.getX();
+    int y1 = this.y;
+    int y2 = b.getY();
+
+    double x = Math.pow((x2 - x1), 2);
+    double y = Math.pow((y2 - y1), 2);
+    return Math.sqrt(x + y);
+  }
+
+  public double calculateHeuristic(Node target) {
+    // default
+    // return 0;
+
+    // distance function
+    // return findWeight(target);
+    // manhattan distance
+    // return Math.abs(target.x - this.x) + Math.abs(target.y - this.y);
+    return this.h;
+  }
+
   public String toString() {
-    String nIDs = "NodeID: " + this.nodeID;
-    String xCordS = "X-coordinate: " + this.xCord;
-    String yCordS = "Y-coordinate: " + this.yCord;
-    String floorS = "Floor: " + this.floor;
-    String buildingS = "Building: " + this.building;
-    String typeS = "Node Type: " + this.nodeType;
-    String lNameS = "Long Name: " + this.longName;
-    String sNameS = "Short Name: " + this.shortName;
-    String output =
-        nIDs + " " + lNameS + " " + sNameS + " " + xCordS + " " + yCordS + " " + floorS + " "
-            + buildingS + " " + typeS;
-    return output;
-  }
-
-  // Updates new x and y coordinates
-  public void updateCoordinates(int newX, int newY) {
-    this.xCord = newX;
-    this.yCord = newY;
-  }
-
-  // Adds an edge to the edges array
-  public void addEdge(Edge e) {
-    edges.add(e);
+    return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h;
   }
 }
