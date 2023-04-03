@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
@@ -15,24 +16,29 @@
    <children>
       <VBox HBox.hgrow="ALWAYS">
          <children>
-            <GesturePane fx:id="gp" VBox.vgrow="ALWAYS" prefHeight="340.0" prefWidth="500.0">
-               <Group>
-                  <children>
-<!--                     <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">-->
-<!--                        <image>-->
-<!--                           <Image url="@../images/00_thelowerlevel1.png" />-->
-<!--                        </image>-->
-<!--                     </ImageView>-->
-<!--                     <MFXButton fx:id="homeButton2" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">-->
-<!--                        <font>-->
-<!--                           <Font name="Times New Roman" size="19.0" />-->
-<!--                        </font>-->
-<!--                     </MFXButton>-->
-                     <AnchorPane prefHeight="3400.0" prefWidth="5000.0" styleClass="body" stylesheets="@../stylesheets/scaleFull.css" visible="true" />
-                     <Canvas fx:id="canvas" height="340.0" visible="true" width="500.0" />
-                  </children>
-               </Group>
-            </GesturePane>
+            <StackPane prefHeight="340.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+               <children>
+<!--                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />-->
+                  <GesturePane fx:id="gp" prefHeight="340.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+                     <Group>
+                        <children>
+      <!--                     <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">-->
+      <!--                        <image>-->
+      <!--                           <Image url="@../images/00_thelowerlevel1.png" />-->
+      <!--                        </image>-->
+      <!--                     </ImageView>-->
+      <!--                     <MFXButton fx:id="homeButton2" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">-->
+      <!--                        <font>-->
+      <!--                           <Font name="Times New Roman" size="19.0" />-->
+      <!--                        </font>-->
+      <!--                     </MFXButton>-->
+                           <AnchorPane prefHeight="3400.0" prefWidth="5000.0" styleClass="body" stylesheets="@../stylesheets/scaleFull.css" visible="true" />
+                        </children>
+                     </Group>
+                  </GesturePane>
+                  <Canvas fx:id="canvas" disable="true" height="340.0" visible="true" width="500.0" />
+               </children>
+            </StackPane>
          </children>
       </VBox>
       <!--            <ScrollPane prefHeight="200.0" prefWidth="200.0">-->
@@ -86,6 +92,7 @@
 
          </children>
       </VBox>
+
 
 
       

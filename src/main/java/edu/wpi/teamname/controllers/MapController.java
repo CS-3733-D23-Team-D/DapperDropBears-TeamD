@@ -68,6 +68,9 @@ public class MapController {
 
           double parentW = canvas.getParent().getParent().getLayoutBounds().getWidth();
           double parentH = canvas.getParent().getParent().getLayoutBounds().getHeight();
+
+          System.out.println(parentH + ", " + parentW);
+
           //
           // System.out.println(); //
           // Size of bound box
@@ -88,13 +91,32 @@ public class MapController {
           double hCenter = ((parentW - barT) / 2) - (canvas.getWidth() / 2);
           double vCenter = ((parentH - barT) / 2) - (canvas.getHeight() / 2);
 
-//          canvasX += diffX;
-//          canvas.setTranslateX(-canvasX + hCenter); // parentW);
-//          canvasY += diffY;
-//          canvas.setTranslateY(-canvasY + vCenter); // parentH);
-//          gc.fillRect(0, 0, testS + offset, testS + offset);
-//          gc.setFill(Color.RED);
-//          gc.fillRect(0, 0, testS, testS);
+          //          gp.currentScaleXProperty();
+          //          gp.getCurrentScaleX();
+          //          gp.getTarget();
+          //          //          gp.maxScaleProperty();
+          //
+          //          //          gp.targetPointAt();
+          //          gp.viewportCentre();
+          //          gp.viewportBoundProperty();
+          //          gp.getViewportWidth();
+          //          System.out.println(gp.getViewportWidth() + ", " + gp.getViewportHeight());
+          //          System.out.println(gp.getTargetHeight() + ", " + gp.getLayoutY());
+          System.out.println(gp.getCurrentScale());
+          System.out.println(
+              gp.getCurrentX()
+                  + ", "
+                  + gp.getCurrentY()); // Where is the Top left, in the full image.
+
+          //          gp.viewportPointAt();
+
+          //          canvasX += diffX;
+          //          canvas.setTranslateX(-canvasX + hCenter); // parentW);
+          //          canvasY += diffY;
+          //          canvas.setTranslateY(-canvasY + vCenter); // parentH);
+          //          gc.fillRect(0, 0, testS + offset, testS + offset);
+          //          gc.setFill(Color.RED);
+          //          gc.fillRect(0, 0, testS, testS);
 
           //          gp.setHbarPolicy(GesturePane.ScrollBarPolicy.NEVER);
           //          gp.setVbarPolicy(GesturePane.ScrollBarPolicy.NEVER);
@@ -127,11 +149,12 @@ public class MapController {
 
     //    canvas.setOnMouseClicked(event -> testMethod());
 
-    canvas.setOnMouseClicked(e);
+    //    canvas.setOnMouseClicked(e);
+    gp.setOnMouseClicked(e);
 
     gc = canvas.getGraphicsContext2D();
 
-    Color c = Color.WHITE;
+    Color c = Color.GREEN;
 
     gc.setFill(c);
 
@@ -141,8 +164,8 @@ public class MapController {
 
     gc.setFill(c);
 
-    canvas.setTranslateX(-canvasX);
-    canvas.setTranslateY(-canvasY);
+    //    canvas.setTranslateX(-canvasX);
+    //    canvas.setTranslateY(-canvasY);
 
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    helpButton
