@@ -142,6 +142,7 @@ public class ServiceRequestController {
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exitButton.setOnMouseClicked(event -> System.exit(0));
     nextButton.setOnMouseClicked(event -> nextPane());
+    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
 
     requestType.setItems(serviceType);
 
