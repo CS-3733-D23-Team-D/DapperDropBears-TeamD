@@ -64,6 +64,23 @@ public class Node {
   }
 
   /**
+   * Updates the node's properties with the provided values, given the unique node ID.
+   *
+   * @param nodeId the unique identifier for the node to update
+   * @param newX the new x-coordinate for the node
+   * @param newY the new y-coordinate for the node
+   * @param fl the new floor for the node
+   * @param bui the new building for the node
+   */
+  public void updateNode(String nodeId, int newX, int newY, String fl, String bui) {
+    if (this.nodeID.equals(nodeId)) {
+      this.xCord = newX;
+      this.yCord = newY;
+      this.floor = fl;
+      this.building = bui;
+    }
+  }
+  /**
    * * Deletes the given edge from the node's edge list and deletes this node from the given edge's
    * node list Checks to make sure that the edge is in the list before deleting
    *
