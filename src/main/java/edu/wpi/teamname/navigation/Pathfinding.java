@@ -8,9 +8,9 @@ public class Pathfinding {
   private static List<Node> Nodes = new ArrayList<Node>();
   private static List<Edge> Edges = new ArrayList<Edge>();
   private static String NodesFile =
-      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Node.csv";
+      "C:\\Users\\Aleksandr Samarin\\Desktop\\CS3733\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Node.csv";
   private static String EdgesFile =
-      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Edge.csv";
+      "C:\\Users\\Aleksandr Samarin\\Desktop\\CS3733\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Edge.csv";
 
   public static void main(String[] args) throws Exception {
     initializeNodes(ReadCsvLines(NodesFile));
@@ -20,12 +20,10 @@ public class Pathfinding {
     System.out.print("Enter the start NodeID: ");
     int startNodeID = input.nextInt();
 
-    System.out.println("");
     System.out.print("Enter the destination NodeID: ");
     int endNodeID = input.nextInt();
-    System.out.println("");
 
-    Graph graph = new Graph(Nodes, Edges);
+    Graph graph = new Graph(startNodeID, endNodeID, Nodes, Edges);
 
     System.out.println(graph.getNodes().get(0).toString());
   }

@@ -48,6 +48,7 @@ public class Node implements Comparable<Node> {
     }
   }
 
+  // shoudl probably have this in Edge class
   public double findWeight(Node b) {
     int x1 = this.x;
     int x2 = b.getX();

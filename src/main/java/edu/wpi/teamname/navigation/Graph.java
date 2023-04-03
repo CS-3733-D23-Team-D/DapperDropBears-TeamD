@@ -9,7 +9,8 @@ public class Graph {
   private List<Node> nodes = new ArrayList<>();
   private List<Edge> edges = new ArrayList<>();
 
-  Graph(List<Node> nodes, List<Edge> edges) {
+  //Constructor using 4 params
+  Graph(int sn, int en, List<Node> nodes, List<Edge> edges) {
     this.start = null;
     this.target = null;
     this.nodes.addAll(nodes);
