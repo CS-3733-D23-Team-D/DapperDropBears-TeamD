@@ -34,11 +34,11 @@ public class RequestMenuItem extends BorderPane {
     }
     hBox = new HBox();
     label = new Label(name);
-    label.setFont(Font.font("Times New Roman", 20));
+    label.setFont(Font.font("Times New Roman", 32));
     button = new RequestMenuItemButton(name.replace("_", " "), this);
     quantity = new TextField("");
     quantity.setPromptText("Quantity");
-    quantity.setFont(Font.font("Times New Roman", 20));
+    quantity.setFont(Font.font("Times New Roman", 32));
     hBox.getChildren().add(label);
     hBox.getChildren().add(quantity);
     setCenter(hBox);

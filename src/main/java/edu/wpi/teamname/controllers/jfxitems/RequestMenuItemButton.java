@@ -21,7 +21,7 @@ public class RequestMenuItemButton extends Button {
     setAccessibleRole(AccessibleRole.BUTTON);
     setMnemonicParsing(true);
     setStyle("-fx-background-color: #d9d9d9");
-    setFont(Font.font("Times New Roman", 20));
+    setFont(Font.font("Times New Roman", 32));
     setOnMouseClicked(event -> System.out.println(name + " " + parent.quantity.getText()));
   }
 }
