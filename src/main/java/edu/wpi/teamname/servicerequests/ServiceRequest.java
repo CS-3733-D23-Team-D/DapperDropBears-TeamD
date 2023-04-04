@@ -2,6 +2,7 @@ package edu.wpi.teamname.servicerequests;
 
 import edu.wpi.teamname.Node;
 import edu.wpi.teamname.database.DatabaseConnection;
+import edu.wpi.teamname.database.ItemsOrdered;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,13 +41,28 @@ public class ServiceRequest {
     requestedAt = LocalDateTime.now();
   }
 
+  public ServiceRequest(
+      int requestID,
+      String staffName,
+      String patientName,
+      String roomNumber,
+      LocalDateTime deliverBy,
+      LocalDateTime requestedAt) {
+    this.requestID = requestID;
+    this.staffName = staffName;
+    this.patientName = patientName;
+    this.roomNumber = roomNumber;
+    this.deliverBy = deliverBy;
+    this.requestedAt = requestedAt;
+  }
+
   public ServiceRequest() {
     requestedAt = LocalDateTime.now();
   }
 
   @Override
   public String toString() {
-    return "";
+    return "ID: " + requestID;
     // return this.getRequestInfo();
   }
 
@@ -139,6 +155,52 @@ public class ServiceRequest {
     } else {
       return 1;
     }
+  }
+
+  public static ArrayList<ServiceRequest> getAllServiceRequests() {
+    ArrayList<ServiceRequest> list = new ArrayList<ServiceRequest>();
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+    try {
+      String query = "SELECT * FROM \"ServiceRequest\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        ServiceRequest sr =
+            new ServiceRequest(
+                rs.getInt("requestID"),
+                rs.getString("staffName"),
+                rs.getString("patientName"),
+                rs.getString("roomNum"),
+                rs.getTimestamp("deliverBy").toLocalDateTime(),
+                rs.getTimestamp("requestedAt").toLocalDateTime());
+        list.add(sr);
+      }
+      connection.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return list;
+  }
+
+  public static ArrayList<ItemsOrdered> getAllItemsOrdered() {
+    ArrayList<ItemsOrdered> list = new ArrayList<ItemsOrdered>();
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+    try {
+      String query = "SELECT * FROM \"ItemsOrdered\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        ItemsOrdered ir =
+            new ItemsOrdered(rs.getInt("requestID"), rs.getInt("itemID"), rs.getInt("quantity"));
+        list.add(ir);
+      }
+      connection.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return list;
   }
 
   public void addItem(int id) throws SQLException {};
