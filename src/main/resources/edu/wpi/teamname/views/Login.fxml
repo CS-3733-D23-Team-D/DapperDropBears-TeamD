@@ -2,39 +2,65 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.LoginController">
+<AnchorPane fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.LoginController">
    <children>
-      <StackPane minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="CENTER">
+            <StackPane fx:id="paneOfStuff" minHeight="-Infinity" minWidth="-Infinity">
                <children>
-                  <TextField fx:id="loginText" maxWidth="150.0" promptText="Username" />
-                  <PasswordField fx:id="passwordText" maxWidth="150.0" promptText="Password">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                  </PasswordField>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <VBox alignment="CENTER">
                      <children>
-                        <MFXButton fx:id="forgotPassword" style="-fx-background-color: #70A4FF;" text="Forgot Password" />
-                        <MFXButton fx:id="loginButton" style="-fx-background-color: #70A4FF;" text="Login">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </MFXButton>
+                        <TextField fx:id="loginText" maxWidth="150.0" promptText="Username" />
+                        <PasswordField fx:id="passwordText" maxWidth="150.0" promptText="Password">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </PasswordField>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <MFXButton fx:id="forgotPassword" style="-fx-background-color: #70A4FF;" text="Forgot Password" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </MFXButton>
+                              <MFXButton fx:id="loginButton" style="-fx-background-color: #70A4FF;" text="Login" textAlignment="CENTER">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
-            </VBox>
+            </StackPane>
+            <Label fx:id="newPassword" style="-fx-background-color: #70A4FF;" text="Label" textAlignment="CENTER" StackPane.alignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="success" style="-fx-background-color: #70A4FF;" text="Label" textAlignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </StackPane>
-      <MFXButton fx:id="exit" alignment="CENTER" style="-fx-background-color: #70A4FF;" text="Exit" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
+      <MFXButton fx:id="exit" alignment="CENTER" style="-fx-background-color: #70A4FF;" text="Exit" textAlignment="CENTER" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font size="20.0" />
+         </font></MFXButton>
    </children>
 </AnchorPane>

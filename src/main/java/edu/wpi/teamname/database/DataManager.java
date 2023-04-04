@@ -849,33 +849,41 @@ public class DataManager {
     }
   }
 
-  public static void Login() throws SQLException {
-    Scanner scan = new Scanner(System.in);
-    System.out.println("Type 1 to Login, 2 to create account, 3 reset password");
-    int ans = scan.nextInt();
-    if (ans == 1) {
-      scan.nextLine();
-      System.out.println("Username: ");
-      String username = scan.nextLine();
-      System.out.println("Password: ");
-      String password = scan.nextLine();
-      Login login = new Login(username, password);
-      boolean l = login.LogInto();
-      if (!l) Login();
-    } else if (ans == 2) {
-      Login login = new Login("", "");
-      login.setLogin();
-    } else if (ans == 3) {
-      System.out.println("Username: ");
-      scan.nextLine();
-      String username = scan.nextLine();
-      Login login = new Login(username, "");
-      boolean r = login.resetPass();
-      if (!r) Login();
-    } else {
-      System.out.println("Type 1 or 2 for login.");
-      Login();
-    }
+  public static String forgotPassword(String username) throws SQLException {
+    Login login = new Login(username, "");
+    return login.resetPass();
+  }
+
+  public static boolean Login(String username, String password) throws SQLException {
+    Login login = new Login(username, password);
+    return login.LogInto();
+
+    //    Scanner scan = new Scanner(System.in);
+    //    System.out.println("Type 1 to Login, 2 to create account, 3 reset password");
+    //    int ans = scan.nextInt();
+    //    if (ans == 1) {
+    //      scan.nextLine();
+    //      System.out.println("Username: ");
+    //      String username = scan.nextLine();
+    //      System.out.println("Password: ");
+    //      String password = scan.nextLine();
+    //      Login login = new Login(username, password);
+    //      boolean l = login.LogInto();
+    //      if (!l) Login();
+    //    } else if (ans == 2) {
+    //      Login login = new Login("", "");
+    //      login.setLogin();
+    //    } else if (ans == 3) {
+    //      System.out.println("Username: ");
+    //      scan.nextLine();
+    //      String username = scan.nextLine();
+    //      Login login = new Login(username, "");
+    //      boolean r = login.resetPass();
+    //      if (!r) Login();
+    //    } else {
+    //      System.out.println("Type 1 or 2 for login.");
+    //      Login();
+    //    }
   }
 
   /**
@@ -1012,7 +1020,12 @@ public class DataManager {
           break;
         case "13":
         case "14":
-          Login();
+          scanner.nextLine();
+          System.out.println("Username: ");
+          String username = scanner.nextLine();
+          System.out.println("Password: ");
+          String password = scanner.nextLine();
+          Login(username, password);
           break;
         case "exit":
           System.out.println("Terminating program");
