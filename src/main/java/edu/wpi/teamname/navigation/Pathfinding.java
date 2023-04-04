@@ -18,7 +18,9 @@ public class Pathfinding {
 
     Graph graph = new Graph(Nodes, Edges);
 
-    System.out.println(graph.getNodes().get(0).toString());
+    // graph.getNodes().get(0).setNeighbor(graph.getNodes().get(1));
+
+    System.out.println(graph.getNodes().get(1).toString());
   }
 
   public static ArrayList<String> ReadCsvLines(String filename) throws Exception {

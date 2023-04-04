@@ -14,6 +14,7 @@ public class Graph {
     this.target = null;
     this.nodes.addAll(nodes);
     this.edges.addAll(edges);
+    assignEdges();
   }
 
   public void addEdge(Edge e) {
@@ -51,16 +52,23 @@ public class Graph {
     return Math.sqrt(x + y);
   }
 
-  public void assignEdges() {
+  private void assignEdges() {
     int i = 0;
-    while (i < nodes.size()) {
+    while (i < this.nodes.size()) {
       int j = 0;
-      while (j < edges.size()) {
-        if (nodes.get(i).id == edges.get(j).startNodeID
-            || nodes.get(i).id == edges.get(j).startNodeID) {
-          nodes.get(i).addBranch(edges.get(j));
+      while (j < this.edges.size()) {
+        if (this.nodes.get(i).id == this.edges.get(j).startNodeID
+            || this.nodes.get(i).id == this.edges.get(j).endNodeID) {
+          this.nodes
+              .get(i)
+              .addEdge(
+                  this.edges.get(j),
+                  nodes.get((edges.get(j).startNodeID - 100) / 5),
+                  nodes.get((edges.get(j).endNodeID - 100) / 5));
         }
+        j++;
       }
+      i++;
     }
   }
 

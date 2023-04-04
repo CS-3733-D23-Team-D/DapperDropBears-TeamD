@@ -9,8 +9,9 @@ public class Node implements Comparable<Node> {
   public String building;
   private int x;
   private int y;
-  public Node parent = null;
-  public List<Edge> neighbors;
+  private Node parent = null;
+  private List<Node> neighbors;
+  private List<Edge> edges;
 
   // f: sum of g and h;
   public double f = Double.MAX_VALUE;
@@ -27,6 +28,7 @@ public class Node implements Comparable<Node> {
     this.h = 0;
     this.id = ID;
     this.neighbors = new ArrayList<>();
+    this.edges = new ArrayList<>();
   }
 
   @Override
@@ -42,9 +44,23 @@ public class Node implements Comparable<Node> {
     return y;
   }
 
-  public void addBranch(Edge edge) {
-    if (!this.neighbors.contains(edge)) {
-      neighbors.add(edge);
+  public List<Node> getNeighbors() {
+    return neighbors;
+  }
+
+  public void setNeighbor(Node n) {
+    this.neighbors.add(n);
+  }
+
+  public void addEdge(Edge edge, Node s, Node e) {
+    if (!this.edges.contains(edge)) {
+      edges.add(edge);
+
+      if (this.id == edge.startNodeID) {
+        this.setNeighbor(e);
+      } else {
+        this.setNeighbor(s);
+      }
     }
   }
 
@@ -63,11 +79,19 @@ public class Node implements Comparable<Node> {
     return this.h;
   }
 
+  public int getId() {
+    return id;
+  }
+
   public String toString() {
-    String str = "";
-    for (Edge n : neighbors) {
-      str += " " + n.toString();
+    String edg = "";
+    for (Edge e : edges) {
+      edg += " " + e.toString();
     }
-    return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h + str;
+    String nei = "";
+    for (Node n : neighbors) {
+      nei += " " + Integer.toString(n.getId());
+    }
+    return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h + nei;
   }
 }
