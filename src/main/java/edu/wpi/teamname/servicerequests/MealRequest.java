@@ -6,7 +6,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class MealRequest extends ServiceRequest {
+public class MealRequest extends ServiceRequest implements IItem {
 
   ArrayList<Meal> meals;
 
@@ -27,6 +27,10 @@ public class MealRequest extends ServiceRequest {
    */
   public void addMeal(Meal meal) {
     meals.add(meal);
+  }
+
+  public void addItem(int id) throws SQLException {
+    addMeal(new Meal(id));
   }
 
   /***
@@ -90,6 +94,11 @@ public class MealRequest extends ServiceRequest {
       System.out.println(e.getMessage());
     }
     return output;
+  }
+
+  
+  public void clearItems() {
+    meals.clear();
   }
 
   /***

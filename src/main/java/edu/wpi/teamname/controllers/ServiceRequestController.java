@@ -3,8 +3,14 @@ package edu.wpi.teamname.controllers;
 import edu.wpi.teamname.controllers.jfxitems.RequestMenuItem;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
+import edu.wpi.teamname.servicerequests.FlowerRequest;
+import edu.wpi.teamname.servicerequests.MealRequest;
 import edu.wpi.teamname.servicerequests.ServiceRequest;
 import io.github.palexdev.materialfx.controls.*;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.temporal.ChronoField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import lombok.Getter;
+import lombok.Setter;
 
 public class ServiceRequestController {
   // requestInfo Error if not added anything to both meal and side
@@ -75,7 +82,7 @@ public class ServiceRequestController {
 
   @FXML MFXTextField notesBox;
 
-  @Getter private ServiceRequest request;
+  @Setter @Getter private ServiceRequest request;
 
   /*
   private void addSelectedItems() {
@@ -88,17 +95,38 @@ public class ServiceRequestController {
     }
   }*/
 
-  private void nextPane() {
+  private void nextPane() throws SQLException {
+
     System.out.println("NEXT");
     if (requestPage == 0) {
-
+      int counter;
       if (requestType.getValue() == "Meal Delivery") {
+        counter = 1100;
+        setRequest(
+            new MealRequest(
+                Instant.now().get(ChronoField.MICRO_OF_SECOND),
+                staffName.toString(),
+                patientName.toString(),
+                roomNum.toString(),
+                dateBox.getValue().atTime(LocalTime.now())));
         for (String item : mealItems) {
-          itemBox.getChildren().add(new RequestMenuItem(item, "FoodIcons"));
+          itemBox.getChildren().add(new RequestMenuItem(item, counter, "MealIcons", getRequest()));
+          counter++;
         }
       } else {
         for (String item : flowerItems) {
-          itemBox.getChildren().add(new RequestMenuItem(item, "FlowerIcons"));
+          counter = 1000;
+          setRequest(
+              new FlowerRequest(
+                  Instant.now().get(ChronoField.MICRO_OF_SECOND),
+                  staffName.toString(),
+                  patientName.toString(),
+                  roomNum.toString(),
+                  dateBox.getValue().atTime(12, 00)));
+          itemBox
+              .getChildren()
+              .add(new RequestMenuItem(item, counter, "FlowerIcons", getRequest()));
+          counter++;
         }
       }
       itemBox.setFillWidth(true);
@@ -114,6 +142,14 @@ public class ServiceRequestController {
       request.setRoomNumber(roomNum.getCharacters().toString());
       request.setDeliverBy(dateBox.getValue().atStartOfDay());
 
+    } else if (requestPage == 1) {
+      formPane.setVisible(true);
+      formPane.setDisable(false);
+      menuPane.setDisable(true);
+      menuPane.setVisible(false);
+      requestPage = 2;
+      request.uploadRequestToDatabase();
+      Navigation.navigate(Screen.HOME);
     } else {
       formPane.setVisible(true);
       formPane.setDisable(false);
@@ -148,6 +184,7 @@ public class ServiceRequestController {
       menuPane.setVisible(false);
       requestPage = 0;
       nextButton.setText("Next");
+      request.clearItems();
     }
   }
 
@@ -180,7 +217,14 @@ public class ServiceRequestController {
      */
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exitButton.setOnMouseClicked(event -> System.exit(0));
-    nextButton.setOnMouseClicked(event -> nextPane());
+    nextButton.setOnMouseClicked(
+        event -> {
+          try {
+            nextPane();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
     cancelButton.setOnMouseClicked(event -> cancelAction());
     clearButton.setOnMouseClicked(event -> clearAction());
 

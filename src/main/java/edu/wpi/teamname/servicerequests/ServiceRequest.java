@@ -1,11 +1,12 @@
 package edu.wpi.teamname.servicerequests;
 
 import edu.wpi.teamname.Node;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ServiceRequest {
+public class ServiceRequest implements IItem {
 
   @Getter @Setter private int requestID;
   @Setter @Getter private String staffName;
@@ -105,6 +106,16 @@ public class ServiceRequest {
             + "', 'YYYY-MONTH-DD-HH24-MI-SS')";
   }
 
+  public void addItem(int id) throws SQLException {};
+
+  public void clearItems() {};
+
+  public void uploadRequestToDatabase() throws SQLException {};
+
+  /*public void addItem(String item) {
+    RequestItem reqestItem = new RequestItem(item, 0.0);
+    this.requestItems.add(reqestItem);
+  }*/
   /*public String getRequestInfo() {
       String returnStr = "This Request has %s deliver (%s) to %s on %s. Notes %s";
 
