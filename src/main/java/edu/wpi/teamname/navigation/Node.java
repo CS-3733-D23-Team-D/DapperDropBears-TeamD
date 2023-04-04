@@ -71,21 +71,9 @@ public class Node implements Comparable<Node> {
 
       if (this.id == edge.startNodeID) {
         this.setNeighbor(e);
-        // connectEdge newEdge = new connectEdge(e, findWeight(e));
       } else {
         this.setNeighbor(s);
-        // connectEdge newEdge = new connectEdge(s, findWeight(s));
       }
-    }
-  }
-
-  public class connectEdge {
-    public double weight;
-    public Node node;
-
-    connectEdge(Node m, double w) {
-      this.node = m;
-      this.weight = w;
     }
   }
 
@@ -106,15 +94,11 @@ public class Node implements Comparable<Node> {
   }
 
   public String toString() {
-    String edg = "";
-    for (Edge e : edges) {
-      edg += " " + e.toString();
-    }
     String nei = "";
     for (Node n : neighbors) {
       nei += " " + Integer.toString(n.getId());
     }
-    return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h + nei;
+    return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h + "Neighbors" + nei;
   }
 
   public double calculateHeuristic(Node target) {

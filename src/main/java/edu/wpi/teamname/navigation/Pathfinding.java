@@ -18,7 +18,6 @@ public class Pathfinding {
 
     Graph graph = new Graph(Nodes, Edges);
 
-
     graph.setStart(graph.getNodes().get(0));
     graph.setTarget(graph.getNodes().get(100));
     AStar.aStar(graph);

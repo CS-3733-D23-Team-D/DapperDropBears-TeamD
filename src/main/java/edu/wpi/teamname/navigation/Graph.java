@@ -54,31 +54,28 @@ public class Graph {
 
   private void assignEdges() {
     int i = 0;
-    while (i < this.nodes.size()) {
-      int j = 0;
-      while (j < this.edges.size()) {
-        if (this.nodes.get(i).id == this.edges.get(j).startNodeID
-            || this.nodes.get(i).id == this.edges.get(j).endNodeID) {
-          this.nodes
-              .get(i)
-              .addEdge(
-                  this.edges.get(j),
-                  nodes.get((edges.get(j).startNodeID - 100) / 5),
-                  nodes.get((edges.get(j).endNodeID - 100) / 5));
+    for (Node n : this.nodes) {
+      for (Edge e : this.edges) {
+        if (n.id == e.startNodeID || n.id == e.endNodeID) {
+          n.addEdge(e, nodes.get((e.startNodeID - 100) / 5), nodes.get((e.endNodeID - 100) / 5));
         }
-        j++;
       }
-      i++;
     }
   }
-
-  //  public String toString() {
-  //    String str = "";
-  //    for (Node n : nodes) {
-  //      str += "Node: " + n.id + ", Branches: ";
-  //      for (Node.Edge e : n.neighbors) str += e.node.id + ": " + e.weight + ", ";
-  //      str += "||";
+  //    while (i < this.nodes.size()) {
+  //      int j = 0;
+  //      while (j < this.edges.size()) {
+  //        if (this.nodes.get(i).id == this.edges.get(j).startNodeID
+  //            || this.nodes.get(i).id == this.edges.get(j).endNodeID) {
+  //          this.nodes
+  //              .get(i)
+  //              .addEdge(
+  //                  this.edges.get(j),
+  //                  nodes.get((edges.get(j).startNodeID - 100) / 5),
+  //                  nodes.get((edges.get(j).endNodeID - 100) / 5));
+  //        }
+  //        j++;
+  //      }
+  //      i++;
   //    }
-  //    return str;
-  //  }
 }
