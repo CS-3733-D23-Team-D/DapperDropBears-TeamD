@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class FlowerRequest extends ServiceRequest implements IItem {
+public class FlowerRequest extends ServiceRequest {
   ArrayList<Flower> flowers;
 
   public FlowerRequest(
@@ -22,8 +22,8 @@ public class FlowerRequest extends ServiceRequest implements IItem {
     flowers = new ArrayList<Flower>();
   }
 
-  /***
-   * Adds the given flower into the request's list
+  /**
+   * * Adds the given flower into the request's list
    *
    * @param flower the flower to be added
    */
@@ -31,16 +31,18 @@ public class FlowerRequest extends ServiceRequest implements IItem {
     flowers.add(flower);
   }
 
+  @Override
   public void addItem(int id) throws SQLException {
     addFlower(new Flower(id));
   }
 
+  @Override
   public void clearItems() {
     flowers.clear();
   }
 
-  /***
-   * Removes an instance of a flower from the requests
+  /**
+   * * Removes an instance of a flower from the requests
    *
    * @param id the id of the flower to remove
    */
@@ -53,8 +55,8 @@ public class FlowerRequest extends ServiceRequest implements IItem {
     }
   }
 
-  /***
-   * Queries and gets an array list of all the flower ids
+  /**
+   * * Queries and gets an array list of all the flower ids
    *
    * @return an array list of all the flower ids
    * @throws SQLException
@@ -77,8 +79,8 @@ public class FlowerRequest extends ServiceRequest implements IItem {
     return output;
   }
 
-  /***
-   * Queries and gets an array list of all the flower name
+  /**
+   * * Queries and gets an array list of all the flower name
    *
    * @return an array list of all the flower name
    * @throws SQLException
@@ -101,12 +103,47 @@ public class FlowerRequest extends ServiceRequest implements IItem {
     return output;
   }
 
-  /***
-   * Uploads this instance of a flower request and uploads its info
-   * into the ServiceRequest and ItemsOrdered relatiosn
-   * 
+  @Override
+  public ArrayList<String> getAllNames() throws SQLException {
+    return getAllFlowerNames();
+  }
+
+  @Override
+  public ArrayList<Integer> getAllIDs() throws SQLException {
+    return getAllFlowerIDs();
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append("Order Details:");
+    stringBuilder.append("\nRequest ID: ");
+    stringBuilder.append(getRequestID());
+    stringBuilder.append("\nStaff Name: ");
+    stringBuilder.append(getStaffName());
+    stringBuilder.append("\nPatient Name: ");
+    stringBuilder.append(getPatientName());
+    stringBuilder.append("\nRoom Number: ");
+    stringBuilder.append(getRoomNumber());
+    stringBuilder.append("\nRequest Created: ");
+    stringBuilder.append(getRequestedAt().toString());
+    stringBuilder.append("\nRequested Delivery: ");
+    stringBuilder.append(getDeliverBy().toString());
+    stringBuilder.append("\nFlowers Requsted: ");
+    for (Flower flower : flowers) {
+      stringBuilder.append("\n");
+      stringBuilder.append(flower.getName().replace("_", " "));
+    }
+    return stringBuilder.toString();
+  }
+
+  /**
+   * * Uploads this instance of a flower request and uploads its info into the ServiceRequest and
+   * ItemsOrdered relatiosn
+   *
    * @throws SQLException
    */
+  @Override
   public void uploadRequestToDatabase() throws SQLException {
     DatabaseConnection dbc = new DatabaseConnection();
     Connection connection = dbc.DbConnection();
@@ -153,8 +190,4 @@ public class FlowerRequest extends ServiceRequest implements IItem {
       }
     }
   }
-
-
-
-
 }

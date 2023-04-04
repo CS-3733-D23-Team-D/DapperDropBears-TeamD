@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -35,7 +36,7 @@
                      <content>
                         <AnchorPane fx:id="formPane" minHeight="0.0" minWidth="0.0">
                            <children>
-                              <VBox layoutX="1.0" layoutY="17.0" prefHeight="631.0" prefWidth="1794.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+                              <VBox layoutX="1.0" layoutY="17.0" prefHeight="631.0" prefWidth="1794.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
                                        <font>
@@ -56,14 +57,14 @@
                                           <Font name="Times New Roman" size="32.0" />
                                        </font>
                                     </Text>
-                                    <MFXTextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
+                                    <TextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
                                     <Separator prefWidth="200.0" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
                                        <font>
                                           <Font name="Times New Roman" size="32.0" />
                                        </font>
                                     </Text>
-                                    <DatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" />
+                                    <DatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" stylesheets="@../stylesheets/dateBox.css" />
                                     <Separator prefWidth="200.0" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
                                        <font>
@@ -119,6 +120,27 @@
                                  </children>
                               </VBox>
 
+                     </children>
+                  </AnchorPane>
+                <AnchorPane fx:id="summaryPane">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <HBox alignment="CENTER" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+                                       <children>
+                                          <Label fx:id="summaryLabel" style="-fx-font-family: Times New Roman; -fx-font-size: 20pt; -fx-text-alignment: center;" text="Label">
+                                             <font>
+                                                <Font name="Times New Roman" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
                      </children>
                   </AnchorPane>
 
