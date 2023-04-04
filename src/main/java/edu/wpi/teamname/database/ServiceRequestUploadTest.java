@@ -14,7 +14,6 @@ public class ServiceRequestUploadTest {
 
     LocalDateTime date2 = LocalDateTime.of(1033, Month.MAY, 29, 10, 30, 40);
 
-
     MealRequest mealRequest =
         new MealRequest(0, "stadfsdfff", "patiefsdfsadfnt", "roomfsdfa2", date);
     mealRequest.addMeal(new Meal(1100));
@@ -33,11 +32,9 @@ public class ServiceRequestUploadTest {
     flowerRequest.addFlower(new Flower(1001));
     flowerRequest.removeFlower(1010);
 
-
     // flowerRequest.uploadRequestToDatabase();
     mealRequest.uploadRequestToDatabase();
 
     flowerRequest.uploadRequestToDatabase();
-
   }
 }

@@ -677,13 +677,13 @@ public class DataManager {
   public static void deleteNode(Connection connection) throws SQLException {
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the node ID of the node you want to delete: ");
-    String nodeid = scanner.nextLine();
-
+    int nodeid = scanner.nextInt();
+    scanner.nextLine();
+    System.out.print("Enter the long name of the node you want to delete: ");
+    String longName = scanner.nextLine();
     // Show edge nodes being deleted also
-    String del = "Delete";
-    String sel = "Select";
     String query2 =
-        " *\n"
+        "Select *\n"
             + "From\n"
             + "    (Select\n"
             + "         new2.\"nodeType\", new2.\"longName\", new2.\"shortName\", new2.\"nodeID\", new2.xcoord, new2.ycoord, new2.floor, new2.building, e.\"startNode\", e.\"endNode\"\n"
@@ -704,8 +704,7 @@ public class DataManager {
             + nodeid;
 
     try (Statement statement2 = connection.createStatement()) {
-      ResultSet rs2 = statement2.executeQuery(sel + query2);
-
+      ResultSet rs2 = statement2.executeQuery(query2);
       System.out.println("Deleting " + nodeid + " will delete this information too: ");
       while (rs2.next()) {
         System.out.print("[NodeID: " + rs2.getString("nodeID") + "], ");
@@ -724,24 +723,59 @@ public class DataManager {
       System.out.println("Delete Node Connection Error. ");
       throw e2;
     }
-
-    // **************Make sure query works***************
-
     System.out.print("Are you sure you want to delete node " + nodeid + "(Y/N)? ");
     String sureDelete = scanner.nextLine();
     if (sureDelete.equalsIgnoreCase("y") || sureDelete.equalsIgnoreCase("Y")) {
-      try (PreparedStatement statement = connection.prepareStatement(del + query2)) {
-        statement.setString(1, nodeid); // ERROR HERE*****
-        int rowsDeleted = statement.executeUpdate();
-        if (rowsDeleted > 0) {
+      String query2node = "Delete from \"Node\" " + "where \"nodeID\" = " + nodeid;
+      String query2edge =
+          "Delete from \"Edge\" "
+              + "where \"startNode\" = "
+              + nodeid
+              + " OR \"endNode\" = "
+              + nodeid;
+      String query2move = "Delete from \"Move\" " + "where \"nodeID\" = " + nodeid;
+      String query2Loc =
+          "Delete from \"LocationName\"" + " where \"longName\" = '" + longName + "'";
 
-          System.out.println("Node " + nodeid + " deleted successfully.");
-        } else {
-          System.out.println("Node " + nodeid + " not found.");
-        }
+      // delete in edge table
+      try (PreparedStatement statement2 = connection.prepareStatement(query2edge)) {
+        statement2.executeUpdate();
       } catch (SQLException e) {
-        System.out.println("Delete Node Error.");
+        System.out.println("Delete in Edge table error.");
         throw e;
+      }
+      // delete in move table
+      try (PreparedStatement statement3 = connection.prepareStatement(query2move)) {
+        statement3.executeUpdate();
+      } catch (SQLException e2) {
+        System.out.println("Delete in Move table error.");
+        throw e2;
+      }
+      // delete in locationName table
+      try (PreparedStatement statement4 = connection.prepareStatement(query2Loc)) {
+        statement4.executeUpdate();
+      } catch (SQLException e4) {
+        System.out.println("Delete in LocationName table error. " + e4);
+        throw e4;
+      }
+      // delete in node table
+      try (PreparedStatement statement = connection.prepareStatement(query2node)) {
+        statement.executeUpdate();
+      } catch (SQLException e3) {
+        System.out.println("Delete in Node table error.");
+        throw e3;
+      }
+
+      // check deleted
+      try (Statement statement2 = connection.createStatement()) {
+        ResultSet rs2 = statement2.executeQuery(query2);
+        int count = 0;
+        while (rs2.next()) count++;
+        if (count == 0) System.out.println("Node " + nodeid + ", " + longName + " deleted successfully.");
+        else System.out.println("Node " + nodeid + ", " + longName + " not found.");
+      } catch (SQLException e5) {
+        System.out.println("Error checking delete.");
+        throw e5;
       }
     } else {
       System.out.println("Deletion terminated");
@@ -755,84 +789,81 @@ public class DataManager {
    * @param connection a Connection object representing the database connection
    */
   public static void deleteEdge(Connection connection) throws SQLException {
-    String del = "Delete";
-    String sel = "Select";
     Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the start node of the edge you want to delete: ");
-    String startNodeID = scanner.nextLine();
+    int startNodeID = scanner.nextInt();
     System.out.print("Enter the end node of the edge you want to delete: ");
-    String endNodeID = scanner.nextLine();
-
+    int endNodeID = scanner.nextInt();
     String query3 =
-        " *\n"
-            + "From\n"
-            + "    (Select\n"
-            + "         new2.\"nodeType\", new2.\"longName\", new2.\"shortName\", new2.\"nodeID\", new2.xcoord, new2.ycoord, new2.floor, new2.building, e.\"startNode\", e.\"endNode\"\n"
-            + "    From\n"
-            + "        (Select\n"
-            + "             new1.\"nodeType\", new1.\"longName\", new1.\"shortName\", n.\"nodeID\", n.xcoord, n.ycoord, n.floor, n.building\n"
-            + "        From\n"
-            + "            (Select l.\"nodeType\", l.\"longName\", l.\"shortName\", m.\"nodeID\"\n"
-            + "            From\n"
-            + "                \"LocationName\" l, \"Move\" m\n"
-            + "            Where\n"
-            + "                l.\"longName\" = m.\"longName\") as new1, \"Node\" as n\n"
-            + "        Where\n"
-            + "            new1.\"nodeID\" = n.\"nodeID\") as new2, \"Edge\" as e\n"
-            + "    Where\n"
-            + "        new2.\"nodeID\" = e.\"endNode\" OR new2.\"nodeID\" = e.\"startNode\") as new3\n"
-            + "Where new3.\"startNode\" = "
+        "Select From \"Edge\" Where \"startNode\" = "
             + startNodeID
-            + " AND new3.\"endNode\" = "
+            + " AND \"endNode\" = "
             + endNodeID;
+    // DONT TOUCH THIS v
+    //        "Select *\n"
+    //            + "From\n"
+    //            + "    (Select\n"
+    //            + "         new2.\"nodeType\", new2.\"longName\", new2.\"shortName\",
+    // new2.\"nodeID\", new2.xcoord, "
+    //            + "new2.ycoord, new2.floor, new2.building, e.\"startNode\", e.\"endNode\"\n"
+    //            + "    From\n"
+    //            + "        (Select\n"
+    //            + "             new1.\"nodeType\", new1.\"longName\", new1.\"shortName\",
+    // n.\"nodeID\", n.xcoord, n.ycoord, n.floor, n.building\n"
+    //            + "        From\n"
+    //            + "            (Select l.\"nodeType\", l.\"longName\", l.\"shortName\",
+    // m.\"nodeID\"\n"
+    //            + "            From\n"
+    //            + "                \"LocationName\" l, \"Move\" m\n"
+    //            + "            Where\n"
+    //            + "                l.\"longName\" = m.\"longName\") as new1, \"Node\" as n\n"
+    //            + "        Where\n"
+    //            + "            new1.\"nodeID\" = n.\"nodeID\") as new2, \"Edge\" as e\n"
+    //            + "    Where\n"
+    //            + "        new2.\"nodeID\" = e.\"endNode\" OR new2.\"nodeID\" = e.\"startNode\")
+    // as new3\n"
+    //            + "Where new3.\"startNode\" = "
+    //            + startNodeID
+    //            + " AND new3.\"endNode\" = "
+    //            + endNodeID;
 
     try (Statement statement3 = connection.createStatement()) {
-      ResultSet rs3 = statement3.executeQuery(sel + query3);
+      ResultSet rs3 = statement3.executeQuery(query3);
       System.out.println(
-          "Deleting " + startNodeID + " to " + endNodeID + " will delete this information too: ");
-      while (rs3.next()) {
-        System.out.print("[NodeID: " + rs3.getString("nodeID") + "], ");
-        System.out.print("[NodeType: " + rs3.getString("nodeType") + "], ");
-        System.out.print("[LongName: " + rs3.getString("longName") + "], ");
-        System.out.print("[ShortName: " + rs3.getString("shortName") + "], ");
-        System.out.print("[XCord: " + rs3.getString("xcoord") + "], ");
-        System.out.print("[YCord: " + rs3.getString("ycoord") + "], ");
-        System.out.print("[Floor: " + rs3.getString("floor") + "], ");
-        System.out.print("[Building: " + rs3.getString("building") + "], ");
-        System.out.print("[StartNode: " + rs3.getString("startNode") + "], ");
-        System.out.print("[EndNode: " + rs3.getString("endNode") + "]");
-        System.out.println();
-      }
-    } catch (SQLException e2) {
-      System.out.println("Delete Node Connection Error. ");
-      throw e2;
-    }
+          "Deleting "
+              + startNodeID
+              + " to "
+              + endNodeID
+              + " will delete this node connection from the database");
 
-    System.out.print(
-        "Are you sure you want to delete edge " + startNodeID + " to " + endNodeID + " (Y/N)? ");
-    String sureDelete = scanner.nextLine();
-    if (sureDelete.equalsIgnoreCase("y") || sureDelete.equalsIgnoreCase("Y")) {
-      // delete edge
+      scanner.nextLine();
+      System.out.print(
+          "Are you sure you want to delete edge " + startNodeID + " to " + endNodeID + " (Y/N)? ");
+      String sureDelete = scanner.nextLine();
 
-      // **********Make sure query works***********
-
-      try (PreparedStatement statement = connection.prepareStatement(del + query3)) {
-        statement.setString(1, startNodeID); // ERROR HERE***
-        statement.setString(1, endNodeID); // ERROR HERE***
-        int rowsDeleted = statement.executeUpdate();
-        if (rowsDeleted > 0) {
-          System.out.println("Edge " + startNodeID + " to " + endNodeID + " successfully deleted.");
-        } else {
+      if (sureDelete.equalsIgnoreCase("y") || sureDelete.equalsIgnoreCase("Y")) {
+        // delete edge
+        String deleteQ =
+            "Delete From \"Edge\" Where \"startNode\" = "
+                + startNodeID
+                + " AND \"endNode\" = "
+                + endNodeID;
+        try (PreparedStatement statement = connection.prepareStatement(deleteQ)) {
+          int rowsDeleted = statement.executeUpdate();
+          if (rowsDeleted > 0) {
+            System.out.println(
+                "Edge " + startNodeID + " to " + endNodeID + " successfully deleted.");
+          } else {
+            System.out.println(
+                "Edge " + startNodeID + " to " + endNodeID + " not found in the database.");
+          }
+        } catch (SQLException e) {
           System.out.println(
-              "Edge " + startNodeID + " to " + endNodeID + " not found in the database.");
+              "Error deleting edge " + startNodeID + " to " + endNodeID + ": " + e.getMessage());
         }
-      } catch (SQLException e) {
-        System.out.println(
-            "Error deleting edge " + startNodeID + " to " + endNodeID + ": " + e.getMessage());
-        throw e;
+      } else {
+        System.out.println("Deletion terminated");
       }
-    } else {
-      System.out.println("Deletion terminated");
     }
   }
 
