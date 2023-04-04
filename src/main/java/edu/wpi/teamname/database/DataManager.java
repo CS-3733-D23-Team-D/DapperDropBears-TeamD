@@ -632,37 +632,117 @@ public class DataManager {
   public static void updateNodeName(Connection connection) throws SQLException {
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Enter the node ID of the node you want to update the name of: ");
+    System.out.print("Would you like to update the long name? (Y/N)");
+    String yesNo = scanner.nextLine();
+    if (yesNo.equalsIgnoreCase("y")) {
+      updateLongName(connection);
+    }
+    System.out.print("Would you like to continue editing?(Y/N)");
+    yesNo = scanner.nextLine();
+    if (yesNo.equalsIgnoreCase("n")) {
+      return;
+    }
+    System.out.print("Enter the node ID of the node you want to update the name of: ");
     int nodeID = scanner.nextInt();
-    System.out.println("Enter the new long name of node " + nodeID + ": ");
-    String newLongName = scanner.nextLine(); // ERROR HERE NOT DISPLAYING***
-    System.out.println("Enter the new short name of node " + nodeID + ": ");
-    String newShortName = scanner.nextLine();
-    System.out.println("Enter the type of node " + nodeID + ": ");
-    String newType = scanner.nextLine();
-    // update node
+    scanner.nextLine(); // consume the newline character left by nextInt()
 
-    String query =
-        "UPDATE \"LocationName\" as l, \"Move\" as m SET"
-            + " l.new1.\"longName\" = "
-            + newLongName
-            + " l.new1.\"shortName\" = "
-            + newShortName
-            + " l.new1.\"nodeType\" = "
-            + newType
-            + " m.new1.\"longName\" = "
-            + newLongName
-            + "From (Select l.\"longName\", l.\"shortName\", l.\"nodeType\", m.\"nodeID\" "
-            + "From \"LocationName\" as l, \"Move\" as m "
-            + "Where l.\"longName\" = m.\"longName\") new1 "
-            + "Where new1.\"nodeID\" = "
-            + nodeID;
-
-    try (Statement statement = connection.createStatement()) {
-      ResultSet rs = statement.executeQuery(query);
-      System.out.println("Node successfully updated");
+    // find the long name for the node from the Move table
+    String queryMove = "SELECT \"longName\" FROM \"Move\" WHERE \"nodeID\" = ?";
+    String longName = null;
+    try (PreparedStatement pstmtMove = connection.prepareStatement(queryMove)) {
+      pstmtMove.setInt(1, nodeID);
+      ResultSet rsMove = pstmtMove.executeQuery();
+      if (rsMove.next()) {
+        longName = rsMove.getString(1);
+      } else {
+        System.out.println("Node ID " + nodeID + " does not exist in the Move table.");
+        return;
+      }
     } catch (SQLException e) {
-      System.out.println("Update Node Names Error.");
+      System.out.println("Error checking for node ID " + nodeID + " in the Move table.");
+      throw e;
+    }
+
+    // find the LocationName record for the node using the long name
+    String queryLocation =
+        "SELECT \"shortName\", \"nodeType\" FROM \"LocationName\" WHERE \"longName\" = ?";
+    try (PreparedStatement pstmtLocation = connection.prepareStatement(queryLocation)) {
+      pstmtLocation.setString(1, longName);
+      ResultSet rsLocation = pstmtLocation.executeQuery();
+      if (rsLocation.next()) {
+        String oldShortName = rsLocation.getString("shortName");
+        String oldNodeType = rsLocation.getString("nodeType");
+        System.out.println("Old short name: " + oldShortName);
+        System.out.println("Old node type: " + oldNodeType);
+        System.out.print("Enter the new short name: ");
+        String newShortName = scanner.nextLine();
+        System.out.print("Enter the new node type: ");
+        String newNodeType = scanner.nextLine();
+
+        // update the LocationName record with the new values
+        String queryUpdate =
+            "UPDATE \"LocationName\" SET \"shortName\" = ?, \"nodeType\" = ? WHERE \"longName\" = ?";
+        try (PreparedStatement pstmtUpdate = connection.prepareStatement(queryUpdate)) {
+          pstmtUpdate.setString(1, newShortName);
+          pstmtUpdate.setString(2, newNodeType);
+          pstmtUpdate.setString(3, longName);
+          int rowsUpdated = pstmtUpdate.executeUpdate();
+          if (rowsUpdated > 0) {
+            System.out.println("LocationName successfully updated");
+          } else {
+            System.out.println("LocationName not updated");
+          }
+        } catch (SQLException e) {
+          System.out.println("Error updating LocationName record for node ID " + nodeID);
+          throw e;
+        }
+      } else {
+        System.out.println("No LocationName record found for node ID " + nodeID);
+      }
+    } catch (SQLException e) {
+      System.out.println("Error retrieving LocationName record for node ID " + nodeID);
+      throw e;
+    }
+  }
+
+  public static void updateLongName(Connection connection) throws SQLException {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter the current long name: ");
+    String currentLongName = scanner.nextLine();
+    System.out.print("Enter the new long name: ");
+    String newLongName = scanner.nextLine();
+
+    // update the Move table with the new long name
+    String updateMoveQuery = "UPDATE \"Move\" SET \"longName\" = ? WHERE \"longName\" = ?";
+    try (PreparedStatement pstmtMove = connection.prepareStatement(updateMoveQuery)) {
+      pstmtMove.setString(1, newLongName);
+      pstmtMove.setString(2, currentLongName);
+      int rowsUpdated = pstmtMove.executeUpdate();
+      if (rowsUpdated > 0) {
+        System.out.println("Move table updated successfully");
+      } else {
+        System.out.println("No records found in the Move table for the provided long name");
+      }
+    } catch (SQLException e) {
+      System.out.println("Error updating Move table: " + e.getMessage());
+      throw e;
+    }
+
+    // update the LocationName table with the new long name
+    String updateLocationNameQuery =
+        "UPDATE \"LocationName\" SET \"longName\" = ? WHERE \"longName\" = ?";
+    try (PreparedStatement pstmtLocationName =
+        connection.prepareStatement(updateLocationNameQuery)) {
+      pstmtLocationName.setString(1, newLongName);
+      pstmtLocationName.setString(2, currentLongName);
+      int rowsUpdated = pstmtLocationName.executeUpdate();
+      if (rowsUpdated > 0) {
+        System.out.println("LocationName table updated successfully");
+      } else {
+        System.out.println("No records found in the LocationName table for the provided long name");
+      }
+    } catch (SQLException e) {
+      System.out.println("Error updating LocationName table: " + e.getMessage());
       throw e;
     }
   }
@@ -683,8 +763,7 @@ public class DataManager {
     String del = "Delete";
     String sel = "Select";
     String query2 =
-        " *\n"
-            + "From\n"
+        "From\n"
             + "    (Select\n"
             + "         new2.\"nodeType\", new2.\"longName\", new2.\"shortName\", new2.\"nodeID\", new2.xcoord, new2.ycoord, new2.floor, new2.building, e.\"startNode\", e.\"endNode\"\n"
             + "    From\n"
@@ -700,8 +779,7 @@ public class DataManager {
             + "            new1.\"nodeID\" = n.\"nodeID\") as new2, \"Edge\" as e\n"
             + "    Where\n"
             + "        new2.\"nodeID\" = e.\"endNode\" OR new2.\"nodeID\" = e.\"startNode\") as new3\n"
-            + "Where new3.\"nodeID\" = "
-            + nodeid;
+            + "Where new3.\"nodeID\" = ?";
 
     try (Statement statement2 = connection.createStatement()) {
       ResultSet rs2 = statement2.executeQuery(sel + query2);
