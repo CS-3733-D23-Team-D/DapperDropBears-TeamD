@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class MealRequest extends ServiceRequest {
 
-  ArrayList<Meal> meals;
+  private ArrayList<Meal> meals;
 
   public MealRequest(
       int requestID,
@@ -20,17 +20,17 @@ public class MealRequest extends ServiceRequest {
     meals = new ArrayList<Meal>();
   }
 
-  /***
-   * Adds the given meal into the request's list
+  /**
+   * * Adds the given meal into the request's list
    *
    * @param meal the meal to be added
    */
-  public void addMeal(Meal meal) {
+  public void addMeal(Meal meal) throws SQLException {
     meals.add(meal);
   }
 
-  /***
-   * Removes an instance of a meal from the requests
+  /**
+   * * Removes an instance of a meal from the requests
    *
    * @param id the id of the meal to remove
    */
@@ -43,9 +43,8 @@ public class MealRequest extends ServiceRequest {
     }
   }
 
-
-  /***
-   * Queries and gets an array list of all the flower ids
+  /**
+   * * Queries and gets an array list of all the flower ids
    *
    * @return an array list of all the flower ids
    * @throws SQLException
@@ -68,8 +67,8 @@ public class MealRequest extends ServiceRequest {
     return output;
   }
 
-  /***
-   * Queries and gets an array list of all the meal name
+  /**
+   * * Queries and gets an array list of all the meal name
    *
    * @return an array list of all the meal name
    * @throws SQLException
@@ -92,9 +91,9 @@ public class MealRequest extends ServiceRequest {
     return output;
   }
 
-  /***
-   * Uploads this instance of a meal request and uploads its info
-   * into the ServiceRequest and ItemsOrdered relatiosn
+  /**
+   * * Uploads this instance of a meal request and uploads its info into the ServiceRequest and
+   * ItemsOrdered relatiosn
    *
    * @throws SQLException
    */
@@ -122,22 +121,36 @@ public class MealRequest extends ServiceRequest {
               + ")";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();
+      connection.close();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
     PreparedStatement statement;
+    int quantity;
     for (int i = 0; i < meals.size(); i++) {
       connection = dbc.DbConnection();
+      quantity = getQuantity(this.getRequestID(), meals.get(i).getMealID());
       try {
-        query =
-            "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\") "
-                + "VALUES ('"
-                + this.getRequestID()
-                + "', "
-                + meals.get(i).getMealID()
-                + ")";
+        if (quantity == 1) {
+          query =
+              "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") "
+                  + "VALUES ('"
+                  + this.getRequestID()
+                  + "', "
+                  + meals.get(i).getMealID()
+                  + ", 1)";
+        } else {
+          query =
+              "UPDATE \"ItemsOrdered\" "
+                  + "SET quantity = "
+                  + quantity
+                  + " WHERE \"itemID\" = "
+                  + meals.get(i).getMealID();
+        }
+
         statement = connection.prepareStatement(query);
         statement.executeUpdate();
+
       } catch (SQLException e) {
         System.out.println(query);
         System.out.println(e.getMessage());
