@@ -771,7 +771,8 @@ public class DataManager {
         ResultSet rs2 = statement2.executeQuery(query2);
         int count = 0;
         while (rs2.next()) count++;
-        if (count == 0) System.out.println("Node " + nodeid + ", " + longName + " deleted successfully.");
+        if (count == 0)
+          System.out.println("Node " + nodeid + ", " + longName + " deleted successfully.");
         else System.out.println("Node " + nodeid + ", " + longName + " not found.");
       } catch (SQLException e5) {
         System.out.println("Error checking delete.");
