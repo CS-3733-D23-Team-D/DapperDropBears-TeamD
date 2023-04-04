@@ -1,17 +1,20 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.database.DataManager;
+import edu.wpi.teamname.database.DatabaseConnection;
 import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
-import javafx.event.EventHandler;
+import java.sql.Connection;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
+import javafx.geometry.Point2D;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.*;
+import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
@@ -22,150 +25,104 @@ public class MapController {
   @FXML MFXButton directionButton;
   @FXML MFXButton serviceRequestsButton;
   @FXML MFXButton exitButton;
+  @FXML AnchorPane anchor;
+  @FXML GesturePane gp;
 
-  GraphicsContext gc;
+  @FXML StackPane sp;
+  @FXML Text destText;
 
-  @FXML private Canvas canvas;
+  private Node n1 = new Node("115", 2130, 904, "L1", "45 Francis", "3", "4", "5");
+  private Node n2 = new Node("120", 2130, 844, "L1", "45 Francis", "3", "4", "5");
+  private Node n3 = new Node("200", 2185, 904, "L1", "45 Francis", "3", "4", "5");
 
-  @FXML private Line line;
+  private Point2D centerPoint;
+  private Point2D centerTL;
 
-  @FXML private GesturePane gp;
+  private ArrayList<Shape> makePath(ArrayList<Node> nodes) {
+    ArrayList<Shape> shapes = new ArrayList<Shape>();
 
-  private Line tempLine;
+    Circle c;
+    float circleR = 10.0f;
+    float lineT = 10.0f;
 
-  private Node n;
+    int thickness = 2;
 
-  int xCord1, xCord2, yCord1, yCord2;
+    Path path;
 
-  float canvasX = -20;
-  float canvasY = -20;
+    Color borderColor = new Color(0.1, 0.4, 0.9, 1);
+    Color insideColor = new Color(0.05, 0.7, 1, 1);
 
-  public void testMethod() {
+    for (int j = 0; j < 2; j++) {
+      path = new Path();
+      if (j == 0) {
+        path.setStroke(borderColor);
+      } else {
+        path.setStroke(insideColor);
+      }
+      path.setStrokeWidth(lineT - (thickness * 2 * j));
 
-    System.out.println("Test");
+      path.getElements().add(new MoveTo(nodes.get(0).getXCord(), nodes.get(0).getYCord()));
+      for (int i = 1; i < nodes.size(); i++) {
+        path.getElements().add(new LineTo(nodes.get(i).getXCord(), nodes.get(i).getYCord()));
+      }
+      path.setStrokeLineJoin(StrokeLineJoin.ROUND);
+      shapes.add(path);
+    }
 
-    gc.setStroke(Color.BLUE);
-    gc.setLineWidth(2);
-    //    gc.fillRect(75, 75, 100, 100);
+    for (int i = 0; i < nodes.size(); i++) {
 
-    gc.beginPath();
-    gc.lineTo(xCord1, yCord1);
-    gc.lineTo(xCord2, yCord2);
-    gc.lineTo(xCord2 + 10, yCord2 + 10);
-    gc.closePath();
-    gc.stroke();
+      if (i == 0 || i == nodes.size() - 1) {
+        c = new Circle(nodes.get(i).getXCord(), nodes.get(i).getYCord(), circleR + thickness);
+        c.setFill(borderColor);
+        shapes.add(c);
 
-    //    Path path = new Path();
-    //    path.getElements().add(new MoveTo(0.0f, 50.0f));
-    //    path.getElements().add(new LineTo(100.0f, 100.0f));
+        c = new Circle(nodes.get(i).getXCord(), nodes.get(i).getYCord(), circleR);
+        c.setFill(insideColor);
+        shapes.add(c);
+      }
+    }
+
+    return shapes;
   }
 
-  EventHandler<MouseEvent> e =
-      new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
-          System.out.println("test2");
+  public void printScale() {
+    //    System.out.println(gp.getCurrentX() + ", " + gp.getCurrentY());
+    //    System.out.println(gp.getCurrentScale());
+    //    double parentW = getMapWitdh();
+    //    double parentH = getMapHeight();
+    //    System.out.println(parentW + ", " + parentH);
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
 
-          double parentW = canvas.getParent().getParent().getLayoutBounds().getWidth();
-          double parentH = canvas.getParent().getParent().getLayoutBounds().getHeight();
+    DataManager dm = new DataManager();
 
-          System.out.println(parentH + ", " + parentW);
+    dm.displayNodesByFloor(connection, "L1");
+  }
 
-          //
-          // System.out.println(); //
-          // Size of bound box
-          //
-          // System.out.println(canvas.getParent().getParent().getLayoutBounds().getHeight());
+  private double getMapWitdh() {
+    //    return sp.getLayoutBounds().getWidth();
+    return sp.getWidth();
+  }
 
-          //          gp.centreOn(new Point2D(1002, 1003));
-
-          double diffX = gp.getCurrentX() - canvasX;
-          double diffY = gp.getCurrentY() - canvasY;
-
-          int offset = 2;
-          int testS = 17;
-
-          // Scroll Bars are 16 px Thick
-          int barT = 16;
-
-          double hCenter = ((parentW - barT) / 2) - (canvas.getWidth() / 2);
-          double vCenter = ((parentH - barT) / 2) - (canvas.getHeight() / 2);
-
-          //          gp.currentScaleXProperty();
-          //          gp.getCurrentScaleX();
-          //          gp.getTarget();
-          //          //          gp.maxScaleProperty();
-          //
-          //          //          gp.targetPointAt();
-          //          gp.viewportCentre();
-          //          gp.viewportBoundProperty();
-          //          gp.getViewportWidth();
-          //          System.out.println(gp.getViewportWidth() + ", " + gp.getViewportHeight());
-          //          System.out.println(gp.getTargetHeight() + ", " + gp.getLayoutY());
-          System.out.println(gp.getCurrentScale());
-          System.out.println(
-              gp.getCurrentX()
-                  + ", "
-                  + gp.getCurrentY()); // Where is the Top left, in the full image.
-
-          //          gp.viewportPointAt();
-
-          //          canvasX += diffX;
-          //          canvas.setTranslateX(-canvasX + hCenter); // parentW);
-          //          canvasY += diffY;
-          //          canvas.setTranslateY(-canvasY + vCenter); // parentH);
-          //          gc.fillRect(0, 0, testS + offset, testS + offset);
-          //          gc.setFill(Color.RED);
-          //          gc.fillRect(0, 0, testS, testS);
-
-          //          gp.setHbarPolicy(GesturePane.ScrollBarPolicy.NEVER);
-          //          gp.setVbarPolicy(GesturePane.ScrollBarPolicy.NEVER);
-
-          //          System.out.println("X: " +gp.getCurrentX()); // Coords off of top Left.
-          // negative only
-          //          System.out.println("Y: " + gp.getCurrentY());
-          //          System.out.println(event.getX());
-          //          System.out.println(event.getY());
-          //          System.out.println(event.getSceneX());
-          //          System.out.println(event.getSceneY());
-          //          System.out.println(canvas.getWidth());
-          //          System.out.println(canvas.getHeight());
-          System.out.println("ETest2");
-        }
-      };
+  private double getMapHeight() {
+    //    return sp.getLayoutBounds().getHeight();
+    return sp.getHeight();
+  }
 
   @FXML
   public void initialize() {
-    xCord1 = 75;
-    yCord1 = 75;
-    xCord2 = 100;
-    yCord2 = 100;
+    gp.setMinScale(0.11);
+    gp.setOnMouseClicked(event -> printScale());
 
-    tempLine = new Line();
-    tempLine.setStartX(xCord1);
-    tempLine.setEndX(xCord2);
-    tempLine.setStartY(yCord1);
-    tempLine.setEndY(yCord2);
+    ArrayList<Node> nodes = new ArrayList<Node>();
 
-    //    canvas.setOnMouseClicked(event -> testMethod());
+    nodes.add(n3);
+    nodes.add(n1);
+    nodes.add(n2);
 
-    //    canvas.setOnMouseClicked(e);
-    gp.setOnMouseClicked(e);
+    ArrayList<Shape> shapes = makePath(nodes);
 
-    gc = canvas.getGraphicsContext2D();
-
-    Color c = Color.GREEN;
-
-    gc.setFill(c);
-
-    gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-    c = Color.BLUE;
-
-    gc.setFill(c);
-
-    //    canvas.setTranslateX(-canvasX);
-    //    canvas.setTranslateY(-canvasY);
+    anchor.getChildren().addAll(shapes);
 
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    helpButton
@@ -173,5 +130,34 @@ public class MapController {
     directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     serviceRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     exitButton.setOnMouseClicked(event -> System.exit(0));
+
+    double parentW = getMapWitdh();
+    double parentH = getMapHeight();
+    parentW = 760;
+    parentH = 512;
+    System.out.println("PW,PH: " + parentW + ", " + getMapHeight());
+    //    Point2D CMin = new Point2D(parentW / 2, parentH / 2);
+    Point2D CMin = new Point2D(500, 100);
+
+    centerTL = new Point2D(1530, 530);
+    centerPoint = centerTL.add(CMin);
+
+    destText.setLayoutX(
+        centerPoint
+            .getX()); // Center Point is in the wrong spot because we are adding half of the outer
+    // coords to the Inner 3400 cords.
+    destText.setLayoutY(centerPoint.getY());
+
+    Circle c = new Circle(centerPoint.getX(), centerPoint.getY(), 20, Color.BLACK);
+    anchor.getChildren().add(c);
+
+    // Shift To Center
+
+    System.out.println(CMin);
+    //    centerPoint = centerPoint.subtract(CMin);
+    //     760, 512 = 0.5 Scale
+
+    gp.zoomTo(0.5, Point2D.ZERO);
+    gp.centreOn(centerTL); // Actually Moves the Top left corner
   }
 }

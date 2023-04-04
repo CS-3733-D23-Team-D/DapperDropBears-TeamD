@@ -171,14 +171,16 @@ public class DataManager {
     }
   }
 
-  public static void displayNodesByFloor(Connection connection) {
-    Scanner scan = new Scanner(System.in);
-    System.out.println("Enter floor name");
-    int ans = scan.nextInt();
-    System.out.println("Floor " + ans + " Info:");
+  public static void displayNodesByFloor(Connection connection, String floorIn) {
+    //    Scanner scan = new Scanner(System.in);
+    //    System.out.println("Enter floor name");
+    //    int ans = scan.nextInt();
+
+    // WHERE floor is floorIn
+    System.out.println("Floor " + floorIn + " Info:");
     String sql = "SELECT floor, COUNT(*) AS num_nodes FROM \"Node\" GROUP BY floor";
     try (Statement statement = connection.createStatement();
-         ResultSet resultSet = statement.executeQuery(sql)) {
+        ResultSet resultSet = statement.executeQuery(sql)) {
       while (resultSet.next()) {
         int floor = resultSet.getInt("floor");
         int numNodes = resultSet.getInt("num_nodes");
@@ -187,8 +189,6 @@ public class DataManager {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-
-
   }
 
   /**

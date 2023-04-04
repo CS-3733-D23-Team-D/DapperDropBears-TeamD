@@ -10,13 +10,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
    <children>
-      <VBox HBox.hgrow="ALWAYS">
+      <VBox id="VBox2" HBox.hgrow="ALWAYS">
          <children>
-            <StackPane prefHeight="340.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+            <StackPane fx:id="sp" prefHeight="340.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
                <children>
 <!--                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />-->
                   <GesturePane fx:id="gp" prefHeight="340.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
@@ -32,11 +33,13 @@
       <!--                           <Font name="Times New Roman" size="19.0" />-->
       <!--                        </font>-->
       <!--                     </MFXButton>-->
-                           <AnchorPane prefHeight="3400.0" prefWidth="5000.0" styleClass="body" stylesheets="@../stylesheets/scaleFull.css" visible="true" />
+                           <AnchorPane fx:id="anchor" prefHeight="3400.0" prefWidth="5000.0" styleClass="body" stylesheets="@../stylesheets/scaleFull.css" visible="true" />
+                           <Text fx:id="destText" layoutX="66.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click Your Destination!" />
+
                         </children>
                      </Group>
                   </GesturePane>
-                  <Canvas fx:id="canvas" disable="true" height="340.0" visible="true" width="500.0" />
+                  <Canvas fx:id="canvas" disable="true" height="340.0" visible="false" width="500.0" />
                </children>
             </StackPane>
          </children>
@@ -48,7 +51,9 @@
       <!--            </ScrollPane>-->
       <VBox>
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
+               <children>
+               </children></AnchorPane>
             <ToolBar orientation="VERTICAL" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
                <items>
                   <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
