@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Edge {
-  @Getter @Setter String edgeID;
   @Getter @Setter String startNode;
   @Getter @Setter String endNode;
   @Getter private ArrayList<Node> nodes;
   // Constructor
-  public Edge(String edgeID, String startNode, String endNode) {
-    this.edgeID = edgeID;
+  public Edge(String startNode, String endNode) {
     this.startNode = startNode;
     this.endNode = endNode;
     nodes = new ArrayList<Node>();
@@ -23,10 +21,9 @@ public class Edge {
    * @return a string representation of the edge
    */
   public String toString() {
-    String eIDs = "EdgeID: " + edgeID;
     String startNodeS = "Starting Node: " + startNode;
     String endNodeS = "Ending Node: " + endNode;
-    return eIDs + " " + startNodeS + " " + endNodeS;
+    return startNodeS + " " + endNodeS;
   }
 
   /**

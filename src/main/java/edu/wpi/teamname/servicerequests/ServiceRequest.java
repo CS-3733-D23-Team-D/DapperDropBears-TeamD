@@ -1,61 +1,66 @@
 package edu.wpi.teamname.servicerequests;
 
 import edu.wpi.teamname.Node;
-import edu.wpi.teamname.requestItems.RequestItem;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
 public class ServiceRequest {
 
-  @Setter private String staffName;
-  @Setter private String patientName;
+  @Getter @Setter private int requestID;
+  @Setter @Getter private String staffName;
+  @Setter @Getter private String patientName;
 
-  @Setter private String roomNumber;
+  @Setter @Getter private String roomNumber;
   private Node deliveryLocation;
 
   @Setter private String notes;
 
-  @Setter @Getter private LocalDate deliverBy;
-  private LocalDate requestedAt;
+  @Setter @Getter private LocalDateTime deliverBy;
+  @Setter @Getter private LocalDateTime requestedAt;
 
-  private ArrayList<RequestItem> requestItems;
+  public ServiceRequest(
+      int requestID,
+      String staffName,
+      String patientName,
+      String roomNumber,
+      LocalDateTime deliverBy) {
+    this.requestID = requestID;
+    this.staffName = staffName;
+    this.patientName = patientName;
+    this.roomNumber = roomNumber;
+    this.deliverBy = deliverBy;
+    requestedAt = LocalDateTime.now();
+  }
 
   public ServiceRequest() {
-    deliverBy = LocalDate.now();
-    requestedAt = LocalDate.now();
-    requestItems = new ArrayList<RequestItem>();
+    requestedAt = LocalDateTime.now();
   }
 
   @Override
   public String toString() {
-    return this.getRequestInfo();
+    return "";
+    // return this.getRequestInfo();
   }
 
-  public void addItem(String item) {
-    RequestItem reqestItem = new RequestItem(item);
-    this.requestItems.add(reqestItem);
-  }
+  /*public String getRequestInfo() {
+      String returnStr = "This Request has %s deliver (%s) to %s on %s. Notes %s";
 
-  public String getRequestInfo() {
-    String returnStr = "This Request has %s deliver (%s) to %s on %s. Notes %s";
+      String requestStr = "";
 
-    String requestStr = "";
-
-    for (int i = 0; i < requestItems.size(); i++) {
-      requestStr += requestItems.get(i);
-      if (i != (requestItems.size() - 1)) {
-        requestStr += " and ";
+      for (int i = 0; i < requestItems.size(); i++) {
+        requestStr += requestItems.get(i);
+        if (i != (requestItems.size() - 1)) {
+          requestStr += " and ";
+        }
       }
+
+      String dateStr = deliverBy.toString();
+
+      returnStr = String.format(returnStr, staffName, requestStr, patientName, dateStr, notes);
+      return returnStr;
     }
-
-    String dateStr = deliverBy.toString();
-
-    returnStr = String.format(returnStr, staffName, requestStr, patientName, dateStr, notes);
-    return returnStr;
-  }
-
+  */
   public void roomNumToLocationNode() {
     // Todo!!!
     // Convert the string property of this object into the corresponding node
