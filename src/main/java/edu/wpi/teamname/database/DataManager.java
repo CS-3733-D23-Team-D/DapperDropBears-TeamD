@@ -1096,7 +1096,9 @@ public class DataManager {
             + "\t Request one of the services listed"
             + "(12) Display Help\n"
             + "\t-Displays this text\n"
-            + "(13) Exit\n"
+            + "(13) Login\n"
+            + "\t-Log into the app as admin or staff.\n"
+            + "(14) Exit\n"
             + "\t-Terminates the program");
   }
 
@@ -1118,13 +1120,13 @@ public class DataManager {
             + "(10) Move a node"
             + "(11) Request a service\n"
             + "(12) Display help\n"
-            + "(13) Exit\n"
-            + "(14) Login");
+            + "(13) Login"
+            + "(14) Exit\n");
     String optionChosen = "help";
-    while (running) {
-      DatabaseConnection dbc = new DatabaseConnection();
-      Connection connection = dbc.DbConnection();
 
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+    while (running) {
       optionChosen = scanner.nextLine();
       optionChosen = optionChosen.toLowerCase();
       optionChosen = optionChosen.replaceAll("\\s", ""); // Removes whitespace
@@ -1169,11 +1171,13 @@ public class DataManager {
           displayHelp();
           break;
         case "13":
-        case "14":
           Login();
           break;
+        case "14":
         case "exit":
-          System.out.println("Terminating program");
+          System.out.println("Terminating program.");
+          connection.close();
+          System.out.println("Connection closed.");
           running = false;
           break;
         default:
