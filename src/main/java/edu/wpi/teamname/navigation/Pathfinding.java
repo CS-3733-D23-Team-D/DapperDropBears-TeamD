@@ -7,19 +7,25 @@ import java.util.Scanner;
 public class Pathfinding {
   private static List<Node> Nodes = new ArrayList<Node>();
   private static List<Edge> Edges = new ArrayList<Edge>();
-  private static String NodesFile =
-      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Node.csv";
-  private static String EdgesFile =
-      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Edge.csv";
+  private static String NodesFile = "C:\\Users\\Aleksandr Samarin\\Downloads\\Node.csv";
+  private static String EdgesFile = "C:\\Users\\Aleksandr Samarin\\Downloads\\Edge.csv";
 
   public static void main(String[] args) throws Exception {
     initializeNodes(ReadCsvLines(NodesFile));
     initializeEdges(ReadCsvLines(EdgesFile));
 
+    Scanner sc = new Scanner(System.in); // System.in is a standard input stream
+    System.out.print("Enter Start NodeID: ");
+    int startNodeID = sc.nextInt();
+
+    System.out.print("Enter End NodeID: ");
+    int endNodeID = sc.nextInt();
+
     Graph graph = new Graph(Nodes, Edges);
 
-    graph.setStart(graph.getNodes().get(0));
-    graph.setTarget(graph.getNodes().get(100));
+    // (NodeID - 100)/5
+    graph.setStart(graph.getNodes().get((startNodeID - 100) / 5)); // To get index
+    graph.setTarget(graph.getNodes().get((endNodeID - 100) / 5));
     AStar.aStar(graph);
     AStar.printPath(graph.getTarget());
   }
