@@ -8,15 +8,22 @@ public class Pathfinding {
   private static List<Node> Nodes = new ArrayList<Node>();
   private static List<Edge> Edges = new ArrayList<Edge>();
   private static String NodesFile =
-      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Node.csv";
+      "C:\\Users\\Aleksandr Samarin\\Desktop\\CS3733\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Node.csv";
   private static String EdgesFile =
-      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Edge.csv";
+      "C:\\Users\\Aleksandr Samarin\\Desktop\\CS3733\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Edge.csv";
 
   public static void main(String[] args) throws Exception {
     initializeNodes(ReadCsvLines(NodesFile));
     initializeEdges(ReadCsvLines(EdgesFile));
 
-    Graph graph = new Graph(Nodes, Edges);
+    Scanner input = new Scanner(System.in);
+    System.out.print("Enter the start NodeID: ");
+    int startNodeID = input.nextInt();
+
+    System.out.print("Enter the destination NodeID: ");
+    int endNodeID = input.nextInt();
+
+    Graph graph = new Graph(startNodeID, endNodeID, Nodes, Edges);
 
     // graph.getNodes().get(0).setNeighbor(graph.getNodes().get(1));
 
@@ -33,7 +40,7 @@ public class Pathfinding {
       lines.add(sc.nextLine());
     }
 
-    // Remove the tittles
+    // Remove the title
     lines.remove(0);
     return lines;
   }
