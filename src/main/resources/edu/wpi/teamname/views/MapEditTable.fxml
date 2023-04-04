@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTableColumn?>
+<?import io.github.palexdev.materialfx.controls.MFXTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <MFXTableView id="ImportCSV" layoutX="-2.0" layoutY="-1.0" prefHeight="400.0" prefWidth="606.0" />
+        <MFXTableColumn layoutX="23.0" layoutY="14.0" text="Node ID">
+            <font>
+                <Font name="Times New Roman" size="20.0" />
+            </font>
+        </MFXTableColumn>
+        <MFXTableColumn layoutX="165.0" layoutY="14.0" text="Edge ID" textAlignment="CENTER">
+            <font>
+                <Font name="Times New Roman" size="20.0" />
+            </font>
+        </MFXTableColumn>
+        <MFXTableColumn layoutX="472.0" layoutY="14.0" text="Room Name">
+            <font>
+                <Font name="Times New Roman" size="20.0" />
+            </font>
+        </MFXTableColumn>
+        <MFXTableColumn layoutX="314.0" layoutY="14.0" text="Patient Name">
+            <font>
+                <Font name="Times New Roman" size="20.0" />
+            </font>
+        </MFXTableColumn>
+        <MFXTableColumn layoutX="17.0" layoutY="109.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="154.0" layoutY="55.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="314.0" layoutY="55.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="472.0" layoutY="55.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="17.0" layoutY="165.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="17.0" layoutY="223.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="154.0" layoutY="109.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="154.0" layoutY="165.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="154.0" layoutY="223.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="154.0" layoutY="280.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="17.0" layoutY="280.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="17.0" layoutY="55.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="314.0" layoutY="165.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="314.0" layoutY="109.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="314.0" layoutY="280.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="314.0" layoutY="223.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="471.0" layoutY="280.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="471.0" layoutY="223.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="472.0" layoutY="165.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXTableColumn layoutX="472.0" layoutY="109.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
+        <MFXButton buttonType="RAISED" layoutX="308.0" layoutY="343.0" prefHeight="41.0" prefWidth="137.0" text="Export CSV">
+            <font>
+                <Font name="Times New Roman" size="20.0" />
+            </font>
+        </MFXButton>
+        <MFXButton buttonType="RAISED" layoutX="141.0" layoutY="343.0" prefHeight="41.0" prefWidth="137.0" text="Import CSV">
+            <font>
+                <Font name="Times New Roman" size="20.0" />
+            </font>
+        </MFXButton>
+        <MFXButton buttonType="RAISED" layoutX="487.0" layoutY="559.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" style="-fx-font-weight: BOLD;" text="Back">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </MFXButton>
+    </children>
+</AnchorPane>
