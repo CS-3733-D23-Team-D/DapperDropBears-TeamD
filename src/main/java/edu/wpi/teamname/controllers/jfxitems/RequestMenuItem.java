@@ -41,7 +41,7 @@ public class RequestMenuItem extends BorderPane {
           "edu/wpi/teamname/images/" + folder + "/" + name.replace(" ", "_") + ".png");
     }
     hBox = new HBox();
-    label = new Label(name);
+    label = new Label(name.replace("_", " "));
     label.setFont(Font.font("Times New Roman", 32));
     button = new RequestMenuItemButton(name.replace("_", " "), this.id, this, this.request);
     quantity = new TextField("");
@@ -52,13 +52,15 @@ public class RequestMenuItem extends BorderPane {
     setCenter(hBox);
     hBox.setAlignment(Pos.CENTER);
     label.setAlignment(Pos.CENTER);
+    quantity.setAlignment(Pos.CENTER);
     vBox = new VBox();
     vBox.setAlignment(Pos.CENTER);
     vBox.setMinWidth(button.getWidth() + 15);
     vBox.getChildren().add(button);
     setRight(vBox);
     button.setAlignment(Pos.CENTER);
-    button.setPadding(new Insets(this.getHeight() / 2 - button.getHeight() / 2, 0, 0, 0));
+    button.setLayoutY(this.getHeight());
+    button.setPadding(new Insets(this.getHeight() / 2 - button.getHeight() / 2, 25, 0, 25));
     initialize();
   }
 
