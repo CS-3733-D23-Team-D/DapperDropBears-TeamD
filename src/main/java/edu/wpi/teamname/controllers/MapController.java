@@ -90,16 +90,16 @@ public class MapController {
     return shapes;
   }
 
+  DatabaseConnection dbc = new DatabaseConnection();
+  Connection connection = dbc.DbConnection();
+  DataManager dm = new DataManager();
+
   public void printScale() {
     //    System.out.println(gp.getCurrentX() + ", " + gp.getCurrentY());
     //    System.out.println(gp.getCurrentScale());
     //    double parentW = getMapWitdh();
     //    double parentH = getMapHeight();
     //    System.out.println(parentW + ", " + parentH);
-    DatabaseConnection dbc = new DatabaseConnection();
-    Connection connection = dbc.DbConnection();
-
-    DataManager dm = new DataManager();
 
     dm.displayNodesByFloor(connection, "L1");
   }
@@ -121,18 +121,23 @@ public class MapController {
 
           Point2D clickPoint = new Point2D(event.getX(), event.getY());
 
+          ArrayList<Point2D> floorPoints;
+
+          floorPoints = dm.displayNodesByFloor(connection, "L1");
+
           System.out.println(clickPoint); // Coordinates in inner, now goes up to 5000
 
           int leastDistanceNodeIndex = -1;
           double leastDistance = Double.MAX_VALUE;
           double nodeDist;
           int startNodeIndex = 0;
-          for (int i = 0; i < floorNodes.size(); i++) {
+          for (int i = 0; i < floorPoints.size(); i++) {
             if (i == startNodeIndex) {
               continue;
             } else {
-              Node currentNode = floorNodes.get(i);
-              nodeDist = clickPoint.distance(currentNode.getXCord(), currentNode.getYCord());
+              //              Node currentNode = floorNodes.get(i);
+              Point2D currentNode = floorPoints.get(i);
+              nodeDist = clickPoint.distance(currentNode);
               if (nodeDist < leastDistance) {
                 leastDistance = nodeDist;
                 leastDistanceNodeIndex = i;
@@ -140,25 +145,23 @@ public class MapController {
             }
           }
 
-          Node startNode = floorNodes.get(startNodeIndex);
-          Node endNode = floorNodes.get(leastDistanceNodeIndex);
+          Point2D startNode = floorPoints.get(startNodeIndex);
+          Point2D endNode = floorPoints.get(leastDistanceNodeIndex);
 
-          //          Circle c = new Circle(startNode.getXCord(), startNode.getYCord(), 20,
-          // Color.BLACK);
-          //          anchor.getChildren().add(c);
-          //          c = new Circle(endNode.getXCord(), endNode.getYCord(), 20, Color.RED);
-          //          anchor.getChildren().add(c);
+          Circle c = new Circle(startNode.getX(), startNode.getY(), 20, Color.BLACK);
+          anchor.getChildren().add(c);
+          c = new Circle(endNode.getX(), endNode.getY(), 20, Color.RED);
+          anchor.getChildren().add(c);
 
           //          ArrayList<Node> path = AStarPath(startNode,endNode);
           //          makePath(path);
-
         }
       };
 
   @FXML
   public void initialize() {
     gp.setMinScale(0.11);
-    //    gp.setOnMouseClicked(event -> printScale());
+    gp.setOnMouseClicked(event -> printScale());
     //    gp.setOnMouseClicked(e);
 
     floorNodes = new ArrayList<Node>();
@@ -187,7 +190,7 @@ public class MapController {
     System.out.println("PW,PH: " + getMapWitdh() + ", " + getMapHeight());
     //    Point2D CMin = new Point2D(parentW / 2, parentH / 2);
 
-    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); //hard Coded
+    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded
 
     double scaleX = parentW / scaleOneDim.getX();
     double scaleY = parentH / scaleOneDim.getY();
@@ -200,9 +203,9 @@ public class MapController {
     double scale = gp.getCurrentScale();
     Point2D CMin = new Point2D((parentW / 2) * (1 / scale), (parentH / 2) * (1 / scale));
 
-    Point2D topDisplay = new Point2D(2250, 685); //Hard Coded
+    Point2D topDisplay = new Point2D(2250, 685); // Hard Coded
 
-    centerPoint = new Point2D(2250, 1000); //Hard Coded
+    centerPoint = new Point2D(2250, 1000); // Hard Coded
     centerTL = centerPoint.subtract(CMin);
 
     //    destText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 40));
@@ -215,8 +218,8 @@ public class MapController {
     // coords to the Inner 3400 cords.
     destText.setLayoutY(topDisplay.getY());
 
-    Circle c = new Circle(centerPoint.getX(), centerPoint.getY(), 20, Color.BLACK);
-    anchor.getChildren().add(c);
+    //    Circle c = new Circle(centerPoint.getX(), centerPoint.getY(), 20, Color.BLACK);
+    //    anchor.getChildren().add(c);
 
     // Shift To Center
 

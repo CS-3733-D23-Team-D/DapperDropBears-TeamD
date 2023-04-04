@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import javafx.geometry.Point2D;
 
 public class DataManager {
 
@@ -171,23 +172,31 @@ public class DataManager {
     }
   }
 
-  public static void displayNodesByFloor(Connection connection, String floor) {
+  public static ArrayList<Point2D> displayNodesByFloor(Connection connection, String floor) {
     String query = "SELECT * FROM \"Node\" WHERE floor = ?";
+
+    ArrayList<Point2D> ret = new ArrayList<Point2D>();
+
     try (PreparedStatement statement = connection.prepareStatement(query)) {
       statement.setString(1, floor);
       ResultSet rs = statement.executeQuery();
 
       while (rs.next()) {
-        System.out.print("[NodeID: " + rs.getInt("nodeID") + "], ");
-        System.out.print("[XCord: " + rs.getString("xcoord") + "], ");
-        System.out.print("[YCord: " + rs.getString("ycoord") + "], ");
-        System.out.print("[Floor: " + rs.getString("floor") + "], ");
-        System.out.print("[Building: " + rs.getString("building") + "]");
-        System.out.println();
+        ret.add(
+            new Point2D(
+                Integer.parseInt(rs.getString("xcoord")),
+                Integer.parseInt(rs.getString("ycoord"))));
+        //        System.out.print("[NodeID: " + rs.getInt("nodeID") + "], ");
+        //        System.out.print("[XCord: " + rs.getString("xcoord") + "], ");
+        //        System.out.print("[YCord: " + rs.getString("ycoord") + "], ");
+        //        System.out.print("[Floor: " + rs.getString("floor") + "], ");
+        //        System.out.print("[Building: " + rs.getString("building") + "]");
+        //        System.out.println();
       }
     } catch (SQLException ex) {
       throw new RuntimeException(ex);
     }
+    return ret;
   }
 
   /**
