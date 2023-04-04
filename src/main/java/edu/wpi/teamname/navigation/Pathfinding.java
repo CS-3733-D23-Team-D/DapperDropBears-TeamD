@@ -23,7 +23,7 @@ public class Pathfinding {
 
     Graph graph = new Graph(Nodes, Edges);
 
-    // (NodeID - 100)/5
+    //(NodeID - 100)/5
     graph.setStart(graph.getNodes().get((startNodeID - 100) / 5)); // To get index
     graph.setTarget(graph.getNodes().get((endNodeID - 100) / 5));
     AStar.aStar(graph);
