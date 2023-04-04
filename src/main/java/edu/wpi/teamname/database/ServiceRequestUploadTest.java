@@ -2,6 +2,7 @@ package edu.wpi.teamname.database;
 
 import edu.wpi.teamname.servicerequests.FlowerRequest;
 import edu.wpi.teamname.servicerequests.MealRequest;
+import edu.wpi.teamname.servicerequests.ServiceRequest;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -34,7 +35,7 @@ public class ServiceRequestUploadTest {
     mealRequest.addMeal(new Meal(1138));
     mealRequest.removeMeal(1138);
 
-    mealRequest.uploadRequestToDatabase();
+    // mealRequest.uploadRequestToDatabase();
 
     FlowerRequest flowerRequest = new FlowerRequest(12, "HELLOStaff", "o", "thisisaroom", date2);
     // System.out.println(flowerRequest.getQuantity(2, 1011));
@@ -62,6 +63,10 @@ public class ServiceRequestUploadTest {
     flowerRequest.addFlower(new Flower(1038));
     flowerRequest.addFlower(new Flower(1038));
     flowerRequest.removeFlower(1038);
+
+    System.out.println(ServiceRequest.getAllServiceRequests());
+
+    System.out.println(ServiceRequest.getAllItemsOrdered());
 
     // ArrayList<Integer> fid = flowerRequest.getAllFlowerIDs();
     // ArrayList<String> fname = flowerRequest.getAllFlowerNames();
