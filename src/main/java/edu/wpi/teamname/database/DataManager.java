@@ -171,23 +171,22 @@ public class DataManager {
     }
   }
 
-  public static void displayNodesByFloor(Connection connection, String floorIn) {
-    //    Scanner scan = new Scanner(System.in);
-    //    System.out.println("Enter floor name");
-    //    int ans = scan.nextInt();
+  public static void displayNodesByFloor(Connection connection, String floor) {
+    String query = "SELECT * FROM \"Node\" WHERE floor = ?";
+    try (PreparedStatement statement = connection.prepareStatement(query)) {
+      statement.setString(1, floor);
+      ResultSet rs = statement.executeQuery();
 
-    // WHERE floor is floorIn
-    System.out.println("Floor " + floorIn + " Info:");
-    String sql = "SELECT floor, COUNT(*) AS num_nodes FROM \"Node\" GROUP BY floor";
-    try (Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql)) {
-      while (resultSet.next()) {
-        int floor = resultSet.getInt("floor");
-        int numNodes = resultSet.getInt("num_nodes");
-        System.out.printf("Floor %d: %d nodes%n", floor, numNodes);
+      while (rs.next()) {
+        System.out.print("[NodeID: " + rs.getInt("nodeID") + "], ");
+        System.out.print("[XCord: " + rs.getString("xcoord") + "], ");
+        System.out.print("[YCord: " + rs.getString("ycoord") + "], ");
+        System.out.print("[Floor: " + rs.getString("floor") + "], ");
+        System.out.print("[Building: " + rs.getString("building") + "]");
+        System.out.println();
       }
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
+    } catch (SQLException ex) {
+      throw new RuntimeException(ex);
     }
   }
 
