@@ -4,6 +4,7 @@ import edu.wpi.teamname.database.DatabaseConnection;
 import edu.wpi.teamname.database.Flower;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,6 +33,42 @@ public class FlowerRequest extends ServiceRequest {
         return;
       }
     }
+  }
+
+  public ArrayList<Integer> getAllFlowerIDs() throws SQLException {
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+    ArrayList<Integer> output = new ArrayList<Integer>();
+    try (connection) {
+      String query = "SELECT \"flowerID\" FROM \"Flowers\" ORDER BY \"flowerID\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        output.add(rs.getInt("flowerID"));
+      }
+
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return output;
+  }
+
+  public ArrayList<String> getAllFlowerNames() throws SQLException {
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+    ArrayList<String> output = new ArrayList<String>();
+    try (connection) {
+      String query = "SELECT \"Name\" FROM \"Flowers\" ORDER BY \"flowerID\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        output.add(rs.getString("Name"));
+      }
+
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return output;
   }
 
   public void uploadRequestToDatabase() throws SQLException {

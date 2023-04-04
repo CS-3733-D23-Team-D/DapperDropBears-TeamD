@@ -2,9 +2,7 @@ package edu.wpi.teamname.servicerequests;
 
 import edu.wpi.teamname.database.DatabaseConnection;
 import edu.wpi.teamname.database.Meal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -33,6 +31,42 @@ public class MealRequest extends ServiceRequest {
         return;
       }
     }
+  }
+
+  public ArrayList<Integer> getAllMealIDs() throws SQLException {
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+    ArrayList<Integer> output = new ArrayList<Integer>();
+    try (connection) {
+      String query = "SELECT \"mealID\" FROM \"Meal\" ORDER BY \"mealID\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        output.add(rs.getInt("mealID"));
+      }
+
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return output;
+  }
+
+  public ArrayList<String> getAllMealNames() throws SQLException {
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+    ArrayList<String> output = new ArrayList<String>();
+    try (connection) {
+      String query = "SELECT \"Name\" FROM \"Meal\" ORDER BY \"mealID\"";
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        output.add(rs.getString("Name"));
+      }
+
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return output;
   }
 
   public void uploadRequestToDatabase() throws SQLException {
