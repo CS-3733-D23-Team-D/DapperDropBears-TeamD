@@ -10,8 +10,21 @@ public class Node implements Comparable<Node> {
   private int x;
   private int y;
   private Node parent = null;
+
+  public Node getParent() {
+    return parent;
+  }
+
+  public void setParent(Node parent) {
+    this.parent = parent;
+  }
+
   private List<Node> neighbors;
   private List<Edge> edges;
+
+  public List<Edge> getEdges() {
+    return edges;
+  }
 
   // f: sum of g and h;
   public double f = Double.MAX_VALUE;
@@ -58,13 +71,25 @@ public class Node implements Comparable<Node> {
 
       if (this.id == edge.startNodeID) {
         this.setNeighbor(e);
+        // connectEdge newEdge = new connectEdge(e, findWeight(e));
       } else {
         this.setNeighbor(s);
+        // connectEdge newEdge = new connectEdge(s, findWeight(s));
       }
     }
   }
 
-  // shoudl probably have this in Edge class
+  public class connectEdge {
+    public double weight;
+    public Node node;
+
+    connectEdge(Node m, double w) {
+      this.node = m;
+      this.weight = w;
+    }
+  }
+
+  // should probably have this in Edge class
   public double findWeight(Node b) {
     int x1 = this.x;
     int x2 = b.getX();
@@ -74,10 +99,6 @@ public class Node implements Comparable<Node> {
     double x = Math.pow((x2 - x1), 2);
     double y = Math.pow((y2 - y1), 2);
     return Math.sqrt(x + y);
-  }
-
-  public double calculateHeuristic(Node target) {
-    return this.h;
   }
 
   public int getId() {
@@ -94,5 +115,13 @@ public class Node implements Comparable<Node> {
       nei += " " + Integer.toString(n.getId());
     }
     return "NodeID:" + id + " Xcord:" + x + " Ycord:" + y + " Heu: " + h + nei;
+  }
+
+  public double calculateHeuristic(Node target) {
+    // Heuristic will return distance from target
+    //    return Math.sqrt(
+    //        (target.getX() - this.x) * (target.getX() - this.x)
+    //            + (target.getY() - this.y) * (target.getY() - this.y));
+    return h;
   }
 }
