@@ -170,6 +170,27 @@ public class DataManager {
       System.err.println("Error uploading CSV data to PostgreSQL database: " + e.getMessage());
     }
   }
+
+  public static void displayNodesByFloor(Connection connection) {
+    Scanner scan = new Scanner(System.in);
+    System.out.println("Enter floor name");
+    int ans = scan.nextInt();
+    System.out.println("Floor " + ans + " Info:");
+    String sql = "SELECT floor, COUNT(*) AS num_nodes FROM \"Node\" GROUP BY floor";
+    try (Statement statement = connection.createStatement();
+         ResultSet resultSet = statement.executeQuery(sql)) {
+      while (resultSet.next()) {
+        int floor = resultSet.getInt("floor");
+        int numNodes = resultSet.getInt("num_nodes");
+        System.out.printf("Floor %d: %d nodes%n", floor, numNodes);
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
+
+  }
+
   /**
    * Displays node information from the "Node" table in the connected PostgreSQL database.
    *
