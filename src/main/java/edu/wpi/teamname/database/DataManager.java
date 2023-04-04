@@ -335,6 +335,14 @@ public class DataManager {
       displayNodeInfo(connection);
     }
   }
+
+  /*public static void displayServiceRequests() throws SQLException {
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+
+    String query = "SELECT "
+  }*/
+
   /**
    * Displays the edge information from the "Edge" table in the PostgreSQL database.
    *

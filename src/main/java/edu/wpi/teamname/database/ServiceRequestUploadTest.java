@@ -20,20 +20,51 @@ public class ServiceRequestUploadTest {
     mealRequest.addMeal(new Meal(1104));
     mealRequest.addMeal(new Meal(1113));
     mealRequest.addMeal(new Meal(1133));
+    mealRequest.addMeal(new Meal(1133));
+    mealRequest.addMeal(new Meal(1133));
+    mealRequest.addMeal(new Meal(1133));
+    mealRequest.addMeal(new Meal(1133));
+    mealRequest.addMeal(new Meal(1133));
+    mealRequest.addMeal(new Meal(1133));
+    mealRequest.addMeal(new Meal(1133));
+    mealRequest.addMeal(new Meal(1133));
     mealRequest.addMeal(new Meal(1138));
-    mealRequest.removeMeal(1101);
+    mealRequest.addMeal(new Meal(1138));
+    mealRequest.addMeal(new Meal(1138));
+    mealRequest.removeMeal(1138);
 
     mealRequest.uploadRequestToDatabase();
 
-    FlowerRequest flowerRequest = new FlowerRequest(2, "ImStaff", "o", "thisisaroom", date2);
+    FlowerRequest flowerRequest = new FlowerRequest(12, "HELLOStaff", "o", "thisisaroom", date2);
+    // System.out.println(flowerRequest.getQuantity(2, 1011));
+
     flowerRequest.addFlower(new Flower(1000));
-    flowerRequest.addFlower(new Flower(1010));
     flowerRequest.addFlower(new Flower(1001));
+    flowerRequest.removeFlower(1000);
+    flowerRequest.removeFlower(1000);
+    flowerRequest.removeFlower(1000);
+    // 1000 - 0, 1001 - 1
+    flowerRequest.addFlower(new Flower(1007));
+    flowerRequest.addFlower(new Flower(1030));
+    flowerRequest.addFlower(new Flower(1030));
+    flowerRequest.addFlower(new Flower(1030));
+    flowerRequest.addFlower(new Flower(1030));
+    flowerRequest.removeFlower(1007);
+
+    flowerRequest.addFlower(new Flower(1010));
+    flowerRequest.addFlower(new Flower(1010));
+    flowerRequest.addFlower(new Flower(1010));
+    flowerRequest.removeFlower(1010);
     flowerRequest.removeFlower(1010);
 
-    ArrayList<Integer> fid = flowerRequest.getAllFlowerIDs();
-    ArrayList<String> fname = flowerRequest.getAllFlowerNames();
-    for (int i = 0; i < fid.size(); i++) {
+    flowerRequest.addFlower(new Flower(1038));
+    flowerRequest.addFlower(new Flower(1038));
+    flowerRequest.addFlower(new Flower(1038));
+    flowerRequest.removeFlower(1038);
+
+    // ArrayList<Integer> fid = flowerRequest.getAllFlowerIDs();
+    // ArrayList<String> fname = flowerRequest.getAllFlowerNames();
+    /*for (int i = 0; i < fid.size(); i++) {
       System.out.println(fid.get(i) + " " + fname.get(i));
     }
 
@@ -41,7 +72,7 @@ public class ServiceRequestUploadTest {
     ArrayList<String> mname = mealRequest.getAllMealNames();
     for (int i = 0; i < mid.size(); i++) {
       System.out.println(mid.get(i) + " " + mname.get(i));
-    }
+    }/*
 
     // flowerRequest.uploadRequestToDatabase();
   }

@@ -1,6 +1,11 @@
 package edu.wpi.teamname.servicerequests;
 
 import edu.wpi.teamname.Node;
+import edu.wpi.teamname.database.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,9 +50,10 @@ public class ServiceRequest {
     // return this.getRequestInfo();
   }
 
-  /**
-   * * Given a numerical string, add a leading zero if the string is only one digit long Used for
-   * parsing dates
+  /***
+   * Given a numerical string, add a leading zero if the string
+   * is only one digit long
+   * Used for parsing dates
    *
    * @param value the numerical String
    * @return the String with the leading zero or not
@@ -106,6 +112,33 @@ public class ServiceRequest {
         + "-"
         + second
         + "', 'YYYY-MONTH-DD-HH24-MI-SS')";
+  }
+
+  public int getQuantity(int requestID, int itemID) {
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+
+    int quantity = 0;
+    try (connection) {
+      String query =
+          "SELECT \"quantity\" FROM \"ItemsOrdered\" WHERE \"itemID\" = "
+              + itemID
+              + " AND \"requestID\" = "
+              + requestID;
+      PreparedStatement statement = connection.prepareStatement(query);
+      ResultSet rs = statement.executeQuery();
+
+      while (rs.next()) {
+        quantity = rs.getInt("quantity");
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    if (quantity > 0) {
+      return quantity + 1;
+    } else {
+      return 1;
+    }
   }
 
   public void addItem(int id) throws SQLException {};

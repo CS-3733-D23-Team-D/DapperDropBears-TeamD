@@ -10,7 +10,7 @@ import lombok.Setter;
 
 public class MealRequest extends ServiceRequest {
 
-  @Setter @Getter ArrayList<Meal> meals;
+  @Getter @Setter private ArrayList<Meal> meals;
 
   public MealRequest(
       int requestID,
@@ -22,8 +22,8 @@ public class MealRequest extends ServiceRequest {
     meals = new ArrayList<Meal>();
   }
 
-  /**
-   * * Adds the given meal into the request's list
+  /***
+   * Adds the given meal into the request's list
    *
    * @param meal the meal to be added
    */
@@ -50,8 +50,9 @@ public class MealRequest extends ServiceRequest {
     }
   }
 
+
   /**
-   * * Queries and gets an array list of all the flower ids
+   * Queries and gets an array list of all the flower ids
    *
    * @return an array list of all the flower ids
    * @throws SQLException
@@ -74,8 +75,8 @@ public class MealRequest extends ServiceRequest {
     return output;
   }
 
-  /**
-   * * Queries and gets an array list of all the meal name
+  /***
+   * Queries and gets an array list of all the meal name
    *
    * @return an array list of all the meal name
    * @throws SQLException
@@ -167,20 +168,33 @@ public class MealRequest extends ServiceRequest {
               + ")";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();
+      connection.close();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
     PreparedStatement statement;
+    int quantity;
     for (int i = 0; i < meals.size(); i++) {
       connection = dbc.DbConnection();
+      quantity = getQuantity(this.getRequestID(), meals.get(i).getMealID());
       try {
-        query =
-            "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\") "
-                + "VALUES ('"
-                + this.getRequestID()
-                + "', "
-                + meals.get(i).getMealID()
-                + ")";
+        if (quantity == 1) {
+          query =
+              "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") "
+                  + "VALUES ('"
+                  + this.getRequestID()
+                  + "', "
+                  + meals.get(i).getMealID()
+                  + ", 1)";
+        } else {
+          query =
+              "UPDATE \"ItemsOrdered\" "
+                  + "SET quantity = "
+                  + quantity
+                  + " WHERE \"itemID\" = "
+                  + meals.get(i).getMealID();
+        }
+
         statement = connection.prepareStatement(query);
         statement.executeUpdate();
       } catch (SQLException e) {
