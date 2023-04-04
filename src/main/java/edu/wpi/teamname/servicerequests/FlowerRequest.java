@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class FlowerRequest extends ServiceRequest {
+public class FlowerRequest extends ServiceRequest implements IItem {
   ArrayList<Flower> flowers;
 
   public FlowerRequest(
@@ -29,6 +29,14 @@ public class FlowerRequest extends ServiceRequest {
    */
   public void addFlower(Flower flower) {
     flowers.add(flower);
+  }
+
+  public void addItem(int id) throws SQLException {
+    addFlower(new Flower(id));
+  }
+
+  public void clearItems() {
+    flowers.clear();
   }
 
   /***

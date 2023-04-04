@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers.jfxitems;
 
+import edu.wpi.teamname.servicerequests.ServiceRequest;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,6 +15,8 @@ import javafx.scene.text.Font;
 
 public class RequestMenuItem extends BorderPane {
   private String name;
+  private int id;
+  ServiceRequest request;
   @FXML HBox hBox;
   @FXML VBox vBox;
   @FXML Label label;
@@ -21,21 +24,26 @@ public class RequestMenuItem extends BorderPane {
   @FXML ImageView imageView;
   @FXML TextField quantity;
 
-  public RequestMenuItem(String name, String folder) {
+  public RequestMenuItem(String name, int id, String folder, ServiceRequest request) {
     this.name = name;
-
+    this.id = id;
+    this.request = request;
     try {
       imageView =
           new ImageView(
               "edu/wpi/teamname/images/" + folder + "/" + name.replace(" ", "_") + ".png");
       setLeft(imageView);
+      System.out.println(
+          "edu/wpi/teamname/images/" + folder + "/" + name.replace(" ", "_") + ".png");
     } catch (IllegalArgumentException i) {
       System.out.println("illegal image urls");
+      System.out.println(
+          "edu/wpi/teamname/images/" + folder + "/" + name.replace(" ", "_") + ".png");
     }
     hBox = new HBox();
     label = new Label(name);
     label.setFont(Font.font("Times New Roman", 32));
-    button = new RequestMenuItemButton(name.replace("_", " "), this);
+    button = new RequestMenuItemButton(name.replace("_", " "), this.id, this, this.request);
     quantity = new TextField("");
     quantity.setPromptText("Quantity");
     quantity.setFont(Font.font("Times New Roman", 32));
@@ -59,5 +67,15 @@ public class RequestMenuItem extends BorderPane {
     hBox.setPadding(new Insets(0, 30, 0, 30));
     hBox.setSpacing(100);
     setStyle("-fx-background-color: white");
+  }
+
+  public int getQuantity() {
+    int val;
+    try {
+      val = Integer.parseInt(quantity.getText());
+    } catch (NumberFormatException e) {
+      val = 1;
+    }
+    return val;
   }
 }

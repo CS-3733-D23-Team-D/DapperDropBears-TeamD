@@ -9,12 +9,13 @@ import java.util.ArrayList;
 
 public class ServiceRequestUploadTest {
   public static void main(String args[]) throws SQLException {
-
+    String string = "SELECT \"flowerID\" FROM Flowers";
+    System.out.println(string);
     LocalDateTime date = LocalDateTime.of(1000, Month.JUNE, 29, 19, 30, 40);
     LocalDateTime date2 = LocalDateTime.of(1033, Month.MAY, 29, 10, 30, 40);
 
     MealRequest mealRequest =
-        new MealRequest(0, "stadfsdfff", "patiefsdfsadfnt", "roomfsdfa2", date);
+        new MealRequest(3, "stadfsdfff", "patiefsdfsadfnt", "roomfsdfa2", date);
     mealRequest.addMeal(new Meal(1100));
     mealRequest.addMeal(new Meal(1101));
     mealRequest.addMeal(new Meal(1104));
