@@ -8,6 +8,7 @@ public enum Screen {
 
   //  REQ_MENU("views/ServiceRequestMenu.fxml"),
   LOGIN("views/Login.fxml"),
+  MAP_EDIT("views/MapEdit.fxml"),
   SIGNAGE("views/SignageLevels.fxml");
 
   private final String filename;
