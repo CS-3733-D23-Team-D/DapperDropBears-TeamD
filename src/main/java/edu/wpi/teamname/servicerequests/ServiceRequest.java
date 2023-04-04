@@ -43,6 +43,53 @@ public class ServiceRequest {
     // return this.getRequestInfo();
   }
 
+  /***
+   * Given a numerical string, add a leading zero if the string
+   * is only one digit long
+   * Used for parsing dates
+   *
+   * @param value the numerical String
+   * @return the String with the leading zero or not
+   */
+   protected String addLeadingZero(String value) {
+    if (value.length() == 1) {
+      return "0" + value;
+    } else {
+      return value;
+    }
+  }
+
+  /***
+   * Converts a LocalDateTime object to a String
+   * with the TO_TIMESTAMP SQL command
+   * Essentially converts LocalDateTime into SQL dates
+   *
+   * @param date the LocalDateTime object to be converted into a string
+   * @return
+   */
+  protected String toDate(LocalDateTime date) {
+    String year = String.valueOf(date.getYear());
+    String month = String.valueOf(date.getMonth());
+    String day = addLeadingZero(String.valueOf(date.getDayOfMonth()));
+    String hour = addLeadingZero(String.valueOf(date.getHour()));
+    String minute = addLeadingZero(String.valueOf(date.getMinute()));
+    String second = addLeadingZero(String.valueOf(date.getSecond()));
+
+    return "TO_TIMESTAMP('"
+            + year
+            + "-"
+            + month
+            + "-"
+            + day
+            + "-"
+            + hour
+            + "-"
+            + minute
+            + "-"
+            + second
+            + "', 'YYYY-MONTH-DD-HH24-MI-SS')";
+  }
+
   /*public String getRequestInfo() {
       String returnStr = "This Request has %s deliver (%s) to %s on %s. Notes %s";
 
