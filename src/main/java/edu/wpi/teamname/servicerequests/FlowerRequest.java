@@ -22,10 +22,20 @@ public class FlowerRequest extends ServiceRequest {
     flowers = new ArrayList<Flower>();
   }
 
+  /***
+   * Adds the given flower into the request's list
+   *
+   * @param flower the flower to be added
+   */
   public void addFlower(Flower flower) {
     flowers.add(flower);
   }
 
+  /***
+   * Removes an instance of a flower from the requests
+   *
+   * @param id the id of the flower to remove
+   */
   public void removeFlower(int id) {
     for (int i = 0; i < flowers.size(); i++) {
       if (flowers.get(i).getFlowerID() == id) {
@@ -35,6 +45,12 @@ public class FlowerRequest extends ServiceRequest {
     }
   }
 
+  /***
+   * Queries and gets an array list of all the flower ids
+   *
+   * @return an array list of all the flower ids
+   * @throws SQLException
+   */
   public ArrayList<Integer> getAllFlowerIDs() throws SQLException {
     DatabaseConnection dbc = new DatabaseConnection();
     Connection connection = dbc.DbConnection();
@@ -53,6 +69,12 @@ public class FlowerRequest extends ServiceRequest {
     return output;
   }
 
+  /***
+   * Queries and gets an array list of all the flower name
+   *
+   * @return an array list of all the flower name
+   * @throws SQLException
+   */
   public ArrayList<String> getAllFlowerNames() throws SQLException {
     DatabaseConnection dbc = new DatabaseConnection();
     Connection connection = dbc.DbConnection();
@@ -71,6 +93,12 @@ public class FlowerRequest extends ServiceRequest {
     return output;
   }
 
+  /***
+   * Uploads this instance of a flower request and uploads its info
+   * into the ServiceRequest and ItemsOrdered relatiosn
+   * 
+   * @throws SQLException
+   */
   public void uploadRequestToDatabase() throws SQLException {
     DatabaseConnection dbc = new DatabaseConnection();
     Connection connection = dbc.DbConnection();
@@ -118,34 +146,7 @@ public class FlowerRequest extends ServiceRequest {
     }
   }
 
-  private String toDate(LocalDateTime date) {
-    String year = String.valueOf(date.getYear());
-    String month = String.valueOf(date.getMonth());
-    String day = addLeadingZero(String.valueOf(date.getDayOfMonth()));
-    String hour = addLeadingZero(String.valueOf(date.getHour()));
-    String minute = addLeadingZero(String.valueOf(date.getMinute()));
-    String second = addLeadingZero(String.valueOf(date.getSecond()));
 
-    return "TO_TIMESTAMP('"
-        + year
-        + "-"
-        + month
-        + "-"
-        + day
-        + "-"
-        + hour
-        + "-"
-        + minute
-        + "-"
-        + second
-        + "', 'YYYY-MONTH-DD-HH24-MI-SS')";
-  }
 
-  private String addLeadingZero(String value) {
-    if (value.length() == 1) {
-      return "0" + value;
-    } else {
-      return value;
-    }
-  }
+
 }
