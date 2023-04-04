@@ -15,7 +15,6 @@ public class MapEditController {
   @FXML MFXButton serviceRequestsButton;
   @FXML MFXButton exitButton;
   @FXML MFXButton backButton;
-
   @FXML
   public void initialize() {
     System.out.println("Test");
