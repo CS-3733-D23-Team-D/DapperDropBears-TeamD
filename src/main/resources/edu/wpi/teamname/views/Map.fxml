@@ -4,13 +4,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
@@ -34,8 +34,8 @@
       <!--                        </font>-->
       <!--                     </MFXButton>-->
                            <AnchorPane fx:id="anchor" prefHeight="3400.0" prefWidth="5000.0" styleClass="body" stylesheets="@../stylesheets/scaleFull.css" visible="true" />
-                           <Text fx:id="destText" layoutX="66.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click Your Destination!" />
-
+<!--                           <Text fx:id="destText" layoutX="66.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click Your Destination!" />-->
+                           <Label fx:id="destText" layoutX="66.0" layoutY="138.0" styleClass="outline" stylesheets="@../stylesheets/textOutline.css" text="Click Your Destination!" />
                         </children>
                      </Group>
                   </GesturePane>
@@ -94,6 +94,7 @@
                   <Insets top="1.0" />
                </padding>
             </ToolBar>
+
 
          </children>
       </VBox>

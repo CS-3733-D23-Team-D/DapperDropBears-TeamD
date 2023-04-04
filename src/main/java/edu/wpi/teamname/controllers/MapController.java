@@ -8,13 +8,15 @@ import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.Connection;
 import java.util.ArrayList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
 
 public class MapController {
@@ -29,11 +31,14 @@ public class MapController {
   @FXML GesturePane gp;
 
   @FXML StackPane sp;
-  @FXML Text destText;
+  //  @FXML Text destText;
+  @FXML Label destText;
 
   private Node n1 = new Node("115", 2130, 904, "L1", "45 Francis", "3", "4", "5");
   private Node n2 = new Node("120", 2130, 844, "L1", "45 Francis", "3", "4", "5");
   private Node n3 = new Node("200", 2185, 904, "L1", "45 Francis", "3", "4", "5");
+
+  private ArrayList<Node> floorNodes;
 
   private Point2D centerPoint;
   private Point2D centerTL;
@@ -101,28 +106,72 @@ public class MapController {
 
   private double getMapWitdh() {
     //    return sp.getLayoutBounds().getWidth();
-    return sp.getWidth();
+    return gp.getCurrentScaleX();
   }
 
   private double getMapHeight() {
     //    return sp.getLayoutBounds().getHeight();
-    return sp.getHeight();
+    return gp.getLayoutBounds().getHeight();
   }
+
+  EventHandler<MouseEvent> e =
+      new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+
+          Point2D clickPoint = new Point2D(event.getX(), event.getY());
+
+          System.out.println(clickPoint); // Coordinates in inner, now goes up to 5000
+
+          int leastDistanceNodeIndex = -1;
+          double leastDistance = Double.MAX_VALUE;
+          double nodeDist;
+          int startNodeIndex = 0;
+          for (int i = 0; i < floorNodes.size(); i++) {
+            if (i == startNodeIndex) {
+              continue;
+            } else {
+              Node currentNode = floorNodes.get(i);
+              nodeDist = clickPoint.distance(currentNode.getXCord(), currentNode.getYCord());
+              if (nodeDist < leastDistance) {
+                leastDistance = nodeDist;
+                leastDistanceNodeIndex = i;
+              }
+            }
+          }
+
+          Node startNode = floorNodes.get(startNodeIndex);
+          Node endNode = floorNodes.get(leastDistanceNodeIndex);
+
+          //          Circle c = new Circle(startNode.getXCord(), startNode.getYCord(), 20,
+          // Color.BLACK);
+          //          anchor.getChildren().add(c);
+          //          c = new Circle(endNode.getXCord(), endNode.getYCord(), 20, Color.RED);
+          //          anchor.getChildren().add(c);
+
+          //          ArrayList<Node> path = AStarPath(startNode,endNode);
+          //          makePath(path);
+
+        }
+      };
 
   @FXML
   public void initialize() {
     gp.setMinScale(0.11);
-    gp.setOnMouseClicked(event -> printScale());
+    //    gp.setOnMouseClicked(event -> printScale());
+    //    gp.setOnMouseClicked(e);
 
-    ArrayList<Node> nodes = new ArrayList<Node>();
+    floorNodes = new ArrayList<Node>();
 
-    nodes.add(n3);
-    nodes.add(n1);
-    nodes.add(n2);
+    floorNodes.add(n3);
+    floorNodes.add(n1);
+    floorNodes.add(n2);
 
-    ArrayList<Shape> shapes = makePath(nodes);
+    ArrayList<Shape> shapes = makePath(floorNodes);
 
     anchor.getChildren().addAll(shapes);
+
+    anchor.setOnMouseClicked(e);
 
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    helpButton
@@ -135,18 +184,36 @@ public class MapController {
     double parentH = getMapHeight();
     parentW = 760;
     parentH = 512;
-    System.out.println("PW,PH: " + parentW + ", " + getMapHeight());
+    System.out.println("PW,PH: " + getMapWitdh() + ", " + getMapHeight());
     //    Point2D CMin = new Point2D(parentW / 2, parentH / 2);
-    Point2D CMin = new Point2D(500, 100);
 
-    centerTL = new Point2D(1530, 530);
-    centerPoint = centerTL.add(CMin);
+    Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); //hard Coded
+
+    double scaleX = parentW / scaleOneDim.getX();
+    double scaleY = parentH / scaleOneDim.getY();
+
+    System.out.println(scaleX + ", " + scaleY);
+
+    double scaleFactor = Double.min(scaleX, scaleY);
+
+    gp.zoomTo(scaleFactor, Point2D.ZERO);
+    double scale = gp.getCurrentScale();
+    Point2D CMin = new Point2D((parentW / 2) * (1 / scale), (parentH / 2) * (1 / scale));
+
+    Point2D topDisplay = new Point2D(2250, 685); //Hard Coded
+
+    centerPoint = new Point2D(2250, 1000); //Hard Coded
+    centerTL = centerPoint.subtract(CMin);
+
+    //    destText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 40));
+
+    System.out.println("X: " + destText.getLayoutX());
 
     destText.setLayoutX(
-        centerPoint
+        topDisplay
             .getX()); // Center Point is in the wrong spot because we are adding half of the outer
     // coords to the Inner 3400 cords.
-    destText.setLayoutY(centerPoint.getY());
+    destText.setLayoutY(topDisplay.getY());
 
     Circle c = new Circle(centerPoint.getX(), centerPoint.getY(), 20, Color.BLACK);
     anchor.getChildren().add(c);
@@ -156,8 +223,10 @@ public class MapController {
     System.out.println(CMin);
     //    centerPoint = centerPoint.subtract(CMin);
     //     760, 512 = 0.5 Scale
+    //     1520, 1024 = 1 Scale
 
-    gp.zoomTo(0.5, Point2D.ZERO);
+    //    gp.zoomTo(1, Point2D.ZERO);
+    //    System.out.println("Z: " + gp.getCurrentScale());
     gp.centreOn(centerTL); // Actually Moves the Top left corner
   }
 }
