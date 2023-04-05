@@ -27,7 +27,7 @@ public class MealRequest extends ServiceRequest {
    *
    * @param meal the meal to be added
    */
-  public void addMeal(Meal meal) {
+  public void addMeal(Meal meal) throws SQLException {
     meals.add(meal);
   }
 
@@ -167,22 +167,36 @@ public class MealRequest extends ServiceRequest {
               + ")";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();
+      connection.close();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
     PreparedStatement statement;
+    int quantity;
     for (int i = 0; i < meals.size(); i++) {
       connection = dbc.DbConnection();
+      quantity = getQuantity(this.getRequestID(), meals.get(i).getMealID());
       try {
-        query =
-            "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\") "
-                + "VALUES ('"
-                + this.getRequestID()
-                + "', "
-                + meals.get(i).getMealID()
-                + ")";
+        if (quantity == 1) {
+          query =
+              "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") "
+                  + "VALUES ('"
+                  + this.getRequestID()
+                  + "', "
+                  + meals.get(i).getMealID()
+                  + ", 1)";
+        } else {
+          query =
+              "UPDATE \"ItemsOrdered\" "
+                  + "SET quantity = "
+                  + quantity
+                  + " WHERE \"itemID\" = "
+                  + meals.get(i).getMealID();
+        }
+
         statement = connection.prepareStatement(query);
         statement.executeUpdate();
+
       } catch (SQLException e) {
         System.out.println(query);
         System.out.println(e.getMessage());

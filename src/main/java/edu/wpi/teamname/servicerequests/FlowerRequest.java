@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class FlowerRequest extends ServiceRequest {
-  ArrayList<Flower> flowers;
+  private ArrayList<Flower> flowers;
 
   public FlowerRequest(
       int requestID,
@@ -168,26 +168,40 @@ public class FlowerRequest extends ServiceRequest {
               + ")";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();
+      connection.close();
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
     PreparedStatement statement;
     for (int i = 0; i < flowers.size(); i++) {
       connection = dbc.DbConnection();
+      int quantity = getQuantity(this.getRequestID(), flowers.get(i).getFlowerID());
       try {
-        query =
-            "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\") "
-                + "VALUES ('"
-                + this.getRequestID()
-                + "', "
-                + flowers.get(i).getFlowerID()
-                + ")";
+
+        if (quantity == 1) {
+          query =
+              "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") "
+                  + "VALUES ('"
+                  + this.getRequestID()
+                  + "', "
+                  + flowers.get(i).getFlowerID()
+                  + ", 1)";
+        } else {
+          query =
+              "UPDATE \"ItemsOrdered\" "
+                  + "SET quantity = "
+                  + quantity
+                  + " WHERE \"itemID\" = "
+                  + flowers.get(i).getFlowerID();
+        }
         statement = connection.prepareStatement(query);
         statement.executeUpdate();
+        // System.out.println("ID: " + flowers.get(i).getFlowerID() + " - " + quantity);
       } catch (SQLException e) {
         System.out.println(query);
         System.out.println(e.getMessage());
       }
+      connection.close();
     }
   }
 }
