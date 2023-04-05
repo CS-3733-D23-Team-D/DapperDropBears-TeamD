@@ -19,8 +19,7 @@ public class Pathfinding {
     ArrayList<Node> listOfNodes = Node.getAllNodes();
     ArrayList<Edge> listOfEdges = Edge.getAllEdges();
 
-
-    System.out.println(nodeToString(listOfNodes.get(0)));
+    //System.out.println(nodeToString(listOfNodes.get(0)));
 
     for (int i = 0; i < listOfNodes.size(); i++) {
       linesOfNodeInfo.add(nodeToString(listOfNodes.get(i)));
@@ -33,7 +32,7 @@ public class Pathfinding {
     initializeNodes(linesOfNodeInfo);
     initializeEdges(linesOfEdgeInfo);
 
-    System.out.println(Nodes.get(580).getId());
+    //System.out.println(Nodes.get(580).getId());
 
     Scanner sc = new Scanner(System.in); // System.in is a standard input stream
     System.out.print("Enter Start NodeID: ");
