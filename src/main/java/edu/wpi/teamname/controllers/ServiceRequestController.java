@@ -81,7 +81,6 @@ public class ServiceRequestController {
           "Purple Hyacinths",
           "Pink Hyacinths");
 
-  @FXML MFXTextField notesBox;
 
   @FXML AnchorPane summaryPane;
   @FXML Label summaryLabel;
@@ -136,12 +135,7 @@ public class ServiceRequestController {
       }
 
       itemBox.setFillWidth(true);
-      formPane.setDisable(true);
-      formPane.setVisible(false);
-      menuPane.setDisable(false);
-      menuPane.setVisible(true);
-      summaryPane.setVisible(false);
-      summaryPane.setDisable(true);
+      setVisibleScreen(1);
       nextButton.setText("Next");
 
       requestPage = 1;
@@ -152,29 +146,19 @@ public class ServiceRequestController {
       request.setDeliverBy(dateBox.getValue().atStartOfDay());
 
     } else if (requestPage == 1) {
-      formPane.setVisible(false);
-      formPane.setDisable(true);
-      menuPane.setDisable(true);
-      menuPane.setVisible(false);
-      summaryPane.setVisible(true);
-      summaryPane.setDisable(false);
+      setVisibleScreen(2);
       nextButton.setText("Submit");
       requestPage = 2;
       summaryLabel.setText(request.toString());
 
     } else if (requestPage == 2) {
-      formPane.setVisible(true);
-      formPane.setDisable(false);
-      menuPane.setDisable(true);
-      menuPane.setVisible(false);
-      summaryPane.setVisible(false);
-      summaryPane.setDisable(true);
+      setVisibleScreen(0);
       requestPage = 0;
       nextButton.setText("Next");
       request.uploadRequestToDatabase();
       Navigation.navigate(Screen.HOME);
 
-      request.setNotes(notesBox.getCharacters().toString());
+
       System.out.println(request);
     }
   }
@@ -191,25 +175,44 @@ public class ServiceRequestController {
     requestType.cancelEdit();
     dateBox.cancelEdit();
     if (requestPage > 0) {
-      formPane.setVisible(true);
-      formPane.setDisable(false);
-      menuPane.setDisable(true);
-      menuPane.setVisible(false);
-      summaryPane.setDisable(true);
-      summaryPane.setVisible(false);
+      setVisibleScreen(0);
       requestPage = 0;
       nextButton.setText("Next");
       request.clearItems();
     }
   }
 
+  private void setVisibleScreen(int n){
+    if (n==1) {
+      formPane.setVisible(false);
+      formPane.setDisable(true);
+      menuPane.setDisable(true);
+      menuPane.setVisible(false);
+      summaryPane.setVisible(true);
+      summaryPane.setDisable(false);
+    }
+    else if(n==2) {
+      formPane.setVisible(true);
+      formPane.setDisable(false);
+      menuPane.setDisable(true);
+      menuPane.setVisible(false);
+      summaryPane.setVisible(false);
+      summaryPane.setDisable(true);
+    }
+    else {
+      formPane.setVisible(true);
+      formPane.setDisable(false);
+      menuPane.setDisable(true);
+      menuPane.setVisible(false);
+      summaryPane.setVisible(false);
+      summaryPane.setDisable(true);
+      timeBox.setDisable(true);
+    }
+
+  }
+
   public void initialize() {
-    formPane.setVisible(true);
-    formPane.setDisable(false);
-    menuPane.setDisable(true);
-    menuPane.setVisible(false);
-    summaryPane.setVisible(false);
-    summaryPane.setDisable(true);
+    setVisibleScreen(0);
     timeBox.setDisable(true);
 
     nextButton.setText("Next");
