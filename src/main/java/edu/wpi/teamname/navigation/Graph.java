@@ -62,6 +62,14 @@ public class Graph {
       }
     }
   }
+  public void setAllG() {
+    if (this.target == null || this.start == null) return;
+    for (Node n : this.nodes) {
+      n.g = findWeight(n, this.start);
+      // n.h = 0;
+    }
+    start.g = 0;
+  }
   //    while (i < this.nodes.size()) {
   //      int j = 0;
   //      while (j < this.edges.size()) {
