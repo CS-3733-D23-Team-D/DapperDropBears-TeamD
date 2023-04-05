@@ -975,38 +975,6 @@ public class DataManager {
     }
   }
 
-  /**
-   * Executes an SQL command on the provided database connection.
-   *
-   * @param connection the database connection to use for executing the command
-   * @throws SQLException if there is an error executing the SQL command
-   */
-  public static void runQuery(Connection connection) throws SQLException {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print(
-        "Enter the SQL you want to run (Put quotes around table names, single quotes around data points): ");
-    String query = scanner.nextLine();
-    try (Statement statement = connection.createStatement()) {
-      ResultSet rs = statement.executeQuery(query);
-      ResultSetMetaData rsmd = rs.getMetaData();
-      int colNum = rsmd.getColumnCount();
-      while (rs.next()) {
-        for (int i = 1; i <= colNum; i++) {
-          if (i > 1) {
-            System.out.print(",\t");
-          }
-          String colVal = rs.getString(i);
-          System.out.print(colVal + " " + rsmd.getColumnName(i));
-        }
-        System.out.println("");
-      }
-      System.out.println("Query successfully run");
-    } catch (SQLException e) {
-      System.out.println("Query failed: " + e.getMessage());
-      throw e;
-    }
-  }
-
   public static void Login() throws SQLException {
     Scanner scan = new Scanner(System.in);
     System.out.println("Type 1 to Login, 2 to create account, 3 reset password");
@@ -1157,7 +1125,7 @@ public class DataManager {
           break;
         case "9":
         case "sql":
-          runQuery(connection);
+          //runQuery(connection);
           break;
         case "10":
           moveNode(connection);

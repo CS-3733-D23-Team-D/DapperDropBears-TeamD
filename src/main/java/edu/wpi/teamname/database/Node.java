@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Node {
-  @Getter @Setter private String nodeID;
+  @Getter @Setter private int nodeID;
   @Getter @Setter private int xCord;
   @Getter @Setter private int yCord;
   @Getter @Setter private String floor;
@@ -13,7 +13,7 @@ public class Node {
   @Getter private ArrayList<Edge> edges;
 
   // Constructor
-  public Node(String nID, int xCord, int yCord, String floor, String building) {
+  public Node(int nID, int xCord, int yCord, String floor, String building) {
     this.nodeID = nID;
     this.xCord = xCord;
     this.yCord = yCord;
@@ -72,8 +72,8 @@ public class Node {
    * @param fl the new floor for the node
    * @param bui the new building for the node
    */
-  public void updateNode(String nodeId, int newX, int newY, String fl, String bui) {
-    if (this.nodeID.equals(nodeId)) {
+  public void updateNode(int nodeId, int newX, int newY, String fl, String bui) {
+    if (this.nodeID == nodeId) {
       this.xCord = newX;
       this.yCord = newY;
       this.floor = fl;
