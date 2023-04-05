@@ -1,0 +1,54 @@
+--Given a nodeID gets the most up to date info on it
+SELECT "nodeID", "longName", "shortName", xcoord, ycoord, "nodeType", building, floor, j.date
+FROM (SELECT n."longName", "shortName", n."nodeID", "nodeType", xcoord, ycoord, building, floor, date
+      FROM "LocationName",
+           (select "Move"."nodeID", xcoord, ycoord, floor, building, "longName", date
+            FROM "Node", "Move"
+            where "Node"."nodeID" = "Move"."nodeID") n
+      WHERE "LocationName"."longName" = n."longName") j,
+    (SELECT max(date) AS date
+                       FROM (SELECT date
+                             FROM (SELECT n."nodeID", date
+                                   FROM "LocationName",
+                                        (select "Move"."nodeID", xcoord, ycoord, floor, building, "longName", date
+                                         FROM "Node", "Move"
+                                         where "Node"."nodeID" = "Move"."nodeID") n
+                                   WHERE "LocationName"."longName" = n."longName") j
+                             WHERE date < (SELECT cast(now() AS DATE))
+                             AND j."nodeID" = 100) l) q
+        WHERE j.date = q.date;
+
+--Gets up-to-date info by node
+SELECT DISTINCT q."nodeID", "longName", "shortName", "nodeType", xcoord, ycoord, building, floor, date
+FROM (SELECT n."longName", "shortName", n."nodeID", "nodeType", xcoord, ycoord, building, floor, date
+      FROM "LocationName",
+           (select "Move"."nodeID", xcoord, ycoord, floor, building, "longName", date
+            FROM "Node", "Move"
+            where "Node"."nodeID" = "Move"."nodeID") n
+      WHERE "LocationName"."longName" = n."longName") w,
+             (SELECT "nodeID" FROM (SELECT n."nodeID"
+               FROM "LocationName",
+                    (select "Move"."nodeID", xcoord, ycoord, floor, building, "longName", date
+                     FROM "Node", "Move"
+                     where "Node"."nodeID" = "Move"."nodeID") n
+               WHERE "LocationName"."longName" = n."longName"
+               AND date < (SELECT cast(now() AS DATE))) j
+    GROUP BY "nodeID") q;
+
+--Gets up to date info by locationName
+SELECT DISTINCT w."nodeID", w."longName", "shortName", "nodeType", xcoord, ycoord, building, floor, date
+FROM (SELECT n."longName", "shortName", n."nodeID", "nodeType", xcoord, ycoord, building, floor, date
+      FROM "LocationName",
+           (select "Move"."nodeID", xcoord, ycoord, floor, building, "longName", date
+            FROM "Node", "Move"
+            where "Node"."nodeID" = "Move"."nodeID") n
+      WHERE "LocationName"."longName" = n."longName") w,
+     (SELECT "longName" FROM (SELECT "LocationName"."longName"
+                            FROM "LocationName",
+                                 (select "Move"."nodeID", xcoord, ycoord, floor, building, "longName", date
+                                  FROM "Node", "Move"
+                                  where "Node"."nodeID" = "Move"."nodeID") n
+                            WHERE "LocationName"."longName" = n."longName"
+                              AND date < (SELECT cast(now() AS DATE))) j
+      GROUP BY "longName") q
+WHERE q."longName" = w."longName";

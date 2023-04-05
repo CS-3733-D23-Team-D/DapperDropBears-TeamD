@@ -51,6 +51,8 @@ public class App extends Application {
     // SHOW the windwow
     primaryStage.show();
 
+    primaryStage.setFullScreen(true);
+
     // Homemade Navigation Class with Homemade Enum Screen
     Navigation.navigate(Screen.HOME);
   }

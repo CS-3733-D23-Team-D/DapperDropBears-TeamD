@@ -6,7 +6,7 @@ public enum Screen {
   HOME("views/Home.fxml"),
   SERVICE_REQUEST("views/ServiceRequest2.fxml"),
 
-  //  REQ_MENU("views/ServiceRequestMenu.fxml"),
+  TEST("views/Test.fxml"),
 
   SIGNAGE("views/SignageLevels.fxml");
 

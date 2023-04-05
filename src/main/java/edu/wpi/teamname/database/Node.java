@@ -10,41 +10,16 @@ public class Node {
   @Getter @Setter private int yCord;
   @Getter @Setter private String floor;
   @Getter @Setter private String building;
-  @Getter @Setter private String nodeType;
-  @Getter @Setter private String longName;
-  @Getter @Setter private String shortName;
   @Getter private ArrayList<Edge> edges;
 
   // Constructor
-  public Node(
-      String nID,
-      int xCord,
-      int yCord,
-      String floor,
-      String building,
-      String nodeType,
-      String lName,
-      String sName) {
+  public Node(String nID, int xCord, int yCord, String floor, String building) {
     this.nodeID = nID;
     this.xCord = xCord;
     this.yCord = yCord;
     this.floor = floor;
     this.building = building;
-    this.nodeType = nodeType;
-    this.longName = lName;
-    this.shortName = sName;
     edges = new ArrayList<Edge>();
-  }
-
-  /**
-   * * Changes the node's long and short names to the provided values
-   *
-   * @param newLong the updated long name of the node
-   * @param newShort the updated short name of the node
-   */
-  public void updateNodeName(String newLong, String newShort) {
-    this.longName = newLong;
-    this.shortName = newShort;
   }
 
   /**
@@ -58,12 +33,7 @@ public class Node {
     String yCordS = "Y-coordinate: " + this.yCord;
     String floorS = "Floor: " + this.floor;
     String buildingS = "Building: " + this.building;
-    String typeS = "Node Type: " + this.nodeType;
-    String lNameS = "Long Name: " + this.longName;
-    String sNameS = "Short Name: " + this.shortName;
-    String output =
-        nIDs + " " + lNameS + " " + sNameS + " " + xCordS + " " + yCordS + " " + floorS + " "
-            + buildingS + " " + typeS;
+    String output = nIDs + " " + xCordS + " " + yCordS + " " + floorS + " " + buildingS;
     return output;
   }
 
@@ -93,6 +63,23 @@ public class Node {
     }
   }
 
+  /**
+   * Updates the node's properties with the provided values, given the unique node ID.
+   *
+   * @param nodeId the unique identifier for the node to update
+   * @param newX the new x-coordinate for the node
+   * @param newY the new y-coordinate for the node
+   * @param fl the new floor for the node
+   * @param bui the new building for the node
+   */
+  public void updateNode(String nodeId, int newX, int newY, String fl, String bui) {
+    if (this.nodeID.equals(nodeId)) {
+      this.xCord = newX;
+      this.yCord = newY;
+      this.floor = fl;
+      this.building = bui;
+    }
+  }
   /**
    * * Deletes the given edge from the node's edge list and deletes this node from the given edge's
    * node list Checks to make sure that the edge is in the list before deleting

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXCheckListView?>
-<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -29,41 +32,62 @@
                   </Text>
                </children>
             </StackPane>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <content>
-                  <StackPane prefHeight="1000.0" prefWidth="1000.0">
-                     <children>
+            <StackPane prefHeight="1000.0" prefWidth="1000.0">
+               <children>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <content>
                         <AnchorPane fx:id="formPane" minHeight="0.0" minWidth="0.0">
                            <children>
-                              <VBox layoutX="1.0" layoutY="17.0" prefHeight="631.0" prefWidth="1794.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+                              <VBox layoutX="1.0" layoutY="17.0" prefHeight="631.0" prefWidth="1794.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
                                        <font>
                                           <Font name="Times New Roman" size="32.0" />
                                        </font>
                                     </Text>
-                                    <MFXTextField fx:id="staffName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
+                                    <TextField fx:id="staffName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
                                     <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
                                        <font>
                                           <Font name="Times New Roman" size="32.0" />
                                        </font>
                                     </Text>
-                                    <MFXTextField fx:id="patientName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
+                                    <TextField fx:id="patientName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
                                     <Separator prefWidth="200.0" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
                                        <font>
                                           <Font name="Times New Roman" size="32.0" />
                                        </font>
                                     </Text>
-                                    <MFXTextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
+                                    <TextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
                                     <Separator prefWidth="200.0" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
-                                       <font>
-                                          <Font name="Times New Roman" size="32.0" />
-                                       </font>
-                                    </Text>
-                                    <MFXDatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" />
+                                    <GridPane hgap="10.0" vgap="25.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints minWidth="0.0" percentWidth="26.0" />
+                                        <ColumnConstraints minWidth="0.0" percentWidth="74.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                                             <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                             </font>
+                                          </Text>
+                                          <DatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" stylesheets="@../stylesheets/dateBox.css" GridPane.rowIndex="1" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time" GridPane.columnIndex="1">
+                                             <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                             </font>
+                                          </Text>
+                                          <ComboBox fx:id="timeBox" prefHeight="49.0" promptText="Choose Time of Delivery" style="-fx-background-color: #D9d9d9;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" />
+                                       </padding>
+                                    </GridPane>
                                     <Separator prefWidth="200.0" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
                                        <font>
@@ -75,41 +99,76 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="menuPane" visible="false">
-                           <children>
-                              <VBox prefHeight="364.0" prefWidth="401.0">
+                     </content>
+                  </ScrollPane>
+                <AnchorPane fx:id="summaryPane" disable="true" visible="false">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <AnchorPane style="-fx-background-color: #00bb00;">
                                  <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                                    <HBox alignment="CENTER" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+                                       <children>
+                                          <Label fx:id="summaryLabel" style="-fx-font-family: Times New Roman; -fx-font-size: 20pt; -fx-text-alignment: center;" text="Label">
+                                             <font>
+                                                <Font name="Times New Roman" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+
+                  <AnchorPane fx:id="menuPane" disable="true" visible="false" VBox.vgrow="ALWAYS">
+                     <children>
+
+                              <VBox prefHeight="700.0" prefWidth="1800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox minHeight="100.0" spacing="30.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
                                              <font>
                                                 <Font name="Times New Roman" size="36.0" />
                                              </font>
                                           </Text>
-                                          <MFXTextField fx:id="searchBar" prefHeight="49.0" prefWidth="1700.0" style="-fx-background-color: #d9d9d9;" />
+                                          <TextField fx:id="searchBar" prefWidth="1700.0" style="-fx-background-color: #d9d9d9;">
+                                             <font>
+                                                <Font name="Times New Roman" size="20.0" />
+                                             </font>
+                                          </TextField>
                                        </children>
                                        <padding>
                                           <Insets left="25.0" right="25.0" top="32.0" />
                                        </padding>
                                     </HBox>
-                                    <MFXCheckListView fx:id="itemChecklist" prefHeight="691.0" prefWidth="1800.0" />
-                                    <VBox prefHeight="200.0" prefWidth="100.0">
-                                       <children>
-                                          <MFXTextField fx:id="notesBox" prefHeight="226.0" prefWidth="1498.0" promptText="Notes">
-                                             <font>
-                                                <Font name="Times New Roman" size="18.0" />
-                                             </font>
-                                          </MFXTextField>
-                                       </children>
-                                    </VBox>
+
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="500" prefHeight="900">
+                                       <content>
+                                          <AnchorPane VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <VBox fx:id="itemBox" fillWidth="true" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <children>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                       <padding>
+                                          <Insets left="25.0" right="25.0" />
+                                       </padding>
+                                          </AnchorPane>
+                                       </content>
+                                    </ScrollPane>
                                  </children>
                               </VBox>
-                           </children>
-                        </AnchorPane>
+
                      </children>
-                  </StackPane>
-               </content>
-            </ScrollPane>
+                  </AnchorPane>
+
+               </children>
+            </StackPane>
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
                <children>
                   <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Clear">

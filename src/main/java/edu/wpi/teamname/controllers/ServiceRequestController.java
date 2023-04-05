@@ -1,17 +1,25 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.controllers.jfxitems.RequestMenuItem;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
+import edu.wpi.teamname.servicerequests.FlowerRequest;
+import edu.wpi.teamname.servicerequests.MealRequest;
 import edu.wpi.teamname.servicerequests.ServiceRequest;
 import io.github.palexdev.materialfx.controls.*;
-import io.github.palexdev.materialfx.controls.cell.MFXCheckListCell;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.temporal.ChronoField;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import lombok.Getter;
+import lombok.Setter;
 
 public class ServiceRequestController {
   // requestInfo Error if not added anything to both meal and side
@@ -22,6 +30,7 @@ public class ServiceRequestController {
    * MFXButton addSandwitchButton; @FXML MFXButton addFlowersButton;
    */
 
+  // bot2
   // Sam's Form GUI
   @FXML HBox rootPane;
 
@@ -45,107 +54,190 @@ public class ServiceRequestController {
   @FXML AnchorPane formAnchor;
   @FXML AnchorPane formPane;
   // Form fields
-  @FXML MFXTextField staffName;
-  @FXML MFXTextField patientName;
-  @FXML MFXTextField roomNum;
-  @FXML MFXDatePicker dateBox;
+  @FXML TextField staffName;
+  @FXML TextField patientName;
+  @FXML TextField roomNum;
+  @FXML DatePicker dateBox;
+  @FXML ComboBox timeBox;
+  ArrayList<String> timeValues;
   ObservableList<String> serviceType =
       FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
   @FXML ComboBox requestType;
 
   // menu item page
   @FXML AnchorPane menuPane;
-  @FXML MFXTextField searchBar;
-  @FXML MFXCheckListView itemChecklist;
+  @FXML TextField searchBar;
+  @FXML VBox itemBox;
   ObservableList<String> mealItems =
-      FXCollections.observableArrayList("Burger", "Pizza", "Cookie", "Pasta", "Cake", "Banana");
+      FXCollections.observableArrayList(
+          "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
   ObservableList<String> flowerItems =
-      FXCollections.observableArrayList("Daisy", "Rose", "Tulip", "Mum", "Cosmos", "Hyacinth");
+      FXCollections.observableArrayList(
+          "Black Cosmos",
+          "Gold Roses",
+          "Orange Tulips",
+          "Green Mums",
+          "Orange Cosmos",
+          "Purple Hyacinths",
+          "Pink Hyacinths");
 
-  @FXML MFXTextField notesBox;
 
-  @Getter private ServiceRequest request;
+  @FXML AnchorPane summaryPane;
+  @FXML Label summaryLabel;
 
+  @Setter @Getter private ServiceRequest request;
+
+  /*
   private void addSelectedItems() {
     for (int i = 0; i < itemChecklist.getCells().size(); i++) {
       System.out.println();
       MFXCheckListCell cell = itemChecklist.getCell(i);
       if (cell.isSelected()) {
-        request.addItem(itemChecklist.getItems().get(i).toString());
+        // request.addItem(itemChecklist.getItems().get(i).toString());
       }
     }
-  }
+  }*/
 
-  private void nextPane() {
+  ArrayList<Integer> itemIDs;
+  ArrayList<String> itemNames;
+
+  private void nextPane() throws SQLException {
+
     System.out.println("NEXT");
     if (requestPage == 0) {
+      String folder;
       if (requestType.getValue() == "Meal Delivery") {
-        itemChecklist.setItems(mealItems);
+        setRequest(
+            new MealRequest(
+                Instant.now().get(ChronoField.MICRO_OF_SECOND),
+                staffName.toString(),
+                patientName.toString(),
+                roomNum.toString(),
+                dateBox.getValue().atTime(LocalTime.now())));
+        folder = "MealIcons";
       } else {
-        itemChecklist.setItems(flowerItems);
+        setRequest(
+            new FlowerRequest(
+                Instant.now().get(ChronoField.MICRO_OF_SECOND),
+                staffName.toString(),
+                patientName.toString(),
+                roomNum.toString(),
+                dateBox.getValue().atTime(12, 00)));
+        folder = "FlowerIcons";
       }
-      formPane.setDisable(true);
-      formPane.setVisible(false);
-      menuPane.setDisable(false);
-      menuPane.setVisible(true);
-      nextButton.setText("Submit");
+
+      itemNames = request.getAllNames();
+      itemIDs = request.getAllIDs();
+      for (int a = 0; a < itemIDs.size(); a++) {
+        itemBox
+            .getChildren()
+            .add(new RequestMenuItem(itemNames.get(a), itemIDs.get(a), folder, getRequest()));
+      }
+
+      itemBox.setFillWidth(true);
+      setVisibleScreen(1);
+      nextButton.setText("Next");
+
       requestPage = 1;
 
       request.setStaffName(staffName.getCharacters().toString());
       request.setPatientName(patientName.getCharacters().toString());
       request.setRoomNumber(roomNum.getCharacters().toString());
-      request.setDeliverBy(dateBox.getValue());
+      request.setDeliverBy(dateBox.getValue().atStartOfDay());
 
-    } else {
-      formPane.setVisible(true);
-      formPane.setDisable(false);
-      menuPane.setDisable(true);
-      menuPane.setVisible(false);
+    } else if (requestPage == 1) {
+      setVisibleScreen(2);
+      nextButton.setText("Submit");
+      requestPage = 2;
+      summaryLabel.setText(request.toString());
+
+    } else if (requestPage == 2) {
+      setVisibleScreen(0);
       requestPage = 0;
+      nextButton.setText("Next");
+      request.uploadRequestToDatabase();
       Navigation.navigate(Screen.HOME);
 
-      request.setNotes(notesBox.getCharacters().toString());
-
-      addSelectedItems();
 
       System.out.println(request);
     }
   }
 
+  private void cancelAction() {
+    clearAction();
+    Navigation.navigate(Screen.HOME);
+  }
+
+  private void clearAction() {
+    patientName.clear();
+    staffName.clear();
+    roomNum.clear();
+    requestType.cancelEdit();
+    dateBox.cancelEdit();
+    if (requestPage > 0) {
+      setVisibleScreen(0);
+      requestPage = 0;
+      nextButton.setText("Next");
+      request.clearItems();
+    }
+  }
+
+  private void setVisibleScreen(int n){
+    if (n==1) {
+      formPane.setVisible(false);
+      formPane.setDisable(true);
+      menuPane.setDisable(true);
+      menuPane.setVisible(false);
+      summaryPane.setVisible(true);
+      summaryPane.setDisable(false);
+    }
+    else if(n==2) {
+      formPane.setVisible(true);
+      formPane.setDisable(false);
+      menuPane.setDisable(true);
+      menuPane.setVisible(false);
+      summaryPane.setVisible(false);
+      summaryPane.setDisable(true);
+    }
+    else {
+      formPane.setVisible(true);
+      formPane.setDisable(false);
+      menuPane.setDisable(true);
+      menuPane.setVisible(false);
+      summaryPane.setVisible(false);
+      summaryPane.setDisable(true);
+      timeBox.setDisable(true);
+    }
+
+  }
+
   public void initialize() {
+    setVisibleScreen(0);
+    timeBox.setDisable(true);
 
-    // set the width and height to be bound to the panes width and height
-    //    background.fitWidthProperty().bind(rootPane.widthProperty());
-    //    background.fitHeightProperty().bind(rootPane.heightProperty());
-    // make an image and image view, using the path to the image
-    //    Image image = new Image("edu/wpi/teamname/images/BaWHospital.jpg");
-    //    background.setImage(image);
-    // set the width and height to be bound to the panes width and height
-    //    background.fitWidthProperty().bind(rootPane.widthProperty());
-    //    background.fitHeightProperty().bind(rootPane.heightProperty());
+    nextButton.setText("Next");
 
-    // Making sure the first page(formBox is visible and enabled)
-    //    formPane.setVisible(true);
-    //    formPane.setDisable(false);
-    //    menuPane.setDisable(true);
-    //    menuPane.setVisible(false);
-
-    // Same As Home Controller
-    /**
-     * backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-     * setDateButton.setOnMouseClicked(event -> setDate()); printDateButton.setOnMouseClicked(event
-     * -> printDate()); printMealButton.setOnMouseClicked(event -> printMeal());
-     * addFriesButton.setOnMouseClicked(event -> addFries());
-     * addSandwitchButton.setOnMouseClicked(event -> addSandwitch());
-     * addFlowersButton.setOnMouseClicked(event -> addFlowers());
-     */
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exitButton.setOnMouseClicked(event -> System.exit(0));
-    nextButton.setOnMouseClicked(event -> nextPane());
+    nextButton.setOnMouseClicked(
+        event -> {
+          try {
+            nextPane();
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    cancelButton.setOnMouseClicked(event -> cancelAction());
+    clearButton.setOnMouseClicked(event -> clearAction());
 
     requestType.setItems(serviceType);
 
     request = new ServiceRequest();
     requestPage = 0;
+
+    itemBox.setFillWidth(true);
+    itemBox.setSpacing(25);
+
+    // dateBox.setStyle("-fx-font: Times New Roman; -fx-font-size: 20");
   }
 }
