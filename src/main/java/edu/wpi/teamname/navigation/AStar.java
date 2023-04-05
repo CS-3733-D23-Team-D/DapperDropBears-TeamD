@@ -22,8 +22,10 @@ public class AStar {
   }
 
   public static Node aStar(Graph g) {
+    g.setAllG();
     Node start = g.getStart();
     Node target = g.getTarget();
+
     PriorityQueue<Node> closedList = new PriorityQueue<>();
     PriorityQueue<Node> openList = new PriorityQueue<>();
 
