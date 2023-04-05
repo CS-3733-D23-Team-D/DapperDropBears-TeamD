@@ -27,17 +27,17 @@
             </MFXButton>
          </children>
       </HBox>
-      <VBox layoutX="678.0" layoutY="1.0" prefWidth="200.0">
+      <VBox layoutX="664.0" prefHeight="470.0" prefWidth="196.0">
          <children>
-            <AnchorPane prefHeight="201.0" prefWidth="158.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css" />
-            <ToolBar orientation="VERTICAL" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
+            <AnchorPane prefHeight="205.0" prefWidth="170.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css" />
+            <ToolBar orientation="VERTICAL" prefHeight="265.0" prefWidth="158.0" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
                <items>
                   <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman" size="19.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
+                  <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="164.0" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman" size="19.0" />
                      </font>
@@ -47,7 +47,7 @@
                         <Font name="Times New Roman" size="19.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="directionButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
+                  <MFXButton fx:id="directionButton" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="166.0" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="Times New Roman" size="19.0" />
                      </font>
@@ -72,13 +72,6 @@
             </ToolBar>
          </children>
       </VBox>
-      <TableView prefHeight="646.0" prefWidth="672.0">
-        <columns>
-          <TableColumn prefWidth="154.3333282470703" text="Node" />
-          <TableColumn minWidth="0.0" prefWidth="156.33334350585938" text="Edge" />
-            <TableColumn prefWidth="183.0" text="Location" />
-            <TableColumn prefWidth="177.00003051757812" text="Moves" />
-        </columns>
-      </TableView>
+      <TableView prefHeight="646.0" prefWidth="672.0" />
    </children>
 </AnchorPane>
