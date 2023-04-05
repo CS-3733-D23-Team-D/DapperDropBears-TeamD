@@ -149,7 +149,7 @@ public class DataManager {
 
     try (connection) {
       String query =
-          "INSERT INTO \"Node\" (\"nodeID\", xcoord, ycoord, floor, building,) "
+          "INSERT INTO \"Node\" (\"nodeID\", xcoord, ycoord, floor, building) "
               + "VALUES (?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Node\";");
       statement.executeUpdate();
@@ -157,7 +157,7 @@ public class DataManager {
 
       for (int i = 1; i < csvData.size(); i++) {
         String[] row = csvData.get(i);
-        statement.setString(1, row[0]); // nodeID is a string column
+        statement.setInt(1, Integer.parseInt(row[0])); // nodeID is a string column
         statement.setInt(2, Integer.parseInt(row[1])); // xcoord is an integer column
         statement.setInt(3, Integer.parseInt(row[2])); // ycoord is an integer column
         statement.setString(4, row[3]); // assuming floor is a string column
@@ -1125,7 +1125,7 @@ public class DataManager {
           break;
         case "9":
         case "sql":
-          //runQuery(connection);
+          // runQuery(connection);
           break;
         case "10":
           moveNode(connection);
