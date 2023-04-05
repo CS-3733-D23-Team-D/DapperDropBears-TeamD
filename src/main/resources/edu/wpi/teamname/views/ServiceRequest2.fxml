@@ -101,7 +101,7 @@
                         </AnchorPane>
                      </content>
                   </ScrollPane>
-                <AnchorPane fx:id="summaryPane" disable="true" style="-fx-background-color: ;" visible="false">
+                <AnchorPane fx:id="summaryPane" disable="true" visible="false">
                      <children>
                         <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
