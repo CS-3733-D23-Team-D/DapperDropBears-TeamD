@@ -34,7 +34,7 @@ public class ServiceRequestUploadTest {
     mealRequest.addMeal(new Meal(1138));
     mealRequest.removeMeal(1138);
 
-    // mealRequest.uploadRequestToDatabase();
+    mealRequest.uploadRequestToDatabase();
 
     FlowerRequest flowerRequest = new FlowerRequest(12, "HELLOStaff", "o", "thisisaroom", date2);
     // System.out.println(flowerRequest.getQuantity(2, 1011));
@@ -77,7 +77,7 @@ public class ServiceRequestUploadTest {
     ArrayList<String> mname = mealRequest.getAllMealNames();
     for (int i = 0; i < mid.size(); i++) {
       System.out.println(mid.get(i) + " " + mname.get(i));
-    }/*
+    }*/
 
     // flowerRequest.uploadRequestToDatabase();
   }

@@ -66,10 +66,9 @@ public class ServiceRequest {
     // return this.getRequestInfo();
   }
 
-  /***
-   * Given a numerical string, add a leading zero if the string
-   * is only one digit long
-   * Used for parsing dates
+  /**
+   * * Given a numerical string, add a leading zero if the string is only one digit long Used for
+   * parsing dates
    *
    * @param value the numerical String
    * @return the String with the leading zero or not
@@ -157,6 +156,13 @@ public class ServiceRequest {
     }
   }
 
+  /**
+   * Retrieves all service requests from the "ServiceRequest" table in the database and returns them as an ArrayList of ServiceRequest objects.
+   *
+   * @return An ArrayList of ServiceRequest objects that represent all service requests in the "ServiceRequest" table.
+   *
+   * @throws SQLException if a database access error occurs
+   */
   public static ArrayList<ServiceRequest> getAllServiceRequests() {
     ArrayList<ServiceRequest> list = new ArrayList<ServiceRequest>();
     DatabaseConnection dbc = new DatabaseConnection();
@@ -183,6 +189,13 @@ public class ServiceRequest {
     return list;
   }
 
+  /**
+   * Retrieves all service requests from the "ItemsOrdered" table in the database and returns them as an ArrayList of ItemsOrdered objects.
+   *
+   * @return An ArrayList of ItemsOrdered objects that represent all objects ordered in the "ItemsOrdered" table.
+   *
+   * @throws SQLException if a database access error occurs
+   */
   public static ArrayList<ItemsOrdered> getAllItemsOrdered() {
     ArrayList<ItemsOrdered> list = new ArrayList<ItemsOrdered>();
     DatabaseConnection dbc = new DatabaseConnection();
