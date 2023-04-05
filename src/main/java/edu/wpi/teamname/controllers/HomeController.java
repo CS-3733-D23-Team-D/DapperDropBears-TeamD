@@ -18,7 +18,7 @@ public class HomeController {
   @FXML MFXButton exitButton;
   @FXML MFXButton editTable;
   @FXML private AnchorPane rootPane;
-
+  @FXML MFXButton serviceRequestView;
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
 
@@ -48,7 +48,7 @@ public class HomeController {
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
     }
-
+    serviceRequestView.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     serviceRequests.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
