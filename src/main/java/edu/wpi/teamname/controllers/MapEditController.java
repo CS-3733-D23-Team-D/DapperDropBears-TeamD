@@ -15,9 +15,13 @@ public class MapEditController {
   @FXML MFXButton serviceRequestsButton;
   @FXML MFXButton exitButton;
   @FXML MFXButton backButton;
+  @FXML MFXButton importCSVButton;
+  @FXML MFXButton exportCSVButton;
   @FXML
   public void initialize() {
     System.out.println("Test");
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    importCSVButton.setOnMouseClicked(event -> )
+    exportCSVButton
   }
 }
