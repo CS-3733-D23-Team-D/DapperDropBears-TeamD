@@ -25,21 +25,38 @@ public class Pathfinding {
     initializeNodes(listOfNodes);
     initializeEdges(listOfEdges);
 
-    Scanner sc = new Scanner(System.in); // System.in is a standard input stream
-    System.out.print("Enter Start NodeID: ");
-    int startNodeID = sc.nextInt();
+    boolean flag = true;
+    boolean flagt = true;
 
-    if (startNodeID < 100 || startNodeID > 3000 || startNodeID % 5 != 0) {
-      System.out.println("Not an acceptable start node. Please run program to try again.");
-      System.exit(0);
+    int startNodeID = 0;
+    int endNodeID = 0;
+
+    Scanner sc = new Scanner(System.in); // System.in is a standard input stream
+
+    while (flag) {
+
+      System.out.print("Enter Start NodeID: ");
+      startNodeID = sc.nextInt();
+
+      if (startNodeID < 100 || startNodeID > 3000 || startNodeID % 5 != 0) {
+        System.out.println("Not an acceptable start node. Please run program to try again.");
+        // System.exit(0);
+      } else {
+        flag = false;
+      }
     }
 
-    System.out.print("Enter End NodeID: ");
-    int endNodeID = sc.nextInt();
+    while (flagt) {
 
-    if (endNodeID < 100 || endNodeID > 3000 || endNodeID % 5 != 0) {
-      System.out.println("Not an acceptable end node. Please run program to try again.");
-      System.exit(0);
+      System.out.print("Enter End NodeID: ");
+      endNodeID = sc.nextInt();
+
+      if (endNodeID < 100 || endNodeID > 3000 || endNodeID % 5 != 0) {
+        System.out.println("Not an acceptable end node. Please run program to try again.");
+        // System.exit(0);
+      } else {
+        flagt = false;
+      }
     }
 
     Graph graph = new Graph(Nodes, Edges);
