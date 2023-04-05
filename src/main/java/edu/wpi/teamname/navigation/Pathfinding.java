@@ -10,9 +10,30 @@ public class Pathfinding {
   private static String NodesFile = "C:\\Users\\Aleksandr Samarin\\Downloads\\Node.csv";
   private static String EdgesFile = "C:\\Users\\Aleksandr Samarin\\Downloads\\Edge.csv";
 
+  private static ArrayList<String> linesOfNodeInfo = new ArrayList<String>();
+  private static ArrayList<String> linesOfEdgeInfo = new ArrayList<String>();
+
   public static void main(String[] args) throws Exception {
-    initializeNodes(ReadCsvLines(NodesFile));
-    initializeEdges(ReadCsvLines(EdgesFile));
+    // initializeNodes(ReadCsvLines(NodesFile));
+    // initializeEdges(ReadCsvLines(EdgesFile));
+    ArrayList<Node> listOfNodes = Node.getAllNodes();
+    ArrayList<Edge> listOfEdges = Edge.getAllEdges();
+
+
+    System.out.println(nodeToString(listOfNodes.get(0)));
+
+    for (int i = 0; i < listOfNodes.size(); i++) {
+      linesOfNodeInfo.add(nodeToString(listOfNodes.get(i)));
+    }
+
+    for (int i = 0; i < listOfEdges.size(); i++) {
+      linesOfEdgeInfo.add(edgeToString(listOfEdges.get(i)));
+    }
+
+    initializeNodes(linesOfNodeInfo);
+    initializeEdges(linesOfEdgeInfo);
+
+    System.out.println(Nodes.get(580).getId());
 
     Scanner sc = new Scanner(System.in); // System.in is a standard input stream
     System.out.print("Enter Start NodeID: ");
@@ -45,16 +66,27 @@ public class Pathfinding {
     return lines;
   }
 
+  public static String nodeToString(Node n) {
+    String nodeInfo = "";
+    nodeInfo =
+        n.getId() + "," + n.getX() + "," + n.getY() + "," + n.getFloor() + "," + n.getBuilding();
+    return nodeInfo;
+  }
+
+  public static String edgeToString(Edge e) {
+    String edgeInfo = "";
+    edgeInfo = e.getStartNodeID() + "," + e.getEndNodeID();
+    return edgeInfo;
+  }
+
   public static void initializeNodes(ArrayList<String> NodeLines) {
     // Initialize the nodes with the node lines data
-    int i = 0;
     while (!NodeLines.isEmpty()) {
       String[] I = NodeLines.get(0).split(",");
       NodeLines.remove(0);
       Nodes.add(
           new Node(
               Integer.parseInt(I[0]), Integer.parseInt(I[1]), Integer.parseInt(I[2]), I[3], I[4]));
-      i++;
     }
   }
 
