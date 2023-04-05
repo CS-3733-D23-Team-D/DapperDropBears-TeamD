@@ -1,4 +1,5 @@
 DatePicker{
-    font-family: "Times New Roman";
-    font-size: 20pt;
+    -fx-font-family: Tmes New Roman;
+    -fx-font-style: Times New Roman;
+    -fx-font-size: 20pt;
 }

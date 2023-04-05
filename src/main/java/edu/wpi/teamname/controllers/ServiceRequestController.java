@@ -58,13 +58,15 @@ public class ServiceRequestController {
   @FXML TextField patientName;
   @FXML TextField roomNum;
   @FXML DatePicker dateBox;
+  @FXML ComboBox timeBox;
+  ArrayList<String> timeValues;
   ObservableList<String> serviceType =
       FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
   @FXML ComboBox requestType;
 
   // menu item page
   @FXML AnchorPane menuPane;
-  @FXML MFXTextField searchBar;
+  @FXML TextField searchBar;
   @FXML VBox itemBox;
   ObservableList<String> mealItems =
       FXCollections.observableArrayList(
@@ -173,9 +175,6 @@ public class ServiceRequestController {
       Navigation.navigate(Screen.HOME);
 
       request.setNotes(notesBox.getCharacters().toString());
-
-      // addSelectedItems();
-
       System.out.println(request);
     }
   }
@@ -211,34 +210,10 @@ public class ServiceRequestController {
     menuPane.setVisible(false);
     summaryPane.setVisible(false);
     summaryPane.setDisable(true);
+    timeBox.setDisable(true);
 
     nextButton.setText("Next");
 
-    // set the width and height to be bound to the panes width and height
-    //    background.fitWidthProperty().bind(rootPane.widthProperty());
-    //    background.fitHeightProperty().bind(rootPane.heightProperty());
-    // make an image and image view, using the path to the image
-    //    Image image = new Image("edu/wpi/teamname/images/BaWHospital.jpg");
-    //    background.setImage(image);
-    // set the width and height to be bound to the panes width and height
-    //    background.fitWidthProperty().bind(rootPane.widthProperty());
-    //    background.fitHeightProperty().bind(rootPane.heightProperty());
-
-    // Making sure the first page(formBox is visible and enabled)
-    //    formPane.setVisible(true);
-    //    formPane.setDisable(false);
-    //    menuPane.setDisable(true);
-    //    menuPane.setVisible(false);
-
-    // Same As Home Controller
-    /**
-     * backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-     * setDateButton.setOnMouseClicked(event -> setDate()); printDateButton.setOnMouseClicked(event
-     * -> printDate()); printMealButton.setOnMouseClicked(event -> printMeal());
-     * addFriesButton.setOnMouseClicked(event -> addFries());
-     * addSandwitchButton.setOnMouseClicked(event -> addSandwitch());
-     * addFlowersButton.setOnMouseClicked(event -> addFlowers());
-     */
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exitButton.setOnMouseClicked(event -> System.exit(0));
     nextButton.setOnMouseClicked(
