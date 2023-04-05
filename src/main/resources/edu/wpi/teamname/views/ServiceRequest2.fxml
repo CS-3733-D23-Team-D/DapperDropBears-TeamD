@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -102,9 +101,9 @@
                         </AnchorPane>
                      </content>
                   </ScrollPane>
-                <AnchorPane fx:id="summaryPane" disable="true" style="-fx-background-color: #00bb00;" visible="false">
+                <AnchorPane fx:id="summaryPane" disable="true" style="-fx-background-color: ;" visible="false">
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: ;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
                               <AnchorPane style="-fx-background-color: #00bb00;">
                                  <children>
