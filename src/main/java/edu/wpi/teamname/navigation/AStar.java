@@ -21,12 +21,20 @@ public class AStar {
   }
 
   public static void printPath(Node target) {
+    System.out.println(returnStringPath(target));
+  }
+
+  public static String returnStringPath(Node target) {
     List<Node> ids = getPath(target);
 
+    String strPath = "";
+
     for (Node id : ids) {
-      System.out.print(id.getId() + " ");
+      strPath += (id.getId() + " ");
     }
-    System.out.println("");
+    strPath += "\n";
+
+    return strPath;
   }
 
   public static Node aStar(Graph g) {

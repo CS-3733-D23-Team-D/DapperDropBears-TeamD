@@ -41,6 +41,13 @@ public class Meal {
     }
   }
 
+  public boolean equals(Meal other) {
+    if (this.mealID == other.mealID) {
+      return true;
+    }
+    return false;
+  }
+
   public String toString() {
     return "mealID: "
         + mealID

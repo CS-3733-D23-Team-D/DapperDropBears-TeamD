@@ -110,7 +110,7 @@ public class MapController {
     map = new MapEntity();
 
     gp.setMinScale(0.11);
-//    gp.setOnMouseClicked(testMethod());
+    //    gp.setOnMouseClicked(testMethod());
 
     anchor.setOnMouseClicked(e);
 
