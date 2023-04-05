@@ -2,12 +2,11 @@ package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.database.DataManager;
 import edu.wpi.teamname.database.DatabaseConnection;
-import edu.wpi.teamname.navigation.Navigation;
-import edu.wpi.teamname.navigation.Node;
-import edu.wpi.teamname.navigation.Screen;
+import edu.wpi.teamname.navigation.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -34,11 +33,11 @@ public class MapController {
   //  @FXML Text destText;
   @FXML Label destText;
 
-  private Node n1 = new Node("115", 2130, 904, "L1", "45 Francis", "3", "4", "5");
-  private Node n2 = new Node("120", 2130, 844, "L1", "45 Francis", "3", "4", "5");
-  private Node n3 = new Node("200", 2185, 904, "L1", "45 Francis", "3", "4", "5");
+  //  private Node n1 = new Node("115", 2130, 904, "L1", "45 Francis", "3", "4", "5");
+  //  private Node n2 = new Node("120", 2130, 844, "L1", "45 Francis", "3", "4", "5");
+  //  private Node n3 = new Node("200", 2185, 904, "L1", "45 Francis", "3", "4", "5");
 
-  private ArrayList<Node> floorNodes;
+  //  private ArrayList<Node> floorNodes;
 
   private Point2D centerPoint;
   private Point2D centerTL;
@@ -66,9 +65,9 @@ public class MapController {
       }
       path.setStrokeWidth(lineT - (thickness * 2 * j));
 
-      path.getElements().add(new MoveTo(nodes.get(0).getXCord(), nodes.get(0).getYCord()));
+      path.getElements().add(new MoveTo(nodes.get(0).getX(), nodes.get(0).getY()));
       for (int i = 1; i < nodes.size(); i++) {
-        path.getElements().add(new LineTo(nodes.get(i).getXCord(), nodes.get(i).getYCord()));
+        path.getElements().add(new LineTo(nodes.get(i).getX(), nodes.get(i).getY()));
       }
       path.setStrokeLineJoin(StrokeLineJoin.ROUND);
       shapes.add(path);
@@ -77,11 +76,11 @@ public class MapController {
     for (int i = 0; i < nodes.size(); i++) {
 
       if (i == 0 || i == nodes.size() - 1) {
-        c = new Circle(nodes.get(i).getXCord(), nodes.get(i).getYCord(), circleR + thickness);
+        c = new Circle(nodes.get(i).getX(), nodes.get(i).getY(), circleR + thickness);
         c.setFill(borderColor);
         shapes.add(c);
 
-        c = new Circle(nodes.get(i).getXCord(), nodes.get(i).getYCord(), circleR);
+        c = new Circle(nodes.get(i).getX(), nodes.get(i).getY(), circleR);
         c.setFill(insideColor);
         shapes.add(c);
       }
@@ -94,14 +93,13 @@ public class MapController {
   Connection connection = dbc.DbConnection();
   DataManager dm = new DataManager();
 
-  public void printScale() {
+  public void printScale() throws Exception {
     //    System.out.println(gp.getCurrentX() + ", " + gp.getCurrentY());
     //    System.out.println(gp.getCurrentScale());
     //    double parentW = getMapWitdh();
     //    double parentH = getMapHeight();
     //    System.out.println(parentW + ", " + parentH);
 
-    dm.displayNodesByFloor(connection, "L1");
   }
 
   private double getMapWitdh() {
@@ -121,37 +119,71 @@ public class MapController {
 
           Point2D clickPoint = new Point2D(event.getX(), event.getY());
 
-          ArrayList<Point2D> floorPoints;
+          String floor = "L1";
 
-          floorPoints = dm.displayNodesByFloor(connection, "L1");
+          //          ArrayList<Point2D> floorPoints;
+          //          floorPoints = dm.displayNodesByFloor(connection, floor);
+
+          Pathfinding p = null;
+          try {
+            p = new Pathfinding();
+          } catch (Exception ex) {
+            throw new RuntimeException(ex);
+          }
+          Graph g = p.getGraph();
+          AStar a = p.getAStar();
+
+          List<Node> allNodes = g.getNodes();
 
           System.out.println(clickPoint); // Coordinates in inner, now goes up to 5000
 
           int leastDistanceNodeIndex = -1;
           double leastDistance = Double.MAX_VALUE;
           double nodeDist;
-          int startNodeIndex = 0;
-          for (int i = 0; i < floorPoints.size(); i++) {
+          int startNodeIndex = 4; // ID: 115
+
+          for (int i = 0; i < allNodes.size(); i++) {
             if (i == startNodeIndex) {
               continue;
             } else {
               //              Node currentNode = floorNodes.get(i);
-              Point2D currentNode = floorPoints.get(i);
-              nodeDist = clickPoint.distance(currentNode);
-              if (nodeDist < leastDistance) {
-                leastDistance = nodeDist;
-                leastDistanceNodeIndex = i;
+              Node currentNode = allNodes.get(i);
+
+              //              System.out.println(currentNode.floor + ", " + floor);
+
+              if (currentNode.floor.equals(floor)) {
+                System.out.println("F!");
+
+                nodeDist = clickPoint.distance(currentNode.getX(), currentNode.getY());
+                if (nodeDist < leastDistance) {
+                  System.out.println("HERE!");
+                  leastDistance = nodeDist;
+                  leastDistanceNodeIndex = i;
+                }
               }
             }
           }
 
-          Point2D startNode = floorPoints.get(startNodeIndex);
-          Point2D endNode = floorPoints.get(leastDistanceNodeIndex);
+          Node startNode = allNodes.get(startNodeIndex);
+          Node endNode = allNodes.get(leastDistanceNodeIndex);
 
-          Circle c = new Circle(startNode.getX(), startNode.getY(), 20, Color.BLACK);
-          anchor.getChildren().add(c);
-          c = new Circle(endNode.getX(), endNode.getY(), 20, Color.RED);
-          anchor.getChildren().add(c);
+          g.setStart(startNode);
+          g.setTarget(endNode);
+
+          //          Circle c = new Circle(startNode.getX(), startNode.getY(), 20, Color.BLACK);
+          //          anchor.getChildren().add(c);
+          //          c = new Circle(endNode.getX(), endNode.getY(), 20, Color.RED);
+          //          anchor.getChildren().add(c);
+
+          a.aStar(g);
+
+          ArrayList<Shape> shapes = makePath(a.getPath(p.getGraph().getTarget()));
+
+          a.printPath(p.getGraph().getTarget());
+
+          anchor.getChildren().addAll(shapes);
+
+          dm.displayNodesByFloor(connection, "L1");
 
           //          ArrayList<Node> path = AStarPath(startNode,endNode);
           //          makePath(path);
@@ -161,18 +193,8 @@ public class MapController {
   @FXML
   public void initialize() {
     gp.setMinScale(0.11);
-    gp.setOnMouseClicked(event -> printScale());
+    //    gp.setOnMouseClicked(event -> printScale());
     //    gp.setOnMouseClicked(e);
-
-    floorNodes = new ArrayList<Node>();
-
-    floorNodes.add(n3);
-    floorNodes.add(n1);
-    floorNodes.add(n2);
-
-    ArrayList<Shape> shapes = makePath(floorNodes);
-
-    anchor.getChildren().addAll(shapes);
 
     anchor.setOnMouseClicked(e);
 

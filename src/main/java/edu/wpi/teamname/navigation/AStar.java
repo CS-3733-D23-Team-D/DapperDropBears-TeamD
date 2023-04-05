@@ -3,20 +3,28 @@ package edu.wpi.teamname.navigation;
 import java.util.*;
 
 public class AStar {
-  public static void printPath(Node target) {
+
+  public static ArrayList<Node> getPath(Node target) {
     Node n = target;
-    if (n == null) return;
-    List<Integer> ids = new ArrayList<>();
+
+    ArrayList<Node> ids = new ArrayList<>();
+    if (n == null) return ids;
 
     while (n.getParent() != null) {
-      ids.add(n.id);
+      ids.add(n);
       n = n.getParent();
     }
-    ids.add(n.id);
+    ids.add(n);
     Collections.reverse(ids);
 
-    for (int id : ids) {
-      System.out.print(id + " ");
+    return ids;
+  }
+
+  public static void printPath(Node target) {
+    List<Node> ids = getPath(target);
+
+    for (Node id : ids) {
+      System.out.print(id.getId() + " ");
     }
     System.out.println("");
   }

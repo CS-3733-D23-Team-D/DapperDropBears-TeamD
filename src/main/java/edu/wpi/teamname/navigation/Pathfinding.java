@@ -3,25 +3,30 @@ package edu.wpi.teamname.navigation;
 import java.io.*;
 import java.util.*;
 import java.util.Scanner;
+import lombok.Getter;
 
 public class Pathfinding {
   private static List<Node> Nodes = new ArrayList<Node>();
   private static List<Edge> Edges = new ArrayList<Edge>();
   private static String NodesFile =
-      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Node.csv";
+      "/Users/ryan/Documents/GitHub/DapperDropBears-TeamD/src/main/java/edu/wpi/teamname/navigation/Node.csv";
   private static String EdgesFile =
-      "C:\\Users\\artur\\IdeaProjects\\DapperDropBears-TeamD\\src\\main\\java\\edu\\wpi\\teamname\\navigation\\Edge.csv";
+      "/Users/ryan/Documents/GitHub/DapperDropBears-TeamD/src/main/java/edu/wpi/teamname/navigation/Edge.csv";
 
-  public static void main(String[] args) throws Exception {
+  @Getter private Graph graph;
+
+  @Getter private AStar aStar;
+
+  public Pathfinding() throws Exception {
     initializeNodes(ReadCsvLines(NodesFile));
     initializeEdges(ReadCsvLines(EdgesFile));
 
-    Graph graph = new Graph(Nodes, Edges);
+    graph = new Graph(Nodes, Edges);
 
-    graph.setStart(graph.getNodes().get(0));
-    graph.setTarget(graph.getNodes().get(100));
-    AStar.aStar(graph);
-    AStar.printPath(graph.getTarget());
+    //    graph.setStart(graph.getNodes().get(0));
+    //    graph.setTarget(graph.getNodes().get(100));
+    //    AStar.aStar(graph);
+    //    AStar.printPath(graph.getTarget());
   }
 
   public static ArrayList<String> ReadCsvLines(String filename) throws Exception {
