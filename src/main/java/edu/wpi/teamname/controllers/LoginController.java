@@ -26,6 +26,15 @@ public class LoginController {
   @FXML TextField loginText;
   @FXML PasswordField passwordText;
 
+  /**
+   * controls when a user presses the login button, which is only enabled when the username and
+   * password have been filled in exits and then navigates to the home page, as a logged in user
+   *
+   * @param username the user's username
+   * @param password the user's password
+   * @return a boolean if the login was successful
+   * @throws SQLException if there is a SQL error when getting the query
+   */
   private static boolean loginPressed(String username, String password) throws SQLException {
     //    Login user = new Login(username, password);
     boolean successLog = DataManager.Login(username, password);
@@ -47,6 +56,12 @@ public class LoginController {
     forgotPassword.disableProperty().bind(Bindings.isEmpty(loginText.textProperty()));
     loginButton.disableProperty().bind(Bindings.isEmpty(loginText.textProperty()));
     loginButton.disableProperty().bind((Bindings.isEmpty(passwordText.textProperty())));
+    /**
+     * when the forgot password button is pressed, a new password is generated for the user, and it
+     * updates the database with the new password for that user. The password is displayed for now,
+     * but can be implemented as a email api. The text disappears when the pane behind it is
+     * clicked.
+     */
     forgotPassword.setOnMouseClicked(
         event -> {
           try {
@@ -58,13 +73,17 @@ public class LoginController {
             throw new RuntimeException(e);
           }
         });
+    /** returns the view to the normal view, and doesn't display the extra texts anymore */
     rootPane.setOnMouseClicked(
         event -> {
           paneOfStuff.setDisable(false);
           newPassword.setVisible(false);
           success.setVisible(false);
         });
-
+    /**
+     * disabled until both the username and password fields have been filled in. Once pressed, goes
+     * to the login method
+     */
     loginButton.setOnMouseClicked(
         event -> {
           try {
@@ -80,6 +99,14 @@ public class LoginController {
         });
   }
 
+  /**
+   * Forgot password button, updates the password for the user that the inputted username that it
+   * corresponds to
+   *
+   * @param username
+   * @return
+   * @throws SQLException
+   */
   private String forgotPasswordPressed(String username) throws SQLException {
     return DataManager.forgotPassword(username);
   }

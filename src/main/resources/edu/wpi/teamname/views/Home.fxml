@@ -75,6 +75,7 @@
                   <Font size="20.0" />
                </font>
             </MFXButton>
+            <MFXButton fx:id="serviceRequestView" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#70a4ff" height="120.0" stroke="BLACK" strokeType="INSIDE" width="189.0" StackPane.alignment="CENTER_RIGHT">
                <StackPane.margin>
                   <Insets bottom="200.0" right="20.0" />
