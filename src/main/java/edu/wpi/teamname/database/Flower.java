@@ -39,5 +39,13 @@ public class Flower {
     } catch (SQLException e) {
       System.out.println("Error retrieving flower data: " + e.getMessage());
     }
+    connection.close();
+  }
+
+  public boolean equals(Flower other) {
+    if (this.flowerID == other.flowerID) {
+      return true;
+    }
+    return false;
   }
 }
