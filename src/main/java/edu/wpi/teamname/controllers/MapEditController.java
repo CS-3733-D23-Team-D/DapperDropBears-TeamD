@@ -6,6 +6,7 @@ import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 
+import javax.swing.table.TableColumn;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,6 +42,22 @@ public class MapEditController {
     //importCSVButton.setOnMouseClicked(event ->)    //implement arturos "getAllNodes" for node column
     //exportCSVButton
   }
+  table.setEditable(true);
+
+  TableColumn nodeID = new TableColumn("Node ID");
+    nodeID.setCellValueFactory(new PropertyValueFactory<Node, String>("nodeID"));
+  TableColumn edgeID = new TableColumn("Edge ID");
+    edgeID.setCellValueFactory(new PropertyValueFactory<Node, String>("edgeID"));
+  TableColumn locationName = new TableColumn("Location Name");
+    locationName.setCellValueFactory(new PropertyValueFactory<Node, String>("locationName"));
+  TableColumn move = new TableColumn("Move");
+    move.setCellValueFactory(new PropertyValueFactory<Node, String>("move"));
+  ObservableList<Node> serviceRequests =
+          FXCollections.observableArrayList(Node.getAllNodes());
+    table.setItems(serviceRequests);
+    table
+            .getColumns()
+            .addAll(nodeID, edgeID, staffName, patientName, requestedAt, deliverBy);
 }
   /*public static ArrayList<Node> getAllNodes() throws SQLException {
     DatabaseConnection dbc = new DatabaseConnection();
