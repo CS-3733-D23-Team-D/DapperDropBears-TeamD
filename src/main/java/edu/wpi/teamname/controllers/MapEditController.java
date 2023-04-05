@@ -29,31 +29,39 @@ public class MapEditController {
   @FXML MFXButton importCSVButton;
   @FXML MFXButton exportCSVButton;
 
-  public void buildNodeData() throws SQLException {
-    new PropertyValueFactory<Node, String>("nodeID");
-    new PropertyValueFactory<Edge, String>("nodeID");
-    new PropertyValueFactory<LocationName, String>("nodeID");
-    new PropertyValueFactory<Move, String>("nodeID");
-    TableView table = null;
-    table.setEditable(true);
-    TableColumn nodeID = new TableColumn();
-    nodeID.setCellEditor((TableCellEditor) new PropertyValueFactory<Node, String>("nodeID"));
-    TableColumn edgeID = new TableColumn();
-    edgeID.setCellEditor((TableCellEditor) new PropertyValueFactory<Edge, String>("edgeID"));
-    TableColumn locationName = new TableColumn();
-    locationName.setCellEditor(
-        (TableCellEditor) new PropertyValueFactory<LocationName, String>("locationName"));
-    TableColumn move = new TableColumn();
-    move.setCellEditor((TableCellEditor) new PropertyValueFactory<Move, String>("move"));
-    ObservableList<Node> nodes = FXCollections.observableArrayList(Node.getAllNodes());
-    table.setItems(nodes);
-    table.getColumns().addAll(nodeID, edgeID, locationName, move);
+    @FXML TableView table;
+    @FXML TableColumn table1;
+    @FXML TableColumn table2;
+    @FXML TableColumn table3;
+    @FXML TableColumn table4;
+
+
+    public void buildData() throws SQLException {
+      table.setEditable(true);
+
+      TableColumn nodeID = new TableColumn("Node ID");
+      nodeID.setCellValueFactory(new PropertyValueFactory<Node, String>("nodeID"));
+      TableColumn edgeID = new TableColumn("Edge ID");
+      edgeID.setCellValueFactory(new PropertyValueFactory<Node, String>("edgeID"));
+      TableColumn locationName = new TableColumn("Location Name");
+      move.setCellValueFactory(new PropertyValueFactory<Node, String>("locationName"));
+      TableColumn move = new TableColumn("Move");
+      move.setCellValueFactory(new PropertyValueFactory<Node, String>("move"));
+      ObservableList<Node> nodes = FXCollections.observableArrayList(Node.getAllNodes());
+      table.setItems(nodes);
+      table.getColumns().addAll(nodeID, edgeID, locationName, move);
+    }
+
+    @FXML
+    public void initialize() {
+      buildData();
+    }
   }
 
-  @FXML
-  public void initialize() {
-    System.out.println("Test");
-    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+// @FXML
+ // public void initialize() {
+   // System.out.println("Test");
+   // backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     // importCSVButton.setOnMouseClicked(event ->)    //implement arturos "getAllNodes" for node
     // column
     // exportCSVButton
