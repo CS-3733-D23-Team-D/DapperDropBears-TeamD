@@ -9,6 +9,9 @@ import edu.wpi.teamname.servicerequests.ServiceRequest;
 import io.github.palexdev.materialfx.controls.*;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -90,6 +93,7 @@ public class ServiceRequestController {
 
   /**
    * Controls the switching and progression through creating the service request
+   *
    * @throws SQLException
    */
   private void nextPane() throws SQLException {
@@ -97,9 +101,18 @@ public class ServiceRequestController {
     System.out.println("NEXT");
     if (requestPage == 0) {
       String folder;
-      String time = timeBox.getValue().toString();
-      int hour = Integer.valueOf(time.split(":")[0]);
-      int min = Integer.valueOf(time.split(":")[1]);
+      String timeString = timeBox.getValue().toString();
+      System.out.println(timeString);
+      int hour = Integer.valueOf(timeString.split(":")[0]);
+      int min = Integer.valueOf(timeString.split(":")[1]);
+      System.out.println(hour);
+      System.out.println(min);
+      LocalDate date = dateBox.getValue();
+      System.out.println(date);
+      LocalTime time = LocalTime.of(hour, min);
+      System.out.println(time);
+      LocalDateTime reqDateTime = date.atTime(time);
+      System.out.println(reqDateTime.toString());
       if (requestType.getValue() == "Meal Delivery") {
         setRequest(
             new MealRequest(
@@ -107,7 +120,7 @@ public class ServiceRequestController {
                 staffName.toString(),
                 patientName.toString(),
                 roomNum.toString(),
-                dateBox.getValue().atTime(hour, min)));
+                reqDateTime));
         folder = "MealIcons";
       } else {
         setRequest(
@@ -116,9 +129,10 @@ public class ServiceRequestController {
                 staffName.toString(),
                 patientName.toString(),
                 roomNum.toString(),
-                dateBox.getValue().atTime(hour, min)));
+                reqDateTime));
         folder = "FlowerIcons";
       }
+      System.out.println(request.getDeliverBy().toString());
 
       itemNames = request.getAllNames();
       itemIDs = request.getAllIDs();
@@ -137,7 +151,7 @@ public class ServiceRequestController {
       request.setStaffName(staffName.getCharacters().toString());
       request.setPatientName(patientName.getCharacters().toString());
       request.setRoomNumber(roomNum.getCharacters().toString());
-      request.setDeliverBy(dateBox.getValue().atStartOfDay());
+      // request.setDeliverBy(dateBox.getValue().atStartOfDay());
 
     } else if (requestPage == 1) {
       setVisibleScreen(2);
@@ -156,17 +170,13 @@ public class ServiceRequestController {
     }
   }
 
-  /**
-   * Clears the service request and brings you back to the home page
-   */
+  /** Clears the service request and brings you back to the home page */
   private void cancelAction() {
     clearAction();
     Navigation.navigate(Screen.HOME);
   }
 
-  /**
-   * Clears the service request form and currently created service request
-   */
+  /** Clears the service request form and currently created service request */
   private void clearAction() {
     patientName.clear();
     staffName.clear();
@@ -183,6 +193,7 @@ public class ServiceRequestController {
 
   /**
    * Sets the visible page of the service request form
+   *
    * @param n the page number for the page to display 0 is the form 1 is the menu 2 is the summary
    */
   private void setVisibleScreen(int n) {
