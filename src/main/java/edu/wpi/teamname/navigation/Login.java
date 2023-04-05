@@ -1,4 +1,4 @@
-package edu.wpi.teamname.database;
+package edu.wpi.teamname.navigation;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

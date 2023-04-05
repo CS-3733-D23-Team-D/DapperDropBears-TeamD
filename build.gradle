@@ -46,6 +46,7 @@ dependencies {
             'com.github.hervegirod:fxsvgimage:1.1',
             'net.java.dev.jna:jna:5.12.1',
     )
+    implementation 'junit:junit:4.13.1'
 
     String javaFxVersion = "19"
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
