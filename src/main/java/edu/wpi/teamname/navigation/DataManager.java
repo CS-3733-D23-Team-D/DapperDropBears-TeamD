@@ -1107,83 +1107,83 @@ public class DataManager {
     String cvsFilePath = " ";
     boolean running = true;
     System.out.println(
-            "Choose from the following commands:\n"
-                    + "(1) Display node information\n"
-                    + "(2) Display edge information\n"
-                    + "(3) Import data from CSV file\n"
-                    + "(4) Export data into CSV file\n"
-                    + "(5) Update node coordinates\n"
-                    + "(6) Update node name\n"
-                    + "(7) Delete node\n"
-                    + "(8) Delete edge\n"
-                    + "(9) Run SQL query\n"
-                    + "(10) Move a node"
-                    + "(11) Request a service\n"
-                    + "(12) Display help\n"
-                    + "(13) Login"
-                    + "(14) Exit\n");
+        "Choose from the following commands:\n"
+            + "(1) Display node information\n"
+            + "(2) Display edge information\n"
+            + "(3) Import data from CSV file\n"
+            + "(4) Export data into CSV file\n"
+            + "(5) Update node coordinates\n"
+            + "(6) Update node name\n"
+            + "(7) Delete node\n"
+            + "(8) Delete edge\n"
+            + "(9) Run SQL query\n"
+            + "(10) Move a node"
+            + "(11) Request a service\n"
+            + "(12) Display help\n"
+            + "(13) Login"
+            + "(14) Exit\n");
     String optionChosen = "help";
 
     DatabaseConnection dbc = new DatabaseConnection();
     Connection connection = dbc.DbConnection();
     while (running) {
-        optionChosen = scanner.nextLine();
-        optionChosen = optionChosen.toLowerCase();
-        optionChosen = optionChosen.replaceAll("\\s", ""); // Removes whitespace
-        switch (optionChosen) {
-            case "1":
-                displayNodeInfo(connection);
-                break;
-            case "2":
-                displayEdgeInfo(connection);
-                break;
-            case "3":
-                importData(connection);
-                break;
-            case "4":
-                exportData(connection);
-                break;
-            case "5":
-                updateNodeCoords(connection);
-                break;
-            case "6":
-                updateNodeName(connection);
-                break;
-            case "7":
-                deleteNode(connection);
-                break;
-            case "8":
-                deleteEdge(connection);
-                break;
-            case "9":
-            case "sql":
-                runQuery(connection);
-                break;
-            case "10":
-                moveNode(connection);
-                break;
-            case "11":
-                requestService(connection);
-                break;
-            case "12":
-            case "help":
-            case "displayhelp":
-                displayHelp();
-                break;
-            case "13":
-                Login();
-                break;
-            case "14":
-            case "exit":
-                System.out.println("Terminating program.");
-                connection.close();
-                System.out.println("Connection closed.");
-                running = false;
-                break;
-            default:
-                System.out.println("Invalid command. Please try again");
-                break;
-        }
+      optionChosen = scanner.nextLine();
+      optionChosen = optionChosen.toLowerCase();
+      optionChosen = optionChosen.replaceAll("\\s", ""); // Removes whitespace
+      switch (optionChosen) {
+        case "1":
+          displayNodeInfo(connection);
+          break;
+        case "2":
+          displayEdgeInfo(connection);
+          break;
+        case "3":
+          importData(connection);
+          break;
+        case "4":
+          exportData(connection);
+          break;
+        case "5":
+          updateNodeCoords(connection);
+          break;
+        case "6":
+          updateNodeName(connection);
+          break;
+        case "7":
+          deleteNode(connection);
+          break;
+        case "8":
+          deleteEdge(connection);
+          break;
+        case "9":
+        case "sql":
+          runQuery(connection);
+          break;
+        case "10":
+          moveNode(connection);
+          break;
+        case "11":
+          requestService(connection);
+          break;
+        case "12":
+        case "help":
+        case "displayhelp":
+          displayHelp();
+          break;
+        case "13":
+          Login();
+          break;
+        case "14":
+        case "exit":
+          System.out.println("Terminating program.");
+          connection.close();
+          System.out.println("Connection closed.");
+          running = false;
+          break;
+        default:
+          System.out.println("Invalid command. Please try again");
+          break;
+      }
     }
   }
 }
