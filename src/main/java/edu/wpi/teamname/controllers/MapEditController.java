@@ -1,10 +1,17 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.database.LocationName;
+import edu.wpi.teamname.database.Move;
+import edu.wpi.teamname.navigation.Edge;
 import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Node;
 import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import javax.swing.table.TableColumn;
 import java.sql.Connection;
@@ -35,6 +42,26 @@ public class MapEditController {
   @FXML
   MFXButton exportCSVButton;
 
+  public void buildNodeData() throws SQLException {
+    new PropertyValueFactory<Node, String>("nodeID");
+    new PropertyValueFactory<Edge, String>("edgeID");
+    new PropertyValueFactory<LocationName, String>("nodeID");
+    new PropertyValueFactory<Move, String>("nodeID");
+    TableView table = null;
+    table.setEditable(true);
+    TableColumn nodeID = new TableColumn("Node ID");
+    nodeID.setCellEditor(new PropertyValueFactory<Node, String>("nodeID"));
+    TableColumn edgeID = new TableColumn("Edge ID");
+    edgeID.setCellEditor(new PropertyValueFactory<Edge, String>("edgeID"));
+    TableColumn locationName = new TableColumn("Location Name");
+    locationName.setCellEditor(new PropertyValueFactory<LocationName, String>("locationName"));
+    TableColumn move = new TableColumn("Move");
+    move.setCellEditor(new PropertyValueFactory<Move, String>("move"));
+    ObservableList<Node> nodes = FXCollections.observableArrayList(Node.getAllNodes());
+    table.setItems(Node);
+    table.getColumns().addAll(nodeID, edgeID, locationName, move);
+  }
+
   @FXML
   public void initialize() {
     System.out.println("Test");
@@ -42,23 +69,9 @@ public class MapEditController {
     //importCSVButton.setOnMouseClicked(event ->)    //implement arturos "getAllNodes" for node column
     //exportCSVButton
   }
-  table.setEditable(true);
-
-  TableColumn nodeID = new TableColumn("Node ID");
-    nodeID.setCellValueFactory(new PropertyValueFactory<Node, String>("nodeID"));
-  TableColumn edgeID = new TableColumn("Edge ID");
-    edgeID.setCellValueFactory(new PropertyValueFactory<Node, String>("edgeID"));
-  TableColumn locationName = new TableColumn("Location Name");
-    locationName.setCellValueFactory(new PropertyValueFactory<Node, String>("locationName"));
-  TableColumn move = new TableColumn("Move");
-    move.setCellValueFactory(new PropertyValueFactory<Node, String>("move"));
-  ObservableList<Node> serviceRequests =
-          FXCollections.observableArrayList(Node.getAllNodes());
-    table.setItems(serviceRequests);
-    table
-            .getColumns()
-            .addAll(nodeID, edgeID, staffName, patientName, requestedAt, deliverBy);
 }
+
+
   /*public static ArrayList<Node> getAllNodes() throws SQLException {
     DatabaseConnection dbc = new DatabaseConnection();
     Connection connection = dbc.DbConnection();
@@ -81,3 +94,27 @@ public class MapEditController {
     return list;
   }/*
 
+public void buildData() {
+    table.setEditable(true);
+
+    TableColumn requestID = new TableColumn("Request ID");
+    requestID.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("requestID"));
+    TableColumn roomNumber = new TableColumn("Room Number");
+    roomNumber.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("roomNumber"));
+    TableColumn staffName = new TableColumn("Staff Name");
+    staffName.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("staffName"));
+    TableColumn patientName = new TableColumn("Patient Name");
+    patientName.setCellValueFactory(
+        new PropertyValueFactory<ServiceRequest, String>("patientName"));
+    TableColumn requestedAt = new TableColumn("Request Date");
+    requestedAt.setCellValueFactory(
+        new PropertyValueFactory<ServiceRequest, String>("requestedAt"));
+    TableColumn deliverBy = new TableColumn("Deliver Date");
+    deliverBy.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("deliverBy"));
+    ObservableList<ServiceRequest> serviceRequests =
+        FXCollections.observableArrayList(ServiceRequest.getAllServiceRequests());
+    table.setItems(serviceRequests);
+    table
+        .getColumns()
+        .addAll(requestID, roomNumber, staffName, patientName, requestedAt, deliverBy);
+  }
