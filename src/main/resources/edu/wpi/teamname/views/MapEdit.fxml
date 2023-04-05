@@ -1,58 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTableColumn?>
-<?import io.github.palexdev.materialfx.controls.MFXTableView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="860.0" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="860.0" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
    <children>
-      <MFXTableView id="ImportCSV" layoutY="1.0" prefHeight="702.0" prefWidth="678.0" stylesheets="@../stylesheets/imageScale.css" />
-      <MFXTableColumn layoutX="23.0" layoutY="14.0" style="-fx-font-weight: BOLD;" text="Node ID">
-         <font>
-            <Font name="Times New Roman" size="20.0" />
-         </font>
-      </MFXTableColumn>
-      <MFXTableColumn layoutX="165.0" layoutY="14.0" style="-fx-font-weight: BOLD;" text="Edge ID" textAlignment="CENTER">
-         <font>
-            <Font name="Times New Roman" size="20.0" />
-         </font>
-      </MFXTableColumn>
-      <MFXTableColumn layoutX="472.0" layoutY="14.0" style="-fx-font-weight: BOLD;" text="Room Name">
-         <font>
-            <Font name="Times New Roman" size="20.0" />
-         </font>
-      </MFXTableColumn>
-      <MFXTableColumn layoutX="314.0" layoutY="14.0" style="-fx-font-weight: BOLD;" text="Patient Name">
-         <font>
-            <Font name="Times New Roman" size="20.0" />
-         </font>
-      </MFXTableColumn>
-      <MFXTableColumn layoutX="17.0" layoutY="109.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="154.0" layoutY="55.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="314.0" layoutY="55.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="472.0" layoutY="55.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="17.0" layoutY="165.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="17.0" layoutY="223.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="154.0" layoutY="109.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="154.0" layoutY="165.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="154.0" layoutY="223.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="154.0" layoutY="280.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="17.0" layoutY="280.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="17.0" layoutY="55.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="314.0" layoutY="165.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="314.0" layoutY="109.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="314.0" layoutY="280.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="314.0" layoutY="223.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="471.0" layoutY="280.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="471.0" layoutY="223.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="472.0" layoutY="165.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
-      <MFXTableColumn layoutX="472.0" layoutY="109.0" prefHeight="41.0" prefWidth="111.0" style="-fx-border-color: black;" />
       <HBox layoutX="17.0" layoutY="649.0" prefHeight="45.0" prefWidth="581.0">
          <children>
             <MFXButton fx:id="backButton" buttonType="RAISED" mnemonicParsing="false" prefHeight="40.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Back">
@@ -60,7 +15,7 @@
                   <Font size="20.0" />
                </font>
             </MFXButton>
-            <MFXButton buttonType="RAISED" prefHeight="44.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Import CSV">
+            <MFXButton fx:id="importCSV" buttonType="RAISED" prefHeight="44.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Import CSV">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
@@ -117,5 +72,13 @@
             </ToolBar>
          </children>
       </VBox>
+      <TableView prefHeight="646.0" prefWidth="672.0">
+        <columns>
+          <TableColumn prefWidth="154.3333282470703" text="Node" />
+          <TableColumn minWidth="0.0" prefWidth="156.33334350585938" text="Edge" />
+            <TableColumn prefWidth="183.0" text="Location" />
+            <TableColumn prefWidth="177.00003051757812" text="Moves" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

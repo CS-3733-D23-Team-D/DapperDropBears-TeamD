@@ -29,6 +29,7 @@ public class MapEditController {
   @FXML MFXButton importCSVButton;
   @FXML MFXButton exportCSVButton;
 
+  //table FXML features
     @FXML TableView table;
     @FXML TableColumn table1;
     @FXML TableColumn table2;
