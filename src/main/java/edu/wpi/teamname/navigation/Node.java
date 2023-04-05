@@ -1,5 +1,9 @@
 package edu.wpi.teamname.navigation;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +67,34 @@ public class Node implements Comparable<Node> {
 
   public void setNeighbor(Node n) {
     this.neighbors.add(n);
+  }
+
+  /**
+   * * Gets all of the nodes in the database and puts them into an array list
+   *
+   * @return An array list of all the nodes in the database
+   * @throws SQLException
+   */
+  public static ArrayList<Node> getAllNodes() throws SQLException {
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+    ArrayList<Node> list = new ArrayList<Node>();
+
+    try (connection) {
+      String query = "SELECT * FROM \"Node\"";
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery(query);
+
+      while (rs.next()) {
+        int id = rs.getInt("nodeID");
+        int xcoord = rs.getInt("xcoord");
+        int ycoord = rs.getInt("ycoord");
+        String floor = rs.getString("floor");
+        String building = rs.getString("building");
+        list.add(new Node(id, xcoord, ycoord, floor, building));
+      }
+    }
+    return list;
   }
 
   public void addEdge(Edge edge, Node s, Node e) {
