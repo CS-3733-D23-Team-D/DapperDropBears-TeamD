@@ -85,7 +85,7 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <MFXButton id="editTable" mnemonicParsing="false" prefHeight="15.0" prefWidth="118.0" style="-fx-background-color: #70A4FF;" text="Edit Table">
+            <MFXButton id="editTable" fx:id="editTable" mnemonicParsing="false" prefHeight="15.0" prefWidth="118.0" style="-fx-background-color: #70A4FF;" text="Edit Table">
                <font>
                   <Font size="20.0" />
                </font>

@@ -62,6 +62,7 @@ public class Graph {
       }
     }
   }
+
   public void setAllG() {
     if (this.target == null || this.start == null) return;
     for (Node n : this.nodes) {
