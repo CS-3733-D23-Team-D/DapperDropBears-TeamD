@@ -69,14 +69,6 @@ public class Node implements Comparable<Node> {
     this.neighbors.add(n);
   }
 
-  public String getFloor() {
-    return floor;
-  }
-
-  public String getBuilding() {
-    return building;
-  }
-
   /**
    * * Gets all of the nodes in the database and puts them into an array list
    *
@@ -89,7 +81,7 @@ public class Node implements Comparable<Node> {
     ArrayList<Node> list = new ArrayList<Node>();
 
     try (connection) {
-      String query = "SELECT * FROM \"Node\" ORDER BY \"nodeID\"";
+      String query = "SELECT * FROM \"Node\"";
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery(query);
 
@@ -143,8 +135,9 @@ public class Node implements Comparable<Node> {
 
   public double calculateHeuristic(Node target) {
     // Heuristic will return distance from target
-    return Math.sqrt(
-        (target.getX() - this.x) * (target.getX() - this.x)
-            + (target.getY() - this.y) * (target.getY() - this.y));
+    //    return Math.sqrt(
+    //        (target.getX() - this.x) * (target.getX() - this.x)
+    //            + (target.getY() - this.y) * (target.getY() - this.y));
+    return h;
   }
 }
