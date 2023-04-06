@@ -79,8 +79,9 @@ public class ServiceRequest {
     requestedAt = LocalDateTime.now();
   }
 
-  /***
-   * given an id and a staffname, updates that request's staff name into the new staff name
+  /**
+   * * given an id and a staffname, updates that request's staff name into the new staff name
+   *
    * @param requestID the id of the request to update
    * @param staffName the new staff name
    */
@@ -89,11 +90,11 @@ public class ServiceRequest {
     Connection connection = dbc.DbConnection();
     try {
       String query =
-              "UPDATE \"ServiceRequest\" SET "
-                      + "(\"staffName\") = '"
-                      + staffName
-                      + "' WHERE \"requestID\" = "
-                      + requestID;
+          "UPDATE \"ServiceRequest\" SET "
+              + "(\"staffName\") = '"
+              + staffName
+              + "' WHERE \"requestID\" = "
+              + requestID;
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();
       connection.close();
@@ -222,7 +223,7 @@ public class ServiceRequest {
         ServiceRequest sr =
             new ServiceRequest(
                 rs.getInt("requestID"),
-                    staffName,
+                staffName,
                 rs.getString("patientName"),
                 rs.getString("roomNum"),
                 rs.getTimestamp("deliverBy").toLocalDateTime(),
