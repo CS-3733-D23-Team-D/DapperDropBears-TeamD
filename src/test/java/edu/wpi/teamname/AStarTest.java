@@ -27,7 +27,7 @@ public class AStarTest {
     System.out.println("DONE!");
   }
 
-  // First test: strait line from node n1 to n5
+  // First test: Node 120 to 110
   @Test
   public void test1() throws Exception {
     Pathfinding p = new Pathfinding();
@@ -43,6 +43,7 @@ public class AStarTest {
     assertEquals(printStr, "120 115 200 1795 100 190 130 110 \n");
   }
 
+  // Second test: Node 155 to 150
   @Test
   public void test2() throws Exception {
     Pathfinding p = new Pathfinding();
@@ -58,6 +59,7 @@ public class AStarTest {
     assertEquals(printStr, "155 1765 1775 1785 2850 2845 150 \n");
   }
 
+  // Third test: 1500 to 1510
   @Test
   public void test3() throws Exception {
     Pathfinding p = new Pathfinding();
