@@ -234,13 +234,16 @@ public class ServiceRequestController {
     }
     timeBox.setItems(timeValues);
 
-    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+
 
     nextButton.setText("Next");
+
+    //mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
     directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exitButton.setOnMouseClicked(event -> System.exit(0));
+
     nextButton.setOnMouseClicked(
         event -> {
           try {

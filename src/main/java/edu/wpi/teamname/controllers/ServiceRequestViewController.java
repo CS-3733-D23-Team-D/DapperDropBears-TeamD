@@ -1,12 +1,17 @@
 package edu.wpi.teamname.controllers;
 
 import edu.wpi.teamname.database.ItemsOrdered;
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.servicerequests.ServiceRequest;
 import java.io.*;
 import java.sql.*;
+
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,6 +19,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ServiceRequestViewController {
   @FXML TableView table;
   @FXML TableView secondTable;
+
+  // Side Bar
+  @FXML MFXButton homeButton;
+  @FXML MFXButton helpButton;
+  @FXML MFXButton mapButton;
+  @FXML MFXButton directionButton;
+  @FXML MFXButton serviceRequestsButton;
+  @FXML MFXButton exitButton;
+
+
 
   public void buildData() {
     table.setEditable(true);
@@ -59,5 +74,15 @@ public class ServiceRequestViewController {
   @FXML
   public void initialize() {
     buildData();
+
+    //side bar
+    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    exitButton.setOnMouseClicked(event -> System.exit(0));
+    serviceRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+
+    updateSt
+
   }
 }
