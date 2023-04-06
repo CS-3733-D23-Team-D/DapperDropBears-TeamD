@@ -175,7 +175,7 @@ public class FlowerRequest extends ServiceRequest {
               + ", "
               + toDate(this.getDeliverBy())
               + ", '"
-              + this.getStatus().getStatusString()
+              + this.getStatus().getStatusString().toUpperCase()
               + "')";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();
