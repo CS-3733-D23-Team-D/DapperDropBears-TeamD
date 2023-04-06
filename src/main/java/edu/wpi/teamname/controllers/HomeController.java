@@ -16,6 +16,7 @@ public class HomeController {
   @FXML MFXButton helpButton;
   @FXML MFXButton directionButton;
   @FXML MFXButton exitButton;
+  @FXML MFXButton editTable;
   @FXML private AnchorPane rootPane;
   @FXML MFXButton serviceRequestView;
   @FXML MFXButton loginButton;
@@ -53,5 +54,6 @@ public class HomeController {
     loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
     logoutButton.setOnMouseClicked(event -> logout());
     exitButton.setOnMouseClicked(event -> System.exit(0));
+    editTable.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
   }
 }
