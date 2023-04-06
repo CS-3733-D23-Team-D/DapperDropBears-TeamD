@@ -5,11 +5,15 @@ import edu.wpi.teamname.navigation.Navigation;
 import edu.wpi.teamname.navigation.Screen;
 import edu.wpi.teamname.servicerequests.ServiceRequest;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.*;
+import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ServiceRequestViewController {
@@ -25,6 +29,10 @@ public class ServiceRequestViewController {
 
   @FXML TableView table;
   @FXML TableView secondTable;
+
+  @FXML TextField idField;
+  @FXML TextField nameField;
+  @FXML Button submitButton;
 
   public void buildData() {
     table.setEditable(true);
@@ -80,5 +88,10 @@ public class ServiceRequestViewController {
     exitButton.setOnMouseClicked(event -> System.exit(0));
 
     buildData();
+
+    submitButton.setOnMouseClicked(
+        event ->
+            ServiceRequest.uploadStaffName(
+                Integer.valueOf(idField.getText()), nameField.getText()));
   }
 }
