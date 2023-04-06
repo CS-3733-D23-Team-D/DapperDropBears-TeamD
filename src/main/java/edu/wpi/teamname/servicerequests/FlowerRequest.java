@@ -23,7 +23,7 @@ public class FlowerRequest extends ServiceRequest {
   }
 
   /**
-   * * Adds the given flower into the request's list
+   * Adds the given flower into the request's list
    *
    * @param flower the flower to be added
    */

@@ -1,8 +1,8 @@
 package edu.wpi.teamname.servicerequests;
 
-import edu.wpi.teamname.Node;
 import edu.wpi.teamname.database.DatabaseConnection;
 import edu.wpi.teamname.database.ItemsOrdered;
+import edu.wpi.teamname.navigation.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -181,34 +181,6 @@ public class ServiceRequest {
                 rs.getTimestamp("deliverBy").toLocalDateTime(),
                 rs.getTimestamp("requestedAt").toLocalDateTime());
         list.add(sr);
-      }
-      connection.close();
-    } catch (SQLException e) {
-      System.out.println(e.getMessage());
-    }
-    return list;
-  }
-
-  /**
-   * Retrieves all service requests from the "ItemsOrdered" table in the database and returns them
-   * as an ArrayList of ItemsOrdered objects.
-   *
-   * @return An ArrayList of ItemsOrdered objects that represent all objects ordered in the
-   *     "ItemsOrdered" table.
-   * @throws SQLException if a database access error occurs
-   */
-  public static ArrayList<ItemsOrdered> getAllItemsOrdered() {
-    ArrayList<ItemsOrdered> list = new ArrayList<ItemsOrdered>();
-    DatabaseConnection dbc = new DatabaseConnection();
-    Connection connection = dbc.DbConnection();
-    try {
-      String query = "SELECT * FROM \"ItemsOrdered\"";
-      PreparedStatement statement = connection.prepareStatement(query);
-      ResultSet rs = statement.executeQuery();
-      while (rs.next()) {
-        ItemsOrdered ir =
-            new ItemsOrdered(rs.getInt("requestID"), rs.getInt("itemID"), rs.getInt("quantity"));
-        list.add(ir);
       }
       connection.close();
     } catch (SQLException e) {

@@ -1,5 +1,6 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.database.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -123,6 +124,14 @@ public class Node implements Comparable<Node> {
 
   public int getId() {
     return id;
+  }
+
+  public String getFloor() {
+    return floor;
+  }
+
+  public String getBuilding() {
+    return building;
   }
 
   public String toString() {
