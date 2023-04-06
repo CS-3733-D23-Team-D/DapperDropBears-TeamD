@@ -18,9 +18,12 @@ public class MapController {
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
-  @FXML MFXButton directionButton;
-  @FXML MFXButton serviceRequestsButton;
+  @FXML MFXButton directionsButton;
+  @FXML MFXButton makeRequestsButton;
+  @FXML MFXButton showRequestsButton;
+  @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
+
   @FXML AnchorPane anchor;
   @FXML GesturePane gp;
   @FXML StackPane sp;
@@ -115,10 +118,12 @@ public class MapController {
     anchor.setOnMouseClicked(e);
 
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    //    helpButton
+    //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
-    serviceRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
+    editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));
 
     centerAndZoom();
