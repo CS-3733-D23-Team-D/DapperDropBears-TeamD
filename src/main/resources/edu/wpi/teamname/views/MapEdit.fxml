@@ -15,17 +15,17 @@
                   <Font name="Times New Roman" size="16.0" />
                </font>
             </MFXButton>
-            <MFXButton mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" style="-fx-font-weight: BOLD;" text="Export Edge">
+            <MFXButton fx:id="exportEdge" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" style="-fx-font-weight: BOLD;" text="Export Edge">
                <font>
                   <Font name="Times New Roman" size="16.0" />
                </font>
             </MFXButton>
-            <MFXButton mnemonicParsing="false" prefHeight="36.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Export Location Name">
+            <MFXButton fx:id="exportLocation" mnemonicParsing="false" prefHeight="36.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Export Location Name">
                <font>
                   <Font name="Times New Roman" size="16.0" />
                </font>
             </MFXButton>
-            <MFXButton mnemonicParsing="false" prefHeight="36.0" prefWidth="125.0" style="-fx-font-weight: BOLD;" text="Export Move">
+            <MFXButton fx:id="exportMove" mnemonicParsing="false" prefHeight="36.0" prefWidth="125.0" style="-fx-font-weight: BOLD;" text="Export Move">
                <font>
                   <Font name="Times New Roman" size="16.0" />
                </font>
@@ -44,7 +44,7 @@
                   <Font name="Times New Roman" size="16.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="importLocationName" prefHeight="36.0" prefWidth="192.0" style="-fx-font-weight: BOLD;" text="Import Location Name">
+            <MFXButton fx:id="importLocation" prefHeight="36.0" prefWidth="192.0" style="-fx-font-weight: BOLD;" text="Import Location Name">
                <font>
                   <Font name="Times New Roman" size="16.0" />
                </font>

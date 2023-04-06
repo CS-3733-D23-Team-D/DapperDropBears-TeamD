@@ -25,10 +25,15 @@ public class MapEditController {
   @FXML MFXButton showRequestsButton;
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
-
   @FXML MFXButton backButton;
-  @FXML MFXButton importCSVButton;
-  @FXML MFXButton exportCSVButton;
+  @FXML MFXButton importNode;
+  @FXML MFXButton exportNode;
+  @FXML MFXButton exportMove;
+  @FXML MFXButton exportEdge;
+  @FXML MFXButton exportLocation;
+  @FXML MFXButton importEdge;
+  @FXML MFXButton importLocation;
+  @FXML MFXButton importMove;
 
   // table FXML features
   @FXML TableView table;
@@ -89,11 +94,22 @@ public class MapEditController {
     makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
     showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
+    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exitButton.setOnMouseClicked(event -> System.exit(0));
-
+    // exportNode.setOnMouseClicked(event ->
+    // DataManager.uploadNodeToPostgreSQL(DataManager.importCSV(), connection));
+    // exportEdge.setOnMouseClicked(event ->
+    // DataManager.uploadEdgeToPostgreSQL(DataManager.importCSV(), connection));
+    // exportLocation.setOnMouseClicked(event ->
+    // DataManager.uploadLocationNameToPostgreSQL(DataManager.importCSV(), connection));
+    // exportMove.setOnMouseClicked(event ->
+    // DataManager.uploadMoveToPostgreSQL(DataManager.importCSV(), connection));
+    // importNode.setOnMouseClicked(event -> DataManager.exportData(0, //file ,connection);
+    // importEdge.setOnMouseClicked(event -> DataManager.exportData(1, //file ,connection);
+    // importLocation.setOnMouseClicked(event -> DataManager.exportData(2, //file ,connection);
+    // importMove.setOnMouseClicked(event -> DataManager.exportData(3, //file ,connection);
     buildNodeData();
     buildEdgeData();
-    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     connection.close();
   }
 }
