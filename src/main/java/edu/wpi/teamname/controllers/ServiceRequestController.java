@@ -24,6 +24,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class ServiceRequestController {
+
+  // Side Bar
+  @FXML MFXButton homeButton;
+  @FXML MFXButton helpButton;
+  @FXML MFXButton mapButton;
+  @FXML MFXButton directionsButton;
+  @FXML MFXButton makeRequestsButton;
+  @FXML MFXButton showRequestsButton;
+  @FXML MFXButton editMapButton;
+  @FXML MFXButton exitButton;
+
   // requestInfo Error if not added anything to both meal and side
 
   /**
@@ -43,14 +54,6 @@ public class ServiceRequestController {
   @FXML StackPane requestPane;
   @FXML MFXButton clearButton;
   @FXML MFXButton cancelButton;
-
-  // Side Bar
-  @FXML MFXButton homeButton;
-  @FXML MFXButton helpButton;
-  @FXML MFXButton mapButton;
-  @FXML MFXButton directionButton;
-  @FXML MFXButton serviceRequestsButton;
-  @FXML MFXButton exitButton;
 
   // Form pane
   @FXML AnchorPane formAnchor;
@@ -225,6 +228,15 @@ public class ServiceRequestController {
   public void initialize() {
     setVisibleScreen(0);
 
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
+    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
+    editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
+    exitButton.setOnMouseClicked(event -> System.exit(0));
+
     for (int h = 0; h < 24; h++) {
 
       timeValues.add(Integer.toString(h) + ":00");
@@ -234,13 +246,7 @@ public class ServiceRequestController {
     }
     timeBox.setItems(timeValues);
 
-    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-
     nextButton.setText("Next");
-    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
-    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    exitButton.setOnMouseClicked(event -> System.exit(0));
     nextButton.setOnMouseClicked(
         event -> {
           try {
