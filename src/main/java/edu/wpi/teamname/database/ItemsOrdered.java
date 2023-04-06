@@ -14,6 +14,10 @@ public class ItemsOrdered {
     this.quantity = quantity;
   }
 
+  /**
+   * Returns a single string of requestID, itemID, quantity
+   * @return String
+   */
   public String toString() {
     return "[" + requestID + " " + itemID + " " + quantity + "]";
   }

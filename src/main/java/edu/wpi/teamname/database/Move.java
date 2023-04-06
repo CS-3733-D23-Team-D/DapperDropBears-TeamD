@@ -22,11 +22,17 @@ public class Move {
     this.date = date;
   }
 
-  public boolean swapNodes(String swapNodeID) {
+  /**
+   * Checks if this.nodeID has switched with given nodeID to swap positions, floor and building in the table
+   * with it in the edge table
+   * also swaps correlating information as well as switching the longNames with eachother in LocationName table
+   * @param swapNodeID
+   * @return Boolean
+   */
+  public boolean swapNodes(String swapNodeID, String swapLongName) {
     boolean done = false;
     // Swap nodeID in node
-    // Swap startNodes with eachother, and end nodes with eachother in edge
-    // using
+    // Swap this.nodeID with swapNodeID in edge table
 
     return done;
   }

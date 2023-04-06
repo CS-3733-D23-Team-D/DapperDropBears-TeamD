@@ -41,13 +41,22 @@ public class Meal {
     }
   }
 
+  /**
+   * Checks if given meal is the same as passed in meal
+   * @param other
+   * @return Boolean
+   */
   public boolean equals(Meal other) {
-    if (this.mealID == other.mealID) {
+    if (this.mealID == other.mealID)
       return true;
-    }
+    else
     return false;
   }
 
+  /**
+   * Returns a single string of mealID, name, price, meal, and cuisine
+   * @return String
+   */
   public String toString() {
     return "mealID: "
         + mealID
