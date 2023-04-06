@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestViewController">
    <children>
-      <TableView fx:id="table" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columns>
-<!--            <TableColumn fx:id="table1" maxWidth="100.0" minWidth="-Infinity" prefWidth="75.0" text="roomNum" />-->
-<!--            <TableColumn fx:id="table2" maxWidth="100.0" minWidth="-Infinity" prefWidth="100.0" text="staffName" />-->
-<!--          <TableColumn fx:id="table3" maxWidth="100.0" minWidth="-Infinity" prefWidth="100.0" text="deliverBy" />-->
-<!--            <TableColumn fx:id="table4" maxWidth="150.0" minWidth="-Infinity" prefWidth="150.0" text="patientName" />-->
-<!--            <TableColumn fx:id="table5" maxWidth="100.0" minWidth="-Infinity" prefWidth="100.0" text="requestedAt" />-->
-<!--          <TableColumn fx:id="table6" maxWidth="100.0" minWidth="-Infinity" prefWidth="75.0" text="requestID" />-->
-        </columns>
-      </TableView>
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <TableView fx:id="table" HBox.hgrow="ALWAYS" />
+          <TableView fx:id="secondTable" HBox.hgrow="ALWAYS" />
+      </HBox>
    </children>
 </AnchorPane>

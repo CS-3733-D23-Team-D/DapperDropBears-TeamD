@@ -1,13 +1,12 @@
 package edu.wpi.teamname.database;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import lombok.Getter;
+import lombok.Setter;
 
 public class ItemsOrdered {
   @Setter @Getter private int requestID;
@@ -42,7 +41,7 @@ public class ItemsOrdered {
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
         ItemsOrdered ir =
-                new ItemsOrdered(rs.getInt("requestID"), rs.getInt("itemID"), rs.getInt("quantity"));
+            new ItemsOrdered(rs.getInt("requestID"), rs.getInt("itemID"), rs.getInt("quantity"));
         list.add(ir);
       }
       connection.close();

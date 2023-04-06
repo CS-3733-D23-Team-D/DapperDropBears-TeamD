@@ -7,12 +7,14 @@ public enum Screen {
   SERVICE_REQUEST("views/ServiceRequest2.fxml"),
   MAP("views/Map.fxml"),
 
+  TEST("views/Test.fxml"),
+
+  SIGNAGE("views/SignageLevels.fxml"),
+
   //  REQ_MENU("views/ServiceRequestMenu.fxml"),
   LOGIN("views/Login.fxml"),
-  SIGNAGE("views/SignageLevels.fxml"),
-  MAP_EDIT("views/MapEdit.fxml"),
+  //  SIGNAGE("views/SignageLevels.fxml"),
   SERVICE_REQUEST_VIEW("views/ServiceRequestView.fxml");
-
   private final String filename;
 
   Screen(String filename) {

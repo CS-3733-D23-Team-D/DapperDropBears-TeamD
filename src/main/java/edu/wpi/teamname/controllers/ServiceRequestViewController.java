@@ -1,5 +1,6 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.database.ItemsOrdered;
 import edu.wpi.teamname.servicerequests.ServiceRequest;
 import java.io.*;
 import java.sql.*;
@@ -12,12 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ServiceRequestViewController {
   @FXML TableView table;
-  @FXML TableColumn table1;
-  @FXML TableColumn table2;
-  @FXML TableColumn table3;
-  @FXML TableColumn table4;
-  @FXML TableColumn table5;
-  @FXML TableColumn table6;
+  @FXML TableView secondTable;
 
   public void buildData() {
     table.setEditable(true);
@@ -42,6 +38,19 @@ public class ServiceRequestViewController {
     table
         .getColumns()
         .addAll(requestID, roomNumber, staffName, patientName, requestedAt, deliverBy);
+
+    secondTable.setEditable(true);
+
+    TableColumn requestID2 = new TableColumn("Request ID");
+    requestID2.setCellValueFactory(new PropertyValueFactory<ItemsOrdered, String>("requestID"));
+    TableColumn itemID = new TableColumn("Item ID");
+    itemID.setCellValueFactory(new PropertyValueFactory<ItemsOrdered, String>("itemID"));
+    TableColumn quantity = new TableColumn("Quantity");
+    quantity.setCellValueFactory(new PropertyValueFactory<ItemsOrdered, String>("quantity"));
+    ObservableList<ItemsOrdered> ItemsOrderedList =
+        FXCollections.observableArrayList(ItemsOrdered.getAllItemsOrdered());
+    secondTable.setItems(ItemsOrderedList);
+    secondTable.getColumns().addAll(requestID2, itemID, quantity);
   }
 
   @FXML
