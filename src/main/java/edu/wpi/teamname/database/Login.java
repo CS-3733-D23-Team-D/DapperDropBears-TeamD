@@ -56,7 +56,7 @@ public class Login {
     return done;
   }
 
-  public static Boolean resetPass() throws SQLException {
+  public static String resetPass() throws SQLException {
     boolean done = false;
     // if (admin){
     System.out.println("Username: " + username);
@@ -80,7 +80,7 @@ public class Login {
       throw e3;
     }
     System.out.println("New password is now: " + password);
-    return done;
+    return newPass;
   }
 
   //    else{

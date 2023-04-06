@@ -52,6 +52,7 @@ public class HomeController {
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
     }
+    loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
 
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
