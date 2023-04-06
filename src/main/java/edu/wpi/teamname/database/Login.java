@@ -56,7 +56,7 @@ public class Login {
     return done;
   }
 
-  public static boolean resetPass() throws SQLException {
+  public static Boolean resetPass() throws SQLException {
     boolean done = false;
     // if (admin){
     System.out.println("Username: " + username);
@@ -64,7 +64,7 @@ public class Login {
     //      String oldPass = scan.nextLine();
     StringBuilder sb = new StringBuilder();
     Random rand = new Random();
-    String newPass = "";
+    String newPass = "newPassword";
     //    for (int i = 0; i < 10; i++) {
     //      sb.append(newPass.charAt(rand.nextInt(newPass.length())));
     //    }

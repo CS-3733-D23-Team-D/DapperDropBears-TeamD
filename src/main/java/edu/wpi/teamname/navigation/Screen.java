@@ -8,9 +8,13 @@ public enum Screen {
   MAP("views/Map.fxml"),
 
   TEST("views/Test.fxml"),
+  SIGNAGE("views/SignageLevels.fxml"),
 
-  SIGNAGE("views/SignageLevels.fxml");
-
+  //  REQ_MENU("views/ServiceRequestMenu.fxml"),
+  LOGIN("views/Login.fxml"),
+  //  SIGNAGE("views/SignageLevels.fxml"),
+  SERVICE_REQUEST_VIEW("views/ServiceRequestView.fxml"),
+  MAP_EDIT("views/MapEdit.fxml");
   private final String filename;
 
   Screen(String filename) {
