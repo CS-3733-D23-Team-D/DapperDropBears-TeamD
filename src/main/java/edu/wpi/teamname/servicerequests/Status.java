@@ -1,9 +1,9 @@
 package edu.wpi.teamname.servicerequests;
 
 public enum Status {
-  BLANK("blank"),
-  PROCESSING("Processing"),
-  DONE("Done");
+  BLANK("BLANK"),
+  PROCESSING("PROCESSING"),
+  DONE("DONE");
 
   private final String status;
 
