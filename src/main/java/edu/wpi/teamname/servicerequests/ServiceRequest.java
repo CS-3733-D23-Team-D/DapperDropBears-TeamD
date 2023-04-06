@@ -215,10 +215,14 @@ public class ServiceRequest {
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
+        String staffName = rs.getString("staffName");
+        if (staffName == null) {
+          staffName = "No staff inputted";
+        }
         ServiceRequest sr =
             new ServiceRequest(
                 rs.getInt("requestID"),
-                rs.getString("staffName"),
+                    staffName,
                 rs.getString("patientName"),
                 rs.getString("roomNum"),
                 rs.getTimestamp("deliverBy").toLocalDateTime(),
