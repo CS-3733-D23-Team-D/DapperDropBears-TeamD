@@ -10,7 +10,7 @@ import lombok.Setter;
 
 public class MealRequest extends ServiceRequest {
 
-  @Setter @Getter ArrayList<Meal> meals;
+  @Getter @Setter private ArrayList<Meal> meals;
 
   public MealRequest(
       int requestID,
@@ -27,7 +27,7 @@ public class MealRequest extends ServiceRequest {
    *
    * @param meal the meal to be added
    */
-  public void addMeal(Meal meal) throws SQLException {
+  public void addMeal(Meal meal) {
     meals.add(meal);
   }
 
@@ -51,7 +51,7 @@ public class MealRequest extends ServiceRequest {
   }
 
   /**
-   * * Queries and gets an array list of all the flower ids
+   * Queries and gets an array list of all the flower ids
    *
    * @return an array list of all the flower ids
    * @throws SQLException
@@ -202,5 +202,6 @@ public class MealRequest extends ServiceRequest {
         System.out.println(e.getMessage());
       }
     }
+    connection.close();
   }
 }

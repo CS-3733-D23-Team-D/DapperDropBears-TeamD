@@ -1,5 +1,6 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.database.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -125,6 +126,14 @@ public class Node implements Comparable<Node> {
     return id;
   }
 
+  public String getFloor() {
+    return floor;
+  }
+
+  public String getBuilding() {
+    return building;
+  }
+
   public String toString() {
     String nei = "";
     for (Node n : neighbors) {
@@ -135,9 +144,8 @@ public class Node implements Comparable<Node> {
 
   public double calculateHeuristic(Node target) {
     // Heuristic will return distance from target
-    //    return Math.sqrt(
-    //        (target.getX() - this.x) * (target.getX() - this.x)
-    //            + (target.getY() - this.y) * (target.getY() - this.y));
-    return h;
+    return Math.sqrt(
+        (target.getX() - this.x) * (target.getX() - this.x)
+            + (target.getY() - this.y) * (target.getY() - this.y));
   }
 }

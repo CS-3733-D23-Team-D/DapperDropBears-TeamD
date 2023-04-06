@@ -9,6 +9,8 @@ import edu.wpi.teamname.servicerequests.ServiceRequest;
 import io.github.palexdev.materialfx.controls.*;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
@@ -59,7 +61,7 @@ public class ServiceRequestController {
   @FXML TextField roomNum;
   @FXML DatePicker dateBox;
   @FXML ComboBox timeBox;
-  ArrayList<String> timeValues;
+  ObservableList<String> timeValues = FXCollections.observableArrayList();
   ObservableList<String> serviceType =
       FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
   @FXML ComboBox requestType;
@@ -86,25 +88,31 @@ public class ServiceRequestController {
 
   @Setter @Getter private ServiceRequest request;
 
-  /*
-  private void addSelectedItems() {
-    for (int i = 0; i < itemChecklist.getCells().size(); i++) {
-      System.out.println();
-      MFXCheckListCell cell = itemChecklist.getCell(i);
-      if (cell.isSelected()) {
-        // request.addItem(itemChecklist.getItems().get(i).toString());
-      }
-    }
-  }*/
-
   ArrayList<Integer> itemIDs;
   ArrayList<String> itemNames;
 
+  /**
+   * Controls the switching and progression through creating the service request
+   *
+   * @throws SQLException
+   */
   private void nextPane() throws SQLException {
 
     System.out.println("NEXT");
     if (requestPage == 0) {
       String folder;
+      String timeString = timeBox.getValue().toString();
+      System.out.println(timeString);
+      int hour = Integer.valueOf(timeString.split(":")[0]);
+      int min = Integer.valueOf(timeString.split(":")[1]);
+      System.out.println(hour);
+      System.out.println(min);
+      LocalDate date = dateBox.getValue();
+      System.out.println(date);
+      LocalTime time = LocalTime.of(hour, min);
+      System.out.println(time);
+      LocalDateTime reqDateTime = date.atTime(time);
+      System.out.println(reqDateTime.toString());
       if (requestType.getValue() == "Meal Delivery") {
         setRequest(
             new MealRequest(
@@ -112,7 +120,7 @@ public class ServiceRequestController {
                 staffName.toString(),
                 patientName.toString(),
                 roomNum.toString(),
-                dateBox.getValue().atTime(LocalTime.now())));
+                reqDateTime));
         folder = "MealIcons";
       } else {
         setRequest(
@@ -121,9 +129,10 @@ public class ServiceRequestController {
                 staffName.toString(),
                 patientName.toString(),
                 roomNum.toString(),
-                dateBox.getValue().atTime(12, 00)));
+                reqDateTime));
         folder = "FlowerIcons";
       }
+      System.out.println(request.getDeliverBy().toString());
 
       itemNames = request.getAllNames();
       itemIDs = request.getAllIDs();
@@ -142,7 +151,7 @@ public class ServiceRequestController {
       request.setStaffName(staffName.getCharacters().toString());
       request.setPatientName(patientName.getCharacters().toString());
       request.setRoomNumber(roomNum.getCharacters().toString());
-      request.setDeliverBy(dateBox.getValue().atStartOfDay());
+      // request.setDeliverBy(dateBox.getValue().atStartOfDay());
 
     } else if (requestPage == 1) {
       setVisibleScreen(2);
@@ -161,11 +170,13 @@ public class ServiceRequestController {
     }
   }
 
+  /** Clears the service request and brings you back to the home page */
   private void cancelAction() {
     clearAction();
     Navigation.navigate(Screen.HOME);
   }
 
+  /** Clears the service request form and currently created service request */
   private void clearAction() {
     patientName.clear();
     staffName.clear();
@@ -180,21 +191,26 @@ public class ServiceRequestController {
     }
   }
 
+  /**
+   * Sets the visible page of the service request form
+   *
+   * @param n the page number for the page to display 0 is the form 1 is the menu 2 is the summary
+   */
   private void setVisibleScreen(int n) {
     if (n == 1) {
+      formPane.setVisible(false);
+      formPane.setDisable(true);
+      menuPane.setDisable(false);
+      menuPane.setVisible(true);
+      summaryPane.setVisible(false);
+      summaryPane.setDisable(true);
+    } else if (n == 2) {
       formPane.setVisible(false);
       formPane.setDisable(true);
       menuPane.setDisable(true);
       menuPane.setVisible(false);
       summaryPane.setVisible(true);
       summaryPane.setDisable(false);
-    } else if (n == 2) {
-      formPane.setVisible(true);
-      formPane.setDisable(false);
-      menuPane.setDisable(true);
-      menuPane.setVisible(false);
-      summaryPane.setVisible(false);
-      summaryPane.setDisable(true);
     } else {
       formPane.setVisible(true);
       formPane.setDisable(false);
@@ -202,13 +218,23 @@ public class ServiceRequestController {
       menuPane.setVisible(false);
       summaryPane.setVisible(false);
       summaryPane.setDisable(true);
-      timeBox.setDisable(true);
+      timeBox.setDisable(false);
     }
   }
 
   public void initialize() {
     setVisibleScreen(0);
-    timeBox.setDisable(true);
+
+    for (int h = 0; h < 24; h++) {
+
+      timeValues.add(Integer.toString(h) + ":00");
+      timeValues.add(Integer.toString(h) + ":15");
+      timeValues.add(Integer.toString(h) + ":30");
+      timeValues.add(Integer.toString(h) + ":45");
+    }
+    timeBox.setItems(timeValues);
+
+    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
 
     nextButton.setText("Next");
 
@@ -232,7 +258,5 @@ public class ServiceRequestController {
 
     itemBox.setFillWidth(true);
     itemBox.setSpacing(25);
-
-    // dateBox.setStyle("-fx-font: Times New Roman; -fx-font-size: 20");
   }
 }

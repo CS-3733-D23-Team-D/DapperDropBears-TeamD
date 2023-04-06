@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import net.kurobako.gesturefx.GesturePane?>
+
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapController">
+   <children>
+      <VBox id="VBox2" HBox.hgrow="ALWAYS">
+         <children>
+            <StackPane fx:id="sp" prefHeight="340.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+               <children>
+<!--                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />-->
+                  <GesturePane fx:id="gp" prefHeight="340.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+                     <Group>
+                        <children>
+      <!--                     <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">-->
+      <!--                        <image>-->
+      <!--                           <Image url="@../images/00_thelowerlevel1.png" />-->
+      <!--                        </image>-->
+      <!--                     </ImageView>-->
+      <!--                     <MFXButton fx:id="homeButton2" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">-->
+      <!--                        <font>-->
+      <!--                           <Font name="Times New Roman" size="19.0" />-->
+      <!--                        </font>-->
+      <!--                     </MFXButton>-->
+                           <AnchorPane fx:id="anchor" prefHeight="3400.0" prefWidth="5000.0" styleClass="body" stylesheets="@../stylesheets/scaleFull.css" visible="true" />
+<!--                           <Text fx:id="destText" layoutX="66.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click Your Destination!" />-->
+                           <Label fx:id="destText" layoutX="66.0" layoutY="138.0" styleClass="outline" stylesheets="@../stylesheets/textOutline.css" text="Click Your Destination!" />
+                        </children>
+                     </Group>
+                  </GesturePane>
+                  <Canvas fx:id="canvas" disable="true" height="340.0" visible="false" width="500.0" />
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+      <!--            <ScrollPane prefHeight="200.0" prefWidth="200.0">-->
+      <!--              <content>-->
+      <!--                <AnchorPane prefHeight="5000.0" prefWidth="3400.0" styleClass="body" stylesheets="@../stylesheets/scaleFull.css" />-->
+      <!--              </content>-->
+      <!--            </ScrollPane>-->
+      <VBox>
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
+               <children>
+               </children></AnchorPane>
+            <ToolBar orientation="VERTICAL" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
+               <items>
+                  <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="mapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Map" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="directionButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="serviceRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="exitButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Exit" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+               </items>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets top="1.0" />
+               </padding>
+            </ToolBar>
+
+
+         </children>
+      </VBox>
+
+
+
+      
+   </children>
+</HBox>
