@@ -6,16 +6,16 @@ import edu.wpi.teamname.servicerequests.ServiceRequest;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.Random;
+import java.util.ArrayList;
 
 public class ServiceRequestUploadTest {
   public static void main(String args[]) throws SQLException {
+
     String string = "SELECT \"flowerID\" FROM Flowers";
     System.out.println(string);
     LocalDateTime date = LocalDateTime.of(1000, Month.JUNE, 29, 19, 30, 40);
     LocalDateTime date2 = LocalDateTime.of(1033, Month.MAY, 29, 10, 30, 40);
 
-    Random random = new Random();
     MealRequest mealRequest =
         new MealRequest(3, "stadfsdfff", "patiefsdfsadfnt", "roomfsdfa2", date);
     mealRequest.addMeal(new Meal(1100));
@@ -34,9 +34,11 @@ public class ServiceRequestUploadTest {
     mealRequest.addMeal(new Meal(1138));
     mealRequest.addMeal(new Meal(1138));
     mealRequest.addMeal(new Meal(1138));
+    mealRequest.addMeal(new Meal(1138));
+    mealRequest.addMeal(new Meal(1138));
     mealRequest.removeMeal(1138);
 
-    // mealRequest.uploadRequestToDatabase();
+    mealRequest.uploadRequestToDatabase();
 
     FlowerRequest flowerRequest = new FlowerRequest(12, "HELLOStaff", "o", "thisisaroom", date2);
     // System.out.println(flowerRequest.getQuantity(2, 1011));
@@ -82,5 +84,8 @@ public class ServiceRequestUploadTest {
     }*/
 
     // flowerRequest.uploadRequestToDatabase();
+    mealRequest.uploadRequestToDatabase();
+
+    flowerRequest.uploadRequestToDatabase();
   }
 }
