@@ -76,7 +76,9 @@
          </VBox>
          <VBox HBox.hgrow="NEVER">
             <children>
-               <AnchorPane prefHeight="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css" />
+               <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
+                  <children>
+                  </children></AnchorPane>
                <ToolBar orientation="VERTICAL" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
                   <items>
                      <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
@@ -99,7 +101,17 @@
                            <Font name="Times New Roman" size="19.0" />
                         </font>
                      </MFXButton>
-                     <MFXButton fx:id="makeRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                     <MFXButton fx:id="makeRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Make Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                        <font>
+                           <Font name="Times New Roman" size="19.0" />
+                        </font>
+                     </MFXButton>
+                     <MFXButton fx:id="showRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Show Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                        <font>
+                           <Font name="Times New Roman" size="19.0" />
+                        </font>
+                     </MFXButton>
+                     <MFXButton fx:id="editMapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Edit Map" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                         <font>
                            <Font name="Times New Roman" size="19.0" />
                         </font>
