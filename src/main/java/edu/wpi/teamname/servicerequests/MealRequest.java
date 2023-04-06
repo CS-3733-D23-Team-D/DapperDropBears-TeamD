@@ -17,8 +17,19 @@ public class MealRequest extends ServiceRequest {
       String staffName,
       String patientName,
       String roomNumber,
+      LocalDateTime deliverBy,
+      Status status) {
+    super(requestID, staffName, patientName, roomNumber, deliverBy, status);
+    meals = new ArrayList<Meal>();
+  }
+
+  public MealRequest(
+      int requestID,
+      String staffName,
+      String patientName,
+      String roomNumber,
       LocalDateTime deliverBy) {
-    super(requestID, staffName, patientName, roomNumber, deliverBy);
+    super(requestID, staffName, patientName, roomNumber, deliverBy, Status.BLANK);
     meals = new ArrayList<Meal>();
   }
 
@@ -151,7 +162,7 @@ public class MealRequest extends ServiceRequest {
     try {
       query =
           "INSERT INTO \"ServiceRequest\" "
-              + "(\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\") "
+              + "(\"requestID\", \"roomNum\", \"staffName\", \"patientName\", \"requestedAt\", \"deliverBy\", \"status\") "
               + "VALUES ('"
               + this.getRequestID()
               + "', '"
@@ -164,7 +175,9 @@ public class MealRequest extends ServiceRequest {
               + toDate(this.getRequestedAt())
               + ", "
               + toDate(this.getDeliverBy())
-              + ")";
+              + ", '"
+              + this.getStatus().getStatusString()
+              + "')";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();
       connection.close();

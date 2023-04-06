@@ -1174,6 +1174,5 @@ public class DataManager {
           break;
       }
     }
-
   }
 }
