@@ -2,27 +2,27 @@ package edu.wpi.teamname.navigation;
 
 import java.io.*;
 import java.util.*;
-import java.util.Scanner;
 import lombok.Getter;
 
 public class Pathfinding {
   private static List<Node> Nodes = new ArrayList<Node>();
   private static List<Edge> Edges = new ArrayList<Edge>();
-  private static ArrayList<String> linesOfNodeInfo = new ArrayList<String>();
-  private static ArrayList<String> linesOfEdgeInfo = new ArrayList<String>();
-  private static String NodesFile =
-      "/Users/ryan/Documents/GitHub/DapperDropBears-TeamD/src/main/java/edu/wpi/teamname/navigation/Node.csv";
-  private static String EdgesFile =
-      "/Users/ryan/Documents/GitHub/DapperDropBears-TeamD/src/main/java/edu/wpi/teamname/navigation/Edge.csv";
+  //  private static ArrayList<String> linesOfNodeInfo = new ArrayList<String>();
+  //  private static ArrayList<String> linesOfEdgeInfo = new ArrayList<String>();
+  //  private static String NodesFile =
+  //
+  // "/Users/ryan/Documents/GitHub/DapperDropBears-TeamD/src/main/java/edu/wpi/teamname/navigation/Node.csv";
+  //  private static String EdgesFile =
+  //
+  // "/Users/ryan/Documents/GitHub/DapperDropBears-TeamD/src/main/java/edu/wpi/teamname/navigation/Edge.csv";
 
   @Getter private Graph graph;
 
   @Getter private AStar aStar;
 
   public Pathfinding() throws Exception {
-    initializeNodes(ReadCsvLines(NodesFile));
-    initializeEdges(ReadCsvLines(EdgesFile));
-  public static void main(String[] args) throws Exception {
+    // initializeNodes(ReadCsvLines(NodesFile));
+    // initializeEdges(ReadCsvLines(EdgesFile));
     ArrayList<Node> listOfNodes = Node.getAllNodes();
     ArrayList<Edge> listOfEdges = Edge.getAllEdges();
 
@@ -37,45 +37,45 @@ public class Pathfinding {
     initializeNodes(listOfNodes);
     initializeEdges(listOfEdges);
 
-    boolean flag = true;
-    boolean flagt = true;
-
-    int startNodeID = 0;
-    int endNodeID = 0;
-
-    Scanner sc = new Scanner(System.in); // System.in is a standard input stream
-
-    while (flag) {
-
-      System.out.print("Enter Start NodeID: ");
-      startNodeID = sc.nextInt();
-
-      if (startNodeID < 100 || startNodeID > 3000 || startNodeID % 5 != 0) {
-        System.out.println("Not an acceptable start node. Please run program to try again.");
-        // System.exit(0);
-      } else {
-        flag = false;
-      }
-    }
-
-    while (flagt) {
-
-      System.out.print("Enter End NodeID: ");
-      endNodeID = sc.nextInt();
-
-      if (endNodeID < 100 || endNodeID > 3000 || endNodeID % 5 != 0) {
-        System.out.println("Not an acceptable end node. Please run program to try again.");
-        // System.exit(0);
-      } else {
-        flagt = false;
-      }
-    }
+    //    boolean flag = true;
+    //    boolean flagt = true;
+    // Commented for now
+    //    int startNodeID = 0;
+    //    int endNodeID = 0;
+    //
+    //    Scanner sc = new Scanner(System.in); // System.in is a standard input stream
+    //
+    //    while (flag) {
+    //
+    //      System.out.print("Enter Start NodeID: ");
+    //      startNodeID = sc.nextInt();
+    //
+    //      if (startNodeID < 100 || startNodeID > 3000 || startNodeID % 5 != 0) {
+    //        System.out.println("Not an acceptable start node. Please run program to try again.");
+    //        // System.exit(0);
+    //      } else {
+    //        flag = false;
+    //      }
+    //    }
+    //
+    //    while (flagt) {
+    //
+    //      System.out.print("Enter End NodeID: ");
+    //      endNodeID = sc.nextInt();
+    //
+    //      if (endNodeID < 100 || endNodeID > 3000 || endNodeID % 5 != 0) {
+    //        System.out.println("Not an acceptable end node. Please run program to try again.");
+    //        // System.exit(0);
+    //      } else {
+    //        flagt = false;
+    //      }
+    //    }
     graph = new Graph(Nodes, Edges);
 
-    //    graph.setStart(graph.getNodes().get(0));
-    //    graph.setTarget(graph.getNodes().get(100));
-    //    AStar.aStar(graph);
-    //    AStar.printPath(graph.getTarget());
+    //        graph.setStart(graph.getNodes().get(0));
+    //        graph.setTarget(graph.getNodes().get(100));
+    //        AStar.aStar(graph);
+    //        AStar.printPath(graph.getTarget());
   }
 
   //  public static ArrayList<String> ReadCsvLines(String filename) throws Exception {
@@ -94,19 +94,20 @@ public class Pathfinding {
   //  }
 
   // Method to convert node data to string
-  public static String nodeToString(Node n) {
-    String nodeInfo = "";
-    nodeInfo =
-        n.getId() + "," + n.getX() + "," + n.getY() + "," + n.getFloor() + "," + n.getBuilding();
-    return nodeInfo;
-  }
-
-  // Method to convert edge data to string
-  public static String edgeToString(Edge e) {
-    String edgeInfo = "";
-    edgeInfo = e.getStartNodeID() + "," + e.getEndNodeID();
-    return edgeInfo;
-  }
+  //  public static String nodeToString(Node n) {
+  //    String nodeInfo = "";
+  //    nodeInfo =
+  //        n.getId() + "," + n.getX() + "," + n.getY() + "," + n.getFloor() + "," +
+  // n.getBuilding();
+  //    return nodeInfo;
+  //  }
+  //
+  //  // Method to convert edge data to string
+  //  public static String edgeToString(Edge e) {
+  //    String edgeInfo = "";
+  //    edgeInfo = e.getStartNodeID() + "," + e.getEndNodeID();
+  //    return edgeInfo;
+  //  }
 
   // Taking strings, parse the data coming from
   public static void initializeNodes(ArrayList<Node> NodeLines) {
