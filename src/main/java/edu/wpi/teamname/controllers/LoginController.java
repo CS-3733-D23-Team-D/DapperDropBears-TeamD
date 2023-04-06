@@ -26,6 +26,13 @@ public class LoginController {
   @FXML TextField loginText;
   @FXML PasswordField passwordText;
 
+  @FXML MFXButton homeButton;
+  @FXML MFXButton helpButton;
+  @FXML MFXButton mapButton;
+  @FXML MFXButton directionButton;
+  @FXML MFXButton serviceRequestsButton;
+  @FXML MFXButton exitButton;
+
   /**
    * controls when a user presses the login button, which is only enabled when the username and
    * password have been filled in exits and then navigates to the home page, as a logged in user
@@ -97,6 +104,10 @@ public class LoginController {
             throw new RuntimeException(e);
           }
         });
+    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    exitButton.setOnMouseClicked(event -> System.exit(0));
   }
 
   /**
