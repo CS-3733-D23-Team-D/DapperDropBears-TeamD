@@ -1,7 +1,6 @@
 package edu.wpi.teamname.servicerequests;
 
 import edu.wpi.teamname.database.DatabaseConnection;
-import edu.wpi.teamname.database.ItemsOrdered;
 import edu.wpi.teamname.navigation.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +25,24 @@ public class ServiceRequest {
   @Setter @Getter private LocalDateTime deliverBy;
   @Setter @Getter private LocalDateTime requestedAt;
 
+  @Setter @Getter private Status status;
+
+  public ServiceRequest(
+      int requestID,
+      String staffName,
+      String patientName,
+      String roomNumber,
+      LocalDateTime deliverBy,
+      Status status) {
+    this.requestID = requestID;
+    this.staffName = staffName;
+    this.patientName = patientName;
+    this.roomNumber = roomNumber;
+    this.deliverBy = deliverBy;
+    requestedAt = LocalDateTime.now();
+    this.status = status;
+  }
+
   public ServiceRequest(
       int requestID,
       String staffName,
@@ -38,6 +55,7 @@ public class ServiceRequest {
     this.roomNumber = roomNumber;
     this.deliverBy = deliverBy;
     requestedAt = LocalDateTime.now();
+    this.status = Status.BLANK;
   }
 
   public ServiceRequest(
@@ -46,13 +64,15 @@ public class ServiceRequest {
       String patientName,
       String roomNumber,
       LocalDateTime deliverBy,
-      LocalDateTime requestedAt) {
+      LocalDateTime requestedAt,
+      Status status) {
     this.requestID = requestID;
     this.staffName = staffName;
     this.patientName = patientName;
     this.roomNumber = roomNumber;
     this.deliverBy = deliverBy;
     this.requestedAt = requestedAt;
+    this.status = status;
   }
 
   public ServiceRequest() {
@@ -179,7 +199,8 @@ public class ServiceRequest {
                 rs.getString("patientName"),
                 rs.getString("roomNum"),
                 rs.getTimestamp("deliverBy").toLocalDateTime(),
-                rs.getTimestamp("requestedAt").toLocalDateTime());
+                rs.getTimestamp("requestedAt").toLocalDateTime(),
+                Status.valueOf(rs.getString("status")));
         list.add(sr);
       }
       connection.close();

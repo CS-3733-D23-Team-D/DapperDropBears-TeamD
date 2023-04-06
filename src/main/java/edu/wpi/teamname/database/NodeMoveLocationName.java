@@ -41,9 +41,9 @@ public class NodeMoveLocationName {
   }
 
   /**
-   * Retrieves all NodeMoveLocationName objects from the "Move" database table and returns them as
-   * an ArrayList. Each Move object is created using the data retrieved from the "nodeID,"
-   * "longName," and "date" columns of the table.
+   * Retrieves all NodeMoveLocationName objects by querying from the "Move", "LocationName" and
+   * "Node" database table and returns them as an ArrayList. Each NodeMoveLocationName object is
+   * created by joining the database tables on nodeID and longName"
    *
    * @return an ArrayList of Move objects containing all the data from the "Move" table
    * @throws SQLException if an error occurs while attempting to retrieve data from the database
@@ -94,6 +94,7 @@ public class NodeMoveLocationName {
   }
 
   public String toString() {
-    return nodeID + " " + longName + " " + date;
+    return "[" + nodeID + ", " + xcoord + ", " + ycoord + ", " + floor + ", " + building + ", "
+        + longName + ", " + shortName + ", " + nodeType + ", " + date + "]";
   }
 }
