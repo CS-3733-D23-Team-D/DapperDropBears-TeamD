@@ -22,8 +22,8 @@ public class MealRequest extends ServiceRequest {
     meals = new ArrayList<Meal>();
   }
 
-  /***
-   * Adds the given meal into the request's list
+  /**
+   * * Adds the given meal into the request's list
    *
    * @param meal the meal to be added
    */
@@ -50,7 +50,6 @@ public class MealRequest extends ServiceRequest {
     }
   }
 
-
   /**
    * Queries and gets an array list of all the flower ids
    *
@@ -75,8 +74,8 @@ public class MealRequest extends ServiceRequest {
     return output;
   }
 
-  /***
-   * Queries and gets an array list of all the meal name
+  /**
+   * * Queries and gets an array list of all the meal name
    *
    * @return an array list of all the meal name
    * @throws SQLException

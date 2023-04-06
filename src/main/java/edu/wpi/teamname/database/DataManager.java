@@ -188,9 +188,9 @@ public class DataManager {
 
       while (rs.next()) {
         ret.add(
-                new Point2D(
-                        Integer.parseInt(rs.getString("xcoord")),
-                        Integer.parseInt(rs.getString("ycoord"))));
+            new Point2D(
+                Integer.parseInt(rs.getString("xcoord")),
+                Integer.parseInt(rs.getString("ycoord"))));
         /*System.out.print("[NodeID: " + rs.getInt("nodeID") + "], ");
         System.out.print("[XCord: " + rs.getString("xcoord") + "], ");
         System.out.print("[YCord: " + rs.getString("ycoord") + "], ");

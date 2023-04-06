@@ -33,7 +33,8 @@ public class Move {
 
   /**
    * Retrieves all Move objects from the "Move" database table and returns them as an ArrayList.
-   * Each Move object is created using the data retrieved from the "nodeID," "longName," and "date" columns of the table.
+   * Each Move object is created using the data retrieved from the "nodeID," "longName," and "date"
+   * columns of the table.
    *
    * @return an ArrayList of Move objects containing all the data from the "Move" table
    * @throws SQLException if an error occurs while attempting to retrieve data from the database
@@ -47,11 +48,7 @@ public class Move {
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
-        Move ln =
-                new Move(
-                        rs.getInt("nodeID"),
-                        rs.getString("longName"),
-                        rs.getDate("date"));
+        Move ln = new Move(rs.getInt("nodeID"), rs.getString("longName"), rs.getDate("date"));
         list.add(ln);
       }
       connection.close();
