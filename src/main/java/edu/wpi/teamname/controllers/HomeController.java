@@ -41,7 +41,7 @@ public class HomeController {
     // this allows for the image to stay at the same size of the rootPane, which is the parent pane
     // of the Home.fxml
 
-    // Param is EventHandeler
+    // Param is EventHandler
     // Lambda Expression. parameter -> expression
     // Basically just runs the Navigation.navigate Function
     // "event" is a parameter, but there is no

@@ -26,6 +26,8 @@ public class MapEditController {
   @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
   @FXML MFXButton backButton;
+
+  //import and export CSV buttons
   @FXML MFXButton importNode;
   @FXML MFXButton exportNode;
   @FXML MFXButton exportMove;
@@ -96,6 +98,9 @@ public class MapEditController {
     editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exitButton.setOnMouseClicked(event -> System.exit(0));
+
+    //Code to Export and Import CSV, need to get file reference names and plug them in
+
     // exportNode.setOnMouseClicked(event ->
     // DataManager.uploadNodeToPostgreSQL(DataManager.importCSV(), connection));
     // exportEdge.setOnMouseClicked(event ->
