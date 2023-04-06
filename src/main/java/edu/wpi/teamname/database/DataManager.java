@@ -64,17 +64,15 @@ public class DataManager {
       throws SQLException {
 
     try (connection) {
-      String query =
-          "INSERT INTO \"Edge\" (\"edgeID\", \"startNode\", \"endNode\") " + "VALUES (?, ?, ?)";
+      String query = "INSERT INTO \"Edge\" (\"startNode\", \"endNode\") " + "VALUES (?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Edge\";");
       statement.executeUpdate();
       statement = connection.prepareStatement(query);
 
       for (int i = 1; i < csvData.size(); i++) {
         String[] row = csvData.get(i);
-        statement.setString(1, row[0]); // edgeID is a string column
-        statement.setString(2, row[1]); // startNode is a string column
-        statement.setString(3, row[2]); // endNode is a string column
+        statement.setInt(1, Integer.parseInt(row[0])); // startNode is a int column
+        statement.setInt(2, Integer.parseInt(row[1])); // endNode is a int column
 
         statement.executeUpdate();
       }
@@ -194,9 +192,9 @@ public class DataManager {
 
       while (rs.next()) {
         ret.add(
-                new Point2D(
-                        Integer.parseInt(rs.getString("xcoord")),
-                        Integer.parseInt(rs.getString("ycoord"))));
+            new Point2D(
+                Integer.parseInt(rs.getString("xcoord")),
+                Integer.parseInt(rs.getString("ycoord"))));
         /*System.out.print("[NodeID: " + rs.getInt("nodeID") + "], ");
         System.out.print("[XCord: " + rs.getString("xcoord") + "], ");
         System.out.print("[YCord: " + rs.getString("ycoord") + "], ");
@@ -1093,6 +1091,7 @@ public class DataManager {
   }
 
   public static void main(String[] args) throws SQLException {
+
     Scanner scanner = new Scanner(System.in);
     String cvsFilePath = " ";
     boolean running = true;
@@ -1175,5 +1174,6 @@ public class DataManager {
           break;
       }
     }
+
   }
 }

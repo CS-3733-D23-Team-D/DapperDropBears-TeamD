@@ -1,8 +1,8 @@
 package edu.wpi.teamname.servicerequests;
 
-import edu.wpi.teamname.Node;
 import edu.wpi.teamname.database.DatabaseConnection;
 import edu.wpi.teamname.database.ItemsOrdered;
+import edu.wpi.teamname.navigation.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -156,10 +156,11 @@ public class ServiceRequest {
   }
 
   /**
-   * Retrieves all service requests from the "ServiceRequest" table in the database and returns them as an ArrayList of ServiceRequest objects.
+   * Retrieves all service requests from the "ServiceRequest" table in the database and returns them
+   * as an ArrayList of ServiceRequest objects.
    *
-   * @return An ArrayList of ServiceRequest objects that represent all service requests in the "ServiceRequest" table.
-   *
+   * @return An ArrayList of ServiceRequest objects that represent all service requests in the
+   *     "ServiceRequest" table.
    * @throws SQLException if a database access error occurs
    */
   public static ArrayList<ServiceRequest> getAllServiceRequests() {
@@ -189,10 +190,11 @@ public class ServiceRequest {
   }
 
   /**
-   * Retrieves all service requests from the "ItemsOrdered" table in the database and returns them as an ArrayList of ItemsOrdered objects.
+   * Retrieves all service requests from the "ItemsOrdered" table in the database and returns them
+   * as an ArrayList of ItemsOrdered objects.
    *
-   * @return An ArrayList of ItemsOrdered objects that represent all objects ordered in the "ItemsOrdered" table.
-   *
+   * @return An ArrayList of ItemsOrdered objects that represent all objects ordered in the
+   *     "ItemsOrdered" table.
    * @throws SQLException if a database access error occurs
    */
   public static ArrayList<ItemsOrdered> getAllItemsOrdered() {

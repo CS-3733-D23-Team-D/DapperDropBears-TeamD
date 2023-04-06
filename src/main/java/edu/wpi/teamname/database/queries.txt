@@ -33,7 +33,8 @@ FROM (SELECT n."longName", "shortName", n."nodeID", "nodeType", xcoord, ycoord, 
                      where "Node"."nodeID" = "Move"."nodeID") n
                WHERE "LocationName"."longName" = n."longName"
                AND date < (SELECT cast(now() AS DATE))) j
-    GROUP BY "nodeID") q;
+    GROUP BY "nodeID") q
+where q."nodeID" = w."nodeID";
 
 --Gets up to date info by locationName
 SELECT DISTINCT w."nodeID", w."longName", "shortName", "nodeType", xcoord, ycoord, building, floor, date
