@@ -1167,6 +1167,5 @@ public class DataManager {
           break;
       }
     }
-
   }
 }
