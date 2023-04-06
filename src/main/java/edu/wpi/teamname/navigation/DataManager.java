@@ -1,4 +1,4 @@
-package edu.wpi.teamname.database;
+package edu.wpi.teamname.navigation;
 
 import java.io.*;
 import java.sql.*;
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import javafx.geometry.Point2D;
 
 public class DataManager {
 
@@ -150,7 +149,7 @@ public class DataManager {
 
     try (connection) {
       String query =
-          "INSERT INTO \"Node\" (\"nodeID\", xcoord, ycoord, floor, building) "
+          "INSERT INTO \"Node\" (\"nodeID\", xcoord, ycoord, floor, building,) "
               + "VALUES (?, ?, ?, ?, ?)";
       PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE \"Node\";");
       statement.executeUpdate();
@@ -158,7 +157,7 @@ public class DataManager {
 
       for (int i = 1; i < csvData.size(); i++) {
         String[] row = csvData.get(i);
-        statement.setInt(1, Integer.parseInt(row[0])); // nodeID is a string column
+        statement.setString(1, row[0]); // nodeID is a string column
         statement.setInt(2, Integer.parseInt(row[1])); // xcoord is an integer column
         statement.setInt(3, Integer.parseInt(row[2])); // ycoord is an integer column
         statement.setString(4, row[3]); // assuming floor is a string column
@@ -179,29 +178,23 @@ public class DataManager {
    * @param connection a Connection object to connect to the PostgreSQL database
    * @throws SQLException if an error occurs while displaying the data
    */
-  public static ArrayList<Point2D> displayNodesByFloor(Connection connection, String floor) {
+  public static void displayNodesByFloor(Connection connection, String floor) {
     String query = "SELECT * FROM \"Node\" WHERE floor = ?";
-    ArrayList<Point2D> ret = new ArrayList<Point2D>();
     try (PreparedStatement statement = connection.prepareStatement(query)) {
       statement.setString(1, floor);
       ResultSet rs = statement.executeQuery();
 
       while (rs.next()) {
-        ret.add(
-                new Point2D(
-                        Integer.parseInt(rs.getString("xcoord")),
-                        Integer.parseInt(rs.getString("ycoord"))));
-        /*System.out.print("[NodeID: " + rs.getInt("nodeID") + "], ");
+        System.out.print("[NodeID: " + rs.getInt("nodeID") + "], ");
         System.out.print("[XCord: " + rs.getString("xcoord") + "], ");
         System.out.print("[YCord: " + rs.getString("ycoord") + "], ");
         System.out.print("[Floor: " + rs.getString("floor") + "], ");
         System.out.print("[Building: " + rs.getString("building") + "]");
-        System.out.println();*/
+        System.out.println();
       }
     } catch (SQLException ex) {
       throw new RuntimeException(ex);
     }
-    return ret;
   }
 
   /**
@@ -342,14 +335,6 @@ public class DataManager {
       displayNodeInfo(connection);
     }
   }
-
-  /*public static void displayServiceRequests() throws SQLException {
-    DatabaseConnection dbc = new DatabaseConnection();
-    Connection connection = dbc.DbConnection();
-
-    String query = "SELECT "
-  }*/
-
   /**
    * Displays the edge information from the "Edge" table in the PostgreSQL database.
    *
@@ -990,6 +975,38 @@ public class DataManager {
     }
   }
 
+  /**
+   * Executes an SQL command on the provided database connection.
+   *
+   * @param connection the database connection to use for executing the command
+   * @throws SQLException if there is an error executing the SQL command
+   */
+  public static void runQuery(Connection connection) throws SQLException {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print(
+        "Enter the SQL you want to run (Put quotes around table names, single quotes around data points): ");
+    String query = scanner.nextLine();
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      ResultSetMetaData rsmd = rs.getMetaData();
+      int colNum = rsmd.getColumnCount();
+      while (rs.next()) {
+        for (int i = 1; i <= colNum; i++) {
+          if (i > 1) {
+            System.out.print(",\t");
+          }
+          String colVal = rs.getString(i);
+          System.out.print(colVal + " " + rsmd.getColumnName(i));
+        }
+        System.out.println("");
+      }
+      System.out.println("Query successfully run");
+    } catch (SQLException e) {
+      System.out.println("Query failed: " + e.getMessage());
+      throw e;
+    }
+  }
+
   public static void Login() throws SQLException {
     Scanner scan = new Scanner(System.in);
     System.out.println("Type 1 to Login, 2 to create account, 3 reset password");
@@ -1140,7 +1157,7 @@ public class DataManager {
           break;
         case "9":
         case "sql":
-          // runQuery(connection);
+          runQuery(connection);
           break;
         case "10":
           moveNode(connection);

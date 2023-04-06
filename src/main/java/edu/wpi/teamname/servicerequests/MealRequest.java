@@ -197,10 +197,12 @@ public class MealRequest extends ServiceRequest {
 
         statement = connection.prepareStatement(query);
         statement.executeUpdate();
+
       } catch (SQLException e) {
         System.out.println(query);
         System.out.println(e.getMessage());
       }
     }
+    connection.close();
   }
 }

@@ -137,6 +137,10 @@ public class FlowerRequest extends ServiceRequest {
     return stringBuilder.toString();
   }
 
+
+
+
+
   /**
    * * Uploads this instance of a flower request and uploads its info into the ServiceRequest and
    * ItemsOrdered relatiosn
@@ -196,6 +200,7 @@ public class FlowerRequest extends ServiceRequest {
         }
         statement = connection.prepareStatement(query);
         statement.executeUpdate();
+        // System.out.println("ID: " + flowers.get(i).getFlowerID() + " - " + quantity);
       } catch (SQLException e) {
         System.out.println(query);
         System.out.println(e.getMessage());
@@ -203,8 +208,4 @@ public class FlowerRequest extends ServiceRequest {
       connection.close();
     }
   }
-
-
-
-
 }
