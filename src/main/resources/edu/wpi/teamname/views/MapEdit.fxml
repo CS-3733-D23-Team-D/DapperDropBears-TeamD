@@ -51,7 +51,7 @@
             </MFXButton>
             <MFXButton fx:id="importMove" mnemonicParsing="false" prefHeight="36.0" prefWidth="126.0" style="-fx-font-weight: BOLD;" text="Import Move">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Times New Roman" size="16.0" />
                </font>
             </MFXButton>
          </children>
