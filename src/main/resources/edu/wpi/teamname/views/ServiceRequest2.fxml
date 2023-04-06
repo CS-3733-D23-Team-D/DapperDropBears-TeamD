@@ -34,9 +34,9 @@
                         </Text>
                      </children>
                   </StackPane>
-                  <StackPane prefHeight="1000.0" prefWidth="1000.0">
+                  <StackPane prefWidth="500.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <ScrollPane prefWidth="1617.0" VBox.vgrow="ALWAYS">
                            <content>
                               <AnchorPane fx:id="formPane" minHeight="0.0" minWidth="0.0">
                                  <children>
@@ -47,21 +47,21 @@
                                                 <Font name="Times New Roman" size="32.0" />
                                              </font>
                                           </Text>
-                                          <TextField fx:id="staffName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
+                                          <TextField fx:id="staffName" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
                                           <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
                                              <font>
                                                 <Font name="Times New Roman" size="32.0" />
                                              </font>
                                           </Text>
-                                          <TextField fx:id="patientName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
+                                          <TextField fx:id="patientName" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" />
                                           <Separator prefWidth="200.0" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
                                              <font>
                                                 <Font name="Times New Roman" size="32.0" />
                                              </font>
                                           </Text>
-                                          <TextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
+                                          <TextField fx:id="roomNum" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" />
                                           <Separator prefWidth="200.0" />
                                           <GridPane hgap="10.0" vgap="25.0">
                                             <columnConstraints>
@@ -171,7 +171,7 @@
       
                      </children>
                   </StackPane>
-                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Clear">
                            <font>
