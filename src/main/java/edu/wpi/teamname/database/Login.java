@@ -40,7 +40,10 @@ public class Login {
       rs.next();
       int count = rs.getInt(1);
       if (count == 1) {
-        System.out.println("Welcome " + username + "!");
+        if (admin) {
+          System.out.println("Welcome Admin " + username + "!");
+          // Connect to UI here to tell admin is true
+        } else System.out.println("Welcome " + username + "!");
         done = true;
       } else if (count == 0) {
         System.out.println("Username or Password are incorrect.");

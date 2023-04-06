@@ -48,8 +48,12 @@ public class App extends Application {
     primaryStage.setScene(scene);
     // starts the app in fullscreen mode
     //    primaryStage.setFullScreen(true);
+    primaryStage.setWidth(960);
+    primaryStage.setHeight(540);
     // SHOW the windwow
     primaryStage.show();
+
+    primaryStage.setFullScreen(true);
 
     // Homemade Navigation Class with Homemade Enum Screen
     Navigation.navigate(Screen.HOME);

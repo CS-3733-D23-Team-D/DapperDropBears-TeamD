@@ -79,6 +79,24 @@ public class ServiceRequest {
       return value;
     }
   }
+  /*public void addItem(String item) {
+    RequestItem reqestItem = new RequestItem(item, 0.0);
+    this.requestItems.add(reqestItem);
+  }*/
+
+  /*public String getRequestInfo() {
+    String returnStr = "This Request has %s deliver (%s) to %s on %s. Notes %s";
+
+    String requestStr = "";
+
+    for (int i = 0; i < requestItems.size(); i++) {
+      requestStr += requestItems.get(i);
+      if (i != (requestItems.size() - 1)) {
+        requestStr += " and ";
+      }
+    }
+    return returnStr;
+  }*/
 
   /**
    * * Converts a LocalDateTime object to a String with the TO_TIMESTAMP SQL command Essentially
@@ -137,6 +155,13 @@ public class ServiceRequest {
     }
   }
 
+  /**
+   * Retrieves all service requests from the "ServiceRequest" table in the database and returns them as an ArrayList of ServiceRequest objects.
+   *
+   * @return An ArrayList of ServiceRequest objects that represent all service requests in the "ServiceRequest" table.
+   *
+   * @throws SQLException if a database access error occurs
+   */
   public static ArrayList<ServiceRequest> getAllServiceRequests() {
     ArrayList<ServiceRequest> list = new ArrayList<ServiceRequest>();
     DatabaseConnection dbc = new DatabaseConnection();
@@ -163,6 +188,13 @@ public class ServiceRequest {
     return list;
   }
 
+  /**
+   * Retrieves all service requests from the "ItemsOrdered" table in the database and returns them as an ArrayList of ItemsOrdered objects.
+   *
+   * @return An ArrayList of ItemsOrdered objects that represent all objects ordered in the "ItemsOrdered" table.
+   *
+   * @throws SQLException if a database access error occurs
+   */
   public static ArrayList<ItemsOrdered> getAllItemsOrdered() {
     ArrayList<ItemsOrdered> list = new ArrayList<ItemsOrdered>();
     DatabaseConnection dbc = new DatabaseConnection();
@@ -183,6 +215,24 @@ public class ServiceRequest {
     return list;
   }
 
+  public void addItem(int id) throws SQLException {};
+
+  public void clearItems() {};
+
+  public void uploadRequestToDatabase() throws SQLException {};
+
+  public ArrayList<Integer> getAllIDs() throws SQLException {
+    return new ArrayList<Integer>();
+  };
+
+  public ArrayList<String> getAllNames() throws SQLException {
+    return new ArrayList<String>();
+  };
+
+  /*public void addItem(String item) {
+    RequestItem reqestItem = new RequestItem(item, 0.0);
+    this.requestItems.add(reqestItem);
+  }*/
   /*public String getRequestInfo() {
       String returnStr = "This Request has %s deliver (%s) to %s on %s. Notes %s";
 

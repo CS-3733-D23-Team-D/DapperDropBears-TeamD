@@ -16,4 +16,13 @@ public class Move {
     this.longName = longName;
     this.date = date;
   }
+
+  public boolean swapNodes(String swapNodeID) {
+    boolean done = false;
+    // Swap nodeID in node
+    // Swap startNodes with eachother, and end nodes with eachother in edge
+    // using
+
+    return done;
+  }
 }
