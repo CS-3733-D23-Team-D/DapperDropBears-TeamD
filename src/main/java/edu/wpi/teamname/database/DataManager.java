@@ -463,20 +463,20 @@ public class DataManager {
    *
    * @param connection a Connection object representing the connection to the PostgreSQL database
    */
-  public static void exportData(Connection connection) throws SQLException {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Enter the file path for the CSV export: ");
-    String cvsFilePath = scanner.nextLine();
-    System.out.println(
-        "Press 0 for Node export"
-            + "\npress 1 for Edge export"
-            + "\npress 2 for LocationName export"
-            + "\npress 3 for Move export");
-    int userChoice = scanner.nextInt();
+  public static void exportData(int type, String file, Connection connection) throws SQLException {
+    // Scanner scanner = new Scanner(System.in);
+    // System.out.print("Enter the file path for the CSV export: ");
+    String cvsFilePath = file;
+    // System.out.println(
+    // "Press 0 for Node export"
+    //  + "\npress 1 for Edge export"
+    // + "\npress 2 for LocationName export"
+    //  + "\npress 3 for Move export");
+    int userChoice = type;
 
     if (userChoice == 1) {
       try (connection) {
-        System.out.println("You chose edge export");
+        // System.out.println("You chose edge export");
         String q = String.format("SELECT * FROM \"Edge\"");
         PreparedStatement state = connection.prepareStatement(q);
         ResultSet rs = state.executeQuery();
@@ -610,7 +610,6 @@ public class DataManager {
       }
     } else {
       System.out.printf("Input not recognized. Please only input 1,2,3,or 0");
-      exportData(connection);
     }
   }
 

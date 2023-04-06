@@ -59,7 +59,7 @@ public class ServiceRequestController {
   @FXML AnchorPane formAnchor;
   @FXML AnchorPane formPane;
   // Form fields
-  @FXML TextField staffName;
+  // @FXML TextField staffName;
   @FXML TextField patientName;
   @FXML TextField roomNum;
   @FXML DatePicker dateBox;
@@ -120,7 +120,7 @@ public class ServiceRequestController {
         setRequest(
             new MealRequest(
                 Instant.now().get(ChronoField.MICRO_OF_SECOND),
-                staffName.toString(),
+                "",
                 patientName.toString(),
                 roomNum.toString(),
                 reqDateTime));
@@ -129,7 +129,7 @@ public class ServiceRequestController {
         setRequest(
             new FlowerRequest(
                 Instant.now().get(ChronoField.MICRO_OF_SECOND),
-                staffName.toString(),
+                "",
                 patientName.toString(),
                 roomNum.toString(),
                 reqDateTime));
@@ -140,9 +140,11 @@ public class ServiceRequestController {
       itemNames = request.getAllNames();
       itemIDs = request.getAllIDs();
       for (int a = 0; a < itemIDs.size(); a++) {
-        itemBox
-            .getChildren()
-            .add(new RequestMenuItem(itemNames.get(a), itemIDs.get(a), folder, getRequest()));
+        if (a < 4) {
+          itemBox
+              .getChildren()
+              .add(new RequestMenuItem(itemNames.get(a), itemIDs.get(a), folder, getRequest()));
+        }
       }
 
       itemBox.setFillWidth(true);
@@ -151,7 +153,6 @@ public class ServiceRequestController {
 
       requestPage = 1;
 
-      request.setStaffName(staffName.getCharacters().toString());
       request.setPatientName(patientName.getCharacters().toString());
       request.setRoomNumber(roomNum.getCharacters().toString());
       // request.setDeliverBy(dateBox.getValue().atStartOfDay());
@@ -182,7 +183,7 @@ public class ServiceRequestController {
   /** Clears the service request form and currently created service request */
   private void clearAction() {
     patientName.clear();
-    staffName.clear();
+    // staffName.clear();
     roomNum.clear();
     requestType.cancelEdit();
     dateBox.cancelEdit();
@@ -247,6 +248,13 @@ public class ServiceRequestController {
     timeBox.setItems(timeValues);
 
     nextButton.setText("Next");
+
+    // mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    exitButton.setOnMouseClicked(event -> System.exit(0));
+
     nextButton.setOnMouseClicked(
         event -> {
           try {
