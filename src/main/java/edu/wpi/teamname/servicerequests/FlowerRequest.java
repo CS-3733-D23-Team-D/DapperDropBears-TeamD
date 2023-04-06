@@ -31,6 +31,16 @@ public class FlowerRequest extends ServiceRequest {
     flowers.add(flower);
   }
 
+  @Override
+  public void addItem(int id) throws SQLException {
+    addFlower(new Flower(id));
+  }
+
+  @Override
+  public void clearItems() {
+    flowers.clear();
+  }
+
   /**
    * * Removes an instance of a flower from the requests
    *
@@ -93,12 +103,47 @@ public class FlowerRequest extends ServiceRequest {
     return output;
   }
 
+  @Override
+  public ArrayList<String> getAllNames() throws SQLException {
+    return getAllFlowerNames();
+  }
+
+  @Override
+  public ArrayList<Integer> getAllIDs() throws SQLException {
+    return getAllFlowerIDs();
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append("Order Details:");
+    stringBuilder.append("\nRequest ID: ");
+    stringBuilder.append(getRequestID());
+    stringBuilder.append("\nStaff Name: ");
+    stringBuilder.append(getStaffName());
+    stringBuilder.append("\nPatient Name: ");
+    stringBuilder.append(getPatientName());
+    stringBuilder.append("\nRoom Number: ");
+    stringBuilder.append(getRoomNumber());
+    stringBuilder.append("\nRequest Created: ");
+    stringBuilder.append(getRequestedAt().toString());
+    stringBuilder.append("\nRequested Delivery: ");
+    stringBuilder.append(getDeliverBy().toString());
+    stringBuilder.append("\nFlowers Requsted: ");
+    for (Flower flower : flowers) {
+      stringBuilder.append("\n");
+      stringBuilder.append(flower.getName().replace("_", " "));
+    }
+    return stringBuilder.toString();
+  }
+
   /**
    * * Uploads this instance of a flower request and uploads its info into the ServiceRequest and
-   * ItemsOrdered relation
+   * ItemsOrdered relatiosn
    *
    * @throws SQLException
    */
+  @Override
   public void uploadRequestToDatabase() throws SQLException {
     DatabaseConnection dbc = new DatabaseConnection();
     Connection connection = dbc.DbConnection();

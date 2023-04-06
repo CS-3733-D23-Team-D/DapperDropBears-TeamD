@@ -20,7 +20,7 @@
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </MFXButton>
-            <MFXButton buttonType="RAISED" prefHeight="44.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Export CSV">
+            <MFXButton fx:id="exportCSV" buttonType="RAISED" prefHeight="44.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Export CSV">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
@@ -72,6 +72,6 @@
             </ToolBar>
          </children>
       </VBox>
-      <TableView prefHeight="646.0" prefWidth="672.0" />
+      <TableView fx:id="table" prefHeight="646.0" prefWidth="672.0" />
    </children>
 </AnchorPane>

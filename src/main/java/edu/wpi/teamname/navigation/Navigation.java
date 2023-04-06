@@ -15,7 +15,7 @@ public class Navigation {
       final FXMLLoader loader = new FXMLLoader(resource);
 
       // getter
-      // Put the correspoing screen XML file in the center of the border ui element.
+      // Put the corresponding screen XML file in the center of the border ui element.
       App.getRootPane().setCenter(loader.load());
     } catch (IOException | NullPointerException e) {
       e.printStackTrace();

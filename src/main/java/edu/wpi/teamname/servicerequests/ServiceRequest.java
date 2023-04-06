@@ -79,6 +79,24 @@ public class ServiceRequest {
       return value;
     }
   }
+  /*public void addItem(String item) {
+    RequestItem reqestItem = new RequestItem(item, 0.0);
+    this.requestItems.add(reqestItem);
+  }*/
+
+  /*public String getRequestInfo() {
+    String returnStr = "This Request has %s deliver (%s) to %s on %s. Notes %s";
+
+    String requestStr = "";
+
+    for (int i = 0; i < requestItems.size(); i++) {
+      requestStr += requestItems.get(i);
+      if (i != (requestItems.size() - 1)) {
+        requestStr += " and ";
+      }
+    }
+    return returnStr;
+  }*/
 
   /**
    * * Converts a LocalDateTime object to a String with the TO_TIMESTAMP SQL command Essentially
@@ -183,6 +201,24 @@ public class ServiceRequest {
     return list;
   }
 
+  public void addItem(int id) throws SQLException {};
+
+  public void clearItems() {};
+
+  public void uploadRequestToDatabase() throws SQLException {};
+
+  public ArrayList<Integer> getAllIDs() throws SQLException {
+    return new ArrayList<Integer>();
+  };
+
+  public ArrayList<String> getAllNames() throws SQLException {
+    return new ArrayList<String>();
+  };
+
+  /*public void addItem(String item) {
+    RequestItem reqestItem = new RequestItem(item, 0.0);
+    this.requestItems.add(reqestItem);
+  }*/
   /*public String getRequestInfo() {
       String returnStr = "This Request has %s deliver (%s) to %s on %s. Notes %s";
 

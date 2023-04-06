@@ -1,7 +1,10 @@
 package edu.wpi.teamname.controllers;
 
+import edu.wpi.teamname.navigation.DatabaseConnection;
 import edu.wpi.teamname.navigation.Node;
+import edu.wpi.teamname.navigation.Pathfinding;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.sql.Connection;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,22 +28,20 @@ public class MapEditController {
 
   // table FXML features
   @FXML TableView table;
-  @FXML TableColumn table1;
-  @FXML TableColumn table2;
-  @FXML TableColumn table3;
-  @FXML TableColumn table4;
+  private Connection connection;
 
   public void buildNodeData() throws SQLException {
+    connection = new DatabaseConnection().DbConnection();
     table.setEditable(true);
 
     TableColumn nodeID = new TableColumn("Node ID");
-    nodeID.setCellValueFactory(new PropertyValueFactory<Node, String>("nodeID"));
+    nodeID.setCellValueFactory(new PropertyValueFactory<Node, String>("id"));
     TableColumn edgeID = new TableColumn("Edge ID");
-    edgeID.setCellValueFactory(new PropertyValueFactory<Node, String>("edgeID"));
+    edgeID.setCellValueFactory(new PropertyValueFactory<Pathfinding, String>("Edges"));
     TableColumn locationName = new TableColumn("Location Name");
     locationName.setCellValueFactory(new PropertyValueFactory<Node, String>("locationName"));
     TableColumn move = new TableColumn("Move");
-    move.setCellValueFactory(new PropertyValueFactory<Node, String>("move"));
+    move.setCellValueFactory(new PropertyValueFactory<Node, String>("Move"));
     ObservableList<Node> nodes = FXCollections.observableArrayList(Node.getAllNodes());
     table.setItems(nodes);
     table.getColumns().addAll(nodeID, edgeID, locationName, move);
@@ -62,28 +63,7 @@ public class MapEditController {
  // }
 // }
 
-  /*public static ArrayList<Node> getAllNodes() throws SQLException {
-      DatabaseConnection dbc = new DatabaseConnection();
-      Connection connection = dbc.DbConnection();
-      ArrayList<Node> list = new ArrayList<Node>();
-
-      try (connection) {
-        String query = "SELECT * FROM \"Node\"";
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery(query);
-
-        while (rs.next()) {
-          int id = rs.getInt("nodeID");
-          int xcoord = rs.getInt("xcoord");
-          int ycoord = rs.getInt("ycoord");
-          String floor = rs.getString("floor");
-          String building = rs.getString("building");
-          list.add(new Node(id, xcoord, ycoord, floor, building));
-        }
-      }
-      return list;
-    }
-
+  /*
   public void buildData() {
       table.setEditable(true);
 
