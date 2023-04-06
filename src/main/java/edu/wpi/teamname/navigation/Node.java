@@ -126,6 +126,14 @@ public class Node implements Comparable<Node> {
     return id;
   }
 
+  public String getFloor() {
+    return floor;
+  }
+
+  public String getBuilding() {
+    return building;
+  }
+
   public String toString() {
     String nei = "";
     for (Node n : neighbors) {
