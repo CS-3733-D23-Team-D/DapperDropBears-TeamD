@@ -91,7 +91,7 @@ public class ServiceRequest {
     try {
       String query =
           "UPDATE \"ServiceRequest\" SET "
-              + "(\"staffName\") = '"
+              + "\"staffName\" = '"
               + staffName
               + "' WHERE \"requestID\" = "
               + requestID;
