@@ -1086,6 +1086,7 @@ public class DataManager {
   }
 
   public static void main(String[] args) throws SQLException {
+
     Scanner scanner = new Scanner(System.in);
     String cvsFilePath = " ";
     boolean running = true;
@@ -1168,5 +1169,6 @@ public class DataManager {
           break;
       }
     }
+
   }
 }
