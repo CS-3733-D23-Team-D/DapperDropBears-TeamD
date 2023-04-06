@@ -1,0 +1,26 @@
+.body{
+
+    /*VGROW ALWAYS*/
+
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*pref-height: 100%;*/
+    /*-fx-min-width:100% ;*/
+    /*-fx-max-width: 100px;*/
+    /*-fx-background-size: 100% 100%*/
+    /*-fx-rotate: 10;*/
+
+    -fx-background-image: url("../images/00_thelowerlevel1.png");
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    /*-fx-background-position: -2500px -1700px;!* where the top left goes *!*/
+    -fx-background-repeat: no-repeat;
+    /*-fx-background-width: 5000px*/
+    /*3400px;*/
+    -fx-background-size: 5000px 3400px;
+    /*-fx-background*/
+
+}
+.nothing{
+
+}

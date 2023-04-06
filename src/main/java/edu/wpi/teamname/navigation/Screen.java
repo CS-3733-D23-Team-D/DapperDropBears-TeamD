@@ -5,8 +5,9 @@ public enum Screen {
   ROOT("views/Root.fxml"),
   HOME("views/Home.fxml"),
   SERVICE_REQUEST("views/ServiceRequest2.fxml"),
+  MAP("views/Map.fxml"),
 
-  //  REQ_MENU("views/ServiceRequestMenu.fxml"),
+  TEST("views/Test.fxml"),
 
   SIGNAGE("views/SignageLevels.fxml");
 
