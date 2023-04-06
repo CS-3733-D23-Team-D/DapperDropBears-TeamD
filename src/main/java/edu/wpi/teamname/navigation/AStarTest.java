@@ -2,8 +2,14 @@ package edu.wpi.teamname.navigation;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.wpi.teamname.database.DatabaseConnection;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -13,6 +19,9 @@ public class AStarTest {
 
   public static List<Node> nodes = new ArrayList<>();
   public static List<Edge> edges = new ArrayList<>();
+
+  public AStarTest() throws SQLException {
+  }
 
   public static void main(String[] args) {
     Result result = JUnitCore.runClasses(AStarTest.class);
@@ -58,6 +67,8 @@ public class AStarTest {
   //        g.setTarget(g.getNodes().get(9));
   //
   //    }
+
+
 
   public static Graph initialize() {
     Node n1 = new Node(1, 0, 0, "i", "j");
