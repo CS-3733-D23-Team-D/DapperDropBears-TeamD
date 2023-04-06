@@ -6,18 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 
 public class Move {
   @Getter @Setter private int nodeID;
   @Getter @Setter private String longName;
-  @Getter @Setter private Date date;
+  @Getter @Setter private String date;
   @Getter @Setter private Node node;
   @Getter @Setter private LocationName locationName;
 
-  public Move(int nodeID, String longName, Date date) {
+  public Move(int nodeID, String longName, String date) {
     this.nodeID = nodeID;
     this.longName = longName;
     this.date = date;
@@ -40,7 +39,7 @@ public class Move {
    * @return an ArrayList of Move objects containing all the data from the "Move" table
    * @throws SQLException if an error occurs while attempting to retrieve data from the database
    */
-  public ArrayList<Move> getAllMoveObjects() {
+  public static ArrayList<Move> getAllMoveObjects() {
     ArrayList<Move> list = new ArrayList<Move>();
     DatabaseConnection dbc = new DatabaseConnection();
     Connection connection = dbc.DbConnection();
@@ -49,7 +48,7 @@ public class Move {
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
-        Move ln = new Move(rs.getInt("nodeID"), rs.getString("longName"), rs.getDate("date"));
+        Move ln = new Move(rs.getInt("nodeID"), rs.getString("longName"), rs.getString("date"));
         list.add(ln);
       }
       connection.close();
