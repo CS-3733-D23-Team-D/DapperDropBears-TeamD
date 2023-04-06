@@ -34,14 +34,6 @@ public class ServiceRequestViewController {
   @FXML TextField nameField;
   @FXML Button submitButton;
 
-  // Side Bar
-  @FXML MFXButton homeButton;
-  @FXML MFXButton helpButton;
-  @FXML MFXButton mapButton;
-  @FXML MFXButton directionButton;
-  @FXML MFXButton serviceRequestsButton;
-  @FXML MFXButton exitButton;
-
   public void buildData() {
     table.setEditable(true);
 
@@ -96,13 +88,6 @@ public class ServiceRequestViewController {
     exitButton.setOnMouseClicked(event -> System.exit(0));
 
     buildData();
-
-    // side bar
-    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
-    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    exitButton.setOnMouseClicked(event -> System.exit(0));
-    serviceRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
 
     submitButton.setOnMouseClicked(
         event ->

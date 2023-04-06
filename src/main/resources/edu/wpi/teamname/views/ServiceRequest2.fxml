@@ -43,7 +43,7 @@
                            <content>
                               <AnchorPane fx:id="formPane" minHeight="0.0" minWidth="0.0">
                                  <children>
-                                    <VBox layoutX="1.0" layoutY="17.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+                                    <VBox layoutX="25.0" layoutY="25.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
                                              <font>
@@ -201,7 +201,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
                      <children>
                      </children></AnchorPane>
-                  <ToolBar orientation="VERTICAL" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
+                  <ToolBar orientation="VERTICAL" prefWidth="200.0" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
                      <items>
                         <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
                            <font>
@@ -247,9 +247,6 @@
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <padding>
-                        <Insets top="1.0" />
-                     </padding>
                   </ToolBar>
                </children>
             </VBox>
