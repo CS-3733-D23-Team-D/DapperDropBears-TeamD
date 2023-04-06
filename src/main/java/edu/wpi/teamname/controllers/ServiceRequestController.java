@@ -140,9 +140,11 @@ public class ServiceRequestController {
       itemNames = request.getAllNames();
       itemIDs = request.getAllIDs();
       for (int a = 0; a < itemIDs.size(); a++) {
-        itemBox
-            .getChildren()
-            .add(new RequestMenuItem(itemNames.get(a), itemIDs.get(a), folder, getRequest()));
+        if (a < 4) {
+          itemBox
+              .getChildren()
+              .add(new RequestMenuItem(itemNames.get(a), itemIDs.get(a), folder, getRequest()));
+        }
       }
 
       itemBox.setFillWidth(true);
