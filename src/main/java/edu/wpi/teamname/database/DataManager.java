@@ -12,14 +12,20 @@ public class DataManager {
 
   public static void requestService(Connection connection) {}
 
-  public static void moveNode(Connection connection) {
+  public static void moveNode(Connection connection) throws SQLException {
     Scanner scan = new Scanner(System.in);
     boolean moving = true;
     while (moving) {
       System.out.println("What node would you like to move? ");
       int moveNode = scan.nextInt();
+      String moveLongName = "";
       System.out.println("To which node would you like to switch it with?");
       int switchNode = scan.nextInt();
+      String switchLongName = "";
+      String date = "";
+
+      Move move = new Move(moveNode, moveLongName, date);
+      move.swapNodes(switchNode,switchLongName, connection);
       //
     }
   }

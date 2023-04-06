@@ -12,11 +12,11 @@ import lombok.Setter;
 public class Move {
   @Getter @Setter private int nodeID;
   @Getter @Setter private String longName;
-  @Getter @Setter private Date date;
+  @Getter @Setter private String date;
   @Getter @Setter private Node node;
   @Getter @Setter private LocationName locationName;
 
-  public Move(int nodeID, String longName, Date date) {
+  public Move(int nodeID, String longName, String date) {
     this.nodeID = nodeID;
     this.longName = longName;
     this.date = date;
@@ -29,8 +29,38 @@ public class Move {
    * @param swapNodeID
    * @return Boolean
    */
-  public boolean swapNodes(String swapNodeID, String swapLongName) {
+  public boolean swapNodes(int swapNodeID, String swapLongName, Connection connection) throws SQLException {
     boolean done = false;
+
+    //A starting node, B is node being swapped with
+
+    //rowAlocN = select longName from LocationName where longName = longName
+    //rowBlocN = select longName from LocationName where longName = swapLongName
+    //rowAnode = select floor, building from Node where nodeID = nodeID
+    //rowBnode = select floor, building from Node where nodeID = swapNodeID
+
+    //put rowAlocN where longName = swapLongName
+    //put rowAnode where nodeID = swapNodeID
+    //insert nodeID, longName, date into Move
+
+    //put rowBnode where nodeID = nodeID
+    //put rowBlocN where longName = longName
+    //insert swapNodeID, swapLongName, date into Move
+
+    String query = "";
+
+    try (PreparedStatement pstmtUpdate = connection.prepareStatement(query)) {
+      int rowsUpdated = pstmtUpdate.executeUpdate();
+      if (rowsUpdated > 0) {
+        System.out.println("successfully updated");
+      } else {
+        System.out.println("not updated");
+      }
+    } catch (SQLException e2) {
+      System.out.println("Error updating LocationName record for node ID " + nodeID);
+      throw e2;
+    }
+
     // Swap nodeID in node
     // Swap this.nodeID with swapNodeID in edge table
 
@@ -57,7 +87,7 @@ public class Move {
                 new Move(
                         rs.getInt("nodeID"),
                         rs.getString("longName"),
-                        rs.getDate("date"));
+                        rs.getString("date"));
         list.add(ln);
       }
       connection.close();
