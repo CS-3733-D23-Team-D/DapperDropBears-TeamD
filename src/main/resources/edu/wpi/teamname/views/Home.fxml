@@ -72,7 +72,6 @@
                   <Font size="20.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="editTable" mnemonicParsing="false" text="Button" />
             <MFXButton fx:id="serviceRequestView" style="-fx-background-color: #70A4FF;" text="View Service Requests" StackPane.alignment="CENTER_RIGHT">
                <StackPane.margin>
                   <Insets right="20.0" top="200.0" />
@@ -93,6 +92,13 @@
                   <Font size="20.0" />
                </font>
             </Text>
+            <MFXButton fx:id="editTable" mnemonicParsing="false" prefHeight="43.0" prefWidth="195.0" style="-fx-background-color: #70A4FF;" text="Edit Map Data" StackPane.alignment="CENTER_RIGHT">
+               <StackPane.margin>
+                  <Insets right="20.0" top="300.0" />
+               </StackPane.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></MFXButton>
          </children>
       </StackPane>
    </children>

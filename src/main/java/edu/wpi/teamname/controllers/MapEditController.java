@@ -1,8 +1,10 @@
 package edu.wpi.teamname.controllers;
 
-import edu.wpi.teamname.navigation.DatabaseConnection;
-import edu.wpi.teamname.navigation.Node;
-import edu.wpi.teamname.navigation.Pathfinding;
+import edu.wpi.teamname.database.DatabaseConnection;
+import edu.wpi.teamname.database.NodeMoveLocationName;
+import edu.wpi.teamname.navigation.Edge;
+import edu.wpi.teamname.navigation.Navigation;
+import edu.wpi.teamname.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -28,6 +30,7 @@ public class MapEditController {
 
   // table FXML features
   @FXML TableView table;
+  @FXML TableView edgeTable;
   private Connection connection;
 
   public void buildNodeData() throws SQLException {
@@ -35,58 +38,62 @@ public class MapEditController {
     table.setEditable(true);
 
     TableColumn nodeID = new TableColumn("Node ID");
-    nodeID.setCellValueFactory(new PropertyValueFactory<Node, String>("id"));
-    TableColumn edgeID = new TableColumn("Edge ID");
-    edgeID.setCellValueFactory(new PropertyValueFactory<Pathfinding, String>("Edges"));
-    TableColumn locationName = new TableColumn("Location Name");
-    locationName.setCellValueFactory(new PropertyValueFactory<Node, String>("locationName"));
-    TableColumn move = new TableColumn("Move");
-    move.setCellValueFactory(new PropertyValueFactory<Node, String>("Move"));
-    ObservableList<Node> nodes = FXCollections.observableArrayList(Node.getAllNodes());
+    nodeID.setCellValueFactory(new PropertyValueFactory<NodeMoveLocationName, String>("nodeID"));
+    TableColumn xCoord = new TableColumn("x-coordinate");
+    xCoord.setCellValueFactory(new PropertyValueFactory<NodeMoveLocationName, String>("xcoord"));
+    TableColumn yCoord = new TableColumn("y-coordinate");
+    yCoord.setCellValueFactory(new PropertyValueFactory<NodeMoveLocationName, String>("ycoord"));
+    TableColumn floor = new TableColumn("Floor");
+    floor.setCellValueFactory(new PropertyValueFactory<NodeMoveLocationName, String>("floor"));
+    TableColumn building = new TableColumn("Building");
+    building.setCellValueFactory(
+        new PropertyValueFactory<NodeMoveLocationName, String>("building"));
+    TableColumn longName = new TableColumn("Long Name");
+    longName.setCellValueFactory(
+        new PropertyValueFactory<NodeMoveLocationName, String>("longName"));
+    TableColumn shortName = new TableColumn("Short Name");
+    shortName.setCellValueFactory(
+        new PropertyValueFactory<NodeMoveLocationName, String>("shortName"));
+    TableColumn nodeType = new TableColumn("Node Type");
+    nodeType.setCellValueFactory(
+        new PropertyValueFactory<NodeMoveLocationName, String>("nodeType"));
+    ObservableList<NodeMoveLocationName> nodes =
+        FXCollections.observableArrayList(NodeMoveLocationName.getAllObjects());
     table.setItems(nodes);
-    table.getColumns().addAll(nodeID, edgeID, locationName, move);
+    table
+        .getColumns()
+        .addAll(nodeID, xCoord, yCoord, floor, building, longName, shortName, nodeType);
+  }
+
+  public void buildEdgeData() throws SQLException {
+    connection = new DatabaseConnection().DbConnection();
+    edgeTable.setEditable(true);
+    TableColumn startNodeID = new TableColumn("Start Edge");
+    startNodeID.setCellValueFactory(new PropertyValueFactory<Edge, String>("startNodeID"));
+    TableColumn endNodeID = new TableColumn("End Edge");
+    endNodeID.setCellValueFactory(new PropertyValueFactory<Edge, String>("endNodeID"));
+    ObservableList<Edge> edges = FXCollections.observableArrayList(Edge.getAllEdges());
+    edgeTable.setItems(edges);
+    edgeTable.getColumns().addAll(startNodeID, endNodeID);
   }
 
   @FXML
   public void initialize() throws SQLException {
     buildNodeData();
+    buildEdgeData();
+    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    exitButton.setOnMouseClicked(event -> System.exit(0));
+    connection.close();
   }
 }
 
 // @FXML
  // public void initialize() {
    // System.out.println("Test");
-   // backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+   //
     // importCSVButton.setOnMouseClicked(event ->)    //implement arturos "getAllNodes" for node
     // column
     // exportCSVButton
  // }
 // }
-
-  /*
-  public void buildData() {
-      table.setEditable(true);
-
-      TableColumn requestID = new TableColumn("Request ID");
-      requestID.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("requestID"));
-      TableColumn roomNumber = new TableColumn("Room Number");
-      roomNumber.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("roomNumber"));
-      TableColumn staffName = new TableColumn("Staff Name");
-      staffName.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("staffName"));
-      TableColumn patientName = new TableColumn("Patient Name");
-      patientName.setCellValueFactory(
-          new PropertyValueFactory<ServiceRequest, String>("patientName"));
-      TableColumn requestedAt = new TableColumn("Request Date");
-      requestedAt.setCellValueFactory(
-          new PropertyValueFactory<ServiceRequest, String>("requestedAt"));
-      TableColumn deliverBy = new TableColumn("Deliver Date");
-      deliverBy.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("deliverBy"));
-      ObservableList<ServiceRequest> serviceRequests =
-          FXCollections.observableArrayList(ServiceRequest.getAllServiceRequests());
-      table.setItems(serviceRequests);
-      table
-          .getColumns()
-          .addAll(requestID, roomNumber, staffName, patientName, requestedAt, deliverBy);
-    }
-
-     */

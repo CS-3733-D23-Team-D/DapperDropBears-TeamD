@@ -988,15 +988,45 @@ public class DataManager {
     }
   }
 
-  public static boolean Login(String username, String password) throws SQLException {
-    Login login = new Login(username, password);
-    return login.LogInto();
+  public static void Login() throws SQLException {
+    Scanner scan = new Scanner(System.in);
+    System.out.println("Type 1 to Login, 2 to create account, 3 reset password");
+    int ans = scan.nextInt();
+    if (ans == 1) {
+      scan.nextLine();
+      System.out.println("Username: ");
+      String username = scan.nextLine();
+      System.out.println("Password: ");
+      String password = scan.nextLine();
+      Login login = new Login(username, password);
+      boolean l = login.LogInto();
+      if (!l) Login();
+    } else if (ans == 2) {
+      Login login = new Login("", "");
+      login.setLogin();
+    } else if (ans == 3) {
+      System.out.println("Username: ");
+      scan.nextLine();
+      String username = scan.nextLine();
+      Login login = new Login(username, "");
+      boolean r = Login.resetPass();
+      if (!r) Login();
+    } else {
+      System.out.println("Type 1 or 2 for login.");
+      Login();
+    }
   }
+}
 
-  public static String forgotPassword(String username) throws SQLException {
+ /* public static boolean Login(String username, String password) throws SQLException {
+   Login login = new Login(username, password);
+   return login.LogInto();
+ }*/
+
+  /*public static Boolean forgotPassword(String username) throws SQLException {
     Login login = new Login(username, "");
     return login.resetPass();
-  }
+  }*/
 
   //  public static void Login() throws SQLException {
   //    Scanner scan = new Scanner(System.in);
@@ -1043,139 +1073,146 @@ public class DataManager {
    *
    * @return void
    */
-  public static void displayHelp() {
-    System.out.println(
-        "---Help---\n"
-            + "Choose from the following commands:\n"
-            + "(1) Display node information\n"
-            + "(2) Display edge information\n"
-            + "(3) Import data from CSV file\n"
-            + "(4) Export data into CSV file\n"
-            + "(5) Update node coordinates\n"
-            + "(6) Update node name\n"
-            + "(7) Delete node\n"
-            + "(8) Delete edge\n"
-            + "(9) Run SQL query\n"
-            + "(10) Display help\n"
-            + "(11) Exit\n"
-            + "---------------------------------------------------\n"
-            + "Input the number of the command you want to execute\n"
-            + "(1) Display node information\n"
-            + "\t-Gives all of the information regarding a specific node or all nodes\n"
-            + "(2) Display edge information\n"
-            + "\t-Gives all of the information regarding a specific node\n"
-            + "(3) Import data from CSV file\n"
-            + "\t-Takes node data from a given CSV file and uploads it into the database\n"
-            + "(4) Export data into CSV file\n"
-            + "\t-Takes node data from the database and exports it into a given CSV file\n"
-            + "(5) Update node coordinates\n"
-            + "\t-Changes the coordinate of a given node to a new value\n"
-            + "(6) Update node name\n"
-            + "\t-Changes the name of a given node to a new value\n"
-            + "(7) Delete node\n"
-            + "\t-Deletes a node given its id\n"
-            + "(8) Delete edge\n"
-            + "\t-Deletes an edge given its id\n"
-            + "(9) Run SQL query\n"
-            + "\t-Will run the inputted SQL query on the database\n"
-            + "\t-Only use if you know how to use SQL\n"
-            + "\tMake sure to put quotes around table names\n"
-            + "\tand put single quotes around data points\n"
-            + "(10) Move a node"
-            + "\t-Will swap the two inputted node locations with each other"
-            + "(11) Request a service\n"
-            + "\t Request one of the services listed"
-            + "(12) Display Help\n"
-            + "\t-Displays this text\n"
-            + "(13) Login\n"
-            + "\t-Log into the app as admin or staff.\n"
-            + "(14) Exit\n"
-            + "\t-Terminates the program");
-  }
+ /* public static void displayHelp() {
+     System.out.println(
+         "---Help---\n"
+             + "Choose from the following commands:\n"
+             + "(1) Display node information\n"
+             + "(2) Display edge information\n"
+             + "(3) Import data from CSV file\n"
+             + "(4) Export data into CSV file\n"
+             + "(5) Update node coordinates\n"
+             + "(6) Update node name\n"
+             + "(7) Delete node\n"
+             + "(8) Delete edge\n"
+             + "(9) Run SQL query\n"
+             + "(10) Display help\n"
+             + "(11) Exit\n"
+             + "---------------------------------------------------\n"
+             + "Input the number of the command you want to execute\n"
+             + "(1) Display node information\n"
+             + "\t-Gives all of the information regarding a specific node or all nodes\n"
+             + "(2) Display edge information\n"
+             + "\t-Gives all of the information regarding a specific node\n"
+             + "(3) Import data from CSV file\n"
+             + "\t-Takes node data from a given CSV file and uploads it into the database\n"
+             + "(4) Export data into CSV file\n"
+             + "\t-Takes node data from the database and exports it into a given CSV file\n"
+             + "(5) Update node coordinates\n"
+             + "\t-Changes the coordinate of a given node to a new value\n"
+             + "(6) Update node name\n"
+             + "\t-Changes the name of a given node to a new value\n"
+             + "(7) Delete node\n"
+             + "\t-Deletes a node given its id\n"
+             + "(8) Delete edge\n"
+             + "\t-Deletes an edge given its id\n"
+             + "(9) Run SQL query\n"
+             + "\t-Will run the inputted SQL query on the database\n"
+             + "\t-Only use if you know how to use SQL\n"
+             + "\tMake sure to put quotes around table names\n"
+             + "\tand put single quotes around data points\n"
+             + "(10) Move a node"
+             + "\t-Will swap the two inputted node locations with each other"
+             + "(11) Request a service\n"
+             + "\t Request one of the services listed"
+             + "(12) Display Help\n"
+             + "\t-Displays this text\n"
+             + "(13) Login\n"
+             + "\t-Log into the app as admin or staff.\n"
+             + "(14) Exit\n"
+             + "\t-Terminates the program");
+   }
 
-  public static void main(String[] args) throws SQLException {
+   public static void main(String[] args) throws SQLException {
 
-    Scanner scanner = new Scanner(System.in);
-    String cvsFilePath = " ";
-    boolean running = true;
-    System.out.println(
-        "Choose from the following commands:\n"
-            + "(1) Display node information\n"
-            + "(2) Display edge information\n"
-            + "(3) Import data from CSV file\n"
-            + "(4) Export data into CSV file\n"
-            + "(5) Update node coordinates\n"
-            + "(6) Update node name\n"
-            + "(7) Delete node\n"
-            + "(8) Delete edge\n"
-            + "(9) Run SQL query\n"
-            + "(10) Move a node"
-            + "(11) Request a service\n"
-            + "(12) Display help\n"
-            + "(13) Login"
-            + "(14) Exit\n");
-    String optionChosen = "help";
+     Scanner scanner = new Scanner(System.in);
+     String cvsFilePath = " ";
+     boolean running = true;
+     System.out.println(
+         "Choose from the following commands:\n"
+             + "(1) Display node information\n"
+             + "(2) Display edge information\n"
+             + "(3) Import data from CSV file\n"
+             + "(4) Export data into CSV file\n"
+             + "(5) Update node coordinates\n"
+             + "(6) Update node name\n"
+             + "(7) Delete node\n"
+             + "(8) Delete edge\n"
+             + "(9) Run SQL query\n"
+             + "(10) Move a node"
+             + "(11) Request a service\n"
+             + "(12) Display help\n"
+             + "(13) Login"
+             + "(14) Exit\n");
+     String optionChosen = "help";
 
-    DatabaseConnection dbc = new DatabaseConnection();
-    Connection connection = dbc.DbConnection();
-    while (running) {
-      optionChosen = scanner.nextLine();
-      optionChosen = optionChosen.toLowerCase();
-      optionChosen = optionChosen.replaceAll("\\s", ""); // Removes whitespace
-      switch (optionChosen) {
-        case "1":
-          displayNodeInfo(connection);
-          break;
-        case "2":
-          displayEdgeInfo(connection);
-          break;
-        case "3":
-          importData(connection);
-          break;
-        case "4":
-          exportData(connection);
-          break;
-        case "5":
-          updateNodeCoords(connection);
-          break;
-        case "6":
-          updateNodeName(connection);
-          break;
-        case "7":
-          deleteNode(connection);
-          break;
-        case "8":
-          deleteEdge(connection);
-          break;
-        case "9":
-        case "sql":
-          // runQuery(connection);
-          break;
-        case "10":
-          moveNode(connection);
-          break;
-        case "11":
-          requestService(connection);
-          break;
-        case "12":
-        case "help":
-        case "displayhelp":
-          displayHelp();
-          break;
-          //        case "13":
-          //          Login();
-          //          break;
-        case "14":
-        case "exit":
-          System.out.println("Terminating program.");
-          connection.close();
-          System.out.println("Connection closed.");
-          running = false;
-          break;
-        default:
-          System.out.println("Invalid command. Please try again");
-          break;
-      }
-    }
-  }
-}
+     DatabaseConnection dbc = new DatabaseConnection();
+     Connection connection = dbc.DbConnection();
+     while (running) {
+       optionChosen = scanner.nextLine();
+       optionChosen = optionChosen.toLowerCase();
+       optionChosen = optionChosen.replaceAll("\\s", ""); // Removes whitespace
+       switch (optionChosen) {
+         case "1":
+           displayNodeInfo(connection);
+           break;
+         case "2":
+           displayEdgeInfo(connection);
+           break;
+         case "3":
+           importData(connection);
+           break;
+         case "4":
+           exportData(connection);
+           break;
+         case "5":
+           updateNodeCoords(connection);
+           break;
+         case "6":
+           updateNodeName(connection);
+           break;
+         case "7":
+           deleteNode(connection);
+           break;
+         case "8":
+           deleteEdge(connection);
+           break;
+         case "9":
+         case "sql":
+           // runQuery(connection);
+           break;
+         case "10":
+           moveNode(connection);
+           break;
+         case "11":
+           requestService(connection);
+           break;
+         case "12":
+         case "help":
+         case "displayhelp":
+           displayHelp();
+           break;
+
+         case "13":
+           Login();
+           break;
+
+           //        case "13":
+           //          Login();
+           //          break;
+
+         case "14":
+         case "exit":
+           System.out.println("Terminating program.");
+           connection.close();
+           System.out.println("Connection closed.");
+           running = false;
+           break;
+         default:
+           System.out.println("Invalid command. Please try again");
+           break;
+       }
+     }
+   }
+ }
+ */

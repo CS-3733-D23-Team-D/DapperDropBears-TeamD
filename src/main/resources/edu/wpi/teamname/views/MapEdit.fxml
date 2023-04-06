@@ -6,31 +6,60 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="860.0" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="865.0" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
    <children>
-      <HBox layoutX="17.0" layoutY="649.0" prefHeight="45.0" prefWidth="581.0">
+      <HBox layoutX="36.0" layoutY="673.0" prefHeight="36.0" prefWidth="619.0">
          <children>
-            <MFXButton fx:id="backButton" buttonType="RAISED" mnemonicParsing="false" prefHeight="40.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Back">
+            <MFXButton fx:id="exportNode" mnemonicParsing="false" prefHeight="35.0" prefWidth="126.0" style="-fx-font-weight: BOLD;" text="Export Node">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Times New Roman" size="16.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="importCSV" buttonType="RAISED" prefHeight="44.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Import CSV">
+            <MFXButton mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" style="-fx-font-weight: BOLD;" text="Export Edge">
                <font>
-                  <Font name="Times New Roman" size="20.0" />
+                  <Font name="Times New Roman" size="16.0" />
                </font>
             </MFXButton>
-            <MFXButton fx:id="exportCSV" buttonType="RAISED" prefHeight="44.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Export CSV">
+            <MFXButton mnemonicParsing="false" prefHeight="36.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Export Location Name">
                <font>
-                  <Font name="Times New Roman" size="20.0" />
+                  <Font name="Times New Roman" size="16.0" />
+               </font>
+            </MFXButton>
+            <MFXButton mnemonicParsing="false" prefHeight="36.0" prefWidth="125.0" style="-fx-font-weight: BOLD;" text="Export Move">
+               <font>
+                  <Font name="Times New Roman" size="16.0" />
                </font>
             </MFXButton>
          </children>
       </HBox>
-      <VBox layoutX="664.0" prefHeight="470.0" prefWidth="196.0">
+      <HBox layoutX="36.0" layoutY="637.0" prefHeight="36.0" prefWidth="571.0">
          <children>
-            <AnchorPane prefHeight="205.0" prefWidth="170.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css" />
-            <ToolBar orientation="VERTICAL" prefHeight="265.0" prefWidth="158.0" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
+            <MFXButton fx:id="importNode" mnemonicParsing="false" prefHeight="36.0" prefWidth="124.0" style="-fx-font-weight: BOLD;" text="Import Node">
+               <font>
+                  <Font name="Times New Roman" size="16.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="importEdge" prefHeight="36.0" prefWidth="132.0" style="-fx-font-weight: BOLD;" text="Import Edge">
+               <font>
+                  <Font name="Times New Roman" size="16.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="importLocationName" prefHeight="36.0" prefWidth="192.0" style="-fx-font-weight: BOLD;" text="Import Location Name">
+               <font>
+                  <Font name="Times New Roman" size="16.0" />
+               </font>
+            </MFXButton>
+            <MFXButton fx:id="importMove" mnemonicParsing="false" prefHeight="36.0" prefWidth="126.0" style="-fx-font-weight: BOLD;" text="Import Move">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </MFXButton>
+         </children>
+      </HBox>
+      <VBox layoutX="667.0" layoutY="64.0" prefHeight="470.0" prefWidth="196.0">
+         <children>
+            <AnchorPane prefHeight="315.0" prefWidth="196.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css" />
+            <ToolBar orientation="VERTICAL" prefHeight="393.0" prefWidth="175.0" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
                <items>
                   <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
                      <font>
@@ -72,6 +101,16 @@
             </ToolBar>
          </children>
       </VBox>
-      <TableView fx:id="table" prefHeight="646.0" prefWidth="672.0" />
+      <HBox layoutY="64.0" prefHeight="573.0" prefWidth="655.0">
+         <children>
+            <TableView fx:id="table" prefHeight="606.0" prefWidth="494.0" />
+            <TableView fx:id="edgeTable" prefHeight="646.0" prefWidth="161.0" />
+         </children>
+      </HBox>
+      <MFXButton fx:id="backButton" buttonType="RAISED" layoutX="690.0" layoutY="637.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="66.0" style="-fx-font-weight: BOLD;" text="Back">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </MFXButton>
    </children>
 </AnchorPane>
