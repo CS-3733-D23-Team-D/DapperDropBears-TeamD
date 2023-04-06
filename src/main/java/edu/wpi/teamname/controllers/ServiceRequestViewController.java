@@ -17,6 +17,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ServiceRequestViewController {
+
+  @FXML MFXButton homeButton;
+  @FXML MFXButton helpButton;
+  @FXML MFXButton mapButton;
+  @FXML MFXButton directionsButton;
+  @FXML MFXButton makeRequestsButton;
+  @FXML MFXButton showRequestsButton;
+  @FXML MFXButton editMapButton;
+  @FXML MFXButton exitButton;
+
   @FXML TableView table;
   @FXML TableView secondTable;
 
@@ -75,6 +85,16 @@ public class ServiceRequestViewController {
 
   @FXML
   public void initialize() {
+
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
+    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
+    editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
+    exitButton.setOnMouseClicked(event -> System.exit(0));
+
     buildData();
 
     // side bar

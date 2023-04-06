@@ -9,16 +9,20 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Setter;
 
 public class HomeController {
+
+  @FXML MFXButton homeButton;
+  @FXML MFXButton helpButton;
+  @FXML MFXButton mapButton;
+  @FXML MFXButton directionsButton;
+  @FXML MFXButton makeRequestsButton;
+  @FXML MFXButton showRequestsButton;
+  @FXML MFXButton editMapButton;
+  @FXML MFXButton exitButton;
+
   // test push
   @Setter private static boolean loggedIn = false;
   @FXML ImageView imageView;
-  @FXML MFXButton serviceRequests;
-  @FXML MFXButton helpButton;
-  @FXML MFXButton directionButton;
-  @FXML MFXButton exitButton;
-  @FXML MFXButton editTable;
   @FXML private AnchorPane rootPane;
-  @FXML MFXButton serviceRequestView;
   @FXML MFXButton loginButton;
   @FXML MFXButton logoutButton;
 
@@ -48,12 +52,14 @@ public class HomeController {
       loginButton.setVisible(true);
       logoutButton.setVisible(false);
     }
-    serviceRequestView.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
-    serviceRequests.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
-    directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
-    loginButton.setOnMouseClicked(event -> Navigation.navigate(Screen.LOGIN));
-    logoutButton.setOnMouseClicked(event -> logout());
+
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
+    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
+    editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));
-    editTable.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
   }
 }
