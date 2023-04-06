@@ -6,7 +6,6 @@ import edu.wpi.teamname.servicerequests.ServiceRequest;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
 
 public class ServiceRequestUploadTest {
   public static void main(String args[]) throws SQLException {
