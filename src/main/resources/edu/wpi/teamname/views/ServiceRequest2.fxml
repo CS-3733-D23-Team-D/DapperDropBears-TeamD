@@ -27,16 +27,19 @@
                <children>
                   <StackPane prefHeight="50.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request" StackPane.alignment="CENTER_LEFT">
                            <font>
                               <Font name="Times New Roman" size="48.0" />
                            </font>
+                           <StackPane.margin>
+                              <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                           </StackPane.margin>
                         </Text>
                      </children>
                   </StackPane>
                   <StackPane prefWidth="500.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ScrollPane prefWidth="1617.0" VBox.vgrow="ALWAYS">
+                        <ScrollPane VBox.vgrow="ALWAYS">
                            <content>
                               <AnchorPane fx:id="formPane" minHeight="0.0" minWidth="0.0">
                                  <children>
@@ -171,25 +174,33 @@
       
                      </children>
                   </StackPane>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <GridPane prefHeight="75.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
                      <children>
+                        <MFXButton fx:id="nextButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Next" GridPane.columnIndex="2">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </MFXButton>
                         <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Clear">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </MFXButton>
-                        <MFXButton fx:id="cancelButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffE0; -fx-border-width: 2;" text="Cancel">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </MFXButton>
-                        <MFXButton fx:id="nextButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Next">
+                        <MFXButton fx:id="cancelButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffE0; -fx-border-width: 2;" text="Cancel" GridPane.columnIndex="1">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </MFXButton>
                      </children>
-                  </HBox>
+                  </GridPane>
                </children>
             </VBox>
             <VBox>
