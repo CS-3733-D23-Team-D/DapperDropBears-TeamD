@@ -43,12 +43,15 @@ public class ServiceRequestViewController {
         new PropertyValueFactory<ServiceRequest, String>("requestedAt"));
     TableColumn deliverBy = new TableColumn("Deliver Date");
     deliverBy.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("deliverBy"));
+    TableColumn requestStatus = new TableColumn("Request Status");
+    requestStatus.setCellValueFactory(new PropertyValueFactory<ServiceRequest, String>("status"));
     ObservableList<ServiceRequest> serviceRequests =
         FXCollections.observableArrayList(ServiceRequest.getAllServiceRequests());
     table.setItems(serviceRequests);
     table
         .getColumns()
-        .addAll(requestID, roomNumber, staffName, patientName, requestedAt, deliverBy);
+        .addAll(
+            requestID, roomNumber, staffName, patientName, requestedAt, deliverBy, requestStatus);
 
     secondTable.setEditable(true);
 
