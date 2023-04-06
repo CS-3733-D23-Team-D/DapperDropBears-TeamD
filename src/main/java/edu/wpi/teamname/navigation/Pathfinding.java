@@ -3,13 +3,25 @@ package edu.wpi.teamname.navigation;
 import java.io.*;
 import java.util.*;
 import java.util.Scanner;
+import lombok.Getter;
 
 public class Pathfinding {
   private static List<Node> Nodes = new ArrayList<Node>();
   private static List<Edge> Edges = new ArrayList<Edge>();
   private static ArrayList<String> linesOfNodeInfo = new ArrayList<String>();
   private static ArrayList<String> linesOfEdgeInfo = new ArrayList<String>();
+  private static String NodesFile =
+      "/Users/ryan/Documents/GitHub/DapperDropBears-TeamD/src/main/java/edu/wpi/teamname/navigation/Node.csv";
+  private static String EdgesFile =
+      "/Users/ryan/Documents/GitHub/DapperDropBears-TeamD/src/main/java/edu/wpi/teamname/navigation/Edge.csv";
 
+  @Getter private Graph graph;
+
+  @Getter private AStar aStar;
+
+  public Pathfinding() throws Exception {
+    initializeNodes(ReadCsvLines(NodesFile));
+    initializeEdges(ReadCsvLines(EdgesFile));
   public static void main(String[] args) throws Exception {
     ArrayList<Node> listOfNodes = Node.getAllNodes();
     ArrayList<Edge> listOfEdges = Edge.getAllEdges();
@@ -58,14 +70,12 @@ public class Pathfinding {
         flagt = false;
       }
     }
+    graph = new Graph(Nodes, Edges);
 
-    Graph graph = new Graph(Nodes, Edges);
-
-    // (NodeID - 100)/5
-    graph.setStart(graph.getNodes().get((startNodeID - 100) / 5)); // To get index
-    graph.setTarget(graph.getNodes().get((endNodeID - 100) / 5));
-    AStar.aStar(graph);
-    AStar.printPath(graph.getTarget());
+    //    graph.setStart(graph.getNodes().get(0));
+    //    graph.setTarget(graph.getNodes().get(100));
+    //    AStar.aStar(graph);
+    //    AStar.printPath(graph.getTarget());
   }
 
   //  public static ArrayList<String> ReadCsvLines(String filename) throws Exception {
@@ -101,6 +111,7 @@ public class Pathfinding {
   // Taking strings, parse the data coming from
   public static void initializeNodes(ArrayList<Node> NodeLines) {
     // Initialize the nodes with the node lines data
+    int i = 0;
     while (!NodeLines.isEmpty()) {
       // String[] I = NodeLines.get(0).split(",");
       // NodeLines.remove(0);
