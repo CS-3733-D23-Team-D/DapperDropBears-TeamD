@@ -1009,7 +1009,7 @@ public class DataManager {
       scan.nextLine();
       String username = scan.nextLine();
       Login login = new Login(username, "");
-      boolean r = login.resetPass();
+      boolean r = Login.resetPass();
       if (!r) Login();
     } else {
       System.out.println("Type 1 or 2 for login.");
@@ -1167,6 +1167,5 @@ public class DataManager {
           break;
       }
     }
-
   }
 }
