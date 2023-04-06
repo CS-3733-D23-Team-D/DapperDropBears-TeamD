@@ -8,7 +8,6 @@ public enum Screen {
   MAP("views/Map.fxml"),
 
   TEST("views/Test.fxml"),
-
   SIGNAGE("views/SignageLevels.fxml"),
 
   //  REQ_MENU("views/ServiceRequestMenu.fxml"),

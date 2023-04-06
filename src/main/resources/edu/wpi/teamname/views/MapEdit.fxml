@@ -58,15 +58,18 @@
       </HBox>
       <VBox layoutX="667.0" layoutY="64.0" prefHeight="470.0" prefWidth="196.0">
          <children>
-            <AnchorPane prefHeight="315.0" prefWidth="196.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css" />
-            <ToolBar orientation="VERTICAL" prefHeight="393.0" prefWidth="175.0" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
+
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
+               <children>
+               </children></AnchorPane>
+            <ToolBar orientation="VERTICAL" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
                <items>
                   <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman" size="19.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="164.0" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
+                  <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman" size="19.0" />
                      </font>
@@ -76,12 +79,22 @@
                         <Font name="Times New Roman" size="19.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="directionButton" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="166.0" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
+                  <MFXButton fx:id="directionsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
                      <font>
                         <Font name="Times New Roman" size="19.0" />
                      </font>
                   </MFXButton>
-                  <MFXButton fx:id="serviceRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                  <MFXButton fx:id="makeRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Make Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="showRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Show Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman" size="19.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="editMapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Edit Map" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                      <font>
                         <Font name="Times New Roman" size="19.0" />
                      </font>
