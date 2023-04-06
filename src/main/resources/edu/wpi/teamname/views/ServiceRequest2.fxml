@@ -45,13 +45,6 @@
                                  <children>
                                     <VBox layoutX="1.0" layoutY="17.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
-                                             <font>
-                                                <Font name="Times New Roman" size="32.0" />
-                                             </font>
-                                          </Text>
-                                          <TextField fx:id="staffName" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
-                                          <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
                                              <font>
                                                 <Font name="Times New Roman" size="32.0" />
