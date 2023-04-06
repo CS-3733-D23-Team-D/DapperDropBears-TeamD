@@ -1,5 +1,6 @@
 package edu.wpi.teamname.navigation;
 
+import edu.wpi.teamname.database.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
