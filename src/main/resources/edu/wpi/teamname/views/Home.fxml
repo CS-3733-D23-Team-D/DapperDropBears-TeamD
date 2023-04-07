@@ -1,69 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
+<AnchorPane fx:id="rootPane" styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.HomeController">
    <children>
-<!--      <ImageView fitHeight="1080" fitWidth="1920.0" opacity="0.78" pickOnBounds="true" preserveRatio="true" style="-fx-fit-width: 100%; -fx-fit-height: 100%;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
-<!--         <image>-->
-<!--            <Image url="@../images/BaWHospital.jpg" />-->
-<!--         </image>-->
-<!--      </ImageView>-->
-      <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-               <image>
-                  <Image url="@../images/logo.png" />
-               </image>
-               <StackPane.margin>
-                  <Insets left="50.0" />
-               </StackPane.margin>
-            </ImageView>
-            <MFXButton id="directions" fx:id="directionButton" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Signage Page" StackPane.alignment="CENTER_RIGHT">
-               <font>
-                  <Font name="Nunito Sans Regular" size="12.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets right="20.0" top="100.0" />
-               </StackPane.margin>
-            </MFXButton>
-            <MFXButton id="mealRequest" fx:id="serviceRequests" prefWidth="110.0" style="-fx-background-color: #70A4FF;" text="Make Request" textAlignment="JUSTIFY" StackPane.alignment="CENTER_RIGHT">
-               <font>
-                  <Font name="Nunito Sans Regular" size="12.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets bottom="10.0" right="20.0" />
-               </StackPane.margin>
-            </MFXButton>
-            <MFXButton fx:id="exitButton" style="-fx-background-color: #70A4FF;" text="Exit" StackPane.alignment="TOP_RIGHT">
-               <StackPane.margin>
-                  <Insets right="20.0" top="10.0" />
-               </StackPane.margin>
-            </MFXButton>
-            <MFXButton fx:id="helpButton" style="-fx-background-color: #70A4FF;" text="Help" StackPane.alignment="TOP_RIGHT">
-               <StackPane.margin>
-                  <Insets right="90.0" top="10.0" />
-               </StackPane.margin>
-            </MFXButton>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#70a4ff" height="66.0" stroke="BLACK" strokeType="INSIDE" width="189.0" StackPane.alignment="CENTER_RIGHT">
-               <StackPane.margin>
-                  <Insets bottom="200.0" right="20.0" />
-               </StackPane.margin>
-            </Rectangle>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This allows you to make a request to order flowers or a meal for a patient" wrappingWidth="172.0" StackPane.alignment="CENTER_RIGHT">
-               <StackPane.margin>
-                  <Insets bottom="200.0" right="20.0" />
-               </StackPane.margin>
-            </Text>
+      <!--      <ImageView fitHeight="1080" fitWidth="1920.0" opacity="0.78" pickOnBounds="true" preserveRatio="true" style="-fx-fit-width: 100%; -fx-fit-height: 100%;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+      <!--         <image>-->
+      <!--            <Image url="@../images/BaWHospital.jpg" />-->
+      <!--         </image>-->
+      <!--      </ImageView>-->
+            <StackPane HBox.hgrow="ALWAYS">
+               <children>
+                  <MFXButton fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: #70A4FF;" text="Login" textAlignment="CENTER" StackPane.alignment="TOP_LEFT">
+                     <StackPane.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </StackPane.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="logoutButton" style="-fx-background-color: #70A4FF;" text="Logout" textAlignment="CENTER" StackPane.alignment="TOP_LEFT">
+                     <StackPane.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </StackPane.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXButton>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#70a4ff" height="120.0" stroke="BLACK" strokeType="INSIDE" width="189.0" StackPane.alignment="CENTER_RIGHT">
+                     <StackPane.margin>
+                        <Insets bottom="200.0" right="20.0" />
+                     </StackPane.margin>
+                  </Rectangle>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This allows you to make a request to order flowers or a meal for a patient" wrappingWidth="172.0" StackPane.alignment="CENTER_RIGHT">
+                     <StackPane.margin>
+                        <Insets bottom="200.0" right="20.0" />
+                     </StackPane.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </StackPane>
+
+            <VBox>
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
+                     <children>
+                     </children></AnchorPane>
+                  <ToolBar orientation="VERTICAL" prefWidth="200.0" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
+                     <items>
+                        <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="mapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Map" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="directionsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="makeRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Make Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="showRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Show Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="editMapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Edit Map" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="exitButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Exit" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                     </items>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets top="1.0" />
+                     </padding>
+                  </ToolBar>
+
+
+               </children>
+            </VBox>
+
+
          </children>
-      </StackPane>
+      </HBox>
    </children>
 </AnchorPane>

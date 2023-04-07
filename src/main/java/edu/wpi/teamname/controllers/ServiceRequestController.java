@@ -24,12 +24,23 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class ServiceRequestController {
+
+  // Side Bar
+  @FXML MFXButton homeButton;
+  @FXML MFXButton helpButton;
+  @FXML MFXButton mapButton;
+  @FXML MFXButton directionsButton;
+  @FXML MFXButton makeRequestsButton;
+  @FXML MFXButton showRequestsButton;
+  @FXML MFXButton editMapButton;
+  @FXML MFXButton exitButton;
+
   // requestInfo Error if not added anything to both meal and side
 
   /**
    * @FXML MFXButton backButton; @FXML MFXButton setDateButton; @FXML MFXButton
    * printDateButton; @FXML MFXButton printMealButton; @FXML MFXButton addFriesButton; @FXML
-   * MFXButton addSandwitchButton; @FXML MFXButton addFlowersButton;
+   * MFXButton addSandwichButton; @FXML MFXButton addFlowersButton;
    */
 
   // bot2
@@ -38,32 +49,24 @@ public class ServiceRequestController {
 
   @FXML ImageView background;
   private int requestPage = 0; // used for keeping track of which page is active
+
   // Bottom Bar
   @FXML MFXButton nextButton;
   @FXML StackPane requestPane;
   @FXML MFXButton clearButton;
   @FXML MFXButton cancelButton;
 
-  // Side Bar
-  @FXML MFXButton homeButton;
-  @FXML MFXButton helpButton;
-  @FXML MFXButton mapButton;
-  @FXML MFXButton directionButton;
-  @FXML MFXButton serviceRequestsButton;
-  @FXML MFXButton exitButton;
-
   // Form pane
   @FXML AnchorPane formAnchor;
   @FXML AnchorPane formPane;
   // Form fields
-  @FXML TextField staffName;
+  // @FXML TextField staffName;
   @FXML TextField patientName;
   @FXML TextField roomNum;
   @FXML DatePicker dateBox;
   @FXML ComboBox timeBox;
   ObservableList<String> timeValues = FXCollections.observableArrayList();
-  ObservableList<String> serviceType =
-      FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
+  ObservableList<String> serviceType = FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
   @FXML ComboBox requestType;
 
   // menu item page
@@ -72,7 +75,7 @@ public class ServiceRequestController {
   @FXML VBox itemBox;
   ObservableList<String> mealItems =
       FXCollections.observableArrayList(
-          "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
+              "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
   ObservableList<String> flowerItems =
       FXCollections.observableArrayList(
           "Black Cosmos",
@@ -117,7 +120,7 @@ public class ServiceRequestController {
         setRequest(
             new MealRequest(
                 Instant.now().get(ChronoField.MICRO_OF_SECOND),
-                staffName.toString(),
+                "",
                 patientName.toString(),
                 roomNum.toString(),
                 reqDateTime));
@@ -126,7 +129,7 @@ public class ServiceRequestController {
         setRequest(
             new FlowerRequest(
                 Instant.now().get(ChronoField.MICRO_OF_SECOND),
-                staffName.toString(),
+                "",
                 patientName.toString(),
                 roomNum.toString(),
                 reqDateTime));
@@ -137,9 +140,11 @@ public class ServiceRequestController {
       itemNames = request.getAllNames();
       itemIDs = request.getAllIDs();
       for (int a = 0; a < itemIDs.size(); a++) {
-        itemBox
-            .getChildren()
-            .add(new RequestMenuItem(itemNames.get(a), itemIDs.get(a), folder, getRequest()));
+        if (a < 4) {
+          itemBox
+              .getChildren()
+              .add(new RequestMenuItem(itemNames.get(a), itemIDs.get(a), folder, getRequest()));
+        }
       }
 
       itemBox.setFillWidth(true);
@@ -148,7 +153,6 @@ public class ServiceRequestController {
 
       requestPage = 1;
 
-      request.setStaffName(staffName.getCharacters().toString());
       request.setPatientName(patientName.getCharacters().toString());
       request.setRoomNumber(roomNum.getCharacters().toString());
       // request.setDeliverBy(dateBox.getValue().atStartOfDay());
@@ -179,7 +183,7 @@ public class ServiceRequestController {
   /** Clears the service request form and currently created service request */
   private void clearAction() {
     patientName.clear();
-    staffName.clear();
+    // staffName.clear();
     roomNum.clear();
     requestType.cancelEdit();
     dateBox.cancelEdit();
@@ -225,6 +229,15 @@ public class ServiceRequestController {
   public void initialize() {
     setVisibleScreen(0);
 
+    homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
+    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
+    editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
+    exitButton.setOnMouseClicked(event -> System.exit(0));
+
     for (int h = 0; h < 24; h++) {
 
       timeValues.add(Integer.toString(h) + ":00");
@@ -234,12 +247,14 @@ public class ServiceRequestController {
     }
     timeBox.setItems(timeValues);
 
-    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-
     nextButton.setText("Next");
 
+    // mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
+    directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
     exitButton.setOnMouseClicked(event -> System.exit(0));
+
     nextButton.setOnMouseClicked(
         event -> {
           try {

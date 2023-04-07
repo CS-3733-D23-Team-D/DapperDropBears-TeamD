@@ -79,6 +79,30 @@ public class ServiceRequest {
     requestedAt = LocalDateTime.now();
   }
 
+  /**
+   * * given an id and a staffname, updates that request's staff name into the new staff name
+   *
+   * @param requestID the id of the request to update
+   * @param staffName the new staff name
+   */
+  public static void uploadStaffName(int requestID, String staffName) {
+    DatabaseConnection dbc = new DatabaseConnection();
+    Connection connection = dbc.DbConnection();
+    try {
+      String query =
+          "UPDATE \"ServiceRequest\" SET "
+              + "\"staffName\" = '"
+              + staffName
+              + "' WHERE \"requestID\" = "
+              + requestID;
+      PreparedStatement statement = connection.prepareStatement(query);
+      statement.executeUpdate();
+      connection.close();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
   @Override
   public String toString() {
     return "ID: " + requestID;
@@ -192,10 +216,14 @@ public class ServiceRequest {
       PreparedStatement statement = connection.prepareStatement(query);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
+        String staffName = rs.getString("staffName");
+        if (staffName == null) {
+          staffName = "No staff inputted";
+        }
         ServiceRequest sr =
             new ServiceRequest(
                 rs.getInt("requestID"),
-                rs.getString("staffName"),
+                staffName,
                 rs.getString("patientName"),
                 rs.getString("roomNum"),
                 rs.getTimestamp("deliverBy").toLocalDateTime(),

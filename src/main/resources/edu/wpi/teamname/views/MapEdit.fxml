@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.MapEditController">
+   <children>
+      <HBox layoutY="64.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <StackPane prefHeight="50.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Map Edit" StackPane.alignment="CENTER_LEFT">
+                           <font>
+                              <Font name="Times New Roman" size="48.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                           </StackPane.margin>
+                        </Text>
+                     </children>
+                  </StackPane>
+                  <AnchorPane VBox.vgrow="ALWAYS">
+                     <children>
+                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TableView fx:id="table" prefHeight="400.0" prefWidth="221.0" />
+                              <TableView fx:id="edgeTable" prefHeight="400.0" prefWidth="137.0" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+                  <FlowPane hgap="5.0" vgap="5.0">
+                     <children>
+                        <MFXButton fx:id="exportNode" mnemonicParsing="false" prefHeight="35.0" prefWidth="126.0" style="-fx-font-weight: BOLD;" text="Export Node">
+                           <font>
+                              <Font name="Times New Roman" size="16.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" style="-fx-font-weight: BOLD;" text="Export Edge">
+                           <font>
+                              <Font name="Times New Roman" size="16.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton mnemonicParsing="false" prefHeight="36.0" prefWidth="189.0" style="-fx-font-weight: BOLD;" text="Export Location Name">
+                           <font>
+                              <Font name="Times New Roman" size="16.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton mnemonicParsing="false" prefHeight="36.0" prefWidth="125.0" style="-fx-font-weight: BOLD;" text="Export Move">
+                           <font>
+                              <Font name="Times New Roman" size="16.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="importNode" mnemonicParsing="false" prefHeight="36.0" prefWidth="124.0" style="-fx-font-weight: BOLD;" text="Import Node">
+                           <font>
+                              <Font name="Times New Roman" size="16.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="importEdge" prefHeight="36.0" prefWidth="132.0" style="-fx-font-weight: BOLD;" text="Import Edge">
+                           <font>
+                              <Font name="Times New Roman" size="16.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="importLocationName" prefHeight="36.0" prefWidth="192.0" style="-fx-font-weight: BOLD;" text="Import Location Name">
+                           <font>
+                              <Font name="Times New Roman" size="16.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="importMove" mnemonicParsing="false" prefHeight="36.0" prefWidth="126.0" style="-fx-font-weight: BOLD;" text="Import Move">
+                           <font>
+                              <Font name="Times New Roman" size="16.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="backButton" buttonType="RAISED" mnemonicParsing="false" prefHeight="36.0" prefWidth="66.0" style="-fx-font-weight: BOLD;" text="Back">
+                           <font>
+                              <Font name="Times New Roman" size="16.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                  </FlowPane>
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+      
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
+                     <children>
+               </children>
+                  </AnchorPane>
+                  <ToolBar orientation="VERTICAL" prefWidth="200.0" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
+                     <items>
+                        <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="mapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Map" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="directionsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="makeRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Make Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="showRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Show Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="editMapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Edit Map" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="exitButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Exit" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                     </items>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets top="1.0" />
+                     </padding>
+                  </ToolBar>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

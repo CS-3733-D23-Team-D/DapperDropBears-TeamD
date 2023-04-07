@@ -19,221 +19,238 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
+<AnchorPane styleClass="body" stylesheets="@../stylesheets/imageScale.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamname.controllers.ServiceRequestController">
    <children>
-      <VBox HBox.hgrow="ALWAYS">
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="body" stylesheets="@../stylesheets/imageScale.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <StackPane prefHeight="50.0">
+            <VBox HBox.hgrow="ALWAYS">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request">
-                     <font>
-                        <Font name="Times New Roman" size="48.0" />
-                     </font>
-                  </Text>
-               </children>
-            </StackPane>
-            <StackPane prefHeight="1000.0" prefWidth="1000.0">
-               <children>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                     <content>
-                        <AnchorPane fx:id="formPane" minHeight="0.0" minWidth="0.0">
-                           <children>
-                              <VBox layoutX="1.0" layoutY="17.0" prefHeight="631.0" prefWidth="1794.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Name">
-                                       <font>
-                                          <Font name="Times New Roman" size="32.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="staffName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" VBox.vgrow="ALWAYS" />
-                                    <Separator prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
-                                       <font>
-                                          <Font name="Times New Roman" size="32.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="patientName" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
-                                    <Separator prefWidth="200.0" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
-                                       <font>
-                                          <Font name="Times New Roman" size="32.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="roomNum" prefHeight="49.0" prefWidth="1770.0" style="-fx-background-color: #d9d9d9;" />
-                                    <Separator prefWidth="200.0" />
-                                    <GridPane hgap="10.0" vgap="25.0">
-                                      <columnConstraints>
-                                        <ColumnConstraints minWidth="0.0" percentWidth="26.0" />
-                                        <ColumnConstraints minWidth="0.0" percentWidth="74.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
-                                             <font>
-                                                <Font name="Times New Roman" size="32.0" />
-                                             </font>
-                                          </Text>
-                                          <DatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" stylesheets="@../stylesheets/dateBox.css" GridPane.rowIndex="1" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time" GridPane.columnIndex="1">
-                                             <font>
-                                                <Font name="Times New Roman" size="32.0" />
-                                             </font>
-                                          </Text>
-                                          <ComboBox fx:id="timeBox" prefHeight="49.0" promptText="Choose Time of Delivery" style="-fx-background-color: #D9d9d9;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" />
-                                       </padding>
-                                    </GridPane>
-                                    <Separator prefWidth="200.0" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
-                                       <font>
-                                          <Font name="Times New Roman" size="32.0" />
-                                       </font>
-                                    </Text>
-                                    <ComboBox fx:id="requestType" prefHeight="49.0" promptText="Choose Service Request Type" style="-fx-background-color: #D9d9d9;" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </ScrollPane>
-                <AnchorPane fx:id="summaryPane" disable="true" visible="false">
+                  <StackPane prefHeight="50.0">
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request" StackPane.alignment="CENTER_LEFT">
+                           <font>
+                              <Font name="Times New Roman" size="48.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                           </StackPane.margin>
+                        </Text>
+                     </children>
+                  </StackPane>
+                  <StackPane prefWidth="500.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ScrollPane VBox.vgrow="ALWAYS">
                            <content>
-                              <AnchorPane>
+                              <AnchorPane fx:id="formPane" minHeight="0.0" minWidth="0.0">
                                  <children>
-                                    <HBox alignment="CENTER" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+                                    <VBox layoutX="25.0" layoutY="25.0" spacing="15.0" style="-fx-background-color: #ffffff;" stylesheets="@../stylesheets/combo.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                                        <children>
-                                          <Label fx:id="summaryLabel" style="-fx-font-family: Times New Roman; -fx-font-size: 20pt; -fx-text-alignment: center;" text="Label">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name">
                                              <font>
-                                                <Font name="Times New Roman" size="20.0" />
+                                                <Font name="Times New Roman" size="32.0" />
                                              </font>
-                                          </Label>
+                                          </Text>
+                                          <TextField fx:id="patientName" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" />
+                                          <Separator prefWidth="200.0" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Number">
+                                             <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="roomNum" prefHeight="49.0" prefWidth="500.0" style="-fx-background-color: #d9d9d9;" />
+                                          <Separator prefWidth="200.0" />
+                                          <GridPane hgap="10.0" vgap="25.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints minWidth="0.0" percentWidth="26.0" />
+                                              <ColumnConstraints minWidth="0.0" percentWidth="74.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="32.0" />
+                                                   </font>
+                                                </Text>
+                                                <DatePicker fx:id="dateBox" style="-fx-background-color: #d9d9d9;" stylesheets="@../stylesheets/dateBox.css" GridPane.rowIndex="1" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time" GridPane.columnIndex="1">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="32.0" />
+                                                   </font>
+                                                </Text>
+                                                <ComboBox fx:id="timeBox" prefHeight="49.0" promptText="Choose Time of Delivery" style="-fx-background-color: #D9d9d9;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="15.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <Separator prefWidth="200.0" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Request Type">
+                                             <font>
+                                                <Font name="Times New Roman" size="32.0" />
+                                             </font>
+                                          </Text>
+                                          <ComboBox fx:id="requestType" prefHeight="49.0" promptText="Choose Service Request Type" style="-fx-background-color: #D9d9d9;" />
                                        </children>
-                                    </HBox>
+                                    </VBox>
                                  </children>
                               </AnchorPane>
                            </content>
                         </ScrollPane>
-                     </children>
-                  </AnchorPane>
-
-                  <AnchorPane fx:id="menuPane" disable="true" visible="false" VBox.vgrow="ALWAYS">
-                     <children>
-
-                              <VBox prefHeight="700.0" prefWidth="1800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <HBox minHeight="100.0" spacing="30.0">
+                      <AnchorPane fx:id="summaryPane" disable="true" visible="false">
+                           <children>
+                              <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <AnchorPane>
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
-                                             <font>
-                                                <Font name="Times New Roman" size="36.0" />
-                                             </font>
-                                          </Text>
-                                          <TextField fx:id="searchBar" prefWidth="1700.0" style="-fx-background-color: #d9d9d9;">
-                                             <font>
-                                                <Font name="Times New Roman" size="20.0" />
-                                             </font>
-                                          </TextField>
-                                       </children>
-                                       <padding>
-                                          <Insets left="25.0" right="25.0" top="32.0" />
-                                       </padding>
-                                    </HBox>
-
-                                    <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="500" prefHeight="900">
-                                       <content>
-                                          <AnchorPane VBox.vgrow="ALWAYS">
+                                          <HBox alignment="CENTER" layoutX="25.0" layoutY="25.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                                              <children>
-                                                <VBox fx:id="itemBox" fillWidth="true" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <children>
-                                                   </children>
-                                                </VBox>
+                                                <Label fx:id="summaryLabel" style="-fx-font-family: Times New Roman; -fx-font-size: 20pt; -fx-text-alignment: center;" text="Label">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="20.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
-                                       <padding>
-                                          <Insets left="25.0" right="25.0" />
-                                       </padding>
-                                          </AnchorPane>
-                                       </content>
-                                    </ScrollPane>
-                                 </children>
-                              </VBox>
-
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+      
+                        <AnchorPane fx:id="menuPane" disable="true" visible="false" VBox.vgrow="ALWAYS">
+                           <children>
+      
+                                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <HBox minHeight="100.0" spacing="30.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="36.0" />
+                                                   </font>
+                                                </Text>
+                                                <TextField fx:id="searchBar" prefWidth="1700.0" style="-fx-background-color: #d9d9d9;">
+                                                   <font>
+                                                      <Font name="Times New Roman" size="20.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                             <padding>
+                                                <Insets left="25.0" right="25.0" top="32.0" />
+                                             </padding>
+                                          </HBox>
+      
+                                          <ScrollPane fitToHeight="true" fitToWidth="true">
+                                             <content>
+                                                <AnchorPane VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox fx:id="itemBox" fillWidth="true" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                   </children>
+                                                      </VBox>
+                                                   </children>
+                                             <padding>
+                                                <Insets left="25.0" right="25.0" />
+                                             </padding>
+                                                </AnchorPane>
+                                             </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </VBox>
+      
+                           </children>
+                        </AnchorPane>
+      
                      </children>
-                  </AnchorPane>
-
+                  </StackPane>
+                  <GridPane prefHeight="75.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <MFXButton fx:id="nextButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Next" GridPane.columnIndex="2">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Clear">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="cancelButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffE0; -fx-border-width: 2;" text="Cancel" GridPane.columnIndex="1">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </GridPane>
                </children>
-            </StackPane>
-            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+            </VBox>
+            <VBox>
                <children>
-                  <MFXButton fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-stroke: right; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Clear">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </MFXButton>
-                  <MFXButton fx:id="cancelButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffE0; -fx-border-width: 2;" text="Cancel">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </MFXButton>
-                  <MFXButton fx:id="nextButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #ffffff80; -fx-border-color: #ffffffe0; -fx-border-width: 2;" text="Next">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </MFXButton>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css">
+                     <children>
+                     </children></AnchorPane>
+                  <ToolBar orientation="VERTICAL" prefWidth="200.0" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
+                     <items>
+                        <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="mapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Map" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="directionsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="makeRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Make Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="showRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Show Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="editMapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Edit Map" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                        <MFXButton fx:id="exitButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Exit" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman" size="19.0" />
+                           </font>
+                        </MFXButton>
+                     </items>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </ToolBar>
                </children>
-            </HBox>
+            </VBox>
          </children>
-      </VBox>
-      <VBox>
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../stylesheets/logoScale.css" />
-            <ToolBar orientation="VERTICAL" style="-fx-background-color: #40404080;" VBox.vgrow="ALWAYS">
-               <items>
-                  <MFXButton fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Home" textFill="WHITE">
-                     <font>
-                        <Font name="Times New Roman" size="19.0" />
-                     </font>
-                  </MFXButton>
-                  <MFXButton fx:id="helpButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Help" textFill="WHITE">
-                     <font>
-                        <Font name="Times New Roman" size="19.0" />
-                     </font>
-                  </MFXButton>
-                  <MFXButton fx:id="mapButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Map" textFill="WHITE">
-                     <font>
-                        <Font name="Times New Roman" size="19.0" />
-                     </font>
-                  </MFXButton>
-                  <MFXButton fx:id="directionButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Directions" textFill="WHITE" textOverrun="CLIP">
-                     <font>
-                        <Font name="Times New Roman" size="19.0" />
-                     </font>
-                  </MFXButton>
-                  <MFXButton fx:id="serviceRequestsButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Service Requests" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true">
-                     <font>
-                        <Font name="Times New Roman" size="19.0" />
-                     </font>
-                  </MFXButton>
-                  <MFXButton fx:id="exitButton" maxWidth="1.7976931348623157E308" style="-fx-background-color: #003da6;" text="Exit" textFill="WHITE">
-                     <font>
-                        <Font name="Times New Roman" size="19.0" />
-                     </font>
-                  </MFXButton>
-               </items>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="1.0" />
-               </padding>
-            </ToolBar>
-         </children>
-      </VBox>
+      </HBox>
    </children>
-</HBox>
+</AnchorPane>

@@ -18,9 +18,12 @@ public class MapController {
   @FXML MFXButton homeButton;
   @FXML MFXButton helpButton;
   @FXML MFXButton mapButton;
-  @FXML MFXButton directionButton;
-  @FXML MFXButton serviceRequestsButton;
+  @FXML MFXButton directionsButton;
+  @FXML MFXButton makeRequestsButton;
+  @FXML MFXButton showRequestsButton;
+  @FXML MFXButton editMapButton;
   @FXML MFXButton exitButton;
+
   @FXML AnchorPane anchor;
   @FXML GesturePane gp;
   @FXML StackPane sp;
@@ -33,7 +36,7 @@ public class MapController {
   //  Connection connection = dbc.DbConnection();
   //  DataManager dm = new DataManager();
 
-  private double getMapWitdh() {
+  private double getMapWidth() {
     //    return sp.getLayoutBounds().getWidth();
     return gp.getCurrentScaleX();
   }
@@ -54,11 +57,11 @@ public class MapController {
       };
 
   public void centerAndZoom() {
-    double parentW = getMapWitdh();
+    double parentW = getMapWidth();
     double parentH = getMapHeight();
     parentW = 760;
     parentH = 512;
-    System.out.println("PW,PH: " + getMapWitdh() + ", " + getMapHeight());
+    System.out.println("PW,PH: " + getMapWidth() + ", " + getMapHeight());
     //    Point2D CMin = new Point2D(parentW / 2, parentH / 2);
 
     Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded
@@ -115,10 +118,12 @@ public class MapController {
     anchor.setOnMouseClicked(e);
 
     homeButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    //    helpButton
+    //    helpButton.setOnMouseClicked(event -> Navigation.navigate(Screen.));
     mapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP));
-    directionButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
-    serviceRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    directionsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SIGNAGE));
+    makeRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST));
+    showRequestsButton.setOnMouseClicked(event -> Navigation.navigate(Screen.SERVICE_REQUEST_VIEW));
+    editMapButton.setOnMouseClicked(event -> Navigation.navigate(Screen.MAP_EDIT));
     exitButton.setOnMouseClicked(event -> System.exit(0));
 
     centerAndZoom();

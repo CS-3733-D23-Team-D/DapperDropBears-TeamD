@@ -130,8 +130,6 @@ public class MealRequest extends ServiceRequest {
     stringBuilder.append("Order Details:");
     stringBuilder.append("\nRequest ID: ");
     stringBuilder.append(getRequestID());
-    stringBuilder.append("\nStaff Name: ");
-    stringBuilder.append(getStaffName());
     stringBuilder.append("\nPatient Name: ");
     stringBuilder.append(getPatientName());
     stringBuilder.append("\nRoom Number: ");
@@ -176,7 +174,7 @@ public class MealRequest extends ServiceRequest {
               + ", "
               + toDate(this.getDeliverBy())
               + ", '"
-              + this.getStatus().getStatusString()
+              + this.getStatus().getStatusString().toUpperCase()
               + "')";
       PreparedStatement statement = connection.prepareStatement(query);
       statement.executeUpdate();
