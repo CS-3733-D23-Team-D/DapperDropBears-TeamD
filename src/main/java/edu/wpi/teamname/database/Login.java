@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.Scanner;
 import lombok.Getter;
 import lombok.Setter;
+import org.junit.Test;
 
 public class Login {
   @Getter @Setter private static String username;
@@ -24,6 +25,45 @@ public class Login {
     this.password = password;
     DatabaseConnection dbc = new DatabaseConnection();
     this.connection = dbc.DbConnection();
+  }
+
+  public boolean checkLegalLogin(String u, String p){
+    if(u.contains("\"") || u.contains(";")){
+      return false;
+    }
+    else if(u.length()>=8 && capital(u) && number(u) && special(u)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  private boolean capital(String u){
+    for(int i=0;i<u.length()-1;i++){
+      char c = u.charAt(i);
+      if(Character.isUpperCase(c)){
+        return true;
+      }
+    }
+    return false;
+  }
+  private boolean number(String u){
+    for(int i=0;i<u.length()-1;i++){
+      char c = u.charAt(i);
+      if(Character.isDigit(c)){
+        return true;
+      }
+    }
+    return false;
+  }
+  private boolean special(String u){
+    for(int i=0;i<u.length()-1;i++){
+      char c = u.charAt(i);
+      if(!Character.isDigit(c) && !Character.isLetter(c)){
+        return true;
+      }
+    }
+    return false;
   }
 
   public boolean LogInto() throws SQLException {
