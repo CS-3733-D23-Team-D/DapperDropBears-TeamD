@@ -2,12 +2,18 @@ package edu.wpi.teamname.navigation;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Graph {
-  private Node start;
-  private Node target;
-  private List<Node> nodes = new ArrayList<>();
-  private List<Edge> edges = new ArrayList<>();
+  @Getter @Setter private Node start;
+  @Getter @Setter private Node target;
+  @Getter @Setter private List<Node> nodes = new ArrayList<>();
+  @Getter @Setter private List<Edge> edges = new ArrayList<>();
+
+  public void addEdge(Edge e) {
+    this.edges.add(e);
+  }
 
   Graph(List<Node> nodes, List<Edge> edges) {
     this.start = null;
@@ -15,30 +21,6 @@ public class Graph {
     this.nodes.addAll(nodes);
     this.edges.addAll(edges);
     assignEdges();
-  }
-
-  public void addEdge(Edge e) {
-    this.edges.add(e);
-  }
-
-  public void setStart(Node n) {
-    this.start = n;
-  }
-
-  public void setTarget(Node n) {
-    this.target = n;
-  }
-
-  public List<Node> getNodes() {
-    return nodes;
-  }
-
-  public Node getStart() {
-    return start;
-  }
-
-  public Node getTarget() {
-    return target;
   }
 
   public double findWeight(Node a, Node b) {
@@ -66,25 +48,8 @@ public class Graph {
   public void setAllG() {
     if (this.target == null || this.start == null) return;
     for (Node n : this.nodes) {
-      n.g = findWeight(n, this.start);
-      // n.h = 0;
+      n.setG(findWeight(n, this.start));
     }
-    start.g = 0;
+    start.setG(0);
   }
-  //    while (i < this.nodes.size()) {
-  //      int j = 0;
-  //      while (j < this.edges.size()) {
-  //        if (this.nodes.get(i).id == this.edges.get(j).startNodeID
-  //            || this.nodes.get(i).id == this.edges.get(j).endNodeID) {
-  //          this.nodes
-  //              .get(i)
-  //              .addEdge(
-  //                  this.edges.get(j),
-  //                  nodes.get((edges.get(j).startNodeID - 100) / 5),
-  //                  nodes.get((edges.get(j).endNodeID - 100) / 5));
-  //        }
-  //        j++;
-  //      }
-  //      i++;
-  //    }
 }

@@ -97,7 +97,7 @@ public class MapEntity {
 
         //              System.out.println(currentNode.floor + ", " + floor);
 
-        if (currentNode.floor.equals(floor)) {
+        if (currentNode.getFloor().equals(floor)) {
           System.out.println("F!");
 
           nodeDist = clickPoint.distance(currentNode.getX(), currentNode.getY());

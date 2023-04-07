@@ -7,36 +7,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Node implements Comparable<Node> {
-  public int id;
-  public String floor;
-  public String building;
-  private int x;
-  private int y;
-  private Node parent = null;
-
-  public Node getParent() {
-    return parent;
-  }
-
-  public void setParent(Node parent) {
-    this.parent = parent;
-  }
-
-  private List<Node> neighbors;
-  private List<Edge> edges;
-
-  public List<Edge> getEdges() {
-    return edges;
-  }
-
-  // f: sum of g and h;
-  public double f = Double.MAX_VALUE;
-  // g: Distance from start and node n
-  public double g = Double.MAX_VALUE;
-  // heuristic: WILL NEED A FUNCTION TO FIND THIS
-  public double h;
+  @Getter @Setter int id;
+  @Getter @Setter private String floor;
+  @Getter @Setter private String building;
+  @Getter @Setter private int x;
+  @Getter @Setter private int y;
+  @Getter @Setter private Node parent = null;
+  @Getter @Setter private List<Node> neighbors;
+  @Getter @Setter private List<Edge> edges;
+  @Getter @Setter private double f = Double.MAX_VALUE;
+  @Getter @Setter private double g = Double.MAX_VALUE;
+  @Getter @Setter private double h;
 
   Node(int ID, int x, int y, String Floor, String Building) {
     this.x = x;
@@ -52,22 +37,6 @@ public class Node implements Comparable<Node> {
   @Override
   public int compareTo(Node n) {
     return Double.compare(this.f, n.f);
-  }
-
-  public int getX() {
-    return x;
-  }
-
-  public int getY() {
-    return y;
-  }
-
-  public List<Node> getNeighbors() {
-    return neighbors;
-  }
-
-  public void setNeighbor(Node n) {
-    this.neighbors.add(n);
   }
 
   /**
@@ -103,14 +72,13 @@ public class Node implements Comparable<Node> {
       edges.add(edge);
 
       if (this.id == edge.startNodeID) {
-        this.setNeighbor(e);
+        this.neighbors.add(e);
       } else {
-        this.setNeighbor(s);
+        this.neighbors.add(s);
       }
     }
   }
 
-  // should probably have this in Edge class
   public double findWeight(Node b) {
     int x1 = this.x;
     int x2 = b.getX();
@@ -120,18 +88,6 @@ public class Node implements Comparable<Node> {
     double x = Math.pow((x2 - x1), 2);
     double y = Math.pow((y2 - y1), 2);
     return Math.sqrt(x + y);
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public String getFloor() {
-    return floor;
-  }
-
-  public String getBuilding() {
-    return building;
   }
 
   public String toString() {

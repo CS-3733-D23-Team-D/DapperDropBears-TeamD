@@ -35,17 +35,15 @@ public class HomeController {
   @FXML
   public void initialize() {
 
-    /** set the width and height to be bound to the panes width and height
-     imageView.fitWidthProperty().bind(rootPane.widthProperty());
-     imageView.fitHeightProperty().bind(rootPane.heightProperty());
-     this allows for the image to stay at the same size of the rootPane, which is the parent pane
-     of the Home.fxml
-
-     Param is EventHandler
-     Lambda Expression. parameter -> expression
-     Basically just runs the Navigation.navigate Function
-    "event" is a parameter, but there is no
-     **/
+    /**
+     * set the width and height to be bound to the panes width and height
+     * imageView.fitWidthProperty().bind(rootPane.widthProperty());
+     * imageView.fitHeightProperty().bind(rootPane.heightProperty()); this allows for the image to
+     * stay at the same size of the rootPane, which is the parent pane of the Home.fxml
+     *
+     * <p>Param is EventHandler Lambda Expression. parameter -> expression Basically just runs the
+     * Navigation.navigate Function "event" is a parameter, but there is no
+     */
     if (loggedIn) {
       loginButton.setVisible(false);
       logoutButton.setVisible(true);

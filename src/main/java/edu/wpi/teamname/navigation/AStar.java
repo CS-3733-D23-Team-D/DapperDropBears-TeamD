@@ -45,7 +45,7 @@ public class AStar {
     PriorityQueue<Node> closedList = new PriorityQueue<>();
     PriorityQueue<Node> openList = new PriorityQueue<>();
 
-    start.f = start.g + start.calculateHeuristic(target);
+    start.setF(start.getG() + start.calculateHeuristic(target));
     openList.add(start);
 
     while (!openList.isEmpty()) {
@@ -53,18 +53,18 @@ public class AStar {
       if (n == target) return n;
 
       for (Node nei : n.getNeighbors()) {
-        double totalWeight = n.g + nei.findWeight(n);
+        double totalWeight = n.getG() + nei.findWeight(n);
 
         if (!openList.contains(nei) && !closedList.contains(nei)) {
           nei.setParent(n);
-          nei.g = totalWeight;
-          nei.f = nei.g + nei.calculateHeuristic(target);
+          nei.setG(totalWeight);
+          nei.setF(nei.getG() + nei.calculateHeuristic(target));
           openList.add(nei);
         } else {
-          if (totalWeight < nei.g) {
+          if (totalWeight < nei.getG()) {
             nei.setParent(n);
-            nei.g = totalWeight;
-            nei.f = nei.g + nei.calculateHeuristic(target);
+            nei.setG(totalWeight);
+            nei.setF(nei.getG() + nei.calculateHeuristic(target));
 
             if (closedList.contains(nei)) {
               closedList.remove(nei);

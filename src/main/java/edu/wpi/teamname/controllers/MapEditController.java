@@ -118,4 +118,3 @@ public class MapEditController {
     connection.close();
   }
 }
-
