@@ -36,7 +36,7 @@ public class MapController {
   //  Connection connection = dbc.DbConnection();
   //  DataManager dm = new DataManager();
 
-  private double getMapWitdh() {
+  private double getMapWidth() {
     //    return sp.getLayoutBounds().getWidth();
     return gp.getCurrentScaleX();
   }
@@ -57,11 +57,11 @@ public class MapController {
       };
 
   public void centerAndZoom() {
-    double parentW = getMapWitdh();
+    double parentW = getMapWidth();
     double parentH = getMapHeight();
     parentW = 760;
     parentH = 512;
-    System.out.println("PW,PH: " + getMapWitdh() + ", " + getMapHeight());
+    System.out.println("PW,PH: " + getMapWidth() + ", " + getMapHeight());
     //    Point2D CMin = new Point2D(parentW / 2, parentH / 2);
 
     Point2D scaleOneDim = new Point2D(760 * 2, 512 * 2); // hard Coded

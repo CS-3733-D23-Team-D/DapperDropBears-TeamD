@@ -40,7 +40,7 @@ public class ServiceRequestController {
   /**
    * @FXML MFXButton backButton; @FXML MFXButton setDateButton; @FXML MFXButton
    * printDateButton; @FXML MFXButton printMealButton; @FXML MFXButton addFriesButton; @FXML
-   * MFXButton addSandwitchButton; @FXML MFXButton addFlowersButton;
+   * MFXButton addSandwichButton; @FXML MFXButton addFlowersButton;
    */
 
   // bot2
@@ -49,6 +49,7 @@ public class ServiceRequestController {
 
   @FXML ImageView background;
   private int requestPage = 0; // used for keeping track of which page is active
+
   // Bottom Bar
   @FXML MFXButton nextButton;
   @FXML StackPane requestPane;
@@ -65,8 +66,7 @@ public class ServiceRequestController {
   @FXML DatePicker dateBox;
   @FXML ComboBox timeBox;
   ObservableList<String> timeValues = FXCollections.observableArrayList();
-  ObservableList<String> serviceType =
-      FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
+  ObservableList<String> serviceType = FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
   @FXML ComboBox requestType;
 
   // menu item page
@@ -75,7 +75,7 @@ public class ServiceRequestController {
   @FXML VBox itemBox;
   ObservableList<String> mealItems =
       FXCollections.observableArrayList(
-          "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
+              "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
   ObservableList<String> flowerItems =
       FXCollections.observableArrayList(
           "Black Cosmos",

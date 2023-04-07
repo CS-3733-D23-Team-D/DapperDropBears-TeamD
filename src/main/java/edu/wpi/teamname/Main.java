@@ -6,6 +6,5 @@ public class Main {
     App.launch(App.class, args);
     // Returns Here after Stop
   }
-
   // shortcut: psvm
 }

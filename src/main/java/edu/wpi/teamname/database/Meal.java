@@ -32,7 +32,7 @@ public class Meal {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
         this.name = rs.getString("Name");
-        this.price = rs.getFloat("price");
+        this.price = rs.getFloat("Price");
         this.meal = rs.getString("Meal");
         this.cuisine = rs.getString("Cuisine");
       }
