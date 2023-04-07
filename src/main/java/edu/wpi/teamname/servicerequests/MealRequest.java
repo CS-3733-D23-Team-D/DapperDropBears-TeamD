@@ -148,7 +148,7 @@ public class MealRequest extends ServiceRequest {
 
   /**
    * * Uploads this instance of a meal request and uploads its info into the ServiceRequest and
-   * ItemsOrdered relatiosn
+   * ItemsOrdered relation
    *
    * @throws SQLException
    */

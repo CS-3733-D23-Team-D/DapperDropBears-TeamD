@@ -66,7 +66,8 @@ public class ServiceRequestController {
   @FXML DatePicker dateBox;
   @FXML ComboBox timeBox;
   ObservableList<String> timeValues = FXCollections.observableArrayList();
-  ObservableList<String> serviceType = FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
+  ObservableList<String> serviceType =
+      FXCollections.observableArrayList("Meal Delivery", "Flower Delivery");
   @FXML ComboBox requestType;
 
   // menu item page
@@ -75,7 +76,7 @@ public class ServiceRequestController {
   @FXML VBox itemBox;
   ObservableList<String> mealItems =
       FXCollections.observableArrayList(
-              "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
+          "Burger", "Pizza", "Cookies", "Spaghet", "Ice Cream Cone", "Banana", "Banana Split");
   ObservableList<String> flowerItems =
       FXCollections.observableArrayList(
           "Black Cosmos",

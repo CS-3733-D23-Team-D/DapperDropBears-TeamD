@@ -71,7 +71,7 @@ public class Node implements Comparable<Node> {
   }
 
   /**
-   * * Gets all of the nodes in the database and puts them into an array list
+   * * Gets all the nodes in the database and puts them into an array list
    *
    * @return An array list of all the nodes in the database
    * @throws SQLException
