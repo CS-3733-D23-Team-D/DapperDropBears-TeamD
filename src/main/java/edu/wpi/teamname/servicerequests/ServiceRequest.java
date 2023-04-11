@@ -193,9 +193,9 @@ public class ServiceRequest {
       System.out.println(e.getMessage());
     }
     if (quantity > 0) {
-      return quantity + 1;
+      return quantity;
     } else {
-      return 1;
+      return 0;
     }
   }
 

