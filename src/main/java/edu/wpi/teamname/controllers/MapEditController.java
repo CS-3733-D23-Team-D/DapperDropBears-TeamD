@@ -118,13 +118,3 @@ public class MapEditController {
     connection.close();
   }
 }
-
-// @FXML
- // public void initialize() {
-   // System.out.println("Test");
-   //
-    // importCSVButton.setOnMouseClicked(event ->)    //implement arturos "getAllNodes" for node
-    // column
-    // exportCSVButton
- // }
-// }

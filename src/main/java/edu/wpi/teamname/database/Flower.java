@@ -32,7 +32,7 @@ public class Flower {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
         this.name = rs.getString("Name");
-        this.price = rs.getFloat("price");
+        this.price = rs.getFloat("Price");
         this.category = rs.getString("Category");
         this.color = rs.getString("Color");
       }

@@ -10,7 +10,7 @@ public class ExampleController {
   @FXML Button ClickButton; // fx:ID of the button in the ExampleFXML
   private Connection connection = null; // connection (session) to database
 
-  /** Method run when controller is initializes */
+  /** Method run when controller is initialized */
   public void initialize() {
     // if connection is successful
     if (this.connectToDB()) {
@@ -38,7 +38,7 @@ public class ExampleController {
   private boolean connectToDB() {
 
     try {
-      // Class Class java, static method, Just run a dummy method to chcek if the requirements are
+      // Class Class java, static method, Just run a dummy method to check if the requirements are
       // installed
       Class.forName(
           "org.apache.derby.jdbc.ClientDriver"); // Check that proper driver is packaged for Apache

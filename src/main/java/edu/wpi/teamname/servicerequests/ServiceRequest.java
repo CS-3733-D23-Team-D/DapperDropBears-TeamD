@@ -80,7 +80,7 @@ public class ServiceRequest {
   }
 
   /**
-   * * given an id and a staffname, updates that request's staff name into the new staff name
+   * * Given an id and a staffname, updates that request's staff name into the new staff name
    *
    * @param requestID the id of the request to update
    * @param staffName the new staff name
@@ -110,7 +110,7 @@ public class ServiceRequest {
   }
 
   /**
-   * * Given a numerical string, add a leading zero if the string is only one digit long Used for
+   * * Given a numerical string, add a leading zero if the string is only one digit long used for
    * parsing dates
    *
    * @param value the numerical String

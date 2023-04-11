@@ -40,7 +40,7 @@ public class ServiceRequestController {
   /**
    * @FXML MFXButton backButton; @FXML MFXButton setDateButton; @FXML MFXButton
    * printDateButton; @FXML MFXButton printMealButton; @FXML MFXButton addFriesButton; @FXML
-   * MFXButton addSandwitchButton; @FXML MFXButton addFlowersButton;
+   * MFXButton addSandwichButton; @FXML MFXButton addFlowersButton;
    */
 
   // bot2
@@ -49,6 +49,7 @@ public class ServiceRequestController {
 
   @FXML ImageView background;
   private int requestPage = 0; // used for keeping track of which page is active
+
   // Bottom Bar
   @FXML MFXButton nextButton;
   @FXML StackPane requestPane;
